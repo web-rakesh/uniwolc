@@ -2057,7 +2057,7 @@
                                         </div>
                                         <div>
                                             <div class="sub-agent-text">
-                                                <a href="{{ route('student.school.detail', $school->slug) }}"
+                                                <a href="{{ route('school.detail', $school->slug) }}"
                                                     target="_blank">{{ $school->university_name }}
                                                     , {{ $school->address }}</a>
                                             </div>

@@ -62,4 +62,9 @@ class User extends Authenticatable
             get: fn ($value) =>  ["student", "agent", "university", "staff"][$value],
         );
     }
+
+    public function profileIsUpdated(): bool
+    {
+        return $this->profile_is_updated;
+    }
 }

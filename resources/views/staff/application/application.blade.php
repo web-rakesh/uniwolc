@@ -97,7 +97,7 @@
                                             </div>
                                             <div class="program" data-title="Program">
                                                 <a
-                                                    href="{{ route('staff.program.detail', $item->program_id) }}">{{ $item->program_title }}</a>
+                                                    href="{{ route('staff.program.detail', $item->getProgram->slug) }}">{{ $item->getProgram->program_title }}</a>
                                             </div>
                                             <div class="eslStartDate" data-title="ESL Start Date">
                                                 <div class="hd">ESL</div>
@@ -147,7 +147,7 @@
                                             </div>
                                         </div>
                                         <div class="ml-3 viewBtnDiv">
-                                            <a href="{{ route('student.application.fillup', $item->id) }}"
+                                            <a href="{{ route('staff.application.fillup', $item->slug) }}"
                                                 class="btn viewBtn">
                                                 <span class="icon"><i
                                                         class="fa-regular fa-up-right-from-square"></i></span>

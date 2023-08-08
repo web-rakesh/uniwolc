@@ -12,8 +12,8 @@
                                         src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
                                 </div>
                                 <div class="userProfileInfo">
-                                    <p class="userName font-weight-bold mb-0">Test Student</p>
-                                    <p class="text text-black-50 mb-0">teststd@gmail.com</p>
+                                    <p class="userName font-weight-bold mb-0">{{ auth()->user()->name }}</p>
+                                    <p class="text text-black-50 mb-0">{{ auth()->user()->email }}</p>
                                 </div>
                             </div>
                             <div class="dasboardLeftSideBarMenuArea">
