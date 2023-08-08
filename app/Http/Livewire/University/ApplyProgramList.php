@@ -14,8 +14,8 @@ class ApplyProgramList extends Component
 
     public $programSelectId, $programList, $confirming, $backupPrograms, $backup_program_id, $reject_id;
     public $searchItem, $textareaValue = '';
-    public $showModal = false;
-    public $student_id;
+    public $showModal = false, $mood = false;
+    public $student_id, $program_name;
     // public $paginationCount = 15;
     public function render()
     {
@@ -65,16 +65,26 @@ class ApplyProgramList extends Component
     }
 
 
-    public function openModal($id)
+    public function openModal($id, $mood = null)
     {
         $this->textareaValue = '';
+        $this->reject_id = null;
         $applyProgram = ApplyProgram::find($id);
-        $this->student_id = $applyProgram->user_id;
-        $this->reject_id = $applyProgram->id;
-        $backup = json_decode($applyProgram->backup_program, true);
 
-        $this->backupPrograms = Program::whereIn('id', explode(",", $backup))->get();
-        // dd($backupPrograms);
+        $this->mood = false;
+        if ($mood == 'reject') {
+            $this->textareaValue = $applyProgram->remark;
+            $this->program_name = ApplyProgram::find($applyProgram->reject_program)->program_title;
+            $this->mood = true;
+        } else {
+
+            $this->student_id = $applyProgram->user_id;
+            $this->reject_id = $applyProgram->id;
+            $backup = json_decode($applyProgram->backup_program, true);
+
+            $this->backupPrograms = Program::whereIn('id', explode(",", $backup))->get();
+            // dd($backupPrograms);
+        }
 
         $this->showModal = true;
     }
@@ -104,6 +114,7 @@ class ApplyProgramList extends Component
             ]);
             session()->flash('message', 'Program accept Successfully.');
             DB::commit();
+            $this->showModal = false;
         } catch (\Throwable $th) {
             //throw $th;
             DB::rollback();

@@ -122,42 +122,17 @@ Route::middleware([
     'verified'
 ])->group(function () {
 
+
+    // global routes
+
+    Route::get('/school-detail/{slug}', [ApplyProgramController::class, 'schoolDetails'])->name('school.detail');
+
+
+
     // student routes
     Route::group(['prefix' => 'student', 'middleware' => ['auth', 'user-access:student'], 'as' => 'student.'], function () {
 
-        Route::get('/dashboard', function () {
-            return view('students.home');
-        })->name('dashboard');
-
-        Route::resource('question', QuestionController::class);
-
-        Route::get('/program', [StudentDetailController::class, 'program'])->name('programs');
-
         Route::get('/profile', [StudentDetailController::class, 'profile'])->name('profile');
-
-        Route::get('/program-detail/{slug}', [StudentDetailController::class, 'programDetail'])->name('program.detail');
-
-        Route::get('/program-apply/{program}', [StudentDetailController::class, 'programApply'])->name('program.apply');
-
-        Route::get('/program-apply/{program}', [StudentDetailController::class, 'programApply'])->name('program.apply');
-
-        Route::get('/school-detail/{slug}', [ApplyProgramController::class, 'schoolDetails'])->name('school.detail');
-
-        Route::get('/application-fillup/{application}', [ApplyProgramController::class, 'applicationFillup'])->name('application.fillup');
-
-        Route::post('/application/program-backup', [ApplyProgramController::class, 'applicationProgramBackup'])->name('application.program.backup');
-
-        Route::post('/application/program-backup-store', [ApplyProgramController::class, 'applicationProgramBackupStore'])->name('application.program.backup.store');
-
-        Route::post('/applicant-document-upload', [ApplyProgramController::class, 'applicantDocumentUpload'])->name('applicant.document.upload');
-
-        Route::post('/applicant-document-delete', [ApplyProgramController::class, 'applicantDocumentDelete'])->name('applicant.document.delete');
-
-        Route::post('/applicant-status-update', [ApplyProgramController::class, 'applicantStatusUpdate'])->name('applicant.status.update');
-
-        Route::get('/general-print/{user_id?}', [StudentDetailController::class, 'studentProgramPrint'])->name('program.print');
-
-        Route::resource('/application', ApplyProgramController::class);
 
         Route::resource('student-detail', StudentDetailController::class);
 
@@ -167,21 +142,59 @@ Route::middleware([
 
         Route::resource('visa-and-permit', VisaPermitController::class);
 
-        Route::get('/payment-confirm', [PaymentController::class, 'index'])->name('payment.confirm');
+        Route::middleware(['auth', 'profile.updated'])->group(function () {
 
-        Route::get('/payment', [PaymentController::class, 'payment'])->name('payment');
+            Route::get('/dashboard', function () {
+                return view('students.home');
+            })->name('dashboard');
 
-        Route::post('/payment-process', [PaymentController::class, 'processPayment'])->name('payment.process');
-        Route::get('/payment-success', [PaymentController::class, 'paymentSuccess'])->name('payment.success');
-        Route::get('/payment-history', [PaymentController::class, 'paymentHistory'])->name('payment.history');
-        Route::get('/invoice/{id}', [PaymentController::class, 'Invoice'])->name('invoice');
+            Route::resource('question', QuestionController::class);
 
-        // Route::get('/payment', function () {
+            Route::get('/program', [StudentDetailController::class, 'program'])->name('programs');
 
-        // })->name('payment');
-        Route::get('/student', function () {
-            return "student";
-        })->name('student');
+
+            Route::get('/program-detail/{slug}', [StudentDetailController::class, 'programDetail'])->name('program.detail');
+
+            Route::get('/program-apply/{program}', [StudentDetailController::class, 'programApply'])->name('program.apply');
+
+            Route::get('/program-apply/{program}', [StudentDetailController::class, 'programApply'])->name('program.apply');
+
+            Route::get('/school-detail/{slug}', [ApplyProgramController::class, 'schoolDetails'])->name('school.detail');
+
+            Route::get('/application-fillup/{application}', [ApplyProgramController::class, 'applicationFillup'])->name('application.fillup');
+
+            Route::post('/application/program-backup', [ApplyProgramController::class, 'applicationProgramBackup'])->name('application.program.backup');
+
+            Route::post('/application/program-backup-store', [ApplyProgramController::class, 'applicationProgramBackupStore'])->name('application.program.backup.store');
+
+            Route::post('/applicant-document-upload', [ApplyProgramController::class, 'applicantDocumentUpload'])->name('applicant.document.upload');
+
+            Route::post('/applicant-document-delete', [ApplyProgramController::class, 'applicantDocumentDelete'])->name('applicant.document.delete');
+
+            Route::post('/applicant-status-update', [ApplyProgramController::class, 'applicantStatusUpdate'])->name('applicant.status.update');
+
+            Route::get('/general-print/{user_id?}', [StudentDetailController::class, 'studentProgramPrint'])->name('program.print');
+
+            Route::resource('/application', ApplyProgramController::class);
+
+
+
+            Route::get('/payment-confirm', [PaymentController::class, 'index'])->name('payment.confirm');
+
+            Route::get('/payment', [PaymentController::class, 'payment'])->name('payment');
+
+            Route::post('/payment-process', [PaymentController::class, 'processPayment'])->name('payment.process');
+            Route::get('/payment-success', [PaymentController::class, 'paymentSuccess'])->name('payment.success');
+            Route::get('/payment-history', [PaymentController::class, 'paymentHistory'])->name('payment.history');
+            Route::get('/invoice/{id}', [PaymentController::class, 'Invoice'])->name('invoice');
+
+            // Route::get('/payment', function () {
+
+            // })->name('payment');
+            Route::get('/student', function () {
+                return "student";
+            })->name('student');
+        });
     });
     // end student routes
 
@@ -210,6 +223,7 @@ Route::middleware([
         Route::get('/application-fillup/{application}', [ApplyProgramController::class, 'applicationAgentFillup'])->name('application.fillup');
         Route::post('/applicant-document-upload', [ApplyProgramController::class, 'applicantDocumentUpload'])->name('applicant.document.upload');
         Route::post('/applicant-document-delete', [ApplyProgramController::class, 'applicantDocumentDelete'])->name('applicant.document.delete');
+
     });
     // end agent routes
 
@@ -265,6 +279,7 @@ Route::middleware([
         })->name('application');
 
         Route::get('/application', [ApplyProgramController::class, 'agentStaffApplication'])->name('application');
+        Route::get('/application-fillup/{application}', [ApplyProgramController::class, 'applicationStaffFillup'])->name('application.fillup');
     });
     // agent staff application
 });

@@ -47,9 +47,9 @@
                         <div class="dasboardrightPartWrapper">
                             <div class="p-3 py-5 dasboardrightPartWrapperinner">
                                 <!--
-                                                                                                                                                                                    <div class="d-flex justify-content-between align-items-center mb-3">
-                                                                                                                                                                                        <h4 class="text-right">Update Profile</h4>
-                                                                                                                                                                                    </div>-->
+                                                                                                                                                                                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                                                                                                                                                                                <h4 class="text-right">Update Profile</h4>
+                                                                                                                                                                                            </div>-->
                                 <h4 class="card-title text-center1 mb-0"> Update Profiles</h4>
                                 <hr>
                                 <form method="post" action="{{ route('student.student-detail.store') }}">
@@ -85,7 +85,7 @@
                                                 <option value="" disabled> --->phone code<--- </option>
                                                         @foreach ($countries as $country)
                                                 <option value="{{ $country->phonecode }}"
-                                                    {{ $studentDetail->country_code == $country->phonecode ? 'selected' : '' }}>
+                                                    {{ $studentDetail ? ($studentDetail->country_code == $country->phonecode ? 'selected' : '') : '' }}>
                                                     {{ $country->name }}</option>
                                                 @endforeach
 
@@ -106,7 +106,7 @@
                                                 <option value="">---> Alternative phone code <--- </option>
                                                         @foreach ($countries as $country)
                                                 <option value="{{ $country->phonecode }}"
-                                                    {{ $studentDetail->country_code == $country->phonecode ? 'selected' : '' }}>
+                                                    {{ $studentDetail ? ($studentDetail->country_code == $country->phonecode ? 'selected' : '') : '' }}>
                                                     {{ $country->name }}</option>
                                                 @endforeach
 
@@ -142,7 +142,7 @@
                                             <select class="form-control" name="country" required="">
                                                 @foreach ($countries as $country)
                                                     <option value="{{ $country->id }}"
-                                                        {{ $studentDetail->country == $country->id ? 'selected' : '' }}>
+                                                        {{ $studentDetail ? ($studentDetail->country == $country->id ? 'selected' : '') : '' }}>
                                                         {{ $country->name }}</option>
                                                 @endforeach
 

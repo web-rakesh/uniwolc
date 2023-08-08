@@ -55,9 +55,18 @@ class ApplyProgramController extends Controller
         return response()->json(['success' => 'Program Changed Successfully']);
     }
 
-    public function applicationAgentFillup($id)
+    public function applicationStaffFillup($slug)
     {
-        return $applyProgram = ApplyProgram::whereAgentId(Auth::user()->id)->where('id', $id)->first();
+        $applyProgram = ApplyProgram::whereStaffId(Auth::user()->id)->where('slug', $slug)->first();
+        $studentDetail = StudentDetail::whereUserId($applyProgram->user_id)->first();
+        $uploadedDocument = ApplicantUploadDocument::whereUserId($applyProgram->user_id)->whereApplyProgramId($applyProgram->id)->get();
+        return view('agent.application.application-fillup', compact('applyProgram', 'studentDetail', 'uploadedDocument'));
+    }
+
+    public function applicationAgentFillup($slug)
+    {
+
+        $applyProgram = ApplyProgram::whereAgentId(Auth::user()->id)->where('slug', $slug)->first();
         $studentDetail = StudentDetail::whereUserId($applyProgram->user_id)->first();
         $uploadedDocument = ApplicantUploadDocument::whereUserId($applyProgram->user_id)->whereApplyProgramId($id)->get();
         return view('agent.application.application-fillup', compact('applyProgram', 'studentDetail', 'uploadedDocument'));

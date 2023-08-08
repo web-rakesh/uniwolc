@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Student;
 
+use App\Models\User;
 use App\Models\Staff;
 use App\Models\Student\VisaPermit;
 use Illuminate\Support\Facades\DB;
@@ -57,6 +58,10 @@ class VisaPermitController extends Controller
                 $request['staff_id'] = $staffId;
             } else {
                 $request['user_id'] = Auth::user()->id;
+
+                User::whereId(Auth::user()->id)->update([
+                    'profile_is_updated' => 1
+                ]);
             }
             // return $request;
             DB::beginTransaction();

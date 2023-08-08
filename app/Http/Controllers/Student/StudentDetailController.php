@@ -49,13 +49,14 @@ class StudentDetailController extends Controller
     {
         $program = Program::where('slug', $slug)->first();
         $relatedPrograms = Program::select('id', 'slug', 'program_title')->where('id', '!=', $program->id)->limit(5)->latest()->get();
-         $university = ProfileDetail::where('user_id', $program->user_id)->first();
+        $university = ProfileDetail::where('user_id', $program->user_id)->first();
         $universityImage = $university->getMedia('university-picture');
         if (Auth::user()->type == 'agent') {
 
             $students = StudentDetail::select('id', 'user_id', 'first_name', 'last_name')->latest()->get();
             return view('agent.program-detail', compact('program', 'universityImage', 'university', 'relatedPrograms', 'students'));
         } elseif (Auth::user()->type == 'staff') {
+
             $students = StudentDetail::select('id', 'user_id', 'first_name', 'last_name')->latest()->get();
             return view('staff.program-detail', compact('program', 'universityImage', 'university', 'relatedPrograms', 'students'));
         } else {
