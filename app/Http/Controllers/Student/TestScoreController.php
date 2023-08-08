@@ -1,0 +1,111 @@
+<?php
+
+namespace App\Http\Controllers\Student;
+
+use App\Models\Staff;
+use App\Models\Student\TestScore;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Student\StudentDetail;
+use App\Http\Requests\StoreTestScoreRequest;
+use App\Http\Requests\UpdateTestScoreRequest;
+
+class TestScoreController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+        return view('students.test-score');
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(StoreTestScoreRequest $request)
+    {
+        // return $request->all();
+        try {
+            //code...
+            $userId = Auth::user()->id;
+            if (Auth::user()->type == 'agent') {
+                $student = StudentDetail::whereUserId($request->user_id)->where('agent_id', Auth::user()->id)->first();
+
+                $request['agent_id'] = Auth::user()->id;
+                $request['user_id'] = $student->user_id;
+                $userId = $student->user_id;
+            } elseif (Auth::user()->type == 'staff') {
+                $staff = Staff::whereUserId(Auth::user()->id)->first();
+                $agentId = $staff->agent_id;
+                $staffId = $staff->user_id;
+                if ($request->has('user_id')) {
+                    $student = StudentDetail::whereUserId($request->user_id)->whereAgentId($agentId)->whereStaffId($staffId)->first();
+                    $userId = $student->user_id;
+                }
+                $request['agent_id'] = $agentId;
+                $request['staff_id'] = $staffId;
+            } else {
+                $request['user_id'] = Auth::user()->id;
+            }
+            // return $request;
+            DB::beginTransaction();
+
+            TestScore::updateOrCreate(
+                [
+                    'user_id' => $userId,
+
+                ],
+                $request->all()
+            );
+            DB::commit();
+
+            return redirect()->back();
+        } catch (\Throwable $th) {
+            //throw $th;
+            DB::rollback();
+            return $th->getMessage();
+        }
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(TestScore $testScore)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(TestScore $testScore)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(UpdateTestScoreRequest $request, TestScore $testScore)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(TestScore $testScore)
+    {
+        //
+    }
+}
