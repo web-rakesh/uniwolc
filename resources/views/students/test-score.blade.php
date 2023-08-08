@@ -12,8 +12,8 @@
                                         src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
                                 </div>
                                 <div class="userProfileInfo">
-                                    <p class="userName font-weight-bold mb-0">{{ auth()->user()->name }}</p>
-                                    <p class="text text-black-50 mb-0">{{ auth()->user()->email }}</p>
+                                    <p class="userName font-weight-bold mb-0">Test Student</p>
+                                    <p class="text text-black-50 mb-0">teststd@gmail.com</p>
                                 </div>
                             </div>
                             <div class="dasboardLeftSideBarMenuArea">
@@ -60,7 +60,8 @@
                                                 <div class="col-md-12 mb-3 columnBox2">
                                                     <div class="form-check">
                                                         <input type="radio" class="form-check-input" id="toefl-checked"
-                                                            name="english_test_type" value="toefl">
+                                                            name="english_test_type" value="toefl"
+                                                            {{ $testScore ? ($testScore->english_test_type == 'toefl' ? 'checked' : '') : '' }}>
                                                         <label for="toefl-checked">TOEFL</label>
                                                     </div>
                                                     <div id="" class="custom-diplay-hidden showall">
@@ -73,7 +74,8 @@
                                                                         Score</label>
                                                                     <div class="col-sm-8 columnBox4 ">
                                                                         <input type="text" class="form-control"
-                                                                            name="reading_score" value="">
+                                                                            name="toefl_reading_score"
+                                                                            value="{{ $testScore ? ($testScore->english_test_type == 'toefl' ? $testScore->reading_score : '') : '' }}">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -84,7 +86,8 @@
                                                                         Score</label>
                                                                     <div class="col-sm-8 columnBox4">
                                                                         <input type="text" class="form-control"
-                                                                            name="listening_score" value="">
+                                                                            name="toefl_listening_score"
+                                                                            value="{{ $testScore ? ($testScore->english_test_type == 'toefl' ? $testScore->listening_score : '') : '' }}">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -96,7 +99,8 @@
                                                                         Score</label>
                                                                     <div class="col-sm-8 columnBox4">
                                                                         <input type="text" class="form-control"
-                                                                            name="writing_score" value="">
+                                                                            name="toefl_writing_score"
+                                                                            value="{{ $testScore ? ($testScore->english_test_type == 'toefl' ? $testScore->writing_score : '') : '' }}">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -108,7 +112,8 @@
                                                                         Score</label>
                                                                     <div class="col-sm-8 columnBox4">
                                                                         <input type="text" class="form-control"
-                                                                            name="" value="">
+                                                                            name="toefl_speaking_score"
+                                                                            value="{{ $testScore ? ($testScore->english_test_type == 'toefl' ? $testScore->speaking_score : '') : '' }}">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -119,7 +124,8 @@
                                                                         Date</label>
                                                                     <div class="col-sm-8 columnBox4">
                                                                         <input type="date" class="form-control"
-                                                                            name="exam_date" value="">
+                                                                            name="toefl_exam_date"
+                                                                            value="{{ $testScore ? ($testScore->english_test_type == 'toefl' ? date('Y-m-d', strtotime($testScore->exam_date ?? now())) : '') : '' }}">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -130,7 +136,8 @@
                                                 <div class="col-md-12 mb-3 columnBox2">
                                                     <div class="form-check">
                                                         <input type="radio" class="form-check-input" id="ielts-checked"
-                                                            name="english_test_type" value="ielts">
+                                                            name="english_test_type" value="ielts"
+                                                            {{ $testScore ? ($testScore->english_test_type == 'ielts' ? 'checked' : '') : '' }}>
                                                         <label for="ielts-checked">IELTS</label>
                                                     </div>
                                                     <div id="" class="custom-diplay-hidden showall">
@@ -143,7 +150,8 @@
                                                                         Score</label>
                                                                     <div class="col-sm-8 columnBox4">
                                                                         <input type="text" class="form-control"
-                                                                            name="reading_score" value="">
+                                                                            name="ielts_reading_score"
+                                                                            value="{{ $testScore ? ($testScore->english_test_type == 'ielts' ? $testScore->reading_score : '') : '' }}">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -155,7 +163,8 @@
                                                                         Score</label>
                                                                     <div class="col-sm-8 columnBox4">
                                                                         <input type="text" class="form-control"
-                                                                            name="listening_score" value="">
+                                                                            name="ielts_listening_score"
+                                                                            value="{{ $testScore ? ($testScore->english_test_type == 'ielts' ? $testScore->listening_score : '') : '' }}">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -167,7 +176,8 @@
                                                                         Score</label>
                                                                     <div class="col-sm-8 columnBox4">
                                                                         <input type="text" class="form-control"
-                                                                            name="writing_score" value="">
+                                                                            name="ielts_writing_score"
+                                                                            value="{{ $testScore ? ($testScore->english_test_type == 'ielts' ? $testScore->writing_score : '') : '' }}">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -179,7 +189,8 @@
                                                                         Score</label>
                                                                     <div class="col-sm-8 columnBox4">
                                                                         <input type="text" class="form-control"
-                                                                            name="">
+                                                                            name="ielts_speaking_score"
+                                                                            value="{{ $testScore ? ($testScore->english_test_type == 'ielts' ? $testScore->speaking_score : '') : '' }}">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -190,7 +201,8 @@
                                                                         Date</label>
                                                                     <div class="col-sm-8 columnBox4">
                                                                         <input type="date" class="form-control"
-                                                                            name="exam_date" value="">
+                                                                            name="ielts_exam_date"
+                                                                            value="{{ $testScore ? ($testScore->english_test_type == 'ielts' ? date('Y-m-d', strtotime($testScore->exam_date ?? now())) : '') : '' }}">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -201,7 +213,8 @@
                                                 <div class="col-md-12 mb-3 columnBox2">
                                                     <div class="form-check">
                                                         <input type="radio" class="form-check-input" id="pte-checked"
-                                                            name="english_test_type" value="pte">
+                                                            name="english_test_type" value="pte"
+                                                            {{ $testScore ? ($testScore->english_test_type == 'pte' ? 'checked' : '') : '' }}>
                                                         <label for="pte-checked">PTE</label>
                                                     </div>
                                                     <div id="pte" class="custom-diplay-hidden showall">
@@ -213,7 +226,8 @@
                                                                         Score</label>
                                                                     <div class="col-sm-8 columnBox4">
                                                                         <input type="text" class="form-control"
-                                                                            name="total_score" value="">
+                                                                            name="pte_total_score"
+                                                                            value="{{ $testScore ? ($testScore->english_test_type == 'pte' ? $testScore->total_score : '') : '' }}">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -225,7 +239,8 @@
                                                                         Score</label>
                                                                     <div class="col-sm-8 columnBox4">
                                                                         <input type="text" class="form-control"
-                                                                            name="listening_score" value="">
+                                                                            name="pte_reading_score"
+                                                                            value="{{ $testScore ? ($testScore->english_test_type == 'pte' ? $testScore->reading_score : '') : '' }}">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -237,7 +252,8 @@
                                                                         Score</label>
                                                                     <div class="col-sm-8 columnBox4">
                                                                         <input type="text" class="form-control"
-                                                                            name="listening_score" value="">
+                                                                            name="pte_listening_score"
+                                                                            value="{{ $testScore ? ($testScore->english_test_type == 'pte' ? $testScore->listening_score : '') : '' }}">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -249,7 +265,8 @@
                                                                         Score</label>
                                                                     <div class="col-sm-8 columnBox4">
                                                                         <input type="text" class="form-control"
-                                                                            name="writing_score" value="">
+                                                                            name="pte_writing_score"
+                                                                            value="{{ $testScore ? ($testScore->english_test_type == 'pte' ? $testScore->writing_score : '') : '' }}">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -261,7 +278,8 @@
                                                                         Score</label>
                                                                     <div class="col-sm-8 columnBox4">
                                                                         <input type="text" class="form-control"
-                                                                            name="" value="">
+                                                                            name="pte_speaking_score"
+                                                                            value="{{ $testScore ? ($testScore->english_test_type == 'pte' ? $testScore->speaking_score : '') : '' }}">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -272,7 +290,8 @@
                                                                         of Exam</label>
                                                                     <div class="col-sm-8 columnBox4">
                                                                         <input type="date" class="form-control"
-                                                                            name="exam_date" value="">
+                                                                            name="pte_exam_date"
+                                                                            value="{{ $testScore ? ($testScore->english_test_type == 'pte' ? date('Y-m-d', strtotime($testScore->exam_date)) : '') : '' }}">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -284,7 +303,8 @@
                                                     <div class="form-check">
                                                         <input type="radio" class="form-check-input"
                                                             id="duolingo-checked" name="english_test_type"
-                                                            value="duolingo">
+                                                            value="duolingo"
+                                                            {{ $testScore ? ($testScore->english_test_type == 'duolingo' ? 'checked' : '') : '' }}>
                                                         <label for="duolingo-checked">Duolingo</label>
                                                     </div>
                                                     <div id="duolingo" class="custom-diplay-hidden showall">
@@ -296,7 +316,8 @@
                                                                         Score</label>
                                                                     <div class="col-sm-8 columnBox4">
                                                                         <input type="text" class="form-control"
-                                                                            name="total_score" value="">
+                                                                            name="duolingo_total_score"
+                                                                            value="{{ $testScore ? ($testScore->english_test_type == 'duolingo' ? $testScore->total_score : '') : '' }}">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -307,7 +328,8 @@
                                                                         of Exam</label>
                                                                     <div class="col-sm-8 columnBox4">
                                                                         <input type="date" class="form-control"
-                                                                            name="" value="">
+                                                                            name="duolingo_exam_date"
+                                                                            value="{{ $testScore ? ($testScore->english_test_type == 'duolingo' ? date('Y-m-d', strtotime($testScore->exam_date)) : '') : '' }}">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -319,7 +341,8 @@
                                                     <div class="form-check">
                                                         <input type="radio" class="form-check-input"
                                                             id="i-dont-have-this-checked" name="english_test_type"
-                                                            value="dont_have_this">
+                                                            value="dont_have_this"
+                                                            {{ $testScore ? ($testScore->english_test_type == 'dont_have_this' ? 'checked' : '') : '' }}>
                                                         <label for="i-dont-have-this-checked">I don't have this</label>
                                                     </div>
                                                 </div>
@@ -328,7 +351,8 @@
                                                     <div class="form-check">
                                                         <input type="radio" class="form-check-input"
                                                             id="not-yet-but-i-will-in-the-future-checked"
-                                                            name="english_test_type" value="not_yet_will_feature">
+                                                            name="english_test_type" value="not_yet_will_feature"
+                                                            {{ $testScore ? ($testScore->english_test_type == 'not_yet_will_feature' ? 'checked' : '') : '' }}>
                                                         <label for="i-dont-have-this-checked">Not yet, but I will in the
                                                             future
                                                         </label>
@@ -366,7 +390,8 @@
 
                                             <div class="form-check form-switch">
                                                 <input class="form-check-input" type="checkbox" role="switch"
-                                                    id="gmat" name="is_gmat" value="gmat_exam">
+                                                    id="gmat" name="is_gmat" value="gmat_exam"
+                                                    {{ $testScore ? ($testScore->is_gmat == 'gmat_exam' ? 'checked' : '') : '' }}>
                                                 <label class="form-check-label" for="gmat">I have GMAT exam
                                                     scores
                                                 </label>
@@ -374,7 +399,8 @@
 
                                             <div class="form-check form-switch">
                                                 <input class="form-check-input" type="checkbox" role="switch"
-                                                    id="gre" name="is_gre" value="gre_exam">
+                                                    id="gre" name="is_gre" value="gre_exam"
+                                                    {{ $testScore ? ($testScore->is_gre == 'gre_exam' ? 'checked' : '') : '' }}>
                                                 <label class="form-check-label" for="gre">I have GRE exam scores
                                                 </label>
                                             </div>

@@ -18,7 +18,9 @@ class TestScoreController extends Controller
      */
     public function index()
     {
-        return view('students.test-score');
+        $testScore = TestScore::whereUserId(Auth::user()->id)->first();
+        // return $testScore;
+        return view('students.test-score', compact('testScore'));
     }
 
     /**
@@ -34,15 +36,39 @@ class TestScoreController extends Controller
      */
     public function store(StoreTestScoreRequest $request)
     {
-        // return $request->all();
+        $reading_score = isset($request->{$request->english_test_type . '_reading_score'}) ? $request->{$request->english_test_type . '_reading_score'} : '';
+
+        $listening_score = isset($request->{$request->english_test_type . '_listening_score'}) ? $request->{$request->english_test_type . '_listening_score'} : '';
+
+        $writing_score = isset($request->{$request->english_test_type . '_writing_score'}) ? $request->{$request->english_test_type . '_writing_score'} : '';
+
+        $speaking_score = isset($request->{$request->english_test_type . '_speaking_score'}) ? $request->{$request->english_test_type . '_speaking_score'} : '';
+
+        $exam_date = isset($request->{$request->english_test_type . '_exam_date'}) ? $request->{$request->english_test_type . '_exam_date'} : '';
+
+        $total_score = isset($request->{$request->english_test_type . '_total_score'}) ? $request->{$request->english_test_type . '_total_score'} : '';
+
+
+        $data['reading_score'] = $reading_score;
+        $data['listening_score'] = $listening_score;
+        $data['writing_score'] = $writing_score;
+        $data['speaking_score'] = $speaking_score;
+        $data['exam_date'] = $exam_date;
+        $data['total_score'] = $total_score;
+        $data['english_test_type'] = $request->english_test_type;
+        $data['is_gmat'] = $request->is_gmat;
+        $data['is_gre'] = $request->is_gre;
+
+        // return $data;
+
         try {
             //code...
             $userId = Auth::user()->id;
             if (Auth::user()->type == 'agent') {
                 $student = StudentDetail::whereUserId($request->user_id)->where('agent_id', Auth::user()->id)->first();
 
-                $request['agent_id'] = Auth::user()->id;
-                $request['user_id'] = $student->user_id;
+                $data['agent_id'] = Auth::user()->id;
+                $data['user_id'] = $student->user_id;
                 $userId = $student->user_id;
             } elseif (Auth::user()->type == 'staff') {
                 $staff = Staff::whereUserId(Auth::user()->id)->first();
@@ -52,10 +78,10 @@ class TestScoreController extends Controller
                     $student = StudentDetail::whereUserId($request->user_id)->whereAgentId($agentId)->whereStaffId($staffId)->first();
                     $userId = $student->user_id;
                 }
-                $request['agent_id'] = $agentId;
-                $request['staff_id'] = $staffId;
+                $data['agent_id'] = $agentId;
+                $data['staff_id'] = $staffId;
             } else {
-                $request['user_id'] = Auth::user()->id;
+                $data['user_id'] = Auth::user()->id;
             }
             // return $request;
             DB::beginTransaction();
@@ -65,7 +91,7 @@ class TestScoreController extends Controller
                     'user_id' => $userId,
 
                 ],
-                $request->all()
+                $data
             );
             DB::commit();
 
