@@ -136,7 +136,8 @@ if (!function_exists('get_country')) {
     {
         
         $country =  Country::where('id', $id)->first();
-        $currency =  DB::table('currencies')->where('country', $country->name)->first();
-        return $country->name;
+        if($country){
+            return $country->name;
+        }
     }
 }

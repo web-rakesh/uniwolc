@@ -38,7 +38,7 @@
                                 <td> {{ date('M d, Y', strtotime($staff->created_at)) }} </td>
                                 <td>
                                     @if (action_permission('staff', 'view') == true)
-                                        <a href="javascript:;" class="btn btn-info btn-sm">View</a>
+                                        <a href="{{route('admin.staff.profile', $staff->id)}}" class="btn btn-info btn-sm">View</a>
                                     @endif
                                     @if (action_permission('staff', 'delete') == true)
                                         @if ($confirming === $staff->id)

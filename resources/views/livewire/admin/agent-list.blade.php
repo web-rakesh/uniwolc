@@ -31,7 +31,7 @@
                                 <td> {{ date('M d, Y', strtotime($agent->created_at)) }} </td>
                                 <td>
                                     @if (action_permission('agent', 'view') == true)
-                                        <a href="javascript:;" class="btn btn-info btn-sm">View</a>
+                                        <a href="{{route('admin.agent.profile', $agent->id)}}" class="btn btn-info btn-sm">View</a>
                                     @endif
                                     @if (action_permission('agent', 'delete') == true)
                                         @if ($confirming === $agent->id)

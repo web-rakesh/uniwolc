@@ -283,6 +283,7 @@ Route::group(
 
         // admin view all student
         Route::get('/student/list', [AdminController::class, 'studentList'])->name('student');
+        Route::get('/student/profile/{id}', [AdminController::class, 'student_single_profile'])->name('student.profile');
 
         // admin can create university
         Route::get('/university/list', [AdminController::class, 'universityList'])->name('university');
@@ -299,7 +300,9 @@ Route::group(
 
         // admin see all agent and staff list
         Route::get('/agent', [AdminController::class, 'agentList'])->name('agent');
+        Route::get('/agent/profile/{id}', [AdminController::class, 'agent_profile'])->name('agent.profile');
         Route::get('/staff', [AdminController::class, 'staffList'])->name('staff');
+        Route::get('/staff/profile/{id}', [AdminController::class, 'staff_profile'])->name('staff.profile');
         Route::get('/transaction', [AdminController::class, 'transaction'])->name('transaction');
         Route::get('/invoice/{id}', [PaymentController::class, 'Invoice'])->name('invoice');
         Route::get('/education-partner-list', [AdminController::class, 'educationPartnerList'])->name('education.partner.list');
