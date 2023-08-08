@@ -414,12 +414,28 @@
                                     <div class="programsCardContentArea">
                                         <div class="d-flex justify-content-between programsCardIntro">
                                             <div class="programsCardIntroLeftPart">
-                                                <a target="blank"
-                                                    href="{{ route('student.program.detail', $item->slug) }}">
-                                                    <div class="programsCardIntroPrice">
-                                                        {{ $item->program_title }}
-                                                    </div>
-                                                </a>
+                                                @if (auth()->user()->type == 'agent')
+                                                    <a target="blank"
+                                                        href="{{ route('agent.program.detail', $item->slug) }}">
+                                                        <div class="programsCardIntroPrice">
+                                                            {{ $item->program_title }}
+                                                        </div>
+                                                    </a>
+                                                @elseif(auth()->user()->type == 'staff')
+                                                    <a target="blank"
+                                                        href="{{ route('staff.program.detail', $item->slug) }}">
+                                                        <div class="programsCardIntroPrice">
+                                                            {{ $item->program_title }}
+                                                        </div>
+                                                    </a>
+                                                @else
+                                                    <a target="blank"
+                                                        href="{{ route('student.program.detail', $item->slug) }}">">
+                                                        <div class="programsCardIntroPrice">
+                                                            {{ $item->program_title }}
+                                                        </div>
+                                                    </a>
+                                                @endif
                                                 <div class="programsCardIntroTitle">
                                                     Non dolores sed eos
                                                     {{ $item->program_level }}
