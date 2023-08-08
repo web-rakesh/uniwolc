@@ -30,7 +30,8 @@
                                   </a>
                               </li>
 
-                              <li class="{{ request()->is('staff/application') ? 'active' : '' }}">
+                              <li
+                                  class="{{ request()->is('staff/application') || request()->is('staff/application-fillup/*') ? 'active' : '' }}">
                                   <a href="{{ route('staff.application') }}">
                                       <span class="icon"><i class="fa-regular fa-file-text"></i></span>
                                       <span class="title">No. of Application</span>

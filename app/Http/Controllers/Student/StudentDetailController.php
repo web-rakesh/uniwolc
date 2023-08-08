@@ -56,7 +56,7 @@ class StudentDetailController extends Controller
             $students = StudentDetail::select('id', 'user_id', 'first_name', 'last_name')->latest()->get();
             return view('agent.program-detail', compact('program', 'universityImage', 'university', 'relatedPrograms', 'students'));
         } elseif (Auth::user()->type == 'staff') {
-
+            
             $students = StudentDetail::select('id', 'user_id', 'first_name', 'last_name')->latest()->get();
             return view('staff.program-detail', compact('program', 'universityImage', 'university', 'relatedPrograms', 'students'));
         } else {
@@ -156,7 +156,7 @@ class StudentDetailController extends Controller
     public function studentProgramPrint($user_id)
     {
 
-        $data['program'] = ApplyProgram::findOrFail($user_id);
+        $data['program'] = ApplyProgram::whereSlug($user_id)->first();
         $userId = $data['program']->user_id;
         $programId = $data['program']->id;
         // return $programPrint->uploadedDocument->getMedia('program-student-attachment');

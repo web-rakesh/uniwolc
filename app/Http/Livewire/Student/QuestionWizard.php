@@ -20,7 +20,7 @@ class QuestionWizard extends Component
         $this->finalStep = QuestionScreen::count();
         $this->questionScreens =  QuestionScreen::with('category.subCategory')->where('sequence_no', $this->currentStep)->get();
         // dd(Country::class);
-
+        // dd($this->questionScreens);
         return view('livewire.student.question-wizard');
     }
 
