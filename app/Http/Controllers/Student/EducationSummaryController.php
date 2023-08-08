@@ -19,7 +19,11 @@ class EducationSummaryController extends Controller
      */
     public function index()
     {
-        return view('students.education-history');
+        $educationSummary = EducationSummary::whereUserId(Auth::user()->id)->first();
+        $countries = DB::table('countries')->get();
+        $grading_schemes = DB::table('grading_schemes')->get();
+        $level_of_educations = DB::table('level_of_educations')->get();
+        return view('students.education-history', compact('countries', 'grading_schemes', 'level_of_educations', 'educationSummary'));
     }
 
     /**
