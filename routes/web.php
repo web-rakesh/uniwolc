@@ -292,9 +292,7 @@ Route::group(
     ['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth:admin']],
     function () {
 
-        Route::get('/dashboard', function () {
-            return view('admin.dashboard');
-        })->name('dashboard');
+        Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
 
         // admin view all student
         Route::get('/student/list', [AdminController::class, 'studentList'])->name('student');
