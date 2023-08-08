@@ -32,7 +32,7 @@
                                   </a>
                               </li>
 
-                              <li class="{{ request()->is('student/application') ? 'active' : '' }}">
+                              <li class="{{ request()->is('student/application') ||  request()->is('student/application-fillup/*') ? 'active' : '' }}">
                                   <a href="{{ route('student.application.index') }}">
                                       <span class="icon"><i class="fa-regular fa-file-text"></i></span>
                                       <span class="title">My Applications</span>

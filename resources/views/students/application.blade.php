@@ -102,7 +102,7 @@
                                             </div>
                                             <div class="program" data-title="Program">
                                                 <a
-                                                    href="{{ route('student.program.detail', $item->program_id) }}">{{ $item->program_title }}</a>
+                                                    href="{{ route('student.program.detail', $item->getProgram->slug) }}">{{ $item->getProgram->program_title }}</a>
                                             </div>
                                             <div class="eslStartDate" data-title="ESL Start Date">
                                                 <div class="hd">ESL</div>
@@ -297,7 +297,7 @@
                                     </div>
                                     <div class="program" data-title="Program">
                                         <a
-                                            href="{{ route('student.program.detail', $item->program_id) }}">{{ $item->program_title }}</a>
+                                            href="{{ route('student.program.detail', $item->getProgram->slug) }}">{{ $item->program_title }}</a>
                                     </div>
                                     <div class="eslStartDate" data-title="ESL Start Date">
                                         <div class="hd">ESL</div>

@@ -28,11 +28,11 @@ class ApplyProgramController extends Controller
         // return view('students.apply', compact('program'));
     }
 
-    public function applicationFillup($id)
+    public function applicationFillup($slug)
     {
-        $applyProgram = ApplyProgram::whereUserId(Auth::user()->id)->where('slug', $id)->first();
+        $applyProgram = ApplyProgram::whereUserId(Auth::user()->id)->where('slug', $slug)->first();
         $studentDetail = StudentDetail::whereUserId(Auth::user()->id)->first();
-        $uploadedDocument = ApplicantUploadDocument::whereUserId(Auth::user()->id)->whereApplyProgramId($id)->get();
+        $uploadedDocument = ApplicantUploadDocument::whereUserId(Auth::user()->id)->whereApplyProgramId($applyProgram->id)->get();
         return view('students.application-fillup', compact('applyProgram', 'studentDetail', 'uploadedDocument'));
     }
 

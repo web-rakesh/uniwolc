@@ -1,4 +1,12 @@
-@extends('students.layouts.layout')
+@if (auth()->user()->type == '3')
+    @extends('staff.layouts.layout')
+@elseif(auth()->user()->type == '1')
+    @extends('agent.layouts.layout')
+@else
+    @extends('students.layouts.layout')
+@endif
+
+
 @section('content')
     <div class="singleProgramsSec">
 
