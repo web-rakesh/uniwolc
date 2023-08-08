@@ -11,12 +11,38 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use App\Models\University\ProfileDetail;
+use App\Models\University\Program;
 
 use App\Models\Student\StudentDetail;
 use App\Models\Staff;
+use App\Models\EducationPartner;
+use App\Models\Student\ApplyProgram;
+use App\Models\PaymentHistory;
+
+
 
 class AdminController extends Controller
 {
+    public function dashboard() {
+
+        $student = StudentDetail::count();
+        $agent = User::where('type', 1)->count();
+        $staff = Staff::count();
+        $staff = Staff::count();
+        $university = ProfileDetail::count();
+
+        $program = Program::count();
+
+        $education = EducationPartner::count();
+        $applyProgram = ApplyProgram::count();
+
+
+        $paymentHistory = PaymentHistory::sum('amount');
+
+
+
+        return view('admin.dashboard', compact('student', 'agent', 'staff', 'university', 'program', 'education', 'applyProgram', 'paymentHistory'));
+    }
     public function studentList()
     {
         return view('admin.student');
