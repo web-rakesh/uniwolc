@@ -12,11 +12,23 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use App\Models\University\ProfileDetail;
 
+use App\Models\Student\StudentDetail;
+use App\Models\Staff;
+
 class AdminController extends Controller
 {
     public function studentList()
     {
         return view('admin.student');
+    }
+
+
+    public function student_single_profile($studentid)
+    {
+
+        $profile = StudentDetail::where('id', $studentid)->get()->first();
+
+        return view('admin.student-profile', compact('profile'));
     }
 
     public function universityList()
@@ -104,9 +116,28 @@ class AdminController extends Controller
         return view('admin.agent');
     }
 
+    public function agent_profile($id)
+    {
+
+        $profile = User::where('id', $id)->where('type', 1)->get()->first();
+
+        $students = StudentDetail::where('agent_id', $id)->get();
+        $staffs = Staff::where('agent_id', $id)->get();
+
+        return view('admin.agent-profile', compact('profile', 'students', 'staffs'));
+    }
+
     public function staffList()
     {
         return view('admin.staff');
+    }
+
+    public function staff_profile($id)
+    {
+
+        $profile = Staff::where('id', $id)->get()->first();
+        $students = StudentDetail::where('staff_id', $id)->get();
+        return view('admin.staff-profile', compact('profile', 'students'));
     }
 
     public function transaction()
