@@ -96,8 +96,8 @@
                                                 </a>
                                             </div>
                                             <div class="program" data-title="Program">
-                                                <a
-                                                    href="{{ route('agent.program.detail', $item->program_id) }}">{{ $item->program_title }}</a>
+                                                <a target="_blank"
+                                                    href="{{ route('agent.program.detail', $item->getProgram->slug) }}">{{ $item->program_title }}</a>
                                             </div>
                                             <div class="eslStartDate" data-title="ESL Start Date">
                                                 <div class="hd">ESL</div>
@@ -136,7 +136,8 @@
                                     <div class="rightpart">
                                         <div class="appNote">
                                             <div class="appNoteinner">
-                                                <a href="{{ route('agent.program.print', $item->id) }}" target="_blank">
+                                                <a href="{{ route('agent.program.print', $item->getProgram->slug) }}"
+                                                    target="_blank">
                                                     <div class="appNoteBox">
                                                         <div class="appNoteBoxinner">
                                                             <span class="fa-light fa-note-sticky icon"></span>

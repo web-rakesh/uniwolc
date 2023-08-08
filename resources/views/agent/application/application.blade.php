@@ -97,7 +97,7 @@
                                             </div>
                                             <div class="program" data-title="Program">
                                                 <a
-                                                    href="{{ route('agent.program.detail', $item->program_id) }}">{{ $item->program_title }}</a>
+                                                    href="{{ route('agent.program.detail', $item->getProgram->slug) }}">{{ $item->program_title }}</a>
                                             </div>
                                             <div class="eslStartDate" data-title="ESL Start Date">
                                                 <div class="hd">ESL</div>
@@ -136,7 +136,8 @@
                                     <div class="rightpart">
                                         <div class="appNote">
                                             <div class="appNoteinner">
-                                                <a href="{{ route('agent.program.print', $item->id) }}" target="_blank">
+                                                <a href="{{ route('agent.program.print', $item->getProgram->slug) }}"
+                                                    target="_blank">
                                                     <div class="appNoteBox">
                                                         <div class="appNoteBoxinner">
                                                             <span class="fa-light fa-note-sticky icon"></span>
@@ -148,14 +149,14 @@
                                         </div>
                                         <div class="ml-3 viewBtnDiv">
                                             @if ($item->application_status == 1)
-                                                    <a href="{{ route('agent.view.application', $item->id) }}"
+                                                <a href="{{ route('agent.view.application', $item->slug) }}" target="_blank"
                                                     class="btn viewBtn">
                                                     <span class="icon"><i class="fa-regular fa-eye"></i></span>
                                                     <span class="txt">View</span>
                                                 </a>
                                             @else
-                                                <a href="{{ route('agent.application.fillup', $item->id) }}"
-                                                    class="btn viewBtn">
+                                                <a href="{{ route('agent.application.fillup', $item->slug) }}"
+                                                    target="_blank" class="btn viewBtn">
                                                     <span class="icon"><i
                                                             class="fa-regular fa-up-right-from-square"></i></span>
                                                     <span class="txt">FillUp</span>

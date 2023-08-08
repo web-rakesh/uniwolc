@@ -39,7 +39,8 @@
                                         <div class="appStepAccordianItem  collapsed" id="headingOne-{{ $j }}"
                                             wire:key="item-{{ $j }}">
                                             <div data-toggle="collapse" data-target="#collapseOne-{{ $j }}"
-                                                aria-expanded="true" aria-controls="collapseOne-{{ $j }}" wire:click="collapseSet({{ $j }})"
+                                                aria-expanded="true" aria-controls="collapseOne-{{ $j }}"
+                                                wire:click="collapseSet({{ $j }})"
                                                 class="d-flex justify-content-between align-items-center appStepAccordianHeader">
                                                 <h5 class="title">{{ $value->name }}</h5>
                                                 <span class="arrow"><i class="fa-regular fa-chevron-down"></i></span>

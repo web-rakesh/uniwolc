@@ -9,7 +9,7 @@
                       <div class="dasboardMenuinner">
                           <ul class="dasboardMenuWrap">
 
-                              <li class="active">
+                              <li class="{{ request()->is('student/dashboard') ? 'active' : '' }}">
                                   <a href="{{ route('student.dashboard') }}">
                                       <span class="icon"><i class="fa-solid fa-gauge-high"></i></span>
                                       <span class="title">Home</span>
@@ -17,7 +17,7 @@
                               </li>
 
 
-                              <li>
+                              <li class="{{ request()->is('student/program') || request()->is('student/program-detail/*') ? 'active' : '' }}">
                                   <a href="{{ route('student.programs') }}">
                                       <span class="icon"><i class="fa-regular fa-magnifying-glass"></i></span>
                                       <span class="title">Programs &amp; Schools</span>
@@ -25,14 +25,14 @@
                               </li>
 
 
-                              <li>
+                              <li class="{{ request()->is('student/profile') ? 'active' : '' }}">
                                   <a href="{{ route('student.profile') }}">
                                       <span class="icon"><i class="fa-regular fa-circle-user"></i></span>
                                       <span class="title">Profile</span>
                                   </a>
                               </li>
 
-                              <li class="">
+                              <li class="{{ request()->is('student/application') ? 'active' : '' }}">
                                   <a href="{{ route('student.application.index') }}">
                                       <span class="icon"><i class="fa-regular fa-file-text"></i></span>
                                       <span class="title">My Applications</span>
@@ -42,7 +42,7 @@
 
                               <!---->
 
-                              <li>
+                              <li class="{{ request()->is('student/payment-history') ? 'active' : '' }}">
                                   <a href="{{ route('student.payment.history') }}">
                                       <span class="icon"><i class="fa-regular fa-circle-dollar"></i></span>
                                       <span class="title">Payments</span>

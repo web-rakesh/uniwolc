@@ -60,7 +60,7 @@ class ApplyProgramController extends Controller
         $applyProgram = ApplyProgram::whereStaffId(Auth::user()->id)->where('slug', $slug)->first();
         $studentDetail = StudentDetail::whereUserId($applyProgram->user_id)->first();
         $uploadedDocument = ApplicantUploadDocument::whereUserId($applyProgram->user_id)->whereApplyProgramId($applyProgram->id)->get();
-        return view('agent.application.application-fillup', compact('applyProgram', 'studentDetail', 'uploadedDocument'));
+        return view('staff.application.application-fillup', compact('applyProgram', 'studentDetail', 'uploadedDocument'));
     }
 
     public function applicationAgentFillup($slug)
@@ -68,15 +68,15 @@ class ApplyProgramController extends Controller
 
         $applyProgram = ApplyProgram::whereAgentId(Auth::user()->id)->where('slug', $slug)->first();
         $studentDetail = StudentDetail::whereUserId($applyProgram->user_id)->first();
-        $uploadedDocument = ApplicantUploadDocument::whereUserId($applyProgram->user_id)->whereApplyProgramId($id)->get();
+        $uploadedDocument = ApplicantUploadDocument::whereUserId($applyProgram->user_id)->whereApplyProgramId($applyProgram->id)->get();
         return view('agent.application.application-fillup', compact('applyProgram', 'studentDetail', 'uploadedDocument'));
     }
 
-    public function agentStaffViewApplication($id)
+    public function agentStaffViewApplication($slug)
     {
-        $applyProgram = ApplyProgram::whereAgentId(Auth::user()->id)->where('id', $id)->first();
+        $applyProgram = ApplyProgram::whereAgentId(Auth::user()->id)->where('slug', $slug)->first();
         $studentDetail = StudentDetail::whereUserId($applyProgram->user_id)->first();
-        $uploadedDocument = ApplicantUploadDocument::whereUserId($applyProgram->user_id)->whereApplyProgramId($id)->get();
+        $uploadedDocument = ApplicantUploadDocument::whereUserId($applyProgram->user_id)->whereApplyProgramId($applyProgram->id)->get();
         return view('agent.application.application-fillup', compact('applyProgram', 'studentDetail', 'uploadedDocument'));
     }
 
