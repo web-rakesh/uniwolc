@@ -5,6 +5,8 @@ namespace App\Models\Student;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+
+
 class StudentDetail extends Model
 {
     use HasFactory;
@@ -57,6 +59,13 @@ class StudentDetail extends Model
     {
         return $this->belongsTo(\App\Models\User::class, 'agent_id', 'id');
     }
+
+
+    public function applied_student_programs()
+    {
+        return $this->hasMany(\App\Models\Student\ApplyProgram::class, 'user_id', 'id');
+    }
+
 
     public function userCountry()
     {
