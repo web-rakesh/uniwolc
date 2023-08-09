@@ -96,14 +96,14 @@
                                                     <div class="tableContent">{{ $program->program_title }}</div>
                                                 </td>
                                                 <td>
-                                                    <div class="tableContent">{{ $program->minimum_level_education }}
+                                                    <div class="tableContent">{{ $program->minimumLevel->level_name ?? '' }}
                                                     </div>
                                                 </td>
                                                 <td>
                                                     <div class="tableContent">{{ $program->minimum_gpa }}</div>
                                                 </td>
                                                 <td>
-                                                    <div class="tableContent">{{ $program->program_level }}</div>
+                                                    <div class="tableContent">{{ $program->programLevel->level_name }}</div>
                                                 </td>
                                                 <td>
                                                     <div class="tableContent">

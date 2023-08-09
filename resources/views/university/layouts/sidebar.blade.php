@@ -19,7 +19,7 @@
                               <li>
                                   <a href="{{ route('university.program.index') }}">
                                       <span class="icon"><i class="fa-regular fa-magnifying-glass"></i></span>
-                                      <span class="title">Programs &amp; Schools</span>
+                                      <span class="title">Programs </span>
                                   </a>
                               </li>
 

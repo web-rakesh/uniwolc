@@ -33,14 +33,14 @@
                     <div class="form-group">
                         <label>Do you have a valid Study Permit / Visa?</label>
                         <select class="form-control" wire:model="visa_permit">
-                            <option selected="selected">I don't have this</option>
-                            <option>USA F1 Visa</option>
-                            <option>Canadian Study Permit or Visitor Visa</option>
-                            <option>
+                            <option value="" selected="selected">I don't have this</option>
+                            <option value="usa_f1">USA F1 Visa</option>
+                            <option value="canada">Canadian Study Permit or Visitor Visa</option>
+                            <option value="uk">
                                 UK Student Visa (Tier 4) or short Term Study Visa
                             </option>
-                            <option>Australian Student Visa</option>
-                            <option>Irish Stamp 2</option>
+                            <option value="australian">Australian Student Visa</option>
+                            <option value="irish">Irish Stamp 2</option>
                         </select>
                     </div>
                     <div class="form-group">
@@ -303,7 +303,8 @@
                     <div class="form-group sub-border-none">
                         <div class="row sub-form-btn-appl-clear d-flex flex-wrap justify-content-between">
                             <div class="col-lg-6">
-                                <a class="sub-program-det-border-btn mt-0" href="javascript:;">APPLY FILTERS</a>
+                                <button class="sub-program-det-border-btn mt-0" wire:click="eligibilitySearch()">APPLY
+                                    FILTERS</button>
                             </div>
                             <div class="col-lg-6">
                                 <a class="sub-start-btn-applica" wire:click="clearFilter()" href="javascript:;">CLEAR
@@ -352,7 +353,6 @@
                         {{-- @forelse ($programs as $program) --}}
 
                         @forelse ($programs as $item)
-
                             <div class="programsCard">
                                 <div class="programsCardBody">
                                     <div class="programsCardThumnailGalleryArea">
@@ -368,7 +368,7 @@
                                             <div class="owl-stage-outer">
                                                 <div class="owl-stage"
                                                     style="transform: translate3d(-39.375rem, 0rem, 0rem); transition: all 0s ease 0s; width: 137.8125rem;">
-                                                    @forelse ($item->university->getMedia('university-picture') ?? [] as $image)
+                                                    {{-- @forelse ($item->university->getMedia('university-picture') ?? [] as $image)
                                                         <div class="owl-item cloned"
                                                             style="width: 18.75rem; margin-right: .9375rem">
                                                             <div class="programsCardThumnailSliderItem">
@@ -389,8 +389,28 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    @endforelse
-
+                                                    @endforelse --}}
+                                                    @if ($item->university->university_gallery_url != null)
+                                                        <div class="owl-item"
+                                                            style="width: 18.75rem; margin-right: .9375rem">
+                                                            <div class="programsCardThumnailSliderItem">
+                                                                <div class="programsCardThumnail">
+                                                                    <img src="{{ $item->university->university_gallery_url }}"
+                                                                        class="img-fluid w-100" alt="" />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    @else
+                                                        <div class="owl-item"
+                                                            style="width: 18.75rem; margin-right: .9375rem">
+                                                            <div class="programsCardThumnailSliderItem">
+                                                                <div class="programsCardThumnail">
+                                                                    <img src="https://www.propertyfinder.ae/property/83abfbac83c1ea46e4ca58346019b24b/260/185/MODE/60ab56/9853674-f6cdfo.webp?ctr=ae"
+                                                                        class="img-fluid w-100" alt="" />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    @endif
 
                                                 </div>
                                             </div>
@@ -430,14 +450,14 @@
                                                     </a>
                                                 @else
                                                     <a target="blank"
-                                                        href="{{ route('student.program.detail', $item->slug) }}">">
+                                                        href="{{ route('student.program.detail', $item->slug) }}">
                                                         <div class="programsCardIntroPrice">
                                                             {{ $item->program_title }}
                                                         </div>
                                                     </a>
                                                 @endif
                                                 <div class="programsCardIntroTitle">
-                                                    Non dolores sed eos
+
                                                     {{ $item->program_level }}
                                                 </div>
                                                 <div class="programsCardIntroTitle">

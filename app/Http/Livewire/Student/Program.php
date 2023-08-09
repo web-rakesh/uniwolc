@@ -47,8 +47,10 @@ class Program extends Component
                 ->get();
             // dd($this->programs);
         } else {
+            $this->searchStatus = false;
             $this->programs = ProgramSchool::query()
                 ->when($this->studies, function ($query, $search) {
+
                     $query->where('program_level', 'LIKE', "%{$search}%");
                 })
                 ->when($this->schoolOrLocation, function ($query, $schoolOrLocation) {
@@ -66,16 +68,18 @@ class Program extends Component
                     $query->where('program_level', 'LIKE', "%{$search}%");
                 })
                 ->when($this->education_level, function ($query, $education_level) {
-                    $query->where('minimum_level_education', 'LIKE', "%{$education_level}%");
+                    // dd($this->education_level);
+                    $query->where('minimum_level_education', (int)$education_level);
                 })
                 ->when($this->grading_average, function ($query, $grading_average) {
                     $query->where('minimum_gpa', 'LIKE', "%{$grading_average}%");
                 })
                 ->when($this->program_level, function ($query, $program_level) {
-                    $query->where('program_level', 'LIKE', "%{$program_level}%");
+                    $query->where('program_level', (int)$program_level);
                 })
 
                 ->when($this->visa_permit, function ($query, $visa_permit) {
+
                     $query->whereHas('getUniversity', function ($query) use ($visa_permit) {
                         $query->where('permit_visa', 'LIKE', "%{$visa_permit}%");
                     });

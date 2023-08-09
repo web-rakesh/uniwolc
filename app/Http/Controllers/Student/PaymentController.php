@@ -18,13 +18,47 @@ class PaymentController extends Controller
     public function index(Request $request)
     {
         $id = explode(",", $request->ids);
-        $totalPayableAmount = ApplyProgram::whereUserId(Auth::user()->id)->whereIn('id', $id)->sum('fees');
+
+        if (Auth::user()->type == 'agent') {
+            $applyPg = ApplyProgram::whereAgentId(Auth::user()->id)->whereIn('id', $id)->first();
+            $studentId = $applyPg->user_id;
+            $totalPayableAmount = ApplyProgram::whereUserId($studentId)->whereIn('id', $id)->sum('fees');
+        } elseif (Auth::user()->type == 'staff') {
+            $applyPg = ApplyProgram::whereStaffId(Auth::user()->id)->whereIn('id', $id)->first();
+            $studentId = $applyPg->user_id;
+            $totalPayableAmount = ApplyProgram::whereUserId($studentId)->whereIn('id', $id)->sum('fees');
+            return view('staff.payment-confirm', compact('totalPayableAmount', 'id'));
+        } else {
+            $totalPayableAmount = ApplyProgram::whereUserId(Auth::user()->id)->whereIn('id', $id)->sum('fees');
+
+            $studentId = Auth::user()->id;
+        }
+        // return $totalPayableAmount;
+        // return $totalPayableAmount = ApplyProgram::whereUserId(Auth::user()->id)->whereIn('id', $id)->sum('fees');
         return view('students.payment-confirm', compact('totalPayableAmount', 'id'));
     }
     public function payment(Request $request)
     {
         $id = $request->id;
-        $totalPayableAmount = ApplyProgram::whereUserId(Auth::user()->id)->whereIn('id', $id)->sum('fees');
+        // $totalPayableAmount = ApplyProgram::whereUserId(Auth::user()->id)->whereIn('id', $id)->sum('fees');
+        // $id = implode(",", $request->id);
+
+
+        if (Auth::user()->type == 'agent') {
+            $applyPg = ApplyProgram::whereAgentId(Auth::user()->id)->whereIn('id', $id)->first();
+            $studentId = $applyPg->user_id;
+            $totalPayableAmount = ApplyProgram::whereUserId($studentId)->whereIn('id', $id)->sum('fees');
+        } elseif (Auth::user()->type == 'staff') {
+            $applyPg = ApplyProgram::whereStaffId(Auth::user()->id)->whereIn('id', $id)->first();
+            $studentId = $applyPg->user_id;
+            $totalPayableAmount = ApplyProgram::whereUserId($studentId)->whereIn('id', $id)->sum('fees');
+            $id = implode(",", $request->id);
+            return view('staff.payment', compact('totalPayableAmount', 'id'));
+        } else {
+            $totalPayableAmount = ApplyProgram::whereUserId(Auth::user()->id)->whereIn('id', $id)->sum('fees');
+
+            $studentId = Auth::user()->id;
+        }
         $id = implode(",", $request->id);
         return view('students.payment', compact('totalPayableAmount', 'id'));
     }
@@ -32,14 +66,17 @@ class PaymentController extends Controller
     public function processPayment(Request $request)
     {
         $id = explode(",", $request->id);
+
         // get student id
-        if (Auth::user()->user_type == 1) {
+        if (Auth::user()->type == 'agent') {
             $applyPg = ApplyProgram::whereAgentId(Auth::user()->id)->whereIn('id', $id)->first();
             $studentId = $applyPg->user_id;
             $totalPayableAmount = ApplyProgram::whereUserId($studentId)->whereIn('id', $id)->sum('fees');
-        } elseif (Auth::user()->user_type == 3) {
+        } elseif (Auth::user()->type == 'staff') {
+
             $applyPg = ApplyProgram::whereStaffId(Auth::user()->id)->whereIn('id', $id)->first();
             $studentId = $applyPg->user_id;
+
             $totalPayableAmount = ApplyProgram::whereUserId($studentId)->whereIn('id', $id)->sum('fees');
         } else {
             $totalPayableAmount = ApplyProgram::whereUserId(Auth::user()->id)->whereIn('id', $id)->sum('fees');
@@ -49,6 +86,8 @@ class PaymentController extends Controller
 
         // return $studentId . '<>' . $totalPayableAmount . '<>' . implode(",", $id);
         // Set your Stripe API secret key
+
+        total_payable_amount($totalPayableAmount) * 100;
         DB::beginTransaction();
         try {
             $stripe = new StripeClient(env('STRIPE_SECRET'));
@@ -62,7 +101,18 @@ class PaymentController extends Controller
                 'receipt_email' => $request->email
             ]);
 
-            ApplyProgram::whereUserId($studentId)->whereIn('id', $id)->update(['status' => 2]);
+            if (Auth::user()->type == 1) {
+                $applyPg = ApplyProgram::whereAgentId(Auth::user()->id)->whereIn('id', $id)->first();
+                $studentId = $applyPg->user_id;
+                ApplyProgram::whereUserId($studentId)->whereIn('id', $id)->update(['status' => 2]);
+            } elseif (Auth::user()->type == 3) {
+                $applyPg = ApplyProgram::whereStaffId(Auth::user()->id)->whereIn('id', $id)->first();
+                $studentId = $applyPg->user_id;
+                ApplyProgram::whereUserId($studentId)->whereIn('id', $id)->update(['status' => 2]);
+            } else {
+                $studentId = Auth::user()->id;
+                ApplyProgram::whereUserId($studentId)->whereIn('id', $id)->update(['status' => 2]);
+            }
 
             PaymentHistory::create([
                 'student_id' => $studentId,
@@ -77,6 +127,15 @@ class PaymentController extends Controller
             DB::commit();
             $amount =  $paymentStatus->amount / 100;
             // dd($paymentStatus);
+            if (Auth::user()->type == 1) {
+                return redirect()->route('agent.payment.success', ['amount' => $amount])->withSuccess('Payment done.');
+            } elseif (Auth::user()->type == 3) {
+                return redirect()->route('staff.payment.success', ['amount' => $amount])->withSuccess('Payment done.');
+            } else {
+                return redirect()->route('student.payment.success', ['amount' => $amount])->withSuccess('Payment done.');
+            }
+
+
             return redirect()->route('student.payment.success', ['amount' => $amount])->withSuccess('Payment done.');
         } catch (CardException $th) {
             throw new Exception("There was a problem processing your payment", 1);
@@ -89,7 +148,15 @@ class PaymentController extends Controller
 
     public function paymentSuccess(Request $request)
     {
+        // return Auth::user()->type;
         $amount = $request->amount;
+        if (Auth::user()->type == 'agent') {
+            return view('agents.payment-success', compact('amount'));
+        } elseif (Auth::user()->type == 'staff') {
+            return view('staff.payment-success', compact('amount'));
+        } else {
+            return view('students.payment-success', compact('amount'));
+        }
         return view('students.payment-success', compact('amount'));
     }
 

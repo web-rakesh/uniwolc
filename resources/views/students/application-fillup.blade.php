@@ -529,7 +529,8 @@
                                     <div class="icon mr-3"><i class="fa-regular fa-circle-info"></i>
                                     </div>
                                     <div class="cont" style="font-size:.8125rem;">Application will not
-                                        be processed until payment received. <a href="#">Submit
+                                        be processed until payment received.
+                                        <a href="{{ route('student.payment.confirm', ['ids' => $applyProgram->id]) }}">Submit
                                             payment now</a>
                                     </div>
                                 </div>

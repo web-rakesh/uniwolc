@@ -380,7 +380,7 @@
             $("#pay_for_application").on('click', function() {
 
 
-                window.location.href = "{{ route('student.payment.confirm') }}?ids=" + dataArray;
+                window.location.href = "{{ route('staff.payment.confirm') }}?ids=" + dataArray;
             })
 
             $('.delete_form').on('submit', function() {

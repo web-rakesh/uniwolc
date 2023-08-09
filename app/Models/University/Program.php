@@ -2,6 +2,7 @@
 
 namespace App\Models\University;
 
+use App\Models\EducationLevel;
 use Spatie\MediaLibrary\HasMedia;
 use App\Models\Student\ApplyProgram;
 use Illuminate\Database\Eloquent\Model;
@@ -54,5 +55,15 @@ class Program extends Model implements HasMedia
     public function getProgram()
     {
         return $this->hasMany(ApplyProgram::class, 'program_id');
+    }
+
+    public function minimumLevel()
+    {
+        return $this->belongsTo(EducationLevel::class, 'minimum_level_education', 'id');
+    }
+
+    public function programLevel()
+    {
+        return $this->belongsTo(EducationLevel::class, 'program_level', 'id');
     }
 }

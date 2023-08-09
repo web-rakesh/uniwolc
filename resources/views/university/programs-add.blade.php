@@ -35,30 +35,9 @@
                                         <div class="col-md-6 mb-3 columnBox2">
                                             <label class="labels">Minimum Level of Education Completed</label>
                                             <select class="form-control" name="minimum_level_education">
-                                                <option selected="selected">Grade 1</option>
-                                                <option>Grade 1</option>
-                                                <option>Grade 2</option>
-                                                <option>Grade 3</option>
-                                                <option>Grade 4</option>
-                                                <option>Grade 5</option>
-                                                <option>Grade 6</option>
-                                                <option>Grade 7</option>
-                                                <option>Grade 8</option>
-                                                <option selected="selected">Secondary</option>
-                                                <option>Grade 9</option>
-                                                <option>Grade 10</option>
-                                                <option>Grade 11</option>
-                                                <option>Grade 12 / High School</option>
-                                                <option selected="selected">Undergraduate</option>
-                                                <option>1-Year Post-Secondary Certificate</option>
-                                                <option>2-Year Undergraduate Diploma</option>
-                                                <option>3-Year Undergraduate Advanced Diploma</option>
-                                                <option>3-Year Bachelors Degree</option>
-                                                <option>4-Year Bachelors Degree</option>
-                                                <option selected="selected">Postgraduate</option>
-                                                <option>Postgraduate Certificate/Diploma</option>
-                                                <option>Master Degree</option>
-                                                <option>Doctoral Degree(Phd, M.D., ...)</option>
+                                                @foreach ($educationLevels as $item)
+                                                    <option value="{{ $item->id }}">{{ $item->level_name }}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                         <div class="col-md-6 mb-3 columnBox2">
@@ -85,8 +64,12 @@
 
                                         <div class="col-md-6 mb-3 columnBox2">
                                             <label class="labels">Program Level</label>
-                                            <input type="text" class="form-control" name="program_level" value=""
-                                                required="">
+                                            <select class="form-control" name="program_level">
+                                                @foreach ($educationLevels as $item)
+                                                    <option value="{{ $item->id }}">{{ $item->level_name }}</option>
+                                                @endforeach
+                                            </select>
+
                                         </div>
                                         <div class="col-md-6 mb-3 columnBox2">
                                             <label class="labels">Program Length</label>

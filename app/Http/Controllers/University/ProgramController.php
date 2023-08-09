@@ -26,7 +26,8 @@ class ProgramController extends Controller
      */
     public function create()
     {
-        //
+        $educationLevels = DB::table('level_of_educations')->get();
+        return view('university.programs-add', compact('educationLevels'));
     }
 
     /**
@@ -106,8 +107,8 @@ class ProgramController extends Controller
     public function edit(Program $program)
     {
         // return $program;
-
-        return view('university.program-edit', compact('program'));
+        $educationLevels = DB::table('level_of_educations')->get();
+        return view('university.program-edit', compact('program', 'educationLevels'));
     }
 
     /**

@@ -9,6 +9,7 @@
       </div>
       <div class="rightTopNavbar">
           <ul class="rightSideMenuList">
+              {{ auth()->user()->name }}
               <li class="topNavNotificationItem"><a href="#" class="notificationLink"><i
                           class="fa-regular fa-bell"></i></a></li>
               <li class="topNavUserItem">

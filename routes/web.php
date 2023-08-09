@@ -224,6 +224,10 @@ Route::middleware([
         Route::post('/applicant-document-upload', [ApplyProgramController::class, 'applicantDocumentUpload'])->name('applicant.document.upload');
         Route::post('/applicant-document-delete', [ApplyProgramController::class, 'applicantDocumentDelete'])->name('applicant.document.delete');
 
+        Route::get('/payment-confirm', [PaymentController::class, 'index'])->name('payment.confirm');
+        Route::get('/payment', [PaymentController::class, 'payment'])->name('payment');
+        Route::post('/payment-process', [PaymentController::class, 'processPayment'])->name('payment.process');
+        Route::get('/payment-success', [PaymentController::class, 'paymentSuccess'])->name('payment.success');
     });
     // end agent routes
 
@@ -236,6 +240,8 @@ Route::middleware([
 
         Route::resource('program', ProgramController::class);
 
+        Route::resource('program', ProgramController::class);
+        Route::get('/programs-add', [ProgramController::class, 'create'])->name('programs.add');
         Route::resource('profile', ProfileDetailController::class);
 
         Route::resource('application-requirement', ApplicantRequirementController::class);
@@ -248,10 +254,6 @@ Route::middleware([
         Route::get('/application', function () {
             return view('university.my-application');
         })->name('application');
-
-        Route::get('/programs-add', function () {
-            return view('university.programs-add');
-        })->name('programs.add');
     });
     // agent university
 
@@ -280,6 +282,10 @@ Route::middleware([
 
         Route::get('/application', [ApplyProgramController::class, 'agentStaffApplication'])->name('application');
         Route::get('/application-fillup/{application}', [ApplyProgramController::class, 'applicationStaffFillup'])->name('application.fillup');
+        Route::get('/payment-confirm', [PaymentController::class, 'index'])->name('payment.confirm');
+        Route::get('/payment', [PaymentController::class, 'payment'])->name('payment');
+        Route::post('/payment-process', [PaymentController::class, 'processPayment'])->name('payment.process');
+        Route::get('/payment-success', [PaymentController::class, 'paymentSuccess'])->name('payment.success');
     });
     // agent staff application
 });
