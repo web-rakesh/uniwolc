@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Staff;
 use App\Models\Country;
 use Illuminate\Http\Request;
+use App\Models\AgentCommission;
 use App\Models\Student\TestScore;
 use App\Models\Student\VisaPermit;
 use App\Models\University\Program;
@@ -56,7 +57,7 @@ class StudentDetailController extends Controller
             $students = StudentDetail::select('id', 'user_id', 'first_name', 'last_name')->latest()->get();
             return view('agent.program-detail', compact('program', 'universityImage', 'university', 'relatedPrograms', 'students'));
         } elseif (Auth::user()->type == 'staff') {
-            
+
             $students = StudentDetail::select('id', 'user_id', 'first_name', 'last_name')->latest()->get();
             return view('staff.program-detail', compact('program', 'universityImage', 'university', 'relatedPrograms', 'students'));
         } else {
@@ -99,17 +100,20 @@ class StudentDetailController extends Controller
      */
     public function agentProgramApply(Request $request, Program $program)
     {
-        // return $request;
+        // return $program;
 
         if ($request->user_id == null) {
-            return redirect()->back()->with('message', 'Please select student.');
+            return redirect()->back()->with('error', 'Please select student.');
         }
+        $studentDetail = StudentDetail::select('id', 'user_id')->whereUserId($request->user_id)->first();
 
-        $studentDetail = StudentDetail::select('user_id')->whereUserId($request->user_id)->first();
-        if (ApplyProgram::where('slug', $program->slug)->whereUserId($studentDetail->user_id)->exists()) {
-            return redirect()->route('student.application.index');
+        // return ApplyProgram::where('id', $program->id)->whereUserId($studentDetail->user_id)->count();
+
+        if (ApplyProgram::where('id', $program->id)->whereUserId($studentDetail->user_id)->count() > 0) {
+
+            return redirect()->route('staff.program.detail', $program->slug)->with('error', 'Student has already applied for this program.');
         } else {
-
+            // return "else";
             $agentId = null;
             $staffId = null;
             if (Auth::user()->type == 'staff') {
@@ -122,26 +126,48 @@ class StudentDetailController extends Controller
                 $agentId = Auth::user()->id;
                 $staffId = null;
             }
+            try {
+                //code...
 
+                DB::beginTransaction();
+                $applyPGrm = ApplyProgram::create([
+                    'user_id' => $studentDetail->user_id,
+                    'program_id' => $program->id,
+                    'slug' => $program->slug,
+                    'application_number' => 'UW' . rand(100000, 999999),
+                    'program_title' => $program->program_title,
+                    'fees' => $program->application_fee,
+                    'esl_start_date' => now(),
+                    'start_date' => now(),
+                    'agent_id' => $agentId,
+                    'staff_id' => $staffId,
 
-            ApplyProgram::create([
-                'user_id' => $studentDetail->user_id,
-                'program_id' => $program->id,
-                'slug' => $program->slug,
-                'application_number' => 'UW' . rand(100000, 999999),
-                'program_title' => $program->program_title,
-                'fees' => $program->application_fee,
-                'esl_start_date' => now(),
-                'start_date' => now(),
-                'agent_id' => $agentId,
-                'staff_id' => $staffId,
+                ]);
 
-            ]);
+                $agentCommissionAmount = 0;
+                if ($program->application_fee > 0) {
+                    $agentCommissionAmount = ($program->agent_commission / 100) * $program->application_fee;
+                }
+                AgentCommission::create([
+                    'agent_id' => $agentId,
+                    'program_id' => $program->id,
+                    'apply_program_id' => $applyPGrm->id,
+                    'apply_program_id' => $program->user_id,
+                    'program_fees' => $program->application_fee,
+                    'amount' => $agentCommissionAmount,
+                    'commission' => $program->agent_commission,
 
-            if (Auth::user()->type == 'staff') {
-                return redirect()->route('staff.application');
-            } elseif (Auth::user()->type == 'agent') {
-                return redirect()->route('agent.application');
+                ]);
+                DB::commit();
+                if (Auth::user()->type == 'staff') {
+                    return redirect()->route('staff.application')->with('message', 'You have successfully applied for this program.');
+                } elseif (Auth::user()->type == 'agent') {
+                    return redirect()->route('agent.application')->with('message', 'You have successfully applied for this program.');
+                }
+            } catch (\Throwable $th) {
+                //throw $th;
+                DB::rollback();
+                return redirect()->back()->with('error', $th->getMessage());
             }
             // return redirect()->route('student.application.index');
         }

@@ -78,7 +78,14 @@
 
 
         </div>
+        @if (session('error'))
+            <div class="col-sm-12">
+                <div class="alert  alert-danger alert-dismissible fade show" role="alert">
+                    {{ session('error') }}
 
+                </div>
+            </div>
+        @endif
         <div class="singleProgramsSecinner">
             <div class="row rowBox">
                 <div class="col-xl-8 xol-lg-8 col-md-12 col-sm-12 col-12 columBox">

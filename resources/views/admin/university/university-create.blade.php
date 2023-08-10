@@ -17,6 +17,16 @@
             <div class="col-12 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
+
+
+                        @if (session('error'))
+                            <div class="col-sm-12">
+                                <div class="alert  alert-danger alert-dismissible fade show" role="alert">
+                                    {{ session('error') }}
+
+                                </div>
+                            </div>
+                        @endif
                         <h4 class="card-title">University Form elements </h4>
                         {{-- <p class="card-description"> Basic form elements </p> --}}
                         <form class="forms-sample" method="post" id="add-university"
@@ -378,7 +388,6 @@
                     }
                 });
             });
-
         });
     </script>
 @endpush

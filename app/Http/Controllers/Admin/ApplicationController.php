@@ -18,6 +18,16 @@ class ApplicationController extends Controller
         return view('admin.application.list');
     }
 
+    public function acceptedApplication()
+    {
+        return view('admin.application.list', ['status' => 1]);
+    }
+
+    public function rejectedApplication()
+    {
+        return view('admin.application.list' , ['status' => 3]);
+    }
+
     public function show($id)
     {
 

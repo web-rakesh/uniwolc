@@ -52,7 +52,7 @@
                                         {{ $loop->iteration }}
                                     </td>
                                     {{-- <td> {{ $transaction->transaction_id }}</td> --}}
-                                    <td> {{ $transaction->student->full_name }} </td>
+                                    <td> {{ $transaction->student->full_name ?? '' }} </td>
                                     {{-- <td>
 
                                         @foreach ($transaction->program as $item)

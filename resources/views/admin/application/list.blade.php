@@ -14,7 +14,7 @@
             <div class="col-lg-12 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
-                        @livewire('admin.application.application-list')
+                        @livewire('admin.application.application-list', ['applications' => $status ?? ''])
                     </div>
                 </div>
             </div>

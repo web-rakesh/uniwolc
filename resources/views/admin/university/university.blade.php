@@ -14,6 +14,14 @@
             <div class="col-lg-12 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
+                        @if (session('success'))
+                            <div class="col-sm-12">
+                                <div class="alert  alert-success alert-dismissible fade show" role="alert">
+                                    {{ session('success') }}
+
+                                </div>
+                            </div>
+                        @endif
                         @livewire('admin.university-list')
                     </div>
                 </div>

@@ -59,8 +59,19 @@
                 <div class="col-12 col-lg-2">
                     @auth
                         <div class="sub-btn-regst my-2 my-md-0">
-                            <a href="{{ route('landing') }}" class="btn btn-outline-primary"> Dashboard</a>
-                            {{-- <a href="{{ route('logout') }}"> <button class="btn btn-primary"
+
+                            @if(Auth::user()->type == 'agent')
+                                <a href="{{ route('agent.dashboard') }}" class="btn btn-outline-primary"> Dashboard</a>
+                            @elseif(Auth::user()->type == 'student')
+                                <a href="{{ route('student.dashboard') }}" class="btn btn-outline-primary"> Dashboard</a>
+                            @elseif(Auth::user()->type == 'staff')
+                                <a href="{{ route('staff.dashboard') }}" class="btn btn-outline-primary"> Dashboard</a>
+                            @elseif(Auth::user()->type == 'university')
+                                <a href="{{ route('university.dashboard') }}" class="btn btn-outline-primary"> Dashboard</a>
+                            @else
+                                <a href="{{ route('landing') }}" class="btn btn-outline-primary"> Dashboard</a>
+                            @endif
+                                {{-- <a href="{{ route('logout') }}"> <button class="btn btn-primary"
                                     type="submit">Logout</button></a> --}}
 
                             <a href="{{ route('logout') }}"

@@ -22,7 +22,7 @@ class UniversityList extends Component
                 $query->where('university_name', 'LIKE', "%{$search}%");
                 $query->orWhere('email', 'LIKE', "%{$search}%");
             })
-
+            ->latest()
             ->paginate(10);
         return view('livewire.admin.university-list', ['university' => $university]);
     }

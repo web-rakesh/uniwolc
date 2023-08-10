@@ -16,12 +16,17 @@ class ApplicationList extends Component
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
     public $searchItem, $universities, $universityId, $students, $studentId, $pay_status;
+    public $applications;
 
     public function render()
     {
+        // dd($this->applications);
         $this->students = StudentDetail::all();
         $this->universities = ProfileDetail::all();
         $programs = ApplyProgram::query()
+            ->when($this->applications, function ($query, $applications) {
+                $query->where('program_status',  $applications);
+            })
             ->when($this->pay_status, function ($query, $search) {
                 $query->where('status',  $search);
             })

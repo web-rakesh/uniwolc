@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Admin;
 
 use App\Models\User;
 use Livewire\Component;
+use App\Models\AgentProfile;
 use Livewire\WithPagination;
 use Illuminate\Support\Facades\DB;
 
@@ -18,8 +19,7 @@ class AgentList extends Component
     public function render()
     {
 
-        $agents = User::query()
-            ->where('type', 1)
+        $agents = AgentProfile::query()
             ->when($this->searchItem, function ($query, $search) {
                 $query->where('email', 'LIKE', "%{$search}%");
             })

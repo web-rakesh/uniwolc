@@ -12,6 +12,14 @@
                             </h5>
                         </div>
                     </div>
+                    @if (session('error'))
+                        <div class="col-sm-12">
+                            <div class="alert  alert-success alert-dismissible fade show" role="alert">
+                                {{ session('error') }}
+
+                            </div>
+                        </div>
+                    @endif
                     <div class="dashboardCardBody">
                         <div class="alert alert-danger mb-4">
                             <div class="d-flex">

@@ -319,10 +319,12 @@ Route::group(
 
         // admin see all agent and staff list
         Route::get('/agent', [AdminController::class, 'agentList'])->name('agent');
+        Route::get('/agent/crete', [AdminController::class, 'agentCreate'])->name('agent.create');
+        Route::post('/agent/store', [AdminController::class, 'agentStore'])->name('agent.store');
         Route::get('/agent/profile/{id}', [AdminController::class, 'agent_profile'])->name('agent.profile');
         Route::get('/staff', [AdminController::class, 'staffList'])->name('staff');
         Route::get('/staff/profile/{id}', [AdminController::class, 'staff_profile'])->name('staff.profile');
-        Route::get('/transaction', [AdminController::class, 'transaction'])->name('transaction');
+        Route::get('/transaction/all', [AdminController::class, 'transaction'])->name('transaction.all');
         Route::get('/invoice/{id}', [PaymentController::class, 'Invoice'])->name('invoice');
         Route::get('/education-partner-list', [AdminController::class, 'educationPartnerList'])->name('education.partner.list');
 
@@ -335,7 +337,9 @@ Route::group(
             ->prefix('application')
             ->as('application.')
             ->group(function () {
-                Route::get('', 'index')->name('index');
+                Route::get('/index', 'index')->name('index');
+                Route::get('/accepted-application', 'acceptedApplication')->name('accepted.application');
+                Route::get('/rejected-application', 'rejectedApplication')->name('accepted.rejected');
                 Route::get('/show/{id}', 'show')->name('print');
             });
 

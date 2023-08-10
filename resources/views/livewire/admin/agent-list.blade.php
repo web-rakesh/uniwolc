@@ -4,8 +4,13 @@
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">Agent Table</h4>
-                <div>
-                    <input wire:model="searchItem" type="text" class="form-control" placeholder="Search Agents...">
+                <div class="row">
+                    <div class="col-9">
+                        <input wire:model="searchItem" type="text" class="form-control" placeholder="Search Agents...">
+                    </div>
+                    <div class="col-3">
+                        <a href="{{ route('admin.agent.create') }}" class="btn btn-primary btn-sm">Add</a>
+                    </div>
                 </div>
                 </p>
                 <table class="table table-striped">
@@ -27,11 +32,12 @@
                                 </td>
                                 <td> {{ $agent->name }} </td>
                                 <td> {{ $agent->email }} </td>
-                                <td> {{ $agent->country }} </td>
+                                <td> {{ get_country($agent->country) }} </td>
                                 <td> {{ date('M d, Y', strtotime($agent->created_at)) }} </td>
                                 <td>
                                     @if (action_permission('agent', 'view') == true)
-                                        <a href="{{route('admin.agent.profile', $agent->id)}}" class="btn btn-info btn-sm">View</a>
+                                        <a href="{{ route('admin.agent.profile', $agent->id) }}"
+                                            class="btn btn-info btn-sm">View</a>
                                     @endif
                                     @if (action_permission('agent', 'delete') == true)
                                         @if ($confirming === $agent->id)

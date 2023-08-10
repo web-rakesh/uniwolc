@@ -109,11 +109,34 @@
               </li>
           @endif
           @if (menu_permission('application'))
-              <li class="nav-item {{ Request::is('admin/application') ? 'active' : '' }}">
-                  <a class="nav-link" href="{{ route('admin.application.index') }}">
+              <li class="nav-item {{ Request::is('admin/application/*') ? 'active' : '' }}">
+                  <a class="nav-link" data-bs-toggle="collapse" href="#application-pages" aria-expanded="false"
+                      aria-controls="general-pages">
                       <span class="menu-title">Manage Applications</span>
+                      <i class="menu-arrow"></i>
                       <i class="mdi  mdi-school menu-icon"></i>
                   </a>
+                  <div class="collapse {{ Request::is('admin/application/*') ? 'show' : '' }}" id="application-pages">
+                      <ul class="nav flex-column sub-menu">
+                          {{-- @if (action_permission('program', 'add') == true) --}}
+                          <li class="nav-item">
+                              <a class="nav-link {{ Request::is('admin/application/index') ? 'active' : '' }}"
+                                  href="{{ route('admin.application.index') }}">
+                                  All Applications </a>
+                          </li>
+                          {{-- @endif --}}
+                          <li class="nav-item">
+                              <a class="nav-link {{ Request::is('admin/application/accepted-application') ? 'active' : '' }}"
+                                  href="{{ route('admin.application.accepted.application') }}">
+                                  Accepted Application </a>
+                          </li>
+                          <li class="nav-item">
+                              <a class="nav-link {{ Request::is('admin/application/rejected-application') ? 'active' : '' }}"
+                                  href="{{ route('admin.application.accepted.rejected') }}">
+                                  Rejected Application </a>
+                          </li>
+                      </ul>
+                  </div>
               </li>
           @endif
           {{-- @if (menu_permission('university')) --}}
@@ -228,32 +251,32 @@
               </li>
           @endif --}}
 
-          @if (menu_permission('transactions'))
+          {{-- @if (menu_permission('transactions'))
               <li class="nav-item {{ Request::is('admin/transaction') ? 'active' : '' }}">
                   <a class="nav-link" href="{{ route('admin.transaction') }}">
                       <span class="menu-title">All Transactions</span>
                       <i class="mdi mdi-currency-usd menu-icon"></i>
                   </a>
               </li>
-          @endif
-          {{-- <li class="nav-item">
-              <a class="nav-link" data-bs-toggle="collapse" href="#resources-pages" aria-expanded="false"
+          @endif --}}
+          <li class="nav-item {{ Request::is('admin/transaction/*') ? 'active' : '' }}">
+              <a class="nav-link" data-bs-toggle="collapse" href="#transaction-pages" aria-expanded="false"
                   aria-controls="general-pages">
-                  <span class="menu-title">Resources</span>
+                  <span class="menu-title">Transactions</span>
                   <i class="menu-arrow"></i>
                   <i class="mdi mdi-source-repository-multiple menu-icon"></i>
               </a>
-              <div class="collapse" id="resources-pages">
+              <div class="collapse {{ Request::is('admin/transaction/*') ? 'show' : '' }}" id="transaction-pages">
                   <ul class="nav flex-column sub-menu">
-                      <li class="nav-item"> <a class="nav-link" href="javascript:;">List of Courses</a></li>
-                      <li class="nav-item"> <a class="nav-link" href="javascript:;">View Details</a></li>
-                      <li class="nav-item"> <a class="nav-link" href="javascript:;">Filter</a></li>
-                      <li class="nav-item"> <a class="nav-link" href="javascript:;">Video Courses & Chapters</a></li>
-                      <li class="nav-item"> <a class="nav-link" href="javascript:;">Online Payment</a></li>
-                      <li class="nav-item"> <a class="nav-link" href="javascript:;">Report</a></li>
+                      <li class="nav-item">
+                          <a class="nav-link  {{ Request::is('admin/transaction/all') ? 'active' : '' }}" href="{{ route('admin.transaction.all') }}">all
+                              transaction</a>
+                      </li>
+                      <li class="nav-item"> <a class="nav-link" href="javascript:;">Commissions Generates</a></li>
+                      <li class="nav-item"> <a class="nav-link" href="javascript:;">Payouts</a></li>
                   </ul>
               </div>
-          </li> --}}
+          </li>
 
 
 
