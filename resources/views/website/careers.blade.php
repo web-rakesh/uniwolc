@@ -8,10 +8,10 @@
                 <div class="header-abroad-main">
                     <div class="col-lg-6">
                         <div class="header-abroad-content">
-                            <h1>Help Us Educate the World!</h1>
-                            <p>Uniwolc Is On A Mission To Educate The World. We’re Building A Future Where Anyone, Anywhere
-                                Has Access To The Best Education, Regardless Of Where They Were Born. We Want You To Be Part
-                                Of This Movement—And Have A Whole Lot Of Fun Along The Way!</p>
+                            <h1>Join Us in Educating the World! - 1</h1>
+                            <p>UniWolc is on a mission to educate the world. We're building a future where anyone, anywhere
+                                has access to the best education possible, regardless of where they were born. We want you
+                                to be a part of this movement—and have tons of fun along the way!</p>
                             <a href="javascript:;">View Open Roles</a>
                         </div>
                     </div>
@@ -42,7 +42,7 @@
                     </div>
                     <div class="col-lg-6">
                         <div class="sub-best-programs-content sub-intern-wd-btn sub-gmp-text-ct">
-                            <h2>Join the Uniwolc Team and empower people around the world to access the best education.</h2>
+                            <h3>Join the UniWolc team and empower people around the world to get the best of education.</h3>
                             <a href="javascript:;">Partner With Us</a>
                         </div>
                     </div>
@@ -60,7 +60,7 @@
 
                 <div class="col-lg-12">
                     <div class="sub-uniwolc-title sub-choose-tt-pd">
-                        <h2>At Uniwolc We’re Committed to Our Values</h2>
+                        <h3>At UniWolc We’re Committed to Our Values </h3>
                     </div>
                 </div>
 
@@ -81,7 +81,7 @@
                     <div class="col-lg-4">
                         <div class="sub-easy-to-use-box sub-expanding-hgt">
                             <img src="assets/images/03-expanding.png" alt="" />
-                            <h6>Delivering A+ Customer Experience</h6>
+                            <h6>Providing an Exceptional Customer Experience</h6>
                         </div>
                     </div>
 
@@ -128,7 +128,7 @@
             <div class="col-lg-12">
                 <div class="sub-count-number-bg sub-career-join-pt-pb">
                     <div class="sub-abroad-text-std">
-                        <h5>Join Us in Making a Difference!</h5>
+                        <h4>Join Us in Making an Impact! </h4>
                         <a class="sub-book-meeting-white-btn" href="javascript:;">View Open Roles</a>
                     </div>
                 </div>
@@ -212,15 +212,15 @@
             <div class="col-lg-12">
                 <div class="sub-count-number-bg sub-count-number-bg-pt-pb sub-career-count-pt-pb">
                     <div class="sub-count-number-box sub-career-count-num">
-                        <h6>75% Female</h6>
+                        <h6>50</h6>
                         <p>Gender Parity</p>
                     </div>
                     <div class="sub-count-number-box sub-career-count-num">
-                        <h6>75+</h6>
+                        <h6>65+</h6>
                         <p>Languages Spoken</p>
                     </div>
                     <div class="sub-count-number-box sub-career-count-num">
-                        <h6>30+</h6>
+                        <h6>10+</h6>
                         <p>Countries With Team Members</p>
                     </div>
                 </div>
@@ -265,7 +265,7 @@
 
                 <div class="col-lg-12">
                     <div class="sub-uniwolc-title sub-blog-pt-pb">
-                        <h2>Latest Resources</h2>
+                        <h3>Rewards and Advantages </h3>
                     </div>
                 </div>
 
@@ -275,8 +275,9 @@
                             <img src="assets/images/latest-resources/01-latest-resources.jpg" alt="" />
                         </div>
                         <div class="sub-content-universities">
-                            <h3><a href="javascript:;">Uniwolc Year In Review 2022</a></h3>
-                            <p>DECEMBER 12, 2022</p>
+                            <h5>Health and Wellness </h5>
+                            <p>Comprehensive health and wellness benefits include dental and vision, employee and family
+                                assistance programs, personal spending accounts, and more.</p>
                             <a href="javascript:;">Read More</a>
                         </div>
                     </div>
@@ -287,8 +288,10 @@
                             <img src="assets/images/latest-resources/01-latest-resources.jpg" alt="" />
                         </div>
                         <div class="sub-content-universities">
-                            <h3><a href="javascript:;">Uniwolc Year In Review 2022</a></h3>
-                            <p>DECEMBER 12, 2022</p>
+                            <h5>Exceptional Onboarding </h5>
+                            <p>We build relationships with fellow team members from day one, as well as provide access to
+                                the technical and critical training and resources needed for a great onboarding experience.
+                            </p>
                             <a href="javascript:;">Read More</a>
                         </div>
                     </div>
@@ -299,8 +302,35 @@
                             <img src="assets/images/latest-resources/01-latest-resources.jpg" alt="" />
                         </div>
                         <div class="sub-content-universities">
-                            <h3><a href="javascript:;">Uniwolc Year In Review 2022</a></h3>
-                            <p>DECEMBER 12, 2022</p>
+                            <h5>Competitive Compensation </h5>
+                            <p>We offer a generous compensation package that includes an industry-average salary and regular
+                                performance bonuses.</p>
+                            <a href="javascript:;">Read More</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="main-universities-blog">
+                        <div class="sub-img-universities">
+                            <img src="assets/images/latest-resources/01-latest-resources.jpg" alt="" />
+                        </div>
+                        <div class="sub-content-universities">
+                            <h5>Equity </h5>
+                            <p>We are proud to offer company stock options to our team members so they can benefit and grow
+                                with UniWolc.</p>
+                            <a href="javascript:;">Read More</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="main-universities-blog">
+                        <div class="sub-img-universities">
+                            <img src="assets/images/latest-resources/01-latest-resources.jpg" alt="" />
+                        </div>
+                        <div class="sub-content-universities">
+                            <h5>Professional Development </h5>
+                            <p>We want our team members to grow and develop every day, so we offer LinkedIn Learning
+                                alongside internal development programs.</p>
                             <a href="javascript:;">Read More</a>
                         </div>
                     </div>

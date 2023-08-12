@@ -14,7 +14,8 @@
                     <div class="carousel-caption d-md-block">
                         <div class="carousel-slider-box">
                             <div class="carousel-slider-content">
-                                <h1>CHANGING THE <span>WORLD</span> THROUGH <span>EDUCATION</span></h1>
+                                <h1>Our Commitment to <span>Educating the World </span></h1>
+                                {{-- <h1>CHANGING THE <span>WORLD</span> THROUGH <span>EDUCATION</span></h1> --}}
                                 <p>I am a student exploring studying abroad</p>
                                 <div class="carousel-slider-btn">
                                     <a class="carousel-slider-btn-bg" href="javascript:;">I am a recruitment partner</a>
@@ -31,7 +32,8 @@
                     <div class="carousel-caption d-md-block">
                         <div class="carousel-slider-box">
                             <div class="carousel-slider-content">
-                                <h1>CHANGING THE <span>WORLD</span> THROUGH <span>EDUCATION</span></h1>
+                                <h1>Our Commitment to <span>Educating the World </span></h1>
+                                {{-- <h1>CHANGING THE <span>WORLD</span> THROUGH <span>EDUCATION</span></h1> --}}
                                 <p>I am a student exploring studying abroad</p>
                                 <div class="carousel-slider-btn">
                                     <a class="carousel-slider-btn-bg" href="javascript:;">I am a recruitment partner</a>
@@ -48,7 +50,8 @@
                     <div class="carousel-caption d-md-block">
                         <div class="carousel-slider-box">
                             <div class="carousel-slider-content">
-                                <h1>CHANGING THE <span>WORLD</span> THROUGH <span>EDUCATION</span></h1>
+                                <h1>Our Commitment to <span>Educating the World </span></h1>
+                                {{-- <h1>CHANGING THE <span>WORLD</span> THROUGH <span>EDUCATION</span></h1> --}}
                                 <p>I am a student exploring studying abroad</p>
                                 <div class="carousel-slider-btn">
                                     <a class="carousel-slider-btn-bg" href="javascript:;">I am a recruitment partner</a>
@@ -63,13 +66,13 @@
                 </div>
             </div>
             <!--<a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
-                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                  <span class="sr-only">Previous</span>
-                </a>
-                <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
-                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                  <span class="sr-only">Next</span>
-                </a>-->
+                                                          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                                          <span class="sr-only">Previous</span>
+                                                        </a>
+                                                        <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
+                                                          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                                          <span class="sr-only">Next</span>
+                                                        </a>-->
         </div>
     </section>
     <!-- Header Slider End -->
@@ -81,7 +84,7 @@
 
                 <div class="col-lg-12">
                     <div class="sub-uniwolc-title">
-                        <h2>We Help Students Get Admitted Into the Best International Educational Institutions</h2>
+                        <h2>Empowering Students to Secure Admission in Premier International Institutions </h2>
                     </div>
                 </div>
 
@@ -111,19 +114,19 @@
                                             <div class="col-12 col-lg-4">
                                                 <div class="sub-students-box">
                                                     <img src="assets/images/01-help-students.png" alt="" />
-                                                    <h5>Find Programs Faster</h5>
+                                                    <h5>Find programs quickly</h5>
                                                 </div>
                                             </div>
                                             <div class="col-12 col-lg-4">
                                                 <div class="sub-students-box">
                                                     <img src="assets/images/02-help-students.png" alt="" />
-                                                    <h5>Helpful and Dedicated Support Team</h5>
+                                                    <h5>A Supportive Team Committed to Assisting You</h5>
                                                 </div>
                                             </div>
                                             <div class="col-12 col-lg-4">
                                                 <div class="sub-students-box">
                                                     <img src="assets/images/03-help-students.png" alt="" />
-                                                    <h5>Access to Exclusive Scholarships</h5>
+                                                    <h5>Unlock Access to Special Scholarships</h5>
                                                 </div>
                                             </div>
 
@@ -185,8 +188,9 @@
                     <div class="col-lg-6">
                         <div class="sub-how-we-help-content">
                             <h3>How We <span>Help</span></h3>
-                            <p>Lorem Ipsum Dolor Sit Amet, Consectetur Adipiscing Elit, Sed Do Eiusmod Tempor Incididunt Ut
-                                Labore Et Dolore Magna Aliqua.</p>
+                            <p></p>
+                            {{-- <p>Lorem Ipsum Dolor Sit Amet, Consectetur Adipiscing Elit, Sed Do Eiusmod Tempor Incididunt Ut
+                                    Labore Et Dolore Magna Aliqua.</p> --}}
                             <a href="javascript:;">Partner With Us</a>
                         </div>
                     </div>
@@ -204,7 +208,7 @@
 
                 <div class="col-lg-6">
                     <div class="sub-plat-img-support">
-                        <h2>A Platform That Supports You End-to-End</h2>
+                        <h2>Empowering You with our Comprehensive Platform </h2>
 
                         <div class="sub-plat-support-accordion">
 
@@ -217,10 +221,9 @@
                                         <span class="accicon"><i class="fas fa-angle-down rotate-icon"></i></span>
                                     </div>
                                     <div id="collapseOne" class="collapse show" data-parent="#accordionExample">
-                                        <div class="card-body">Lorem Ipsum Dolor Sit Amet, Consectetur Adipiscing Elit, Sed
-                                            Do Eiusmod Tempor Incididunt Ut Labore Et Dolore Magna Aliqua. Lorem Ipsum Dolor
-                                            Sit Amet, Consectetur Adipiscing Elit, Sed Do Eiusmod Tempor Incididunt Ut
-                                            Labore Et Dolore Magna Aliqua.</div>
+                                        <div class="card-body">We believe in your dreams and put in effort to help them
+                                            come true. Connect with us to find and apply to programs and schools that fit
+                                            your background, skills, and interests.</div>
                                     </div>
                                 </div>
                                 <div class="card">
@@ -231,10 +234,9 @@
                                         <span class="accicon"><i class="fas fa-angle-down rotate-icon"></i></span>
                                     </div>
                                     <div id="collapseTwo" class="collapse" data-parent="#accordionExample">
-                                        <div class="card-body">Lorem Ipsum Dolor Sit Amet, Consectetur Adipiscing Elit, Sed
-                                            Do Eiusmod Tempor Incididunt Ut Labore Et Dolore Magna Aliqua. Lorem Ipsum Dolor
-                                            Sit Amet, Consectetur Adipiscing Elit, Sed Do Eiusmod Tempor Incididunt Ut
-                                            Labore Et Dolore Magna Aliqua.</div>
+                                        <div class="card-body">UniWolc is not just a platform - we are your reliable
+                                            partner. - Our main goal is to support you in doing what you do best: assisting
+                                            as many students as you can in achieving their dreams of studying abroad.</div>
                                     </div>
                                 </div>
                                 <div class="card">
@@ -245,10 +247,9 @@
                                         <span class="accicon"><i class="fas fa-angle-down rotate-icon"></i></span>
                                     </div>
                                     <div id="collapseThree" class="collapse" data-parent="#accordionExample">
-                                        <div class="card-body">Lorem Ipsum Dolor Sit Amet, Consectetur Adipiscing Elit, Sed
-                                            Do Eiusmod Tempor Incididunt Ut Labore Et Dolore Magna Aliqua. Lorem Ipsum Dolor
-                                            Sit Amet, Consectetur Adipiscing Elit, Sed Do Eiusmod Tempor Incididunt Ut
-                                            Labore Et Dolore Magna Aliqua.</div>
+                                        <div class="card-body">Expand your reach across the globe and attract a higher
+                                            number of qualified students using a simple and user-friendly platform that is
+                                            trusted by over 1500 institutions worldwide.</div>
                                     </div>
                                 </div>
                             </div>
@@ -351,7 +352,7 @@
 
                 <div class="col-lg-12">
                     <div class="sub-uniwolc-title">
-                        <h2>Get Started With UNIWOLC</h2>
+                        <h2>We provide support to everyone in the industry stakeholders by Being Thought Leaders </h2>
                     </div>
                 </div>
 
@@ -360,26 +361,30 @@
                         <div class="sub-get-started-text">
                             <img src="assets/images/01-help-students.png" alt="" />
                             <h5>Students</h5>
-                            <p>Are You A Student Looking To Study Abroad In Canada, The United States, The United Kingdom,
-                                Or Australia? Register To Let Our Team Of Experts Guide You Through Your Journey.</p>
-                            <a href="javascript:;">Student Registration</a>
+                            <p>Planning to pursue your education abroad in Canada, the United States, the United Kingdom,
+                                Australia, or Ireland? Let our team of experienced professionals assist you every step of
+                                the way on your study abroad journey.</p>
+                            <a href="{{ route('register') }}">Student Registration</a>
                         </div>
                     </div>
                     <div class="col-lg-4">
                         <div class="sub-get-started-text">
                             <img src="assets/images/02-help-students.png" alt="" />
                             <h5>Education Partners</h5>
-                            <p>Are You A Student Looking To Study Abroad In Canada, The United States, The United Kingdom,
-                                Or Australia? Register To Let Our Team Of Experts Guide You Through Your Journey.</p>
-                            <a href="javascript:;">Partner Inquiry</a>
+                            <p>Expand the diversity of your campus by becoming a partner institution with UniWolc. Attract
+                                highly qualified students from across the globe. Get in touch with our Partner Relations
+                                team to connect and explore partnership opportunities.</p>
+                            <a href="{{ route('education.partners') }}">Partner Inquiry</a>
                         </div>
                     </div>
                     <div class="col-lg-4">
                         <div class="sub-get-started-text sub-get-started-text-last">
                             <img src="assets/images/03-help-students.png" alt="" />
                             <h5>Recruitment Partners</h5>
-                            <p>Are You A Student Looking To Study Abroad In Canada, The United States, The United Kingdom,
-                                Or Australia? Register To Let Our Team Of Experts Guide You Through Your Journey.</p>
+                            <p>Are you involved in recruiting prospective students interested in studying in Canada, the
+                                United States, the United Kingdom, Australia, or Ireland? Join us as a Recruitment Partner
+                                at UniWolc and expand your reach to connect with aspiring students in these popular study
+                                    destinations.</p>
                             <a href="javascript:;">Recruiter Registration</a>
                         </div>
                     </div>

@@ -8,9 +8,11 @@
                 <div class="header-abroad-main">
                     <div class="col-lg-6">
                         <div class="header-abroad-content">
-                            <h1>Your Success is Our Success – We’re Here to See You Grow</h1>
-                            <p>UNIWOLC Is More Than A Platform, It Is Your Trusted Partner To Help You Do What You Do Best:
-                                Help As Many Students As Possible Fulfill Their International Education Dreams.</p>
+                            <h1>We measure our success by your success. We are here to support your growth and development
+                                every step of the way.</h1>
+                            <p>UniWolc is more than a platform. We are your trusted partner, empowering you to excel at what
+                                you do best: assisting countless students in realizing their aspirations for international
+                                education.</p>
                             <a href="javascript:;">Partner With Us</a>
                         </div>
                     </div>
@@ -35,8 +37,8 @@
                 <div class="col-lg-4">
                     <div class="sub-get-started-text sub-success-rec-box">
                         <img src="assets/images/01-help-students.png" alt="" />
-                        <h5>Grow Quicker with Lower Costs</h5>
-                        <p>UNIWOLC Recruitment Partners Have Grown More Than 5X Times In The Last Five Years.</p>
+                        <h5>Grow Quicker with Lower Costs </h5>
+                        <p>UniWolc Recruitment Partners have grown more than 2X in the last 1 years.</p>
                     </div>
                 </div>
                 <div class="col-lg-4">
@@ -60,15 +62,15 @@
                         <div class="sub-get-started-text sub-success-rec-box">
                             <img src="assets/images/05-start-your-iourney.png" alt="" />
                             <h5>One Platform for Every Need</h5>
-                            <p>With UNIWOLC Discover Exclusive Opportunities To Offer Value And Earn More.</p>
+                            <p>Discover unique opportunities to deliver value and earn more with UniWolc.</p>
                         </div>
                     </div>
                     <div class="col-lg-4">
                         <div class="sub-get-started-text sub-success-rec-box">
                             <img src="assets/images/04-apply-for-visa.png" alt="" />
-                            <h5>Industry-leading Insights & Training</h5>
-                            <p>Receive Best-In-Class Training On Education Industry And AI-Driven Insights To Future-Proof
-                                Their Business.</p>
+                            <h5>Industry-leading Insights and Training </h5>
+                            <p>Receive best-in-class training on Education Industry and AI-driven Insights to future-proof
+                                their business.</p>
                         </div>
                     </div>
                 </div>
@@ -85,8 +87,8 @@
 
                 <div class="col-lg-12">
                     <div class="sub-uniwolc-title sub-choose-tt-pd">
-                        <h2>Access More Schools, Perks & Faster Commissions</h2>
-                        <p>Here To Help You Grow Your Business By Offering The Best Opportunities And Support.</p>
+                        <h2>Gain access to a broader selection of schools, perks, and enjoy faster commission payouts. </h2>
+                        {{-- <p>Here To Help You Grow Your Business By Offering The Best Opportunities And Support.</p> --}}
                     </div>
                 </div>
 
@@ -96,7 +98,8 @@
                             <img src="assets/images/why-choose/best-commissions.png" alt="" />
                         </div>
                         <h4>Best Commissions</h4>
-                        <p>Quick and reliable commissions so you get paid for your hard work.</p>
+                        <p>We are committed to assisting you in expanding your business by providing exceptional
+                            opportunities and comprehensive support</p>
                     </div>
                 </div>
                 <div class="col-6 col-lg-4">
@@ -105,7 +108,8 @@
                             <img src="assets/images/why-choose/perks-rewards.png" alt="" />
                         </div>
                         <h4>Perks & Rewards</h4>
-                        <p>Earn bonuses and have access to top training to support your growth.</p>
+                        <p>Enjoy the best commissions - ensuring prompt and dependable payment for your dedicated efforts.
+                        </p>
                     </div>
                 </div>
                 <div class="col-6 col-lg-4">
@@ -114,7 +118,8 @@
                             <img src="assets/images/why-choose/03-school.png" alt="" />
                         </div>
                         <h4>Access to 1,600+ Schools</h4>
-                        <p>Top programs at the top schools in the most desirable destinations at your fingertips.</p>
+                        <p>Exciting perks and rewards - including bonuses and access to premium training resources,
+                            fostering your personal and professional growth.</p>
                     </div>
                 </div>
 
@@ -130,7 +135,7 @@
 
                 <div class="col-lg-12">
                     <div class="sub-uniwolc-title">
-                        <h2>Success Stories From Our Partners</h2>
+                        <h2>Our Partner’s Success Stories</h2>
                     </div>
                 </div>
 
@@ -161,7 +166,8 @@
 
                 <div class="col-lg-12">
                     <div class="sub-uniwolc-title sub-choose-tt-pd">
-                        <h2>An Easy-to-Use Platform that Connects You to the Right School</h2>
+                        <h2>Experience the convenience of our user-friendly platform, connecting you effortlessly to the
+                            perfect school for your needs. </h2>
                     </div>
                 </div>
 
@@ -206,7 +212,8 @@
 
                 <div class="col-lg-12">
                     <div class="sub-intern-education-title">
-                        <h2>We are Invested in Caring for You and the Ecosystem of International Education</h2>
+                        <h2>We are dedicated to providing exceptional care and support to you and the entire ecosystem of
+                            international education. </h2>
                     </div>
                 </div>
 
@@ -216,15 +223,16 @@
                         <div class="sub-intern-educat-box">
                             <img src="assets/images/ecosystem-international-education/local-support.png" alt="" />
                             <h6>Local Support</h6>
-                            <p>Our International Recruitment Experts Are There To Support You Every Step Of The Way.</p>
+                            <p>Our team of international recruitment experts is committed to supporting you throughout every
+                                stage of your journey.</p>
                         </div>
                     </div>
                     <div class="col-lg-3">
                         <div class="sub-intern-educat-box">
                             <img src="assets/images/ecosystem-international-education/education.png" alt="" />
                             <h6>Education</h6>
-                            <p>Expand Your Knowledge And Stay Ahead Of Your Competitors With Guided Online Courses And
-                                Certificates.</p>
+                            <p>Broaden your knowledge and gain a competitive edge by enrolling in our guided online courses
+                                and earning certificates.</p>
                         </div>
                     </div>
                     <div class="col-lg-3">
@@ -232,16 +240,15 @@
                             <img src="assets/images/ecosystem-international-education/events-and-webinars.png"
                                 alt="" />
                             <h6>Events & Webinars</h6>
-                            <p>Regular Online Webinars, Training, And Events To Keep You Updated On The Latest Trends And
-                                Regulations.</p>
+                            <p>Stay up-to-date on the latest trends and regulations through our regular online webinars, training sessions, and events.</p>
                         </div>
                     </div>
                     <div class="col-lg-3">
                         <div class="sub-intern-educat-box">
                             <img src="assets/images/ecosystem-international-education/data-and-insights.png"
                                 alt="" />
-                            <h6>Data & Insights</h6>
-                            <p>Industry Leading Insights And Knowledge That Helps You Plan, Expand, And Achieve Your Goals.
+                            <h6>Data and Insights</h6>
+                            <p>Access industry-leading insights and knowledge that empower you to strategize, expand, and achieve your goals effectively.
                             </p>
                         </div>
                     </div>
@@ -260,7 +267,7 @@
 
                 <div class="col-lg-12">
                     <div class="sub-uniwolc-title">
-                        <h2>A Relationship Built on Trust and Credibility</h2>
+                        <h2>Establish a relationship founded on trust and credibility, ensuring mutual confidence and reliability.</h2>
                     </div>
                 </div>
 
@@ -365,7 +372,7 @@
 
                 <div class="col-lg-12">
                     <div class="sub-uniwolc-title">
-                        <h2>We Connect You to the Right School for Your Students</h2>
+                        <h2>We facilitate connections between you and the ideal school for your students, ensuring the best possible match. </h2>
                     </div>
                 </div>
 
@@ -392,13 +399,13 @@
                                         <a href="#UnitedKingdom" aria-controls="UnitedKingdom" role="tab"
                                             data-toggle="tab"><img class="univ-img-ct"
                                                 src="assets/images/university-logo/united-kingdom.png" alt="" />
-                                            United States</a>
+                                            United Kingdom</a>
                                     </li>
                                     <li role="presentation">
                                         <a href="#Australia" aria-controls="Australia" role="tab"
                                             data-toggle="tab"><img class="univ-img-ct"
                                                 src="assets/images/university-logo/australia.png" alt="" /> United
-                                            States</a>
+                                            Australia</a>
                                     </li>
                                 </ul>
                                 <!-- Tab panes -->

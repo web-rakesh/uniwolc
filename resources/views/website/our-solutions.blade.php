@@ -9,7 +9,7 @@
                     <div class="col-lg-6">
                         <div class="header-abroad-content">
                             <h1>Efficiently utilize your time, reduce expenses, and discover additional avenues for
-                                expanding your business. </h1>
+                                expanding your business.</h1>
                             <p>UniWolc transcends being a simple application platform. Discover a wealth of programs and
                                 promotions that enable you to achieve financial savings and enjoy a worry-free international
                                 student journey. Explore these offerings right at your fingertips and seize the opportunity
