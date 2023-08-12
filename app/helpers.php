@@ -134,10 +134,19 @@ if (!function_exists('get_currency')) {
 if (!function_exists('get_country')) {
     function get_country($id = 101)
     {
-        
         $country =  Country::where('id', $id)->first();
         if($country){
             return $country->name;
         }
+    }
+}
+
+if (!function_exists('get_agent_id')){
+    function get_agent_id($id){
+        $agent = \App\Models\Staff::where('user_id', $id)->first();
+        if($agent){
+            return $agent->agent_id;
+        }
+        return null;
     }
 }

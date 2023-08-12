@@ -10,9 +10,11 @@ use App\Models\AgentProfile;
 use Illuminate\Http\Request;
 use App\Models\EducationLevel;
 use App\Models\PaymentHistory;
+use Illuminate\Support\Carbon;
+use App\Models\AgentCommission;
+
 use App\Models\EducationPartner;
 use App\Models\University\Program;
-
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Models\Student\ApplyProgram;
@@ -36,14 +38,14 @@ class AdminController extends Controller
 
         $program = Program::count();
         $applyProgram = ApplyProgram::count();
-        $approvedApplication = ApplyProgram::where('status', 1)->count();
-        $blockApplication = ApplyProgram::where('status', 2)->count();
+        $approvedApplication = ApplyProgram::where('program_status', 1)->count();
+        $blockApplication = ApplyProgram::where('program_status', 2)->count();
         $education = EducationPartner::count();
 
-
-        $paymentHistory = PaymentHistory::sum('amount');
-        $todayPayment = PaymentHistory::where('created_at', date('Y-m-d', strtotime(now())))->sum('amount');
-        // $totalAgentFees = ApplyProgram::where('agent_id', '!=', null)->first();
+        $totalPayment = PaymentHistory::sum('amount');
+        $todayPayment = PaymentHistory::whereDate('payment_date', Carbon::today())->sum('amount');
+        $totalAgentFees = AgentCommission::sum('amount');
+        $totalAgentPayoutFees = AgentCommission::whereStatus(1)->wherePaymentStatus(1)->sum('amount');
 
 
         return view(
@@ -56,10 +58,12 @@ class AdminController extends Controller
                 'program',
                 'education',
                 'applyProgram',
-                'paymentHistory',
                 'approvedApplication',
                 'blockApplication',
-                'todayPayment'
+                'totalPayment',
+                'todayPayment',
+                'totalAgentFees',
+                'totalAgentPayoutFees'
             )
         );
     }
@@ -240,12 +244,32 @@ class AdminController extends Controller
 
     public function transaction()
     {
-        return view('admin.transaction');
+        return view('admin.transaction.transaction');
+    }
+
+    public function agentTransaction()
+    {
+        return view('admin.transaction.agent-transaction', ['payout' => 4]);
+    }
+
+    public function agentTransactionPayout()
+    {
+        return view('admin.transaction.agent-transaction', ['payout' => 1]);
+    }
+
+    public function agentCommissionDetails(AgentCommission $agentCommission)
+    {
+        return view('admin.transaction.agent-commission-details', compact('agentCommission'));
     }
 
     public function educationPartnerList()
     {
         return view('admin.education-partner');
+    }
+
+    public function educationPartnerDetail(EducationPartner $educationPartner)
+    {
+        return view('admin.education-partner-detail', compact('educationPartner'));
     }
 
     public function getCurrency(Request $request)

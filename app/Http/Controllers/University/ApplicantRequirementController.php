@@ -15,55 +15,21 @@ class ApplicantRequirementController extends Controller
      */
     public function index()
     {
-        return view('university.applicant-requirements');
+        return view('university.apply-program-list',['status' => '']);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create(Request $request)
+    public function newApplication()
     {
-        // return $request->data;
-        return view('university.applicant-requirement-create', ['data' => $request->data]);
+        return view('university.apply-program-list', ['status' => 4]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreApplicantRequirementRequest $request)
+    public function acceptedApplication()
     {
-        //
+        return view('university.apply-program-list', ['status' => 1]);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(ApplicantRequirement $applicantRequirement)
+    public function rejectedApplication()
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(ApplicantRequirement $applicantRequirement)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateApplicantRequirementRequest $request, ApplicantRequirement $applicantRequirement)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(ApplicantRequirement $applicantRequirement)
-    {
-        //
+        return view('university.apply-program-list' , ['status' => 3]);
     }
 }

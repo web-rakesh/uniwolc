@@ -1,7 +1,7 @@
 @extends('university.layouts.layout')
 @section('content')
     <section style="background-color: #eee;">
-        @livewire('university.apply-program-list')
+        @livewire('university.apply-program-list' , ['program_status' => $status])
 
     </section>
 @endsection

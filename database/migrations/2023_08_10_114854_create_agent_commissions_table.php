@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('agent_id');
             $table->unsignedBigInteger('apply_program_id');
             $table->unsignedBigInteger('program_id');
-            $table->unsignedBigInteger('university_id');
+            $table->unsignedBigInteger('student_id');
             $table->unsignedBigInteger('country_id');
             $table->unsignedBigInteger('program_fees');
             $table->unsignedBigInteger('commission');
@@ -24,6 +24,7 @@ return new class extends Migration
             $table->unsignedBigInteger('currency_id');
             $table->unsignedBigInteger('status')->default(0);
             $table->unsignedBigInteger('payment_status')->default(0);
+            $table->date('payment_date')->nullable();
             $table->timestamps();
         });
     }

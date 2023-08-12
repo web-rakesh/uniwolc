@@ -30,19 +30,36 @@
                                   </a>
                               </li>
 
-
-
                               <li class="">
                                   <a href="{{ route('university.application') }}">
                                       <span class="icon"><i class="fa-regular fa-file-text"></i></span>
-                                      <span class="title">My Applications</span>
+                                      <span class="title">My Programs</span>
                                   </a>
                               </li>
 
                               <li class="">
-                                  <a href="{{ route('university.apply.programs') }}">
+                                  <a href="{{ route('university.application.all') }}">
                                       <span class="icon"><i class="fa-regular fa-file-text"></i></span>
-                                      <span class="title"> Apply Programs</span>
+                                      <span class="title">All Applications</span>
+                                  </a>
+                              </li>
+                              <li class="">
+                                  <a href="{{ route('university.application.new') }}">
+                                      <span class="icon"><i class="fa-regular fa-file-text"></i></span>
+                                      <span class="title"> New Applications</span>
+                                  </a>
+                              </li>
+
+                              <li class="">
+                                  <a href="{{ route('university.application.accepted') }}">
+                                      <span class="icon"><i class="fa-regular fa-file-text"></i></span>
+                                      <span class="title"> Accepted Applications</span>
+                                  </a>
+                              </li>
+                              <li class="">
+                                  <a href="{{ route('university.application.rejected') }}">
+                                      <span class="icon"><i class="fa-regular fa-file-text"></i></span>
+                                      <span class="title"> Rejected Applications</span>
                                   </a>
                               </li>
 

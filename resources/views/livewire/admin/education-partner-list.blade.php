@@ -32,9 +32,10 @@
                                 <td> {{ $partner->getCountry->name }} </td>
                                 <td> {{ date('M d, Y', strtotime($partner->created_at)) }} </td>
                                 <td>
-                                    {{-- @if (action_permission('partner', 'view') == true) --}}
-                                    {{-- <a href="javascript:;" class="btn btn-info btn-sm">View</a> --}}
-                                    {{-- @endif --}}
+                                    @if (action_permission('partner', 'view') == true)
+                                        <a href="{{ route('admin.education.partner.details', $partner->id) }}"
+                                            class="btn btn-info btn-sm">View</a>
+                                    @endif
                                     {{-- @if (action_permission('agent', 'delete') == true) --}}
                                     @if ($confirming === $partner->id)
                                         <button wire:click="kill({{ $partner->id }})"

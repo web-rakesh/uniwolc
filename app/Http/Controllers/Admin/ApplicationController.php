@@ -18,6 +18,11 @@ class ApplicationController extends Controller
         return view('admin.application.list');
     }
 
+    public function newApplication()
+    {
+        return view('admin.application.list', ['status' => 0]);
+    }
+
     public function acceptedApplication()
     {
         return view('admin.application.list', ['status' => 1]);
@@ -25,7 +30,7 @@ class ApplicationController extends Controller
 
     public function rejectedApplication()
     {
-        return view('admin.application.list' , ['status' => 3]);
+        return view('admin.application.list', ['status' => 3]);
     }
 
     public function show($id)

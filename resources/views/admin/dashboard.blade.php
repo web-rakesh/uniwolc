@@ -66,7 +66,7 @@
             <div class="col-sm-3 mb-4">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Block Application</h4>
+                        <h4 class="card-title">Rejected Application</h4>
                         <h1 class="card-title mb-0">{{ $blockApplication }}</h1>
                     </div>
                 </div>
@@ -76,7 +76,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">Total Payment</h4>
-                        <h1 class="card-title mb-0">{{ $paymentHistory }}</h1>
+                        <h1 class="card-title mb-0">{{ number_format( $totalPayment, 2) }}</h1>
                     </div>
                 </div>
             </div>
@@ -84,8 +84,26 @@
             <div class="col-sm-3 mb-4">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Total Payment</h4>
-                        <h1 class="card-title mb-0">{{ $todayPayment }}</h1>
+                        <h4 class="card-title">Today Payment</h4>
+                        <h1 class="card-title mb-0">{{ number_format( $todayPayment, 2) }}</h1>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-3 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Total Agent Fees</h4>
+                        <h1 class="card-title mb-0">{{ number_format( $totalAgentFees, 2) }}</h1>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-3 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Total Agent Payout</h4>
+                        <h1 class="card-title mb-0">{{ number_format( $totalAgentPayoutFees, 2) }}</h1>
                     </div>
                 </div>
             </div>

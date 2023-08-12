@@ -19,6 +19,7 @@ use App\Http\Controllers\Student\VisaPermitController;
 use App\Http\Controllers\University\ProgramController;
 use App\Http\Controllers\Admin\ManageSubAdminController;
 use App\Http\Controllers\Student\ApplyProgramController;
+use App\Http\Controllers\University\DashboardController;
 use App\Http\Controllers\Student\StudentDetailController;
 use App\Http\Controllers\Admin\QuestionCategoryController;
 use App\Http\Controllers\Admin\UniversityCourseController;
@@ -234,9 +235,11 @@ Route::middleware([
     // agent university
     Route::group(['prefix' => 'university', 'middleware' => ['auth', 'user-access:university'], 'as' => 'university.'], function () {
 
-        Route::get('/', function () {
-            return view('university.dashboard');
-        })->name('dashboard');
+        Route::controller(DashboardController::class)
+            ->prefix('dashboard')
+            ->group(function () {
+                Route::get('/', 'dashboard')->name('dashboard');
+            });
 
         Route::resource('program', ProgramController::class);
 
@@ -244,12 +247,15 @@ Route::middleware([
         Route::get('/programs-add', [ProgramController::class, 'create'])->name('programs.add');
         Route::resource('profile', ProfileDetailController::class);
 
-        Route::resource('application-requirement', ApplicantRequirementController::class);
-
-        Route::get('/apply-programs', function () {
-            return view('university.apply-program-list');
-        })->name('apply.programs');
-
+        Route::controller(ApplicantRequirementController::class)
+            ->prefix('application')
+            ->as('application.')
+            ->group(function () {
+                Route::get('/all', 'index')->name('all');
+                Route::get('/new', 'newApplication')->name('new');
+                Route::get('/accepted', 'acceptedApplication')->name('accepted');
+                Route::get('/rejected', 'rejectedApplication')->name('rejected');
+            });
 
         Route::get('/application', function () {
             return view('university.my-application');
@@ -325,8 +331,12 @@ Route::group(
         Route::get('/staff', [AdminController::class, 'staffList'])->name('staff');
         Route::get('/staff/profile/{id}', [AdminController::class, 'staff_profile'])->name('staff.profile');
         Route::get('/transaction/all', [AdminController::class, 'transaction'])->name('transaction.all');
+        Route::get('/transaction/agent', [AdminController::class, 'agentTransaction'])->name('transaction.agent');
+        Route::get('/transaction/agent-payout', [AdminController::class, 'agentTransactionPayout'])->name('transaction.agent.payout');
+        Route::get('/transaction/agent-commission-detail/{agent_commission}', [AdminController::class, 'agentCommissionDetails'])->name('agent.commission.detail');
         Route::get('/invoice/{id}', [PaymentController::class, 'Invoice'])->name('invoice');
         Route::get('/education-partner-list', [AdminController::class, 'educationPartnerList'])->name('education.partner.list');
+        Route::get('/education-partner-details/{education_partner}', [AdminController::class, 'educationPartnerDetail'])->name('education.partner.details');
 
         // admin can able to dynamic question category
         Route::get('/student/question-category', [QuestionCategoryController::class, 'questionCategoryList'])->name('question.category');
@@ -338,6 +348,7 @@ Route::group(
             ->as('application.')
             ->group(function () {
                 Route::get('/index', 'index')->name('index');
+                Route::get('/new-application', 'newApplication')->name('new.application');
                 Route::get('/accepted-application', 'acceptedApplication')->name('accepted.application');
                 Route::get('/rejected-application', 'rejectedApplication')->name('accepted.rejected');
                 Route::get('/show/{id}', 'show')->name('print');

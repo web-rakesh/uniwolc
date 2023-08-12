@@ -8,10 +8,12 @@
                 <div class="header-abroad-main">
                     <div class="col-lg-6">
                         <div class="header-abroad-content">
-                            <h1>Save Time, Save Money, and More Ways to Grow Your Business</h1>
-                            <p>UNIWOLC Is More Than An Application Platform. Find The Best Programs And Promotions To Help
-                                You Save Financially And Get Peace Of Mind Along The International Student Journey. Discover
-                                These Programs At Your Fingertips Right Now.</p>
+                            <h1>Efficiently utilize your time, reduce expenses, and discover additional avenues for
+                                expanding your business. </h1>
+                            <p>UniWolc transcends being a simple application platform. Discover a wealth of programs and
+                                promotions that enable you to achieve financial savings and enjoy a worry-free international
+                                student journey. Explore these offerings right at your fingertips and seize the opportunity
+                                today.</p>
                             <a href="javascript:;">Let’s Get Started</a>
                         </div>
                     </div>
@@ -35,9 +37,10 @@
 
                 <div class="col-lg-12">
                     <div class="sub-uniwolc-title sub-choose-tt-pd">
-                        <h2>New Programs to Help You Along Your Journey</h2>
-                        <p>Explore Exclusive Programs To Help You And Your Students Save Time And Money. With UNIWOLC,
-                            You’re Never Far From A Helping Hand.</p>
+                        <h2>Introducing new programs to support you throughout your journey and facilitate your progress.
+                        </h2>
+                        <p>Discover exclusive programs designed to assist you and your students in saving valuable time and
+                            money. At UniWolc, a helping hand is always within reach.</p>
                     </div>
                 </div>
 
@@ -46,25 +49,26 @@
                         <div class="sub-get-started-text sub-new-programs-hg">
                             <img src="assets/images/01-new-programs.png" alt="" />
                             <h5>International Student GIC Program</h5>
-                            <p>Strengthen And Streamline Your Study Permit Application With A GIC From RBC, Canada’s Largest
-                                Bank.</p>
+                            <p>Enhance and simplify your study permit application process by utilizing a Guaranteed
+                                Investment Certificate (GIC) from RBC, the largest bank in Canada.</p>
                             <a href="javascript:;">Read More</a>
                         </div>
                     </div>
                     <div class="col-lg-4">
                         <div class="sub-get-started-text sub-new-programs-hg">
                             <img src="assets/images/02-new-programs.png" alt="" />
-                            <h5>Tuition Payments Made Easy</h5>
-                            <p>Speed Up The Application Process With Quick And Reliable Fee Payments From Flywire.</p>
+                            <h5>Student Loans </h5>
+                            <p>Empower your students to pursue their dreams without being limited by financial constraints.
+                                Kickstart their journey with UniWolc Student Loans.</p>
                             <a href="javascript:;">Read More</a>
                         </div>
                     </div>
                     <div class="col-lg-4">
                         <div class="sub-get-started-text sub-new-programs-hg">
                             <img src="assets/images/03-new-programs.png" alt="" />
-                            <h5>Save More on English Tests</h5>
-                            <p>Get TOEFL & PTE, Two Of The Most Recognized English Language Tests, At The Best Possible
-                                Price Anywhere.</p>
+                            <h5>Tuition Payments Made Easy </h5>
+                            <p>Accelerate the application process by utilizing Flywire's fast and dependable fee payment
+                                services.</p>
                             <a href="javascript:;">Read More</a>
                         </div>
                     </div>
@@ -90,9 +94,9 @@
                     <div class="col-lg-4">
                         <div class="sub-get-started-text sub-new-programs-hg">
                             <img src="assets/images/01-additional-programs.png" alt="" />
-                            <h5>International Student GIC Program</h5>
-                            <p>Strengthen And Streamline Your Study Permit Application With A GIC From RBC, Canada’s Largest
-                                Bank.</p>
+                            <h5>Save More on English Tests </h5>
+                            <p>Obtain the TOEFL & PTE, two highly recognized English language tests, at the most competitive
+                                price available anywhere.</p>
                             <a href="javascript:;">Read More</a>
                         </div>
                     </div>

@@ -52,74 +52,72 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @forelse ($applyPrograms ?? [] as $program)
-                                            @foreach ($program->getProgram ?? [] as $item)
-                                                @if ($item->status == 2)
-                                                    <tr class="tableRowItem odd">
-                                                        <td>
-                                                            <div class="tableContent">#</div>
-                                                        </td>
-                                                        <td>
-                                                            <div class="tableContent">{{ $item->program_title }}</div>
-                                                        </td>
-                                                        {{--  <td>
+                                        @forelse ($applyPrograms ?? [] as $item)
+
+                                            @if ($item->status == 2)
+                                                <tr class="tableRowItem odd">
+                                                    <td>
+                                                        <div class="tableContent">#</div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="tableContent">{{ $item->program_title }}</div>
+                                                    </td>
+                                                    {{--  <td>
                                                          <div class="tableContent">
                                                             {{ $item->getProgram->minimum_level_education }}
                                                         </div>
                                                     </td> --}}
-                                                        <td>
-                                                            <div class="tableContent">{{ $item->application_number }}
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div class="tableContent">
-                                                                {{ $item->application_status == 1 ? 'Done' : 'Pending' }}
-                                                            </div>
-                                                        </td>
-                                                        {{-- <td>
+                                                    <td>
+                                                        <div class="tableContent">{{ $item->application_number }}
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="tableContent">
+                                                            {{ $item->application_status == 1 ? 'Done' : 'Pending' }}
+                                                        </div>
+                                                    </td>
+                                                    {{-- <td>
                                                         <div class="tableContent">
                                                             {{ $item->created_at->format('Y-m-d') }}</div>
                                                     </td> --}}
-                                                        <td>
-                                                            <div class="tableContent">
-                                                                {{ $item->status == 2 ? 'Paid' : 'Due' }}</div>
-                                                        </td>
-                                                        <td>
-                                                            <div class="tableContent">
-                                                                {{ $item->getStudent->full_name ?? '' }}
-                                                            </div>
-                                                        <td>
+                                                    <td>
+                                                        <div class="tableContent">
+                                                            {{ $item->status == 2 ? 'Paid' : 'Due' }}</div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="tableContent">
+                                                            {{ $item->getStudent->full_name ?? '' }}
+                                                        </div>
+                                                    <td>
 
-                                                            @if ($item->program_status == 0)
-                                                                <div class="tableContent">
-                                                                    @if ($confirming === $item->id)
-                                                                        <button
-                                                                            wire:click="acceptProgram({{ $item->id }})"
-                                                                            class="btn btn-success viewBtn">Sure?</button>
-                                                                    @else
-                                                                        <button
-                                                                            wire:click="confirmAccept({{ $item->id }})"
-                                                                            class="btn btn-primary viewBtn">Accept</button>
-                                                                    @endif
-
-                                                                    <a class="btn btn-danger viewBtn"
-                                                                        wire:click="openModal({{ $item->id }})">Reject</a>
-                                                                @elseif ($item->program_status == 1)
+                                                        @if ($item->program_status == 0)
+                                                            <div class="tableContent">
+                                                                @if ($confirming === $item->id)
                                                                     <button
-                                                                        class="btn btn-success viewBtn">Accepted</button>
+                                                                        wire:click="acceptProgram({{ $item->id }})"
+                                                                        class="btn btn-success viewBtn">Sure?</button>
                                                                 @else
-                                                                    <button class="btn btn-danger viewBtn"
-                                                                        wire:click="openModal({{ $item->id }} , 'reject' )">Rejected</button>
+                                                                    <button
+                                                                        wire:click="confirmAccept({{ $item->id }})"
+                                                                        class="btn btn-primary viewBtn">Accept</button>
+                                                                @endif
 
-                                                                </div>
-                                                            @endif
+                                                                <a class="btn btn-danger viewBtn"
+                                                                    wire:click="openModal({{ $item->id }})">Reject</a>
+                                                            @elseif ($item->program_status == 1)
+                                                                <button
+                                                                    class="btn btn-success viewBtn">Accepted</button>
+                                                            @else
+                                                                <button class="btn btn-danger viewBtn"
+                                                                    wire:click="openModal({{ $item->id }} , 'reject' )">Rejected</button>
 
-                                                        </td>
+                                                            </div>
+                                                        @endif
 
-                                                    </tr>
-                                                @endif
-                                            @endforeach
+                                                    </td>
 
+                                                </tr>
+                                            @endif
                                         @empty
                                             No programs are available
                                         @endforelse

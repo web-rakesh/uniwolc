@@ -133,6 +133,7 @@ class StudentDetailController extends Controller
                 $applyPGrm = ApplyProgram::create([
                     'user_id' => $studentDetail->user_id,
                     'program_id' => $program->id,
+                    'university_id' => $program->user_id,
                     'slug' => $program->slug,
                     'application_number' => 'UW' . rand(100000, 999999),
                     'program_title' => $program->program_title,
@@ -151,8 +152,9 @@ class StudentDetailController extends Controller
                 AgentCommission::create([
                     'agent_id' => $agentId,
                     'program_id' => $program->id,
+                    'student_id' => $studentDetail->user_id,
                     'apply_program_id' => $applyPGrm->id,
-                    'apply_program_id' => $program->user_id,
+                    'country_id' => $program->university->country,
                     'program_fees' => $program->application_fee,
                     'amount' => $agentCommissionAmount,
                     'commission' => $program->agent_commission,

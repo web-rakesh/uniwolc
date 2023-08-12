@@ -14,25 +14,31 @@ class ApplyProgramList extends Component
 
     public $programSelectId, $programList, $confirming, $backupPrograms, $backup_program_id, $reject_id;
     public $searchItem, $textareaValue = '';
-    public $showModal = false, $mood = false;
+    public $showModal = false, $mood = false, $program_status;
     public $student_id, $program_name;
     // public $paginationCount = 15;
     public function render()
     {
-        $this->programList = Program::select('id', 'program_title')->where('user_id', auth()->user()->id)->get();
-        $applyProgram = Program::query()->with('getProgram')
-            ->where('user_id', auth()->user()->id)
-            ->whereHas('getProgram', function ($q) {
-                $q->where('status', 2);
-            })
-
+        $applyProgram = ApplyProgram::query()
+        ->where('university_id', auth()->user()->id)
+        ->when($this->program_status, function ($query, $program_status) {
+            if($program_status == 4){
+                // dd($program_status);
+                $query->where('program_status',  0);
+            }else{
+                $query->where('program_status',  $program_status);
+            }
+        })
             ->when($this->programSelectId, function ($query, $programSelectId) {
-                $query->where('id', $programSelectId);
+                $query->where('program_id', $programSelectId);
             })
+            ->paginate(10);
 
-            ->paginate(15);
-        // $applyProgram = Program::with('getProgram')->where('user_id', auth()->user()->id)->get();
-        // dd($applyProgram);
+
+
+
+        // dd($this->program_status);
+        $this->programList = Program::select('id', 'program_title')->where('user_id', auth()->user()->id)->get();
 
 
         return view('livewire.university.apply-program-list', ['applyPrograms' => $applyProgram]);

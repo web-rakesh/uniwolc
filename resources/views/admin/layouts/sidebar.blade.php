@@ -126,6 +126,11 @@
                           </li>
                           {{-- @endif --}}
                           <li class="nav-item">
+                              <a class="nav-link {{ Request::is('admin/application/new-application') ? 'active' : '' }}"
+                                  href="{{ route('admin.application.new.application') }}">
+                                  New Application </a>
+                          </li>
+                          <li class="nav-item">
                               <a class="nav-link {{ Request::is('admin/application/accepted-application') ? 'active' : '' }}"
                                   href="{{ route('admin.application.accepted.application') }}">
                                   Accepted Application </a>
@@ -140,7 +145,8 @@
               </li>
           @endif
           {{-- @if (menu_permission('university')) --}}
-          <li class="nav-item {{ Request::is('admin/education-partner-list') ? 'active' : '' }}">
+          <li
+              class="nav-item {{ Request::is('admin/education-partner-list') || Request::is('admin/education-partner-details/*') ? 'active' : '' }}">
               <a class="nav-link" href="{{ route('admin.education.partner.list') }}">
                   <span class="menu-title">Education Partner</span>
                   <i class="mdi  mdi-school menu-icon"></i>
@@ -269,11 +275,18 @@
               <div class="collapse {{ Request::is('admin/transaction/*') ? 'show' : '' }}" id="transaction-pages">
                   <ul class="nav flex-column sub-menu">
                       <li class="nav-item">
-                          <a class="nav-link  {{ Request::is('admin/transaction/all') ? 'active' : '' }}" href="{{ route('admin.transaction.all') }}">all
+                          <a class="nav-link  {{ Request::is('admin/transaction/all') ? 'active' : '' }}"
+                              href="{{ route('admin.transaction.all') }}">all
                               transaction</a>
                       </li>
-                      <li class="nav-item"> <a class="nav-link" href="javascript:;">Commissions Generates</a></li>
-                      <li class="nav-item"> <a class="nav-link" href="javascript:;">Payouts</a></li>
+                      <li class="nav-item">
+                          <a class="nav-link {{ Request::is('admin/transaction/agent') ? 'active' : '' }}"
+                              href="{{ route('admin.transaction.agent') }}">Commissions Generates</a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link {{ Request::is('admin/transaction/agent-payout') ? 'active' : '' }}"
+                              href="{{ route('admin.transaction.agent.payout') }}">Payouts</a>
+                      </li>
                   </ul>
               </div>
           </li>

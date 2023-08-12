@@ -13,6 +13,7 @@ class ApplyProgram extends Model
     protected $fillable = [
         'user_id',
         'program_id',
+        'university_id',
         'slug',
         'application_number',
         'program_title',
