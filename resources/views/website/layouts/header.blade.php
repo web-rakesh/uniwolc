@@ -28,13 +28,13 @@
                 </div>
                 <div class="col-12 col-lg-3">
                     <div class="header-search-box">
-                        <div>
+                        {{-- <div>
                             <form class="form-inline">
                                 <input class="form-control" type="search" placeholder="Search">
                                 <button class="btn btn-outline-success my-2 my-lg-0" type="submit"><i
                                         class="fa-solid fa-magnifying-glass"></i></button>
                             </form>
-                        </div>
+                        </div> --}}
                         <div class="dropdown">
                             <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -50,8 +50,10 @@
                                 <a class="dropdown-item" href="{{ route('contact') }}">Contact</a>
                                 <a class="dropdown-item" href="{{ route('blog') }}">Blog</a>
                                 <a class="dropdown-item" href="{{ route('news') }}">News</a>
-                                <a class="dropdown-item" href="{{ route('apply.insights') }}">ApplyInsights</a>
-                                <a class="dropdown-item" href="{{ route('trends.report') }}">Trends Report</a>
+                                {{-- <a class="dropdown-item" href="{{ route('apply.insights') }}">ApplyInsights</a> --}}
+                                <a class="dropdown-item" href="{{ route('apply.insights') }}">Trends Report</a>
+                                <a class="dropdown-item" href="{{ route('trends.report') }}">Global Trends</a>
+                                {{-- <a class="dropdown-item" href="{{ route('trends.report') }}">Trends Report</a> --}}
                             </div>
                         </div>
                     </div>
@@ -60,18 +62,19 @@
                     @auth
                         <div class="sub-btn-regst my-2 my-md-0">
 
-                            @if(Auth::user()->type == 'agent')
+                            @if (Auth::user()->type == 'agent')
                                 <a href="{{ route('agent.dashboard') }}" class="btn btn-outline-primary"> Dashboard</a>
                             @elseif(Auth::user()->type == 'student')
                                 <a href="{{ route('student.dashboard') }}" class="btn btn-outline-primary"> Dashboard</a>
                             @elseif(Auth::user()->type == 'staff')
                                 <a href="{{ route('staff.dashboard') }}" class="btn btn-outline-primary"> Dashboard</a>
                             @elseif(Auth::user()->type == 'university')
-                                <a href="{{ route('university.dashboard') }}" class="btn btn-outline-primary"> Dashboard</a>
+                                <a href="{{ route('university.dashboard') }}" class="btn btn-outline-primary">
+                                    Dashboard</a>
                             @else
                                 <a href="{{ route('landing') }}" class="btn btn-outline-primary"> Dashboard</a>
                             @endif
-                                {{-- <a href="{{ route('logout') }}"> <button class="btn btn-primary"
+                            {{-- <a href="{{ route('logout') }}"> <button class="btn btn-primary"
                                     type="submit">Logout</button></a> --}}
 
                             <a href="{{ route('logout') }}"

@@ -12,9 +12,9 @@ class QuestionSubCategoryList extends Component
 {
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
-    public $isOpen = 0;
+    public $isOpen = 0, $isEditOpen = 0, $confirming;
     public $category_id, $searchItem, $getCategories = [];
-    public $subCategoryArray = [];
+    public $subCategoryArray = [], $sub_category_name;
     public $name, $table_name, $is_sub_category, $selectCategory;
     public function render()
     {
@@ -47,9 +47,11 @@ class QuestionSubCategoryList extends Component
         $this->isOpen = true;
     }
 
+
     public function closeModal()
     {
         $this->isOpen = false;
+        $this->isEditOpen = false;
     }
 
     private function resetInputFields()
@@ -92,12 +94,10 @@ class QuestionSubCategoryList extends Component
     public function edit($id)
     {
         $category = QuestionSubCategory::findOrFail($id);
+        $this->selectCategory = $category->category_id;
         $this->category_id = $id;
-        $this->name  = $category->name;
-        $this->is_sub_category  = $category->has_sub_category;
-        $this->table_name = $category->table_name;
-
-        $this->openModal();
+        $this->sub_category_name  = $category->name;
+        $this->isEditOpen = true;
     }
 
     public function update()
@@ -105,16 +105,15 @@ class QuestionSubCategoryList extends Component
         $agent = QuestionSubCategory::findOrFail($this->category_id);
 
         $this->validate([
-            'name' => ['required', 'string', 'max:255'],
+            'sub_category_name' => ['required', 'string', 'max:255'],
         ]);
         DB::beginTransaction();
         try {
             //code...
 
             $agent->update([
-                'name' => $this->name,
-                'has_sub_category' => $this->is_sub_category,
-                'table_name' => $this->table_name,
+                'name' => $this->sub_category_name,
+                'category_id ' => $this->selectCategory,
             ]);
             session()->flash(
                 'message',
@@ -133,7 +132,13 @@ class QuestionSubCategoryList extends Component
         }
     }
 
-    public function delete($id)
+
+    public function confirmDelete($id)
+    {
+        $this->confirming = $id;
+    }
+
+    public function kill($id)
     {
         $category = QuestionSubCategory::findOrFail($id);
         $category->delete();

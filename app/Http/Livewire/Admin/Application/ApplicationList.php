@@ -16,7 +16,7 @@ class ApplicationList extends Component
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
     public $searchItem, $universities, $universityId, $students, $studentId, $pay_status;
-    public $applications;
+    public $applications, $label;
 
     public function render()
     {

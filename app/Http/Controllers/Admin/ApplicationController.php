@@ -15,22 +15,22 @@ class ApplicationController extends Controller
 {
     public function index()
     {
-        return view('admin.application.list');
+        return view('admin.application.list',['label'=>'All Applications']);
     }
 
     public function newApplication()
     {
-        return view('admin.application.list', ['status' => 0]);
+        return view('admin.application.list', ['status' => 0, 'label'=>'New Applications']);
     }
 
     public function acceptedApplication()
     {
-        return view('admin.application.list', ['status' => 1]);
+        return view('admin.application.list', ['status' => 1 , 'label'=>'Accepted Applications']);
     }
 
     public function rejectedApplication()
     {
-        return view('admin.application.list', ['status' => 3]);
+        return view('admin.application.list', ['status' => 3, 'label'=>'Rejected Applications']);
     }
 
     public function show($id)

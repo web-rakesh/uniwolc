@@ -43,7 +43,15 @@
                             <td class="py-1">
                                 {{ $loop->iteration }}
                             </td>
-                            <td> {{ $item->title }} </td>
+                            <td>
+                                    @if (action_permission('news', 'update') == true)
+                                    <a href="{{ route('admin.news.edit', $item->id) }}"
+                                 >{{ $item->title }}</a>
+                                 @else
+                                    {{ $item->title }}
+                                @endif
+
+                            </td>
                             <td> {{ $item->sub_title }} </td>
                             <td> {{ date('M d, Y', strtotime($item->created_at)) }} </td>
                             <td>

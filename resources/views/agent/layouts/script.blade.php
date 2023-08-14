@@ -69,7 +69,21 @@
   </script>
   <script>
       $(document).ready(function() {
-          $('#example').DataTable();
+          //   $('#example').DataTable();
+          //   $('#basicModal').modal('show');
+
+          var agent_verify = "{{ agent_verify() }}";
+          if (agent_verify == 0) {
+              $("#basicModal").modal({
+                  show: true,
+                  backdrop: 'static'
+              });
+          }
+          //   $("#basicModal").modal({
+          //       show: true,
+          //       backdrop: 'static'
+          //   });
+
       });
   </script>
   <!-- Modal Video End -->

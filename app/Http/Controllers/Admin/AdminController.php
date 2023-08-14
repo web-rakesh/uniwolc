@@ -73,12 +73,15 @@ class AdminController extends Controller
     }
 
 
-    public function student_single_profile($studentid)
+    public function student_single_profile($studentId)
     {
 
-        $profile = StudentDetail::where('id', $studentid)->get()->first();
+        $profile = StudentDetail::where('id', $studentId)->get()->first();
 
-        return view('admin.student-profile', compact('profile'));
+        $allApplyProgram = ApplyProgram::whereUserId($profile->user_id)->latest()->get();
+        $blockProgram = ApplyProgram::whereUserId($profile->user_id)->whereProgramStatus(3)->latest()->get();
+
+        return view('admin.student-profile', compact('profile', 'allApplyProgram', 'blockProgram'));
     }
 
     public function universityList()
@@ -183,13 +186,14 @@ class AdminController extends Controller
     public function agentStore(Request $request)
     {
         // return $request->all();
+        // return get_agent_unique_id((int)$request->country);
         $request->validate([
             'name' => 'required|max:255',
             'email' => 'required|max:255',
         ]);
         try {
             //code...
-
+            $request['agent_id'] = get_agent_unique_id((int)$request->country);
             // return $request->all();
             DB::beginTransaction();
 
@@ -220,13 +224,12 @@ class AdminController extends Controller
 
     public function agent_profile($id)
     {
-
-        $profile = User::where('id', $id)->where('type', 1)->get()->first();
-
+        // $profile = User::where('id', $id)->where('type', 1)->first();
+        $agentProfile = AgentProfile::where('user_id', $id)->first();
         $students = StudentDetail::where('agent_id', $id)->get();
         $staffs = Staff::where('agent_id', $id)->get();
 
-        return view('admin.agent-profile', compact('profile', 'students', 'staffs'));
+        return view('admin.agent-profile', compact('agentProfile', 'students', 'staffs'));
     }
 
     public function staffList()

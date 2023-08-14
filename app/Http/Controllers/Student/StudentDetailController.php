@@ -271,7 +271,7 @@ class StudentDetailController extends Controller
             }
             // return $request->all();
             // exit;
-
+            $request['get_student_id'] = get_student_id($userId);
             StudentDetail::updateOrCreate(
                 [
                     'user_id' => $userId,

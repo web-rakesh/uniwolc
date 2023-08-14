@@ -33,6 +33,12 @@
                                   Question Sub Category </a>
                           </li>
 
+                          <li class="nav-item">
+                              <a class="nav-link {{ Request::is('admin/student/question-screen') ? 'active' : '' }}"
+                                  href="{{ route('admin.question.screen') }}">
+                                  Question Screen </a>
+                          </li>
+
                       </ul>
                   </div>
               </li>
@@ -46,9 +52,9 @@
               </li>
           @endif
           @if (menu_permission('staff'))
-              <li class="nav-item {{ Request::is('admin/staff') ? 'active' : '' }}">
+              <li class="nav-item {{ Request::is('admin/staff') || Request::is('admin/staff/*') ? 'active' : '' }}">
                   <a class="nav-link" href="{{ route('admin.staff') }}">
-                      <span class="menu-title">Staff</span>
+                      <span class="menu-title">Agents Staff</span>
                       <i class="mdi  mdi-account-multiple menu-icon"></i>
                   </a>
               </li>
@@ -243,7 +249,7 @@
           @if (auth()->guard('admin')->user()->is_admin == 1)
               <li class="nav-item {{ Request::is('admin/manage-sub-admin/*') ? 'active' : '' }}">
                   <a class="nav-link" href="{{ route('admin.manage-sub-admin.index') }}">
-                      <span class="menu-title">Manage Sub Admin</span>
+                      <span class="menu-title">Uniwolc Staff</span>
                       <i class="mdi  mdi-school menu-icon"></i>
                   </a>
               </li>

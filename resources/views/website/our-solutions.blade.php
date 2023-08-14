@@ -79,14 +79,14 @@
     </section>
     <!-- New Programs to Help You Along Your Journey End -->
 
-    <!-- Additional Programs from ApplyBoard -->
+    <!-- Additional Programs from Uniwolc -->
     <section class="sub-new-awolc-bg">
         <div class="container">
             <div class="row">
 
                 <div class="col-lg-12">
                     <div class="sub-uniwolc-title sub-choose-tt-pd">
-                        <h2>Additional Programs from ApplyBoard</h2>
+                        <h2>Additional Programs from Uniwolc</h2>
                     </div>
                 </div>
 
@@ -105,5 +105,5 @@
             </div>
         </div>
     </section>
-    <!-- Additional Programs from ApplyBoard End -->
+    <!-- Additional Programs from Uniwolc End -->
 @endsection

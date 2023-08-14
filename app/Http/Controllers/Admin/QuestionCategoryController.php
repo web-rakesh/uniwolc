@@ -16,4 +16,8 @@ class QuestionCategoryController extends Controller
     {
         return view('admin.questionCategory.questionSubCategoryList');
     }
+
+    public function questionScreen(){
+        return view('admin.questionCategory.questionScreen');
+    }
 }

@@ -24,6 +24,7 @@ use App\Http\Controllers\Student\StudentDetailController;
 use App\Http\Controllers\Admin\QuestionCategoryController;
 use App\Http\Controllers\Admin\UniversityCourseController;
 use App\Http\Controllers\Student\EducationSummaryController;
+use App\Http\Controllers\Student\StudentDashboardController;
 use App\Http\Controllers\University\ProfileDetailController;
 use App\Http\Controllers\University\ApplicantRequirementController;
 
@@ -145,9 +146,15 @@ Route::middleware([
 
         Route::middleware(['auth', 'profile.updated'])->group(function () {
 
-            Route::get('/dashboard', function () {
-                return view('students.home');
-            })->name('dashboard');
+            // Route::get('/dashboard', function () {
+            //     return view('students.home');
+            // })->name('dashboard');
+
+            Route::controller(StudentDashboardController::class)
+                ->prefix('dashboard')
+                ->group(function () {
+                    Route::get('/', 'index')->name('dashboard');
+                });
 
             Route::resource('question', QuestionController::class);
 
@@ -341,6 +348,7 @@ Route::group(
         // admin can able to dynamic question category
         Route::get('/student/question-category', [QuestionCategoryController::class, 'questionCategoryList'])->name('question.category');
         Route::get('/student/question-sub-category', [QuestionCategoryController::class, 'questionSubCategoryList'])->name('question.sub.category');
+        Route::get('/student/question-screen',[QuestionCategoryController::class, 'questionScreen'])->name('question.screen');
 
         // admin see all the application
         Route::controller(ApplicationController::class)

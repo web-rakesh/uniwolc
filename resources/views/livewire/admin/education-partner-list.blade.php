@@ -26,7 +26,15 @@
                                 <td class="py-1">
                                     {{ $loop->iteration }}
                                 </td>
-                                <td> {{ $partner->school_name }} </td>
+                                <td>
+                                    @if (action_permission('partner', 'view') == true)
+                                        <a
+                                            href="{{ route('admin.education.partner.details', $partner->id) }}">{{ $partner->school_name }}</a>
+                                    @else
+                                        {{ $partner->school_name }}
+                                    @endif
+
+                                </td>
                                 <td> {{ $partner->name }} </td>
                                 <td> {{ $partner->email }} </td>
                                 <td> {{ $partner->getCountry->name }} </td>

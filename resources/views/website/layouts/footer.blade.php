@@ -7,7 +7,8 @@
                 <div class="sub-footer-logo">
                     <a href="{{ route('landing') }}"><img src="assets/images/footer-logo.png" alt="" /></a>
                     <div class="footer-address-text">
-                        <p>101 Frederick St,<br /> Kitchener,<br /> ON N2H 6R3</p>
+                        <p>166 Geary St,<br /> 15th Floor, <br /> 94 San Francisco,<br /> CA 94108</p>
+                        {{-- <p>101 Frederick St,<br /> Kitchener,<br /> ON N2H 6R3</p> --}}
                     </div>
                 </div>
             </div>

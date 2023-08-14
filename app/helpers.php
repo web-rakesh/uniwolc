@@ -1,12 +1,15 @@
 <?php
 
+use App\Models\State;
 use App\Models\Country;
 use Illuminate\Support\Str;
+use App\Models\AgentProfile;
 use App\Models\GeneralSetting;
 use App\Models\ManageSubAdmin;
 use App\Models\University\Program;
 use Illuminate\Support\Facades\DB;
 use App\Models\Student\ApplyProgram;
+use App\Models\Student\StudentDetail;
 use App\Models\Student\ApplicantUploadDocument;
 
 if (!function_exists('show_route')) {
@@ -131,21 +134,87 @@ if (!function_exists('get_currency')) {
     }
 }
 
+if (!function_exists('get_currency_code')) {
+    function get_currency_code($id = 101)
+    {
+        // return $id;
+        $country =  Country::where('id', $id)->first();
+        return $country->code;
+    }
+}
+
 if (!function_exists('get_country')) {
     function get_country($id = 101)
     {
         $country =  Country::where('id', $id)->first();
-        if($country){
+        if ($country) {
             return $country->name;
         }
     }
 }
 
-if (!function_exists('get_agent_id')){
-    function get_agent_id($id){
+if (!function_exists('get_state')) {
+    function get_state($id = 101)
+    {
+        $state =  State::where('id', $id)->first();
+        if ($state) {
+            return $state->name;
+        }
+    }
+}
+
+if (!function_exists('get_agent_unique_id')) {
+    function get_agent_unique_id($id)
+    {
+        // return $id;
+        $countryCode = get_currency_code($id);
+        $agent = AgentProfile::latest()->first();
+        if ($agent->count() == 0) {
+            return 'UW' . $countryCode . '10000';
+        } else {
+
+            return 'UW' . $countryCode . ($agent->id + 1) . '0000';
+        }
+        return null;
+    }
+}
+
+if (!function_exists('get_agent_id')) {
+    function get_agent_id($id)
+    {
         $agent = \App\Models\Staff::where('user_id', $id)->first();
-        if($agent){
+        if ($agent) {
             return $agent->agent_id;
+        }
+        return null;
+    }
+}
+
+if (!function_exists('get_student_id')) {
+    function get_student_id($id)
+    {
+        $student = StudentDetail::whereUserId($id)->latest()->first();
+        if ($student) {
+            return $student->student_id;
+        } else {
+            $student = StudentDetail::latest()->first();
+            if (!empty($student)) {
+                return $student->student_id + 1;
+            } else {
+                return 100000;
+            }
+        }
+
+        return null;
+    }
+}
+
+if (!function_exists('agent_verify')) {
+    function agent_verify()
+    {
+        $agent = AgentProfile::where('user_id', auth()->user()->id)->first();
+        if ($agent) {
+            return $agent->is_verify;
         }
         return null;
     }

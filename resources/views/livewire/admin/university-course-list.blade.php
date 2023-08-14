@@ -51,7 +51,14 @@
                                 <td class="py-1">
                                     {{ $loop->iteration }}
                                 </td>
-                                <td> {{ $course->program_title }} </td>
+                                <td>
+                                    @if (action_permission('program', 'view') == true || action_permission('program', 'update') == true)
+                                        <a
+                                            href="{{ route('admin.university.course.edit', $course->id) }}">{{ $course->program_title }}</a>
+                                    @else
+                                        {{ $course->program_title }}
+                                    @endif
+                                </td>
                                 <td> {{ $course->getUniversity[0]->university_name }} </td>
                                 <td> {{ date('M d, Y', strtotime($course->deadline)) }} </td>
                                 <td> {{ date('M d, Y', strtotime($course->created_at)) }} </td>

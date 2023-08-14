@@ -8,6 +8,7 @@ use App\Models\GradingScheme;
 use App\Models\EducationLevel;
 use App\Models\Student\VisaPermit;
 use App\Http\Controllers\Controller;
+use App\Models\Student\ApplyProgram;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Student\StudentDetail;
 use App\Models\Student\EducationSummary;
@@ -16,7 +17,11 @@ class AgentController extends Controller
 {
     public function index()
     {
-        return view('agent.dashboard');
+        $data['totalStudent'] = StudentDetail::where('agent_id', Auth::user()->id)->count();
+        $data['applications'] = ApplyProgram::where('agent_id', Auth::user()->id)->count();
+        $data['acceptedApplications'] = ApplyProgram::where('agent_id', Auth::user()->id)->where('status', 1)->count();
+        $data['rejectedApplications'] = ApplyProgram::where('agent_id', Auth::user()->id)->where('status', 3)->count();
+        return view('agent.dashboard', compact('data'));
     }
 
     public function staff()

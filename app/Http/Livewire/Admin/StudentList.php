@@ -21,6 +21,7 @@ class StudentList extends Component
             ->when($this->search, function ($query, $search) {
                 $query->where('email', 'LIKE', "%{$search}%");
             })
+            ->latest()
             ->paginate(10);
         // dd($students);
         return view('livewire.admin.student-list', ['students' => $students]);

@@ -28,15 +28,22 @@
                         @forelse ($agents ?? [] as $agent)
                             <tr>
                                 <td class="py-1">
-                                    {{ $loop->iteration }}
+                                    {{ $agent->agent_id }}
                                 </td>
-                                <td> {{ $agent->name }} </td>
+                                <td>
+                                    @if (action_permission('agent', 'view') == true)
+                                        <a
+                                            href="{{ route('admin.agent.profile', $agent->user_id) }}">{{ $agent->name }}</a>
+                                    @else
+                                        {{ $agent->name }}
+                                    @endif
+                                </td>
                                 <td> {{ $agent->email }} </td>
                                 <td> {{ get_country($agent->country) }} </td>
                                 <td> {{ date('M d, Y', strtotime($agent->created_at)) }} </td>
                                 <td>
                                     @if (action_permission('agent', 'view') == true)
-                                        <a href="{{ route('admin.agent.profile', $agent->id) }}"
+                                        <a href="{{ route('admin.agent.profile', $agent->user_id) }}"
                                             class="btn btn-info btn-sm">View</a>
                                     @endif
                                     @if (action_permission('agent', 'delete') == true)

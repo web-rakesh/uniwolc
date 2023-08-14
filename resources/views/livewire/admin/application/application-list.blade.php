@@ -3,7 +3,7 @@
     <div class="col-lg-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Manage Application </h4>
+                <h4 class="card-title">{{ $label }} </h4>
                 <button type="button" wire:click="applyProgramExport" class="btn btn-primary btn-sm float-right mb-2">
                     Export
                 </button>
@@ -48,7 +48,7 @@
                                 <th> University </th>
                                 <th> Student </th>
                                 <th> Agent </th>
-                                <th> Commition </th>
+                                <th> Commission </th>
                                 <th> Payment </th>
                                 <th> Created_at </th>
                                 <th> </th>

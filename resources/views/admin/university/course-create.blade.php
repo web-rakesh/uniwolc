@@ -17,14 +17,14 @@
             <div class="col-12 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title mb-4">University Course Form elements </h4>
+                        <h4 class="card-title mb-4">Add Programs </h4>
                         {{-- <p class="card-description"> Basic form elements </p> --}}
                         <form class="forms-sample" method="post" action="{{ route('admin.university.course.store') }}"
                             enctype="multipart/form-data">
                             @csrf
 
                             <div class="form-group">
-                                <select class="form-control" name="university_id" required>
+                                <select class="form-select" name="university_id" required>
                                     <option value="">Select University</option>
                                     @foreach ($universities as $university)
                                         <option value="{{ $university->user_id }}"> {{ $university->university_name }}

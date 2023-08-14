@@ -32,7 +32,14 @@
                                 <td class="py-1">
                                     {{ $loop->iteration }}
                                 </td>
-                                <td> {{ $staff->name }} </td>
+                                <td>
+                                    @if (action_permission('staff', 'view') == true)
+                                        <a href="{{route('admin.staff.profile', $staff->id)}}">{{ $staff->name }}</a>
+                                        @else
+                                        {{ $staff->name }}
+                                    @endif
+
+                                </td>
                                 <td> {{ $staff->email }} </td>
                                 <td> {{ $staff->country }} </td>
                                 <td> {{ date('M d, Y', strtotime($staff->created_at)) }} </td>

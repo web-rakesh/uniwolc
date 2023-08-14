@@ -22,7 +22,10 @@ class AgentList extends Component
         $agents = AgentProfile::query()
             ->when($this->searchItem, function ($query, $search) {
                 $query->where('email', 'LIKE', "%{$search}%");
+                $query->orWhere('name', 'LIKE', "%{$search}%");
+                $query->orWhere('agent_id', 'LIKE', "%{$search}%");
             })
+            ->latest()
             ->paginate(10);
 
         return view('livewire.admin.agent-list', ['agents' => $agents]);

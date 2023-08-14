@@ -41,7 +41,15 @@
                                     <td class="py-1">
                                         {{ $loop->iteration }}
                                     </td>
-                                    <td> {{ $item->university_name }} </td>
+                                    <td>
+                                        @if (action_permission('university', 'view') == true)
+                                            <a href="{{ route('admin.university.create', $item->id) }}"
+                                               >{{ $item->university_name }}</a>
+                                        @else
+                                            {{ $item->university_name }}
+                                        @endif
+
+                                    </td>
                                     <td> {{ $item->email }} </td>
                                     <td> {{ $item->getCountry->name ?? '--' }} </td>
                                     <td> {{ $item->blocked_country != '' ? implode(',', get_blocked_country($item->blocked_country)) : '--' }}

@@ -40,7 +40,14 @@
                             <td class="py-1">
                                 {{ $loop->iteration }}
                             </td>
-                            <td> {{ $blog->title }} </td>
+                            <td>
+                                @if (action_permission('blog', 'add') == true)
+                                    <a href="{{ route('admin.blog.edit', $blog->id) }}">{{ $blog->title }}</a>
+                                @else
+                                    {{ $blog->title }}
+                                @endif
+
+                            </td>
                             <td> {{ $blog->sub_title }} </td>
                             <td> {{ date('M d, Y', strtotime($blog->created_at)) }} </td>
                             <td>

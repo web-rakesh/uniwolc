@@ -31,13 +31,22 @@
                                 <td class="py-1">
                                     {{ $loop->iteration }}
                                 </td>
-                                <td> {{ $student->full_name }} </td>
+                                <td>
+                                    @if (action_permission('student', 'view') == true)
+                                        <a
+                                            href="{{ route('admin.student.profile', $student->id) }}">{{ $student->full_name }}</a>
+                                    @else
+                                        {{ $student->full_name }}
+                                    @endif
+
+                                </td>
                                 <td> {{ $student->email }} </td>
                                 <td> {{ $student->userCountry->name ?? '' }} </td>
                                 <td> {{ date('M d, Y', strtotime($student->created_at)) }} </td>
                                 <td>
                                     @if (action_permission('student', 'view') == true)
-                                        <a href="{{ route('admin.student.profile', $student->id) }}" class="btn btn-info btn-sm">View</a>
+                                        <a href="{{ route('admin.student.profile', $student->id) }}"
+                                            class="btn btn-info btn-sm">View</a>
                                     @endif
                                 </td>
                             </tr>

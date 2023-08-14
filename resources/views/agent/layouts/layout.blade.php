@@ -25,7 +25,7 @@
     </div>
     <!-- Application Process End -->
 
-
+    @include('agent.layouts.modal')
     @include('agent.layouts.script')
 
     @stack('js')

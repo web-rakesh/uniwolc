@@ -2,7 +2,7 @@
     {{-- Nothing in the world is as soft and yielding as water. --}}
     <div class="dashboardInnerWrapperinner py-2">
         <div class="dashboardHeaderSec">
-            <h4 class="title">Staffs</h4>
+            <h4 class="title">Students</h4>
         </div>
         <div class="dashboardPanel">
             <div class="dashboardPanelBody">

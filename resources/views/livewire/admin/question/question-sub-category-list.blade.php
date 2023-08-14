@@ -1,12 +1,13 @@
 <div>
     @include('livewire.admin.question.sub-category-model')
+    @include('livewire.admin.question.sub-category-edit-model')
 
     <div class="col-lg-12 grid-margin stretch-card">
 
         <div class="card">
             <div class="card-body">
                 <div class="d-flex justify-content-between">
-                    <h4 class="card-title">Question Category Table</h4>
+                    <h4 class="card-title">Question Sub Categories</h4>
                     <a href="javascript:;" wire:click="create" class="btn btn-primary">Add Sub
                         Category</a>
                 </div>
@@ -28,12 +29,23 @@
                         @forelse ($subCategory ?? [] as $key => $categorie)
                             <tr>
                                 <td class="py-1">
-                                    {{ $key + 1 }}
+                                    {{ $loop->iteration }}
                                 </td>
                                 <td> {{ $categorie->name }} </td>
                                 <td> {{ $categorie->category->name }} </td>
                                 <td> {{ date('M d, Y', strtotime($categorie->created_at)) }} </td>
-                                <td> <a href="javascript:;" class="btn btn-info btn-sm">View</a> </td>
+                                <td>
+                                    <a href="javascript:;" wire:click="edit({{ $categorie->id }})"
+                                        class="btn btn-info btn-sm">Edit</a>
+
+                                    @if ($confirming === $categorie->id)
+                                        <button wire:click="kill({{ $categorie->id }})"
+                                            class="btn btn-danger btn-sm">Sure?</button>
+                                    @else
+                                        <button wire:click="confirmDelete({{ $categorie->id }})"
+                                            class="btn btn-danger btn-sm">Delete</button>
+                                    @endif
+                                </td>
                             </tr>
                         @empty
                             <tr>

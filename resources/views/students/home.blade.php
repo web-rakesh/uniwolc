@@ -7,7 +7,9 @@
                     <img src="{{ asset('/') }}assets/images/map.png" class="img-fluid" alt="">
                 </div>
                 <div class="content">
-                    <h3 class="title mb-0">My Progress</h3>
+                    <h3 class="title mb-0">{{ $studentDetails->full_name }}</h3>
+                    <span class="text-danger">Uniwolc ID : {{ $studentDetails->student_id }}</span>
+                    {{-- <h3 class="title mb-0">My Progress</h3> --}}
                 </div>
 
             </div>
