@@ -14448,3 +14448,135 @@ dl {
   flex-grow: 1; }
 
 /*# sourceMappingURL=style.css.map */
+
+.form-check{}
+.form-switch .form-check-input{
+    display: inline-block;
+    width: 100%;
+    margin-left: 0;
+    height: 20px;
+        margin-top:0px;
+}
+.customeFormCheck{}
+.content-block-secinner .card{border-radius: 15px;box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.2);}
+.card .card-body { padding: 25px 25px;}
+.content-wrapper{padding:30px 30px;}
+.content-wrapper .content-wrapper{padding:0px;}
+.page-header { margin: 0;}
+.page-header .page-title{margin-bottom:15px;}
+.sectionHeadingTitle{
+	font-size:22px;
+}
+.copyToClipBoard{
+     background-color: transparent;
+    border: 0;
+    font-size: 20px;
+}
+
+@media only screen and (max-width: 992px){
+
+.responsive_table_area{
+	overflow-y: inherit;
+    overflow-x: inherit;
+}
+.responsive_table_area .dataTables_length{
+	width: 100%;
+    padding: 10px;
+}
+div.responsive_table_area>div.dataTables_wrapper>div.row>div[class^="col-"]:last-child {
+    padding-right: 0;
+    padding-left: 0px;
+}
+
+.responsive_table_area .dataTables_filter{
+	float: left;
+    padding: 0 10px;
+	width:100%;
+}
+div.responsive_table_area div.dataTables_filter label {
+    display: flex;
+}
+div.responsive_table_area div.dataTables_filter input {
+    width: 100% !important;
+}
+.responsive_table_area table {
+    border-spacing: 0;
+    width: 100%;
+    border-collapse: collapse;
+	border: 1px solid #dee2e6 !important;
+}
+.responsive_table_area table thead {
+    border-bottom: 2px solid;
+    border-bottom-color: #ebebeb;
+}
+.responsive_table_area table thead {
+    display: none;
+}
+
+.responsive_table_area table .table_item {
+    margin-bottom: 0em;
+    border-bottom: 5px solid;
+    border-bottom-color: #ebebeb;
+	padding-left: 0px;
+    position: relative;
+    display: block;
+	background-color: transparent;
+}
+.responsive_table_area table tr.odd td.dataTables_empty{
+	text-align: center !important;
+}
+.responsive_table_area table tr td {
+	text-align: right;
+    padding-bottom: 10px;
+    padding-top: 10px;
+	border-color: #ebebeb !important;
+    display: block;
+    clear: both;
+	text-align: right;
+	font-size: 12px;
+	line-height:17px;
+	/*min-height:30px;*/
+	border-radius: 0px;
+	white-space: inherit !important;
+	min-height: 36px;
+}
+
+.responsive_table_area table tr td.Name[data-title]{
+	color: #014c8c;
+}
+.responsive_table_area table tr td.product-thumbnail img{
+	border: 2px solid #ddd;
+    padding: 2px;
+    width: 60px !important;
+}
+.responsive_table_area table tr td.product-thumbnail2 img{
+	border: 2px solid #ddd;
+    padding: 2px;
+    width: 120px !important;
+}
+.responsive_table_area table tr td[data-title]::before {
+    content: attr(data-title) ": ";
+    font-weight: 600;
+    float: left;
+	font-size: 11px;
+    /*text-transform: uppercase;*/
+    color: #000000;
+    margin-bottom: 5px;
+	font-family: 'Poppins', sans-serif;
+}
+
+.responsive_table_area table tr td:not(:last-child) {
+    border-style: solid;
+    border-width: 0 0 1px 0;
+}
+
+}
+
+
+@media only screen and (max-width: 575px){
+
+.content-wrapper{padding:20px 20px;}
+.content-wrapper .content-wrapper{padding:0px;}
+.card .card-body{padding:20px 20px;}
+
+}

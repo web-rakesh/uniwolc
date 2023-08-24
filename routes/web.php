@@ -14,6 +14,7 @@ use App\Http\Controllers\Student\PaymentController;
 use App\Http\Controllers\Website\WebsiteController;
 use App\Http\Controllers\Student\QuestionController;
 use App\Http\Controllers\Admin\ApplicationController;
+use App\Http\Controllers\Admin\TestimonialController;
 use App\Http\Controllers\Student\TestScoreController;
 use App\Http\Controllers\Student\VisaPermitController;
 use App\Http\Controllers\University\ProgramController;
@@ -26,6 +27,7 @@ use App\Http\Controllers\Admin\UniversityCourseController;
 use App\Http\Controllers\Student\EducationSummaryController;
 use App\Http\Controllers\Student\StudentDashboardController;
 use App\Http\Controllers\University\ProfileDetailController;
+use App\Http\Controllers\Agent\AgentProfileDetailsController;
 use App\Http\Controllers\University\ApplicantRequirementController;
 
 
@@ -57,9 +59,6 @@ Route::get('/register', function () {
 Route::get('/students', function () {
     return view('website.students');
 })->name('students');
-Route::get('/recruiters-partners', function () {
-    return view('website.recruiters');
-})->name('recruiters');
 
 Route::get('/our-solutions', function () {
     return view('website.our-solutions');
@@ -100,6 +99,7 @@ Route::get('/trends-report', function () {
 Route::controller(WebsiteController::class)
     ->group(function () {
         Route::get('/', [WebsiteController::class, 'index'])->name('landing');
+        Route::get('/recruiters-partners', [WebsiteController::class, 'recruitersPartner'])->name('recruiters');
         Route::get('/about', [WebsiteController::class, 'about'])->name('about');
         Route::get('/contact', [WebsiteController::class, 'contact'])->name('contact');
         Route::get('/services', [WebsiteController::class, 'services'])->name('services');
@@ -113,22 +113,40 @@ Route::controller(WebsiteController::class)
 // --- login with facebook
 
 Route::get('auth/facebook', [SocialController::class, 'facebookRedirect']);
-Route::get('auth/facebook/callback', [SocialController::class, 'loginWithFacebook']);
+Route::get('callback/facebook', [SocialController::class, 'loginWithFacebook']);
 Route::get('auth/google', [SocialController::class, 'signInwithGoogle']);
 Route::get('callback/google', [SocialController::class, 'callbackToGoogle']);
+
+
+Route::get('/term-conditions', function () {
+    return view('website.term-conditions');
+})->name('term.conditions');
+Route::get('/privacy-policy', function () {
+    return view('website.privacy-policy');
+})->name('privacy.policy');
 
 
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
-    'verified'
+    'verified',
+    'prevent-back-history'
 ])->group(function () {
 
 
     // global routes
 
     Route::get('/school-detail/{slug}', [ApplyProgramController::class, 'schoolDetails'])->name('school.detail');
+    Route::post('/application/academic-session', [ApplyProgramController::class, 'applicationAcademicSession'])->name('application.academic.session');
 
+    Route::post('/application/record-note', [ApplyProgramController::class, 'applicationRecordNote'])->name('application.record.note');
+    Route::post('/application/program-backup', [ApplyProgramController::class, 'applicationProgramBackup'])->name('application.program.backup');
+
+    Route::post('/application/program-backup-store', [ApplyProgramController::class, 'applicationProgramBackupStore'])->name('application.program.backup.store');
+
+    // fetch country state and city
+    Route::get('/currency/get', [AdminController::class, 'getCurrency'])->name('currency');
+    Route::post('/fetch-cities', [AdminController::class, 'getCity'])->name('cities');
 
 
     // student routes
@@ -165,15 +183,12 @@ Route::middleware([
 
             Route::get('/program-apply/{program}', [StudentDetailController::class, 'programApply'])->name('program.apply');
 
-            Route::get('/program-apply/{program}', [StudentDetailController::class, 'programApply'])->name('program.apply');
-
             Route::get('/school-detail/{slug}', [ApplyProgramController::class, 'schoolDetails'])->name('school.detail');
 
             Route::get('/application-fillup/{application}', [ApplyProgramController::class, 'applicationFillup'])->name('application.fillup');
 
-            Route::post('/application/program-backup', [ApplyProgramController::class, 'applicationProgramBackup'])->name('application.program.backup');
 
-            Route::post('/application/program-backup-store', [ApplyProgramController::class, 'applicationProgramBackupStore'])->name('application.program.backup.store');
+
 
             Route::post('/applicant-document-upload', [ApplyProgramController::class, 'applicantDocumentUpload'])->name('applicant.document.upload');
 
@@ -236,10 +251,24 @@ Route::middleware([
         Route::get('/payment', [PaymentController::class, 'payment'])->name('payment');
         Route::post('/payment-process', [PaymentController::class, 'processPayment'])->name('payment.process');
         Route::get('/payment-success', [PaymentController::class, 'paymentSuccess'])->name('payment.success');
+
+        // profile routes
+        Route::post('/get-states-by-country', [AgentProfileDetailsController::class, 'getState']);
+        Route::get('/general-details', [AgentProfileDetailsController::class, 'generalDetails'])->name('general.details');
+        Route::post('/general-details', [AgentProfileDetailsController::class, 'generalDetailsStore'])->name('general.details.store');
+        Route::get('/bank/details', [AgentProfileDetailsController::class, 'bankDetails'])->name('bank.details');
+        Route::post('/bank/details.store', [AgentProfileDetailsController::class, 'bankDetailsStore'])->name('bank.details.store');
+        Route::get('/school-commission', [AgentProfileDetailsController::class, 'schoolCommission'])->name('school.commission');
+        Route::get('/commission-policy', [AgentProfileDetailsController::class, 'commissionPolicy'])->name('commission.policy');
+        Route::get('/manage-staff', [AgentProfileDetailsController::class, 'manageStaff'])->name('manage.staff');
+
+        // payment history
+
+        Route::get('payment-history', [AgentController::class, 'paymentHistory'])->name('payment.history');
     });
     // end agent routes
 
-    // agent university
+    //  university
     Route::group(['prefix' => 'university', 'middleware' => ['auth', 'user-access:university'], 'as' => 'university.'], function () {
 
         Route::controller(DashboardController::class)
@@ -268,13 +297,15 @@ Route::middleware([
             return view('university.my-application');
         })->name('application');
     });
-    // agent university
+    //  university
 
-    // agent staff
+    //  staff
     Route::group(['prefix' => 'staff', 'middleware' => ['auth', 'user-access:staff'], 'as' => 'staff.'], function () {
 
         Route::get('/dashboard', [StaffController::class, 'index'])->name('dashboard');
         Route::get('/student', [StaffController::class, 'student'])->name('student');
+        Route::get('/profile', [StaffController::class, 'profile'])->name('profile');
+        Route::post('/profile-update', [StaffController::class, 'profileUpdate'])->name('profile.update');
 
         Route::get('/student/general-details/{user_id?}', [StaffController::class, 'studentGeneralDetails'])->name('student.general.detail');
         Route::resource('student-general-detail', StudentDetailController::class);
@@ -299,17 +330,21 @@ Route::middleware([
         Route::get('/payment', [PaymentController::class, 'payment'])->name('payment');
         Route::post('/payment-process', [PaymentController::class, 'processPayment'])->name('payment.process');
         Route::get('/payment-success', [PaymentController::class, 'paymentSuccess'])->name('payment.success');
+
+        Route::get('/payment/list', [StaffController::class, 'paymentList'])->name('payment.list');
     });
-    // agent staff application
+    //  staff application
 });
 
+// Admin Routes
 Route::post('admin/login', [AdminAuthController::class, 'login'])->name('adminLogin');
 Route::get('admin/login', [AdminAuthController::class, 'index'])->name('admin.login');
-
 
 Route::group(
     ['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth:admin']],
     function () {
+
+
 
         Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
 
@@ -322,6 +357,7 @@ Route::group(
         Route::get('/university/create/{id?}', [AdminController::class, 'universityCreate'])->name('university.create');
         Route::post('/university/store', [AdminController::class, 'universityStore'])->name('university.store');
         Route::get('/currency/get', [AdminController::class, 'getCurrency'])->name('currency');
+        Route::post('/fetch-cities', [AdminController::class, 'getCity'])->name('cities');
 
         // admin can create university course
         Route::get('/course/create', [UniversityCourseController::class, 'universityCourseCreate'])->name('university.course.create');
@@ -348,7 +384,7 @@ Route::group(
         // admin can able to dynamic question category
         Route::get('/student/question-category', [QuestionCategoryController::class, 'questionCategoryList'])->name('question.category');
         Route::get('/student/question-sub-category', [QuestionCategoryController::class, 'questionSubCategoryList'])->name('question.sub.category');
-        Route::get('/student/question-screen',[QuestionCategoryController::class, 'questionScreen'])->name('question.screen');
+        Route::get('/student/question-screen', [QuestionCategoryController::class, 'questionScreen'])->name('question.screen');
 
         // admin see all the application
         Route::controller(ApplicationController::class)
@@ -412,6 +448,9 @@ Route::group(
                 Route::post('/update/{id}', 'update')->name('update');
                 Route::get('/delete/{id}', 'destroy')->name('delete');
             });
+
+        // Manage Testimonial Routes
+        Route::resource('testimonial', TestimonialController::class);
 
         Route::post('/logout', [AdminAuthController::class, 'logout'])->name('logout');
     }

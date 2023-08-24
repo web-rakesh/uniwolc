@@ -1,11 +1,11 @@
 <div>
     {{-- To attain knowledge, add things every day; To attain wisdom, subtract things every day. --}}
     <div class="row">
-        <div class="col-9">
+        <div class="col-md-9 col-12 mb-2">
             <input wire:model="searchItem" type="search" class="form-control" placeholder="Search Level Name...">
         </div>
 
-        <div class="col-3">
+        <div class="col-md-3 col-12 mb-2">
             {{-- <button type="button" class="btn btn-primary btn-block" wire:click="showModal">
                 Add New
             </button> --}}
@@ -25,7 +25,7 @@
                 <strong>{{ $message }}</strong>
             </div>
         @endif
-        <div class="table-responsive">
+        <div class="table-responsive responsive_table_area">
             <table class="table table-striped">
                 <thead>
                     <tr>
@@ -39,11 +39,11 @@
                 </thead>
                 <tbody>
                     @forelse ($news ?? [] as $item)
-                        <tr>
-                            <td class="py-1">
+                        <tr class="table_item">
+                            <td data-title="#" class="py-1">
                                 {{ $loop->iteration }}
                             </td>
-                            <td>
+                            <td data-title="Title">
                                     @if (action_permission('news', 'update') == true)
                                     <a href="{{ route('admin.news.edit', $item->id) }}"
                                  >{{ $item->title }}</a>
@@ -52,9 +52,9 @@
                                 @endif
 
                             </td>
-                            <td> {{ $item->sub_title }} </td>
-                            <td> {{ date('M d, Y', strtotime($item->created_at)) }} </td>
-                            <td>
+                            <td data-title="Sub Title"> {{ $item->sub_title }} </td>
+                            <td data-title="Created_at"> {{ date('M d, Y', strtotime($item->created_at)) }} </td>
+                            <td data-title="Status">
                                 <div class="form-check form-switch justify-content-center">
                                     <input class="form-check-input" type="checkbox"
                                         wire:change="changeStatus({{ $item }},$event.target.value)"
@@ -63,7 +63,7 @@
                                 </div>
 
                             </td>
-                            <td>
+                            <td data-title="Action">
                                 @if (action_permission('news', 'update') == true)
                                     <a href="{{ route('admin.news.edit', $item->id) }}"
                                         class="btn btn-primary btn-sm">Edit</a>

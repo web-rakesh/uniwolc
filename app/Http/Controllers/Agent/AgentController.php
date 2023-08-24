@@ -6,6 +6,7 @@ use App\Models\Country;
 use Illuminate\Http\Request;
 use App\Models\GradingScheme;
 use App\Models\EducationLevel;
+use App\Models\AgentCommission;
 use App\Models\Student\VisaPermit;
 use App\Http\Controllers\Controller;
 use App\Models\Student\ApplyProgram;
@@ -19,8 +20,9 @@ class AgentController extends Controller
     {
         $data['totalStudent'] = StudentDetail::where('agent_id', Auth::user()->id)->count();
         $data['applications'] = ApplyProgram::where('agent_id', Auth::user()->id)->count();
-        $data['acceptedApplications'] = ApplyProgram::where('agent_id', Auth::user()->id)->where('status', 1)->count();
-        $data['rejectedApplications'] = ApplyProgram::where('agent_id', Auth::user()->id)->where('status', 3)->count();
+        $data['acceptedApplications'] = ApplyProgram::where('agent_id', Auth::user()->id)->where('program_status', 1)->count();
+        $data['rejectedApplications'] = ApplyProgram::where('agent_id', Auth::user()->id)->where('program_status', 3)->count();
+        $data['application_list'] = ApplyProgram::where('agent_id', Auth::user()->id)->latest()->get();
         return view('agent.dashboard', compact('data'));
     }
 
@@ -78,5 +80,12 @@ class AgentController extends Controller
     {
         $visaPermit = VisaPermit::whereUserId($user_id)->where('agent_id', Auth::user()->id)->first();
         return view('agent.students.visa-permit', compact('user_id', 'visaPermit'));
+    }
+
+
+    public function paymentHistory()
+    {
+
+        return view('agent.payment-history');
     }
 }

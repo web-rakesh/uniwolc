@@ -32,13 +32,13 @@ return [
     ],
 
     'facebook' => [
-        'client_id' => 'Facebook app id',
-        'client_secret' => 'Facebook add secret',
-        'redirect' => 'http://127.0.0.1:8000/auth/facebook/callback',
+        'client_id' => '1343339089920041',
+        'client_secret' => 'd2e0dbdf07ebcaddfe754fba68c3f7a3',
+        'redirect' => 'http://127.0.0.1:8000/callback/facebook',
     ],
     'google' => [
-        'client_id' => '509493544330-c7kjosorj0r5ukcsua8iv6e2mm475o00.apps.googleusercontent.com',
-        'client_secret' => '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',
+        'client_id' => '430438941290-ci8j8ne1h9nmnj1ifmgo49gm5mluouj8.apps.googleusercontent.com',
+        'client_secret' => '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',
         'redirect' => 'http://127.0.0.1:8000/callback/google',
     ],
 

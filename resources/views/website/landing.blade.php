@@ -23,7 +23,7 @@
                                 </div>
                             </div>
                             <div>
-                                <img src="assets/images/slider-01.png" alt="" />
+                                <img src="assets/images/slider-01.jpg" height="400" alt="" />
                             </div>
                         </div>
                     </div>
@@ -66,13 +66,13 @@
                 </div>
             </div>
             <!--<a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
-                                                          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                                          <span class="sr-only">Previous</span>
-                                                        </a>
-                                                        <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
-                                                          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                                          <span class="sr-only">Next</span>
-                                                        </a>-->
+                                                                                                                                                                                                                          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                                                                                                                                                                                                          <span class="sr-only">Previous</span>
+                                                                                                                                                                                                                        </a>
+                                                                                                                                                                                                                        <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
+                                                                                                                                                                                                                          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                                                                                                                                                                                                          <span class="sr-only">Next</span>
+                                                                                                                                                                                                                        </a>-->
         </div>
     </section>
     <!-- Header Slider End -->
@@ -84,7 +84,8 @@
 
                 <div class="col-lg-12">
                     <div class="sub-uniwolc-title">
-                        <h2>Empowering Students to Secure Admission in Premier International Institutions </h2>
+                        <h3>Empowering Students to Secure Admission in Premier International Institutions </h3>
+
                     </div>
                 </div>
 
@@ -113,19 +114,20 @@
 
                                             <div class="col-12 col-lg-4">
                                                 <div class="sub-students-box">
-                                                    <img src="assets/images/01-help-students.png" alt="" />
+                                                    <img src="assets/images/find.png" height="81" alt="" />
                                                     <h5>Find programs quickly</h5>
                                                 </div>
                                             </div>
                                             <div class="col-12 col-lg-4">
                                                 <div class="sub-students-box">
-                                                    <img src="assets/images/02-help-students.png" alt="" />
+                                                    <img src="assets/images/customer-service.png" height="81"
+                                                        alt="" />
                                                     <h5>A Supportive Team Committed to Assisting You</h5>
                                                 </div>
                                             </div>
                                             <div class="col-12 col-lg-4">
                                                 <div class="sub-students-box">
-                                                    <img src="assets/images/03-help-students.png" alt="" />
+                                                    <img src="assets/images/unlock.png" height="81" alt="" />
                                                     <h5>Unlock Access to Special Scholarships</h5>
                                                 </div>
                                             </div>
@@ -140,19 +142,22 @@
 
                                             <div class="col-12 col-lg-4">
                                                 <div class="sub-students-box">
-                                                    <img src="assets/images/01-help-students.png" alt="" />
+                                                    <img src="assets/images/easy-application.png" height="81"
+                                                        alt="" />
                                                     <h5>One Easy Application Platform</h5>
                                                 </div>
                                             </div>
                                             <div class="col-12 col-lg-4">
                                                 <div class="sub-students-box">
-                                                    <img src="assets/images/02-help-students.png" alt="" />
+                                                    <img src="assets/images/knowledge.png" height="81"
+                                                        alt="" />
                                                     <h5>Knowledgeable Support Team</h5>
                                                 </div>
                                             </div>
                                             <div class="col-12 col-lg-4">
                                                 <div class="sub-students-box">
-                                                    <img src="assets/images/03-help-students.png" alt="" />
+                                                    <img src="assets/images/data-driven.png" height="81"
+                                                        alt="" />
                                                     <h5>Data Driven Insights</h5>
                                                 </div>
                                             </div>
@@ -182,7 +187,7 @@
                     <div class="col-lg-6">
                         <div class="sub-how-img-help">
                             <a href="javascript:;" data-toggle="modal" data-target="#exampleModal"><img
-                                    src="assets/images/how-we-help.png" alt="" /></a>
+                                    src="assets/images/how-we-help.jpg" alt="" /></a>
                         </div>
                     </div>
                     <div class="col-lg-6">
@@ -209,7 +214,6 @@
                 <div class="col-lg-6">
                     <div class="sub-plat-img-support">
                         <h2>Empowering You with our Comprehensive Platform </h2>
-
                         <div class="sub-plat-support-accordion">
 
                             <div class="accordion" id="accordionExample">
@@ -260,7 +264,7 @@
                 </div>
                 <div class="col-lg-6">
                     <div class="sub-plat-img-support">
-                        <img src="assets/images/student-supports.png" alt="" />
+                        <img src="assets/images/student-supports.jpg" alt="" />
                     </div>
                 </div>
 
@@ -318,7 +322,7 @@
                     <div class="col-lg-6">
                         <div class="sub-making-edu-content">
                             <a href="javascript:;" data-toggle="modal" data-target="#exampleModal"><img
-                                    src="assets/images/making-education-01.png" alt="" /></a>
+                                    src="assets/images/our-story.jpg" alt="" /></a>
                             <p>UNIWOLC Believes That Education Should Be Accessible To All. We Delivered 1,000 Backpacks And
                                 School Supplies To Empower Children In India To Dream Big And Work Hard To Achieve Their
                                 Dreams.</p>
@@ -327,7 +331,7 @@
                     <div class="col-lg-6">
                         <div class="sub-making-edu-content">
                             <a href="javascript:;" data-toggle="modal" data-target="#exampleModal"><img
-                                    src="assets/images/making-education-02.png" alt="" /></a>
+                                    src="assets/images/our-story1.jpg" alt="" /></a>
                             <p>The STEM For Change Scholarship Seeks To Drive Diversity And Inclusion By Empowering Women
                                 Worldwide To Pursue An Education In STEM. See How We Surprised The 2021 Recipients.</p>
                         </div>
@@ -359,7 +363,7 @@
                 <div class="sub-making-education-pt-pb">
                     <div class="col-lg-4">
                         <div class="sub-get-started-text">
-                            <img src="assets/images/01-help-students.png" alt="" />
+                            <img src="assets/images/student.png" alt="" />
                             <h5>Students</h5>
                             <p>Planning to pursue your education abroad in Canada, the United States, the United Kingdom,
                                 Australia, or Ireland? Let our team of experienced professionals assist you every step of
@@ -369,7 +373,7 @@
                     </div>
                     <div class="col-lg-4">
                         <div class="sub-get-started-text">
-                            <img src="assets/images/02-help-students.png" alt="" />
+                            <img src="assets/images/education-partner.png" alt="" />
                             <h5>Education Partners</h5>
                             <p>Expand the diversity of your campus by becoming a partner institution with UniWolc. Attract
                                 highly qualified students from across the globe. Get in touch with our Partner Relations
@@ -379,12 +383,12 @@
                     </div>
                     <div class="col-lg-4">
                         <div class="sub-get-started-text sub-get-started-text-last">
-                            <img src="assets/images/03-help-students.png" alt="" />
+                            <img src="assets/images/recruitment-partnership.png" alt="" />
                             <h5>Recruitment Partners</h5>
                             <p>Are you involved in recruiting prospective students interested in studying in Canada, the
                                 United States, the United Kingdom, Australia, or Ireland? Join us as a Recruitment Partner
                                 at UniWolc and expand your reach to connect with aspiring students in these popular study
-                                    destinations.</p>
+                                destinations.</p>
                             <a href="javascript:;">Recruiter Registration</a>
                         </div>
                     </div>
@@ -413,6 +417,7 @@
                             <div role="tabpanel">
                                 <!-- Nav tabs -->
                                 <ul class="nav nav-tabs nav-justified nav-tabs-dropdown" role="tablist">
+
                                     <li role="presentation" class="active">
                                         <a href="#01Students" aria-controls="01Students" role="tab"
                                             data-toggle="tab" class="active show" aria-selected="false">Students</a>
@@ -442,74 +447,32 @@
                                                     data-duration="2000">
 
                                                     <div class="carousel-inner" role="listbox">
-                                                        <div class="carousel-item active">
-                                                            <div class="testimonial4_slide">
-                                                                <div class="col-12 col-lg-4"><img
-                                                                        src="assets/images/our-partners/01-our-partners.png"
-                                                                        class="img-circle img-responsive" /></div>
-                                                                <div class="col-lg-8">
-                                                                    <h4>Students</h4>
-                                                                    <span>CEO Of True Love Studios</span>
-                                                                    <p>Sed Ut Perspiciatis Unde Omnis Iste Natus Error Sit
-                                                                        Voluptatem Accusantium Doloremque Laudantium, Totam
-                                                                        Rem Aperiam, Eaque Ipsa Quae Ab Illo Inventore
-                                                                        Veritatis Et Quasi Architecto Beatae Vitae Dicta
-                                                                        Sunt Explicabo. Nemo Enim Ipsam Voluptatem Quia
-                                                                        Voluptas Sit Aspernatur Aut Odit Aut Fugit, Sed Quia
-                                                                        Consequuntur Magni Dolores Eos Qui Ratione
-                                                                        Voluptatem Sequi Nesciunt. Neque Porro Quisquam Est,
-                                                                        Qui Dolorem Ipsum Quia Dolor Sit Amet, Consectetu
-                                                                    </p>
+                                                        @forelse ($testimonial['student'] as $i => $student)
+                                                            <div class="carousel-item {{ $i == 0 ? 'active' : '' }} ">
+
+                                                                <div class="testimonial4_slide">
+                                                                    <div class="col-12 col-lg-4"><img
+                                                                            src="{{ $student->testimonial_image_url ?? 'assets/images/our-partners/01-our-partners.png' }}"
+                                                                            class="img-circle img-responsive" /></div>
+                                                                    <div class="col-lg-8">
+                                                                        <h4>{{ $student->label ?? '' }}</h4>
+                                                                        <span>{{ $student->title ?? '' }}</span>
+                                                                        <p>{{ $student->content ?? '' }}
+                                                                        </p>
+                                                                    </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                        <div class="carousel-item">
-                                                            <div class="testimonial4_slide">
-                                                                <div class="col-12 col-lg-4"><img
-                                                                        src="assets/images/our-partners/01-our-partners.png"
-                                                                        class="img-circle img-responsive" /></div>
-                                                                <div class="col-lg-8">
-                                                                    <h4>William Smith</h4>
-                                                                    <span>CEO Of True Love Studios</span>
-                                                                    <p>Sed Ut Perspiciatis Unde Omnis Iste Natus Error Sit
-                                                                        Voluptatem Accusantium Doloremque Laudantium, Totam
-                                                                        Rem Aperiam, Eaque Ipsa Quae Ab Illo Inventore
-                                                                        Veritatis Et Quasi Architecto Beatae Vitae Dicta
-                                                                        Sunt Explicabo. Nemo Enim Ipsam Voluptatem Quia
-                                                                        Voluptas Sit Aspernatur Aut Odit Aut Fugit, Sed Quia
-                                                                        Consequuntur Magni Dolores Eos Qui Ratione
-                                                                        Voluptatem Sequi Nesciunt. Neque Porro Quisquam Est,
-                                                                        Qui Dolorem Ipsum Quia Dolor Sit Amet, Consectetu
-                                                                    </p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="carousel-item">
-                                                            <div class="testimonial4_slide">
-                                                                <div class="col-12 col-lg-4"><img
-                                                                        src="assets/images/our-partners/01-our-partners.png"
-                                                                        class="img-circle img-responsive" /></div>
-                                                                <div class="col-12 col-lg-8">
-                                                                    <h4>William Smith</h4>
-                                                                    <span>CEO Of True Love Studios</span>
-                                                                    <p>Sed Ut Perspiciatis Unde Omnis Iste Natus Error Sit
-                                                                        Voluptatem Accusantium Doloremque Laudantium, Totam
-                                                                        Rem Aperiam, Eaque Ipsa Quae Ab Illo Inventore
-                                                                        Veritatis Et Quasi Architecto Beatae Vitae Dicta
-                                                                        Sunt Explicabo. Nemo Enim Ipsam Voluptatem Quia
-                                                                        Voluptas Sit Aspernatur Aut Odit Aut Fugit, Sed Quia
-                                                                        Consequuntur Magni Dolores Eos Qui Ratione
-                                                                        Voluptatem Sequi Nesciunt. Neque Porro Quisquam Est,
-                                                                        Qui Dolorem Ipsum Quia Dolor Sit Amet, Consectetu
-                                                                    </p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                                                        @empty
+                                                            <h4>No data found</h4>
+                                                        @endforelse
+
                                                     </div>
-                                                    <a class="carousel-control-prev" href="#testimonial4"
-                                                        data-slide="prev"><i class="fa-solid fa-arrow-left"></i></a>
-                                                    <a class="carousel-control-next" href="#testimonial4"
-                                                        data-slide="next"><i class="fa-solid fa-arrow-right"></i></a>
+                                                    @if (!empty($testimonial['student']) && count($testimonial['student']) > 1)
+                                                        <a class="carousel-control-prev" href="#testimonial4"
+                                                            data-slide="prev"><i class="fa-solid fa-arrow-left"></i></a>
+                                                        <a class="carousel-control-next" href="#testimonial4"
+                                                            data-slide="next"><i class="fa-solid fa-arrow-right"></i></a>
+                                                    @endif
                                                 </div>
 
                                             </div>
@@ -530,74 +493,32 @@
                                                     data-duration="2000">
 
                                                     <div class="carousel-inner" role="listbox">
-                                                        <div class="carousel-item active">
-                                                            <div class="testimonial5_slide">
-                                                                <div class="col-12 col-lg-4"><img
-                                                                        src="assets/images/our-partners/01-our-partners.png"
-                                                                        class="img-circle img-responsive" /></div>
-                                                                <div class="col-lg-8">
-                                                                    <h4>Recruitment Partners</h4>
-                                                                    <span>CEO Of True Love Studios</span>
-                                                                    <p>Sed Ut Perspiciatis Unde Omnis Iste Natus Error Sit
-                                                                        Voluptatem Accusantium Doloremque Laudantium, Totam
-                                                                        Rem Aperiam, Eaque Ipsa Quae Ab Illo Inventore
-                                                                        Veritatis Et Quasi Architecto Beatae Vitae Dicta
-                                                                        Sunt Explicabo. Nemo Enim Ipsam Voluptatem Quia
-                                                                        Voluptas Sit Aspernatur Aut Odit Aut Fugit, Sed Quia
-                                                                        Consequuntur Magni Dolores Eos Qui Ratione
-                                                                        Voluptatem Sequi Nesciunt. Neque Porro Quisquam Est,
-                                                                        Qui Dolorem Ipsum Quia Dolor Sit Amet, Consectetu
-                                                                    </p>
+                                                        @forelse ($testimonial['recruitment'] as $i => $recruitment_partner)
+                                                            <div class="carousel-item {{ $i == 0 ? 'active' : '' }} ">
+
+                                                                <div class="testimonial4_slide">
+                                                                    <div class="col-12 col-lg-4"><img
+                                                                            src="{{ $recruitment_partner->testimonial_image_url ?? 'assets/images/our-partners/01-our-partners.png' }}"
+                                                                            class="img-circle img-responsive" /></div>
+                                                                    <div class="col-lg-8">
+                                                                        <h4>{{ $recruitment_partner->label ?? '' }}
+                                                                        </h4>
+                                                                        <span>{{ $recruitment_partner->title ?? '' }}</span>
+                                                                        <p>{{ $recruitment_partner->content ?? '' }}
+                                                                        </p>
+                                                                    </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                        <div class="carousel-item">
-                                                            <div class="testimonial5_slide">
-                                                                <div class="col-12 col-lg-4"><img
-                                                                        src="assets/images/our-partners/01-our-partners.png"
-                                                                        class="img-circle img-responsive" /></div>
-                                                                <div class="col-12 col-lg-8">
-                                                                    <h4>William Smith</h4>
-                                                                    <span>CEO Of True Love Studios</span>
-                                                                    <p>Sed Ut Perspiciatis Unde Omnis Iste Natus Error Sit
-                                                                        Voluptatem Accusantium Doloremque Laudantium, Totam
-                                                                        Rem Aperiam, Eaque Ipsa Quae Ab Illo Inventore
-                                                                        Veritatis Et Quasi Architecto Beatae Vitae Dicta
-                                                                        Sunt Explicabo. Nemo Enim Ipsam Voluptatem Quia
-                                                                        Voluptas Sit Aspernatur Aut Odit Aut Fugit, Sed Quia
-                                                                        Consequuntur Magni Dolores Eos Qui Ratione
-                                                                        Voluptatem Sequi Nesciunt. Neque Porro Quisquam Est,
-                                                                        Qui Dolorem Ipsum Quia Dolor Sit Amet, Consectetu
-                                                                    </p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="carousel-item">
-                                                            <div class="testimonial5_slide">
-                                                                <div class="col-12 col-lg-4"><img
-                                                                        src="assets/images/our-partners/01-our-partners.png"
-                                                                        class="img-circle img-responsive" /></div>
-                                                                <div class="col-12 col-lg-8">
-                                                                    <h4>William Smith</h4>
-                                                                    <span>CEO Of True Love Studios</span>
-                                                                    <p>Sed Ut Perspiciatis Unde Omnis Iste Natus Error Sit
-                                                                        Voluptatem Accusantium Doloremque Laudantium, Totam
-                                                                        Rem Aperiam, Eaque Ipsa Quae Ab Illo Inventore
-                                                                        Veritatis Et Quasi Architecto Beatae Vitae Dicta
-                                                                        Sunt Explicabo. Nemo Enim Ipsam Voluptatem Quia
-                                                                        Voluptas Sit Aspernatur Aut Odit Aut Fugit, Sed Quia
-                                                                        Consequuntur Magni Dolores Eos Qui Ratione
-                                                                        Voluptatem Sequi Nesciunt. Neque Porro Quisquam Est,
-                                                                        Qui Dolorem Ipsum Quia Dolor Sit Amet, Consectetu
-                                                                    </p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                                                        @empty
+                                                            <h4>No data found</h4>
+                                                        @endforelse
                                                     </div>
-                                                    <a class="carousel-control-prev" href="#testimonial5"
-                                                        data-slide="prev"><i class="fa-solid fa-arrow-left"></i></a>
-                                                    <a class="carousel-control-next" href="#testimonial5"
-                                                        data-slide="next"><i class="fa-solid fa-arrow-right"></i></a>
+                                                    @if (!empty($testimonial['recruitment']) && count($testimonial['recruitment']) > 1)
+                                                        <a class="carousel-control-prev" href="#testimonial5"
+                                                            data-slide="prev"><i class="fa-solid fa-arrow-left"></i></a>
+                                                        <a class="carousel-control-next" href="#testimonial5"
+                                                            data-slide="next"><i class="fa-solid fa-arrow-right"></i></a>
+                                                    @endif
                                                 </div>
 
                                             </div>
@@ -618,74 +539,33 @@
                                                     data-duration="2000">
 
                                                     <div class="carousel-inner" role="listbox">
-                                                        <div class="carousel-item active">
-                                                            <div class="testimonial6_slide">
-                                                                <div class="col-12 col-lg-4"><img
-                                                                        src="assets/images/our-partners/01-our-partners.png"
-                                                                        class="img-circle img-responsive" /></div>
-                                                                <div class="col-12 col-lg-8">
-                                                                    <h4>Education Partners</h4>
-                                                                    <span>CEO Of True Love Studios</span>
-                                                                    <p>Sed Ut Perspiciatis Unde Omnis Iste Natus Error Sit
-                                                                        Voluptatem Accusantium Doloremque Laudantium, Totam
-                                                                        Rem Aperiam, Eaque Ipsa Quae Ab Illo Inventore
-                                                                        Veritatis Et Quasi Architecto Beatae Vitae Dicta
-                                                                        Sunt Explicabo. Nemo Enim Ipsam Voluptatem Quia
-                                                                        Voluptas Sit Aspernatur Aut Odit Aut Fugit, Sed Quia
-                                                                        Consequuntur Magni Dolores Eos Qui Ratione
-                                                                        Voluptatem Sequi Nesciunt. Neque Porro Quisquam Est,
-                                                                        Qui Dolorem Ipsum Quia Dolor Sit Amet, Consectetu
-                                                                    </p>
+                                                        @forelse ($testimonial['education'] as $i => $item)
+                                                            <div class="carousel-item {{ $i == 0 ? 'active' : '' }} ">
+
+                                                                <div class="testimonial4_slide">
+                                                                    <div class="col-12 col-lg-4"><img
+                                                                            src="{{ $item->testimonial_image_url ?? 'assets/images/our-partners/01-our-partners.png' }}"
+                                                                            class="img-circle img-responsive" /></div>
+                                                                    <div class="col-lg-8">
+                                                                        <h4>{{ $item->label ?? '' }}</h4>
+                                                                        <span>{{ $item->title ?? '' }}</span>
+                                                                        <p>{{ $item->content ?? '' }}
+                                                                        </p>
+                                                                    </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                        <div class="carousel-item">
-                                                            <div class="testimonial6_slide">
-                                                                <div class="col-lg-4"><img
-                                                                        src="assets/images/our-partners/01-our-partners.png"
-                                                                        class="img-circle img-responsive" /></div>
-                                                                <div class="col-12 col-lg-8">
-                                                                    <h4>William Smith</h4>
-                                                                    <span>CEO Of True Love Studios</span>
-                                                                    <p>Sed Ut Perspiciatis Unde Omnis Iste Natus Error Sit
-                                                                        Voluptatem Accusantium Doloremque Laudantium, Totam
-                                                                        Rem Aperiam, Eaque Ipsa Quae Ab Illo Inventore
-                                                                        Veritatis Et Quasi Architecto Beatae Vitae Dicta
-                                                                        Sunt Explicabo. Nemo Enim Ipsam Voluptatem Quia
-                                                                        Voluptas Sit Aspernatur Aut Odit Aut Fugit, Sed Quia
-                                                                        Consequuntur Magni Dolores Eos Qui Ratione
-                                                                        Voluptatem Sequi Nesciunt. Neque Porro Quisquam Est,
-                                                                        Qui Dolorem Ipsum Quia Dolor Sit Amet, Consectetu
-                                                                    </p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="carousel-item">
-                                                            <div class="testimonial6_slide">
-                                                                <div class="col-12 col-lg-4"><img
-                                                                        src="assets/images/our-partners/01-our-partners.png"
-                                                                        class="img-circle img-responsive" /></div>
-                                                                <div class="col-12 col-lg-8">
-                                                                    <h4>William Smith</h4>
-                                                                    <span>CEO Of True Love Studios</span>
-                                                                    <p>Sed Ut Perspiciatis Unde Omnis Iste Natus Error Sit
-                                                                        Voluptatem Accusantium Doloremque Laudantium, Totam
-                                                                        Rem Aperiam, Eaque Ipsa Quae Ab Illo Inventore
-                                                                        Veritatis Et Quasi Architecto Beatae Vitae Dicta
-                                                                        Sunt Explicabo. Nemo Enim Ipsam Voluptatem Quia
-                                                                        Voluptas Sit Aspernatur Aut Odit Aut Fugit, Sed Quia
-                                                                        Consequuntur Magni Dolores Eos Qui Ratione
-                                                                        Voluptatem Sequi Nesciunt. Neque Porro Quisquam Est,
-                                                                        Qui Dolorem Ipsum Quia Dolor Sit Amet, Consectetu
-                                                                    </p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
+
+                                                        @empty
+                                                            <h4>No data found</h4>
+                                                        @endforelse
                                                     </div>
-                                                    <a class="carousel-control-prev" href="#testimonial6"
-                                                        data-slide="prev"><i class="fa-solid fa-arrow-left"></i></a>
-                                                    <a class="carousel-control-next" href="#testimonial6"
-                                                        data-slide="next"><i class="fa-solid fa-arrow-right"></i></a>
+                                                    @if (!empty($testimonial['education']) && count($testimonial['education']) > 1)
+                                                        <a class="carousel-control-prev" href="#testimonial6"
+                                                            data-slide="prev"><i class="fa-solid fa-arrow-left"></i></a>
+                                                        <a class="carousel-control-next" href="#testimonial6"
+                                                            data-slide="next"><i class="fa-solid fa-arrow-right"></i></a>
+                                                    @endif
+
                                                 </div>
 
                                             </div>
@@ -720,7 +600,7 @@
                 <div class="col-lg-4">
                     <div class="main-universities-blog">
                         <div class="sub-img-universities">
-                            <img src="assets/images/blogs/blog-01.jpg" alt="" />
+                            <img src="assets/images/winners-thumb.jpg" alt="" />
                         </div>
                         <div class="sub-content-universities">
                             <h3><a href="javascript:;">Top Winter Wonderlands For Students In Ontario This Year</a></h3>
@@ -732,7 +612,7 @@
                 <div class="col-lg-4">
                     <div class="main-universities-blog">
                         <div class="sub-img-universities">
-                            <img src="assets/images/blogs/blog-01.jpg" alt="" />
+                            <img src="assets/images/winners-thumb.jpg" alt="" />
                         </div>
                         <div class="sub-content-universities">
                             <h3><a href="javascript:;">Top Winter Wonderlands For Students In Ontario This Year</a></h3>
@@ -744,7 +624,7 @@
                 <div class="col-lg-4">
                     <div class="main-universities-blog main-universities-blog-last">
                         <div class="sub-img-universities">
-                            <img src="assets/images/blogs/blog-01.jpg" alt="" />
+                            <img src="assets/images/winners-thumb.jpg" alt="" />
                         </div>
                         <div class="sub-content-universities">
                             <h3><a href="javascript:;">Top Winter Wonderlands For Students In Ontario This Year</a></h3>

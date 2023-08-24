@@ -2,17 +2,19 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\City;
 use App\Models\User;
 use App\Models\Staff;
+use App\Models\State;
 use App\Models\Country;
 use Illuminate\Support\Str;
 use App\Models\AgentProfile;
 use Illuminate\Http\Request;
 use App\Models\EducationLevel;
 use App\Models\PaymentHistory;
+
 use Illuminate\Support\Carbon;
 use App\Models\AgentCommission;
-
 use App\Models\EducationPartner;
 use App\Models\University\Program;
 use Illuminate\Support\Facades\DB;
@@ -176,11 +178,17 @@ class AdminController extends Controller
         return view('admin.agent.agent');
     }
 
-    public function agentCreate()
+    public function agentCreate(Request $request)
     {
+        // return $request->all();
+        $agentDetail  = null;
+        if ($request->id) {
+            $agentDetail = AgentProfile::whereUserId($request->id)->first();
+        }
         $countries =  Country::all();
+        // return $agentDetail;
 
-        return view('admin.agent.agent-create', compact('countries'));
+        return view('admin.agent.agent-create', compact('countries', 'agentDetail'));
     }
 
     public function agentStore(Request $request)
@@ -193,21 +201,23 @@ class AdminController extends Controller
         ]);
         try {
             //code...
-            $request['agent_id'] = get_agent_unique_id((int)$request->country);
             // return $request->all();
             DB::beginTransaction();
-
-            $agent = User::create([
-                'name' => $request->name,
-                'email' => $request->email,
-                'password' => Hash::make('password'),
-                'type' => 1,
-            ]);
-
+            $agentId = $request->agent_update_id;
+            if ($request->agent_update_id == '') {
+                $request['agent_id'] = get_agent_unique_id((int)$request->country);
+                $agent = User::create([
+                    'name' => $request->name,
+                    'email' => $request->email,
+                    'password' => Hash::make('password'),
+                    'type' => 1,
+                ]);
+                $agentId = $agent->id;
+            }
+            // return $agentId;
             $universityProfile =  AgentProfile::updateOrCreate(
                 [
-                    'user_id' => $agent->id,
-
+                    'user_id' => $agentId,
                 ],
                 $request->all()
             );
@@ -277,6 +287,17 @@ class AdminController extends Controller
 
     public function getCurrency(Request $request)
     {
-        return get_currency($request->id_country);
+        $data['states'] = State::where("country_id", $request->id_country)
+            ->get(["name", "id"]);
+        $data['currency'] =  get_currency($request->id_country);
+        return response()->json($data);
+    }
+
+    public function getCity(Request $request)
+    {
+        $data['cities'] = City::where("state_id", $request->state_id)
+            ->get(["name", "id"]);
+
+        return response()->json($data);
     }
 }

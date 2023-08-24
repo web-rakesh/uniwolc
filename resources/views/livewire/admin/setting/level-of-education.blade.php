@@ -2,14 +2,14 @@
     {{-- The best athlete wants his opponent at his best. --}}
     <div class="col-lg-12 grid-margin stretch-card">
         <div class="card">
-            <div class="card-body">
+            <div class="card-body p-0">
                 <h4 class="card-title">Level Of Education Table</h4>
                 <div class="row">
-                    <div class="col-5">
+                    <div class="col-md-5 col-12 mb-2">
                         <input wire:model="searchItem" type="search" class="form-control"
                             placeholder="Search Level Name...">
                     </div>
-                    <div class="col-5">
+                    <div class="col-md-5 col-12 mb-2">
                         <select wire:model="category_id" class="form-select">
                             <option value="">Select Category</option>
                             @forelse ($categories ?? [] as $category)
@@ -18,10 +18,11 @@
                             @endforelse
                         </select>
                     </div>
-                    <div class="col-2">
+                    <div class="col-md-2 col-12 mb-2">
                         <button wire:click="create" type="button" class="btn btn-primary btn-fw">Add New</button>
                     </div>
-                    </p>
+                    </div>
+					 <div class="table-responsive responsive_table_area">
                     <table class="table table-striped">
                         <thead>
                             <tr>
@@ -34,14 +35,14 @@
                         </thead>
                         <tbody>
                             @forelse ($levelOfEducation ?? [] as $education)
-                                <tr>
-                                    <td class="py-1">
+                                <tr class="table_item">
+                                    <td data-title="#" class="py-1">
                                         {{ $loop->iteration }}
                                     </td>
-                                    <td> {{ $education->level_name }} </td>
-                                    <td> {{ $education->categoriesOfEducation->name }} </td>
-                                    <td> {{ date('M d, Y', strtotime($education->created_at)) }} </td>
-                                    <td>
+                                    <td data-title="Name"> {{ $education->level_name }} </td>
+                                    <td data-title="Category"> {{ $education->categoriesOfEducation->name }} </td>
+                                    <td data-title="Created_at"> {{ date('M d, Y', strtotime($education->created_at)) }} </td>
+                                    <td data-title="Action">
                                         <button wire:click="edit({{ $education->id }})"
                                             class="btn btn-primary btn-sm">View/Edit</button>
 
@@ -59,6 +60,7 @@
                             @endforelse
                         </tbody>
                     </table>
+					</div>
 
                     {{ $levelOfEducation->links() }}
                 </div>

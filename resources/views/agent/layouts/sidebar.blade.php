@@ -26,27 +26,27 @@
                               <li class="{{ request()->is('agent/student') ? 'active' : '' }}">
                                   <a href="{{ route('agent.student') }}">
                                       <span class="icon"><i class="fa-solid fa-users-line"></i></span>
-                                      <span class="title">Student</span>
+                                      <span class="title">Students</span>
                                   </a>
                               </li>
 
                               <li class="{{ request()->is('agent/program') ? 'active' : '' }}">
                                   <a href="{{ route('agent.program') }}">
                                       <span class="icon"><i class="fa-regular fa-magnifying-glass"></i></span>
-                                      <span class="title">Programs</span>
+                                      <span class="title">Programs & School</span>
                                   </a>
                               </li>
 
                               <li class="{{ request()->is('agent/application') ? 'active' : '' }}">
                                   <a href="{{ route('agent.application') }}">
                                       <span class="icon"><i class="fa-regular fa-file-text"></i></span>
-                                      <span class="title">No. of Application</span>
+                                      <span class="title">All Applications</span>
                                   </a>
                               </li>
                               <li class="{{ request()->is('agent/paid/application') ? 'active' : '' }}">
                                   <a href="{{ route('agent.paid.application') }}">
                                       <span class="icon"><i class="fa-regular fa-file-text"></i></span>
-                                      <span class="title">No. of Paid Application</span>
+                                      <span class="title">Paid Applications</span>
                                   </a>
                               </li>
 
@@ -60,13 +60,13 @@
                               </li>
 
                               <!---->
-
+--}}
                               <li>
-                                  <a href="payment.html">
+                                  <a href="{{ route('agent.payment.history') }}">
                                       <span class="icon"><i class="fa-regular fa-circle-dollar"></i></span>
                                       <span class="title">Payments</span>
                                   </a>
-                              </li> --}}
+                              </li>
 
                               <li>
                                   <a href="{{ route('logout') }}"

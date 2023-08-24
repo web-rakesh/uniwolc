@@ -43,16 +43,16 @@
                                 <div class="leftPart">
                                     <div class="dasboardAppHeaderInfo">
                                         <div class="checkBoxarea">
-                                            <div class="mdCheckbox">
+                                            {{-- <div class="mdCheckbox">
                                                 <input id="i1" type="checkbox" />
                                                 <label for="i1"></label>
-                                            </div>
+                                            </div> --}}
                                         </div>
                                         <span>Status</span>
                                         <span>App #</span>
                                         <span>School</span>
                                         <span>Program</span>
-                                        <span>ESL Start Date</span>
+                                        {{-- <span>ESL Start Date</span> --}}
                                         <span>Start Date</span>
                                         <span>Fees</span>
                                     </div>
@@ -72,13 +72,13 @@
                                     <div class="leftPart">
                                         <div class="dasboardAppHeaderInfo">
                                             <div class="checkBoxarea">
-                                                <div class="mdCheckbox">
+                                                {{-- <div class="mdCheckbox">
                                                     <input id="application{{ $key }}" type="checkbox"
                                                         data-id="{{ $item->id }}"
                                                         data-number="{{ $item->application_number }}" name="application_fee"
                                                         value="{{ $item->fees }}" />
                                                     <label for="application{{ $key }}"></label>
-                                                </div>
+                                                </div> --}}
                                             </div>
                                             <div>
                                                 <div class="status" data-title="status">
@@ -104,7 +104,7 @@
                                                 <a
                                                     href="{{ route('student.program.detail', $item->getProgram->slug) }}">{{ $item->getProgram->program_title }}</a>
                                             </div>
-                                            <div class="eslStartDate" data-title="ESL Start Date">
+                                            {{-- <div class="eslStartDate" data-title="ESL Start Date">
                                                 <div class="hd">ESL</div>
                                                 <div class="txt"></div>
                                                 <div class="">
@@ -114,15 +114,16 @@
                                                         <option>NA</option>
                                                     </select>
                                                 </div>
-                                            </div>
+                                            </div> --}}
                                             <div class="eslStartDate startDate" data-title="Start Date">
                                                 <div class="hd">Academic</div>
                                                 <div class="txt">Open Now</div>
                                                 <div class="">
-                                                    <select class="form-control">
+                                                    {{ date('M d, Y', strtotime($item->start_date)) }}
+                                                    {{-- <select class="form-control">
                                                         <option>2023-Sep</option>
                                                         <option>2024-Sep</option>
-                                                    </select>
+                                                    </select> --}}
                                                 </div>
                                             </div>
                                             <div class="appFees" data-title="Application Fees">
@@ -132,7 +133,9 @@
                                                     @if ($item->fees == 0)
                                                         <div class="amt">Free</div>
                                                     @else
-                                                        <div class="amt">{{ number_format($item->fees, 2) }}</div>
+                                                        <div class="amt">
+                                                            {{ get_currency($item->getUniversity->country) . number_format($item->fees, 2) }}
+                                                        </div>
                                                     @endif
                                                 </div>
                                             </div>
@@ -160,14 +163,23 @@
                                                     <span class="txt">View</span>
                                                 </a>
                                             @else
-                                                <a href="{{ route('student.application.fillup', $item->slug) }}"
-                                                    class="btn viewBtn">
-                                                    <span class="icon"><i
-                                                            class="fa-regular fa-up-right-from-square"></i></span>
-                                                    <span class="txt">FillUp</span>
-                                                </a>
+                                                @if ($item->program_status !== 3)
+                                                    <a href="{{ route('student.application.fillup', $item->slug) }}"
+                                                        class="btn viewBtn">
+                                                        <span class="icon"><i
+                                                                class="fa-regular fa-up-right-from-square"></i></span>
+                                                        <span class="txt">FillUp</span>
+                                                    </a>
+                                                @endif
                                             @endif
-
+                                        </div>
+                                        <div class="ml-3 viewBtnDiv">
+                                            <a href="{{ route('student.payment.confirm', ['ids' => $item->id]) }}"
+                                                class="btn viewBtn">
+                                                <span class="icon"><i
+                                                        class="fa-regular fa-up-right-from-square"></i></span>
+                                                <span class="txt">pay</span>
+                                            </a>
                                         </div>
                                         <div class="ml-3 deleteBtnDiv">
                                             {{-- <a href="{{ route('student.application.destroy', $item->id) }}"
@@ -186,6 +198,15 @@
 
                                             </form>
                                         </div>
+                                        <div class="ml-3 viewBtnDiv">
+                                            @if ($item->program_status == 1)
+                                                <span class="txt">accepted</span>
+                                            @elseif ($item->program_status == 3)
+                                                <span class="txt">rejected</span>
+                                            @else
+                                                <span class="txt">pending</span>
+                                            @endif
+                                        </div>
                                     </div>
                                 </div>
 
@@ -195,7 +216,7 @@
                     </div>
                 </div>
 
-                <div class="dashboardCard">
+                {{-- <div class="dashboardCard">
                     <div class="dashboardCardBody">
                         <div class="dasboardAppHeader dasboardAppBody">
                             <div class="leftPart">
@@ -209,18 +230,16 @@
                             <div class="rightpart"></div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
 
                 <div class="d-flex justify-content-end applicationBtnArea">
                     <a href="{{ route('student.programs') }}" class="btn btn1 mr-2">
                         <span class="txt">Find More Program</span>
                     </a>
-                    <button class="btn btn2" id="pay_for_application" disabled>
-                        {{-- <a href="{{ route('student.programs') }}"> --}}
+                    {{-- <button class="btn btn2" id="pay_for_application" disabled>
                         <span class="icon"></span>
                         <span class="txt">Pay For Application</span>
-                        {{-- </a> --}}
-                    </button>
+                    </button> --}}
                 </div>
             </section>
 
@@ -241,15 +260,15 @@
                                     <div class="dasboardAppHeaderInfo">
                                         <div class="checkBoxarea">
                                             <div class="mdCheckbox">
-                                                <input id="i3" type="checkbox" />
-                                                <label for="i3"></label>
+                                                {{-- <input id="i3" type="checkbox" />
+                                                <label for="i3"></label> --}}
                                             </div>
                                         </div>
                                         <span>Status</span>
                                         <span>App #</span>
                                         <span>School</span>
                                         <span>Program</span>
-                                        <span>ESL Start Date</span>
+                                        {{-- <span>ESL Start Date</span> --}}
                                         <span>Start Date</span>
                                         <span>Fees</span>
                                     </div>
@@ -299,7 +318,7 @@
                                         <a
                                             href="{{ route('student.program.detail', $item->getProgram->slug) }}">{{ $item->program_title }}</a>
                                     </div>
-                                    <div class="eslStartDate" data-title="ESL Start Date">
+                                    {{-- <div class="eslStartDate" data-title="ESL Start Date">
                                         <div class="hd">ESL</div>
                                         <div class="txt"></div>
                                         <div class="">
@@ -308,7 +327,7 @@
                                                 <option>NA</option>
                                             </select>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                     <div class="eslStartDate startDate" data-title="Start Date">
                                         <div class="hd">Academic</div>
                                         <div class="txt">Open Now</div>

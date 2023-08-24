@@ -2,15 +2,18 @@
 
 namespace App\Http\Livewire\Agent;
 
+use App\Models\City;
 use App\Models\User;
 use App\Models\Staff;
 use App\Models\State;
 use App\Models\Country;
 use Livewire\Component;
 use Livewire\WithPagination;
+use App\Mail\StaffInviteMail;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
 
 class StaffList extends Component
@@ -18,7 +21,7 @@ class StaffList extends Component
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
     public $isOpen = 0;
-    public  $staff_id, $name, $email,  $country_code, $phone_number, $address, $city, $state_id, $country_id, $location;
+    public  $staff_id, $name, $email,  $country_code, $phone_number, $address, $cities = [], $city, $state_id, $country_id, $location;
     public $searchItem, $paginationCount = 10;
 
     public function render()
@@ -28,6 +31,9 @@ class StaffList extends Component
         $states = [];
         if ($this->country_id) {
             $states = State::where('country_id', $this->country_id)->get();
+        }
+        if ($this->state_id) {
+            $this->cities = City::where('state_id', $this->state_id)->get();
         }
         $agents = Staff::latest()
             ->where('agent_id', Auth::user()->id)
@@ -85,15 +91,17 @@ class StaffList extends Component
 
     public function store()
     {
+
+
         $this->validate([
             'name' => ['required', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'phone_number' => ['required', 'string', 'max:255'],
-            'address' => ['required', 'string', 'max:255'],
-            'city' => ['required', 'string', 'max:255'],
-            'state_id' => ['required'],
-            'country_id' => ['required'],
-            'location' => ['required', 'string', 'max:255'],
+            // 'phone_number' => ['required', 'string', 'max:255'],
+            // 'address' => ['required', 'string', 'max:255'],
+            // 'city' => ['required', 'string', 'max:255'],
+            // 'state_id' => ['required'],
+            // 'country_id' => ['required'],
+            // 'location' => ['required', 'string', 'max:255'],
 
         ]);
         DB::beginTransaction();
@@ -122,6 +130,13 @@ class StaffList extends Component
                 'location' => $this->location,
             ]);
 
+            $partnerData = [
+                'name' => $this->name,
+                'email' => $this->email,
+                'password' => $staff->password,
+            ];
+
+            Mail::to($this->email)->send(new StaffInviteMail($partnerData));
 
             session()->flash(
                 'message',
@@ -210,5 +225,18 @@ class StaffList extends Component
         // dd($agent->user_id);
         User::find($agent->user_id)->delete();
         session()->flash('message', 'Agent Deleted Successfully.');
+    }
+
+
+    #Update the City status Priority
+    public function changeStatus(Staff $staff, $priority_check)
+    {
+        if ($priority_check == 1) {
+            $priority_check = 0;
+        } else {
+            $priority_check = 1;
+        }
+        $staff->update(['status' => $priority_check]);
+        $this->dispatchBrowserEvent('hide-directory-form');
     }
 }

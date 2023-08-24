@@ -335,53 +335,32 @@
                             data-ride="carousel" data-pause="hover" data-interval="5000" data-duration="2000">
 
                             <div class="carousel-inner" role="listbox">
-                                <div class="carousel-item active">
-                                    <div class="testimonial4_slide">
-                                        <div class="col-lg-4"><img src="assets/images/testimonial/04-testimonial.png"
-                                                class="img-circle img-responsive" /></div>
-                                        <div class="col-lg-8">
-                                            <h4>Athena K.</h4>
-                                            <span>University Of Waterloo Graduate – International Student From Iran</span>
-                                            <p>“UNIWOLC Guided Me Through The Application Process To Make Sure It Went
-                                                Smoothly. They Filled Me With Trust Because Their Communication Is So
-                                                Strong. Applyboard Double-Checked Every Part Of My Application And Visa
-                                                Requirements So That Everything Was Correct.”</p>
+                                @forelse ($testimonial['education'] as $i => $recruitment_partner)
+                                    <div class="carousel-item {{ $i == 0 ? 'active' : '' }} ">
+
+                                        <div class="testimonial4_slide">
+                                            <div class="col-12 col-lg-4"><img
+                                                    src="{{ $recruitment_partner->testimonial_image_url ?? 'assets/images/our-partners/01-our-partners.png' }}"
+                                                    class="img-circle img-responsive" /></div>
+                                            <div class="col-lg-8">
+                                                <h4>{{ $recruitment_partner->label ?? '' }}
+                                                </h4>
+                                                <span>{{ $recruitment_partner->title ?? '' }}</span>
+                                                <p>{{ $recruitment_partner->content ?? '' }}
+                                                </p>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="carousel-item">
-                                    <div class="testimonial4_slide">
-                                        <div class="col-lg-4"><img src="assets/images/testimonial/04-testimonial.png"
-                                                class="img-circle img-responsive" /></div>
-                                        <div class="col-lg-8">
-                                            <h4>Athena K.</h4>
-                                            <span>University Of Waterloo Graduate – International Student From Iran</span>
-                                            <p>“UNIWOLC Guided Me Through The Application Process To Make Sure It Went
-                                                Smoothly. They Filled Me With Trust Because Their Communication Is So
-                                                Strong. Applyboard Double-Checked Every Part Of My Application And Visa
-                                                Requirements So That Everything Was Correct.”</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="carousel-item">
-                                    <div class="testimonial4_slide">
-                                        <div class="col-lg-4"><img src="assets/images/testimonial/04-testimonial.png"
-                                                class="img-circle img-responsive" /></div>
-                                        <div class="col-lg-8">
-                                            <h4>Athena K.</h4>
-                                            <span>University Of Waterloo Graduate – International Student From Iran</span>
-                                            <p>“UNIWOLC Guided Me Through The Application Process To Make Sure It Went
-                                                Smoothly. They Filled Me With Trust Because Their Communication Is So
-                                                Strong. Applyboard Double-Checked Every Part Of My Application And Visa
-                                                Requirements So That Everything Was Correct.”</p>
-                                        </div>
-                                    </div>
-                                </div>
+                                @empty
+                                    <h4>No data found</h4>
+                                @endforelse
                             </div>
-                            <a class="carousel-control-prev" href="#testimonial4" data-slide="prev"><i
-                                    class="fa-solid fa-arrow-left"></i></a>
-                            <a class="carousel-control-next" href="#testimonial4" data-slide="next"><i
-                                    class="fa-solid fa-arrow-right"></i></a>
+                            @if (!empty($testimonial['education']) && count($testimonial['education']) > 1)
+                                <a class="carousel-control-prev" href="#testimonial4" data-slide="prev"><i
+                                        class="fa-solid fa-arrow-left"></i></a>
+                                <a class="carousel-control-next" href="#testimonial4" data-slide="next"><i
+                                        class="fa-solid fa-arrow-right"></i></a>
+                            @endif
                         </div>
 
                     </div>

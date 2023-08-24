@@ -4,7 +4,7 @@
                       class="fa-sharp fa-regular fa-arrow-left"></i></a></span>
           <ul class="topNavMenuList">
               <li><a href=" {{ route('student.dashboard') }}">Home </a></li>
-              <li><span>{{ substr(strrchr(url()->current(), '/'), 1) }}</span></li>
+              <li><span>{{ ucfirst(str_replace('-', ' ', substr(strrchr(url()->current(), '/'), 1))) }}</span></li>
           </ul>
       </div>
       <div class="rightTopNavbar">

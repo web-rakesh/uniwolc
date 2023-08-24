@@ -1,22 +1,22 @@
 <div>
     {{-- A good traveler has no fixed plans and is not intent upon arriving. --}}
-    <a href="{{ route('admin.manage-sub-admin.create') }}" class="btn btn-primary">Add Sub Admin</a>
+    <div class="mb-3"><a href="{{ route('admin.manage-sub-admin.create') }}" class="btn btn-primary">Add Sub Admin</a></div>
 
     <div class="col-lg-12 grid-margin stretch-card">
         <div class="card">
-            <div class="card-body">
+            <div class="card-body ">
                 <h4 class="card-title">Permission Manage</h4>
 
                 <div class="row">
 
-                    <div class="col-md-9">
+                    <div class="col-md-9 mb-2">
                         <input wire:model="searchItem" type="text" class="form-control" placeholder="Name and Email...">
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-3 mb-2">
                     </div>
                 </div>
-                </p>
-                <div class="table-response">
+                
+                <div class="table-response responsive_table_area">
                     <table class="table table-striped">
                         <thead>
                             <tr>
@@ -29,15 +29,15 @@
                         </thead>
                         <tbody>
                             @forelse ($subAdmins ?? [] as $item)
-                                <tr>
-                                    <td class="py-1">
+                                <tr class="table_item">
+                                    <td data-title="#" class="py-1">
                                         {{ $loop->iteration }}
                                     </td>
-                                    <td> {{ $item->name }} </td>
-                                    <td> {{ $item->email }} </td>
+                                    <td data-title="Name"> {{ $item->name }} </td>
+                                    <td data-title="Email"> {{ $item->email }} </td>
 
-                                    <td> {{ date('M d, Y', strtotime($item->created_at)) }} </td>
-                                    <td>
+                                    <td data-title="Created_at"> {{ date('M d, Y', strtotime($item->created_at)) }} </td>
+                                    <td data-title="Action">
                                         @if (action_permission('item', 'view') == true)
                                             <a href="{{ route('admin.manage-sub-admin.edit',$item->id) }}" class="btn btn-info btn-sm">Edit</a>
                                         @endif

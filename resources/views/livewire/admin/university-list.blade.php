@@ -2,25 +2,52 @@
     {{-- The best athlete wants his opponent at his best. --}}
     <div class="col-lg-12 grid-margin stretch-card">
         <div class="card">
-            <div class="card-body">
+            <div class="card-body p-0">
                 <h4 class="card-title">University List Table</h4>
-                <div class="row ">
-                    <div class="col-5">
+                <div class="row mb-2 ">
+                    <div class="col-md-7 col-12 mb-2">
                         <input wire:model="search" type="text" class="form-control" placeholder="Search Students...">
                     </div>
-                    <div class="col-5 ">
+                    <div class="col-md-3 col-7 mb-2">
                         @if (action_permission('university', 'add') == true)
                             <a href="{{ route('admin.university.create') }}"
                                 class="btn btn-primary btn-sm float-right">Add
                                 University</a>
                         @endif
                     </div>
-                    <div class="col-2">
+                    <div class="col-md-2 col-5 ">
                         <button wire:click="universityExport" class="btn btn-success btn-sm float-right">Export</button>
                     </div>
                 </div>
-                </p>
-                <div class="table-responsive">
+                <div class="row mb-2">
+                    <div class="col-md-4 mb-2">
+                        <select wire:model="country_id" class="form-select">
+                            <option value="">Select Country</option>
+                            @foreach ($countries as $item)
+                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-md-4 mb-2">
+                        <select wire:model="state_id" class="form-select">
+                            <option value="">Select State</option>
+                            @foreach ($states ?? [] as $state)
+                                <option value="{{ $state->id }}">{{ $state->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-md-4 mb-2">
+                        <select wire:model="city_id" class="form-select">
+                            <option value="">Select City</option>
+                            @forelse ($cities ?? [] as $city)
+                                <option value="{{ $city->id }}">{{ $city->name }}</option>
+                            @empty
+                            @endforelse
+                        </select>
+                    </div>
+
+                </div>
+                <div class="table-responsive responsive_table_area">
 
 
                     <table class="table table-striped">
@@ -30,6 +57,8 @@
                                 <th> Name </th>
                                 <th> Email </th>
                                 <th> Country </th>
+                                <th> State </th>
+                                <th> City </th>
                                 <th> Blocked Country </th>
                                 <th> Created_at </th>
                                 <th> Action </th>
@@ -37,25 +66,29 @@
                         </thead>
                         <tbody>
                             @forelse ($university as $item)
-                                <tr>
-                                    <td class="py-1">
+                                <tr class="table_item">
+                                    <td data-title="#" class="py-1">
                                         {{ $loop->iteration }}
                                     </td>
-                                    <td>
+                                    <td data-title="Name">
                                         @if (action_permission('university', 'view') == true)
-                                            <a href="{{ route('admin.university.create', $item->id) }}"
-                                               >{{ $item->university_name }}</a>
+                                            <a
+                                                href="{{ route('admin.university.create', $item->id) }}">{{ $item->university_name }}</a>
                                         @else
                                             {{ $item->university_name }}
                                         @endif
 
                                     </td>
-                                    <td> {{ $item->email }} </td>
-                                    <td> {{ $item->getCountry->name ?? '--' }} </td>
-                                    <td> {{ $item->blocked_country != '' ? implode(',', get_blocked_country($item->blocked_country)) : '--' }}
+                                    <td data-title="Email"> {{ $item->email }} </td>
+                                    <td data-title="Country"> {{ $item->getCountry->name ?? '--' }} </td>
+                                    <td data-title="state"> {{ $item->getState->name ?? '--' }} </td>
+                                    <td data-title="City"> {{ $item->getCity->name ?? '--' }} </td>
+                                    <td data-title="Blocked Country">
+                                        {{ $item->blocked_country != '' ? implode(',', get_blocked_country($item->blocked_country)) : '--' }}
                                     </td>
-                                    <td> {{ date('M d, Y', strtotime($item->created_at)) }} </td>
-                                    <td>
+                                    <td data-title="Created_at"> {{ date('M d, Y', strtotime($item->created_at)) }}
+                                    </td>
+                                    <td data-title="Action">
                                         @if (action_permission('university', 'view') == true)
                                             <a href="{{ route('admin.university.create', $item->id) }}"
                                                 class="btn btn-info btn-sm">View/Edit</a>

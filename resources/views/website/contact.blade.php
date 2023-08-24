@@ -9,8 +9,8 @@
                     <div class="col-lg-6">
                         <div class="header-abroad-content">
                             <h1>Contact Us</h1>
-                            <p>We’re Here To Help. Don’t Hesitate To Get In Touch With Our Expert Support Team Who Can Help
-                                Answer All Of Your Questions.</p>
+                            <p>We are here to help. Don't hesitate to contact our expert support team who can help answer
+                                any questions you may have.</p>
                             <a href="javascript:;">Contact Us</a>
                         </div>
                     </div>
@@ -47,8 +47,8 @@
                             <h5>Email</h5>
                         </div>
                         <div class="sub-contact-content">
-                            <a href="javascript:;">Help@Applyboard.Com</a>
-                            <p>Please Email Us With Your Inquiries.</p>
+                            <a href="javascript:;">help@uniwolc.com</a>
+                            <p>Please email us with your inquiries.</p>
                         </div>
                     </div>
                 </div>
@@ -58,8 +58,8 @@
                             <div class="sub-contact-icon-box">
                                 <i class="fa-solid fa-comments"></i>
                             </div>
-                            <h5>Live Chat</h5>
-                            <p>(For Registered Users Only )</p>
+                            <h5>Live Chat </h5>
+                            {{-- <p>(For Registered Users Only )</p> --}}
                         </div>
                         <div class="sub-contact-content">
                             <a href="javascript:;">Login</a>
@@ -73,12 +73,14 @@
                             <div class="sub-contact-icon-box">
                                 <img src="assets/images/canada-contact.png" alt="" />
                             </div>
-                            <h5>Canada</h5>
+                            <h5>Canada </h5>
                         </div>
                         <div class="sub-contact-content">
-                            <a class="pb-0" href="javascript:;">Toll Free: 1-844-972-7759</a>
-                            <a class="pt-0" href="javascript:;">Local: 519-900-6001</a>
-                            <p>Monday–Friday<br /> 9 AM–5:30 PM EST</p>
+                            <a class="pb-0" href="javascript:;"></a>
+                            <a class="pt-0" href="javascript:;"></a>
+                            {{-- <a class="pb-0" href="javascript:;">Toll Free: 1-844-972-7759</a>
+                            <a class="pt-0" href="javascript:;">Contact No : 519-900-6001</a> --}}
+                            <p>Monday–Friday <br /> 9 AM–5:30 PM EST</p>
                         </div>
                     </div>
                 </div>
@@ -91,7 +93,8 @@
                             <h5>India</h5>
                         </div>
                         <div class="sub-contact-content">
-                            <a href="javascript:;">Toll Free: 1-800-208-3444</a>
+                            <a href="javascript:;"></a>
+                            {{-- <a href="javascript:;">Toll Free: 1-800-208-3444</a> --}}
                             <p>Available 24/7</p>
                         </div>
                     </div>
@@ -99,11 +102,11 @@
 
                 <div class="col-lg-12">
                     <div class="sub-map-contact">
-                        <p>If You Are An Existing Customer And Have A Question, Please Contact Your Account Representative
-                            For Assistance. Existing Customers Can Also Utilize 24/7 Live Chat And Whatsapp Text Support;
-                            Pease Login To Your Uniwolc Account For Details. For Questions About A Student Application,
-                            Please Leave A Message In The Notes Section Of The Application And Our Customer Experience Team
-                            Will Be In Touch.</p>
+                        <p>If you are an existing customer and have any questions, please contact your account
+                            representative for assistance. Existing customers can also access 24/7 live chat and WhatsApp
+                            text support; Log in to your UniWolc account for details. For questions about the Student
+                            Application, please leave a message in the Notes section of the application and our Customer
+                            Experience team will be in touch.</p>
                     </div>
                     <div class="sub-map">
                         <iframe

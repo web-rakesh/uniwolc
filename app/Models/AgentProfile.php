@@ -19,6 +19,15 @@ class AgentProfile extends Model
         'city',
         'state',
         'country',
-        'postal_code'
+        'postal_code',
+        'is_verify'
     ];
+
+    public function getCountry(){
+        return $this->hasOne(Country::class, 'id', 'country');
+    }
+
+    public function getState(){
+        return $this->hasOne(State::class, 'id', 'state');
+    }
 }

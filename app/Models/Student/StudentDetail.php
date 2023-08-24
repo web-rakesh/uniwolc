@@ -22,6 +22,7 @@ class StudentDetail extends Model
         'alt_country_code',
         'alt_mobile_number',
         'country',
+        'state',
         'address',
         'city',
         'pincode',
@@ -50,6 +51,11 @@ class StudentDetail extends Model
         return $this->belongsTo(EducationSummary::class, 'user_id', 'user_id');
     }
 
+    public function englishTest()
+    {
+        return $this->belongsTo(TestScore::class, 'user_id', 'user_id');
+    }
+
     public function staffDetail()
     {
         return $this->belongsTo(\App\Models\User::class, 'staff_id', 'id');
@@ -70,5 +76,15 @@ class StudentDetail extends Model
     public function userCountry()
     {
         return $this->belongsTo(\App\Models\Country::class, 'country', 'id');
+    }
+
+    public function userState()
+    {
+        return $this->belongsTo(\App\Models\State::class, 'state', 'id');
+    }
+
+    public function userCity()
+    {
+        return $this->belongsTo(\App\Models\City::class, 'city', 'id');
     }
 }

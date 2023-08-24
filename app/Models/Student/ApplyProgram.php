@@ -50,6 +50,12 @@ class ApplyProgram extends Model
         return $this->belongsTo(\App\Models\Agent\AgentDetail::class, 'agent_id', 'user_id');
     }
 
+
+    public function getUniversity()
+    {
+        return $this->belongsTo(\App\Models\University\ProfileDetail::class, 'university_id', 'user_id');
+    }
+
     // Add a method to calculate the average rating percentage
     public function averageCommissionPercentage()
     {

@@ -368,28 +368,7 @@
                                             <div class="owl-stage-outer">
                                                 <div class="owl-stage"
                                                     style="transform: translate3d(-39.375rem, 0rem, 0rem); transition: all 0s ease 0s; width: 137.8125rem;">
-                                                    {{-- @forelse ($item->university->getMedia('university-picture') ?? [] as $image)
-                                                        <div class="owl-item cloned"
-                                                            style="width: 18.75rem; margin-right: .9375rem">
-                                                            <div class="programsCardThumnailSliderItem">
-                                                                <div class="programsCardThumnail">
-                                                                    <img src="{{ $image->getUrl() }}"
-                                                                        class="img-fluid w-100"
-                                                                        alt="{{ $image->getUrl() }}" />
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    @empty
-                                                        <div class="owl-item"
-                                                            style="width: 18.75rem; margin-right: .9375rem">
-                                                            <div class="programsCardThumnailSliderItem">
-                                                                <div class="programsCardThumnail">
-                                                                    <img src="https://www.propertyfinder.ae/property/83abfbac83c1ea46e4ca58346019b24b/260/185/MODE/60ab56/9853674-f6cdfo.webp?ctr=ae"
-                                                                        class="img-fluid w-100" alt="" />
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    @endforelse --}}
+
                                                     @if ($item->university->university_gallery_url != null)
                                                         <div class="owl-item"
                                                             style="width: 18.75rem; margin-right: .9375rem">
@@ -458,10 +437,10 @@
                                                 @endif
                                                 <div class="programsCardIntroTitle">
 
-                                                    {{ $item->program_level }}
+                                                    {{ $item->programLevel->level_name }}
                                                 </div>
                                                 <div class="programsCardIntroTitle">
-                                                    {{ $item->minimum_level_education }}
+                                                    {{ $item->minimumLevel->level_name }}
                                                 </div>
                                                 <div class="programsCardIntroTitle">
                                                     Tuition Fee:

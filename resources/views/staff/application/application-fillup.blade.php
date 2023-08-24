@@ -122,10 +122,11 @@
                                             <div class="des">
                                                 <p><strong>Delivery Method:</strong> <span
                                                         class="classStatus">In-class</span></p>
-                                                <p><strong>Level:</strong> {{ $applyProgram->getProgram->program_level }}
+                                                <p><strong>Level:</strong>
+                                                    {{ $applyProgram->getProgram->programLevel->level_name }}
                                                 </p>
                                                 <p><strong>Required Level:</strong>
-                                                    {{ $applyProgram->getProgram->minimum_level_education }}</p>
+                                                    {{ $applyProgram->getProgram->minimumLevel->level_name }}</p>
                                                 <p><strong>Application ID:</strong>
                                                     {{ $applyProgram->application_number }}</p>
                                             </div>
@@ -159,9 +160,15 @@
                                             <div class="col-lg-5 col-md-5 col-sm-12 col-12 columnBox2">
                                                 <label class="labelName">Academic : <span class="status">Open
                                                         Now</span></label>
-                                                <select class="form-control">
+                                                <select class="form-control" id="academic-session">
+                                                    <option>Select...</option>
                                                     @foreach ($data as $item)
-                                                        <option>{{ date('Y - M', strtotime($item)) }}</option>
+                                                        @if (now()->format('Y-m-d') < date('Y-m-d', strtotime($item)))
+                                                            <option value="{{ $item }}"
+                                                                {{ date('Y-m-d', strtotime($applyProgram->start_date)) == date('Y-m-d', strtotime($item)) ? 'selected' : '' }}>
+
+                                                                {{ date('Y - M', strtotime($item)) }}</option>
+                                                        @endif
                                                     @endforeach
                                                     {{-- <option>2023 - Sep.</option>
                                                     <option>2023 - Sep.</option> --}}
@@ -180,8 +187,7 @@
                                     </div>
 
                                     <div class="addBtnArea">
-                                        <button type="button" class="addBtn" data-toggle="modal"
-                                            data-target="#addBackupProgramModal">
+                                        <button type="button" class="addBtn" id="addBackupProgran">
                                             <span class="icon"><i class="fa-regular fa-plus"></i></span>
                                             <span class="txt">Add Backup Program</span>
                                         </button>
@@ -214,106 +220,37 @@
                                                             selected as Backup programs.</p>
                                                         <div class="chooseProgramArea">
                                                             <div class="chooseProgramAreainner">
+
                                                                 <div class="chooseProgramItem">
                                                                     <div class="chooseProgramIteminner">
-                                                                        <div class="countArea">
-                                                                            <span class="count">1</span>
-                                                                        </div>
+
                                                                         <div class="programSelect">
-                                                                            <select class="form-control">
-                                                                                <option>Master of
-                                                                                    Philosophy -
-                                                                                    Resurch in Civil
-                                                                                    Engineering
-                                                                                </option>
-                                                                                <option>Integrated
-                                                                                    Master - Master
-                                                                                    of Science
-                                                                                    (MSci) - Phisics
-                                                                                    with
-                                                                                    International
-                                                                                    Study (2023)
-                                                                                </option>
-                                                                                <option>Master of
-                                                                                    Philosophy -
-                                                                                    Resurch in Civil
-                                                                                    Engineering
-                                                                                </option>
-                                                                                <option>Integrated
-                                                                                    Master - Master
-                                                                                    of Science
-                                                                                    (MSci) - Phisics
-                                                                                    with
-                                                                                    International
-                                                                                    Study (2023)
-                                                                                </option>
+                                                                            <select class="form-selected" multiple
+                                                                                id="backupItemSelect">
+
                                                                             </select>
                                                                         </div>
-                                                                        <div class="deleteBtnArea">
-                                                                            <button type="button" class="deleteBtn">
-                                                                                <i class="fa-regular fa-trash-can"></i>
-                                                                            </button>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="chooseProgramItem">
-                                                                    <div class="chooseProgramIteminner">
-                                                                        <div class="countArea">
-                                                                            <span class="count">1</span>
-                                                                        </div>
-                                                                        <div class="programSelect">
-                                                                            <select class="form-control">
-                                                                                <option>Master of
-                                                                                    Philosophy -
-                                                                                    Resurch in Civil
-                                                                                    Engineering
-                                                                                </option>
-                                                                                <option>Integrated
-                                                                                    Master - Master
-                                                                                    of Science
-                                                                                    (MSci) - Phisics
-                                                                                    with
-                                                                                    International
-                                                                                    Study (2023)
-                                                                                </option>
-                                                                                <option>Master of
-                                                                                    Philosophy -
-                                                                                    Resurch in Civil
-                                                                                    Engineering
-                                                                                </option>
-                                                                                <option>Integrated
-                                                                                    Master - Master
-                                                                                    of Science
-                                                                                    (MSci) - Phisics
-                                                                                    with
-                                                                                    International
-                                                                                    Study (2023)
-                                                                                </option>
-                                                                            </select>
-                                                                        </div>
-                                                                        <div class="deleteBtnArea">
-                                                                            <button type="button" class="deleteBtn">
-                                                                                <i class="fa-regular fa-trash-can"></i>
-                                                                            </button>
-                                                                        </div>
+
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <div class="addNewProgramBtnArea mt-3">
+                                                            {{-- <div class="addNewProgramBtnArea mt-3">
                                                                 <button type="button"
                                                                     class="btn btn-outline-primary addNewProgramBtn">
                                                                     <i class="fa-regular fa-plus"></i>
                                                                     <span class="txt">Add new
                                                                         program</span>
                                                                 </button>
-                                                            </div>
+                                                            </div> --}}
                                                         </div>
                                                     </div>
 
                                                     <!-- Modal footer -->
                                                     <div class="modal-footer addBackupProgramModalFooter">
-                                                        <button type="button" class="btn btn-dark">Cancel</button>
-                                                        <button type="button" class="btn btn-primary">Save
+                                                        <button type="button" class="btn btn-dark"
+                                                            data-dismiss="modal">Cancel</button>
+                                                        <button type="button" id="saveBackupProgram"
+                                                            class="btn btn-primary">Save
                                                             Backup(s)</button>
                                                     </div>
 
@@ -379,7 +316,7 @@
                                                                         {{ $studentDetail->city }}</p>
                                                                     <p class="mb-0"><span
                                                                             class="d-block">Nationality</span>
-                                                                        {{ $studentDetail->country }}</p>
+                                                                        {{ get_country($studentDetail->country) }}</p>
                                                                 </div>
                                                                 <div class="mb-0"></div>
                                                             </div>
@@ -458,7 +395,7 @@
                                                         <div class="sintentInfo">
                                                             <div class="contentBoxFld">
                                                                 <p class="mb-0">
-                                                                    {{ $studentDetail->educationDetail->education_level }}:
+                                                                    {{ get_education_level($studentDetail->educationDetail->education_level) }}:
                                                                     <a href="javascript:;"><i
                                                                             class="fa-solid fa-graduation-cap"></i></a>
                                                                 </p>
@@ -474,13 +411,13 @@
                                                                 <div class="ttl">Country of
                                                                     Education</div>
                                                                 <div class="txt">
-                                                                    {{ $studentDetail->educationDetail->education_country }}
+                                                                    {{ get_country($studentDetail->educationDetail->education_country) }}
                                                                 </div>
                                                             </div>
                                                             <div class="studentInfoItem">
                                                                 <div class="ttl">Grade</div>
                                                                 <div class="txt">
-                                                                    {{ $studentDetail->educationDetail->education_scheme_grade }}
+                                                                    {{ get_education_scheme_grade($studentDetail->educationDetail->education_scheme_grade) }}
                                                                 </div>
                                                             </div>
 
@@ -494,7 +431,7 @@
                                                         <div class="sintentInfo">
                                                             <div class="contentBoxFld">
                                                                 <p class="mb-0">
-                                                                    {{ $studentDetail->educationDetail->education_scheme_grade }}
+                                                                    {{ $studentDetail->englishTest->english_test_type }}
                                                                 </p>
                                                             </div>
                                                         </div>
@@ -503,7 +440,48 @@
                                                     </div>
                                                     <div class="accordianBody">
                                                         <div class="studentInfoArea">
-
+                                                            <div class="studentInfoItem">
+                                                                <div class="ttl">English Test Type</div>
+                                                                <div class="txt">
+                                                                    {{ $studentDetail->englishTest->english_test_type }}
+                                                                </div>
+                                                            </div>
+                                                            <div class="studentInfoItem">
+                                                                <div class="ttl">Total Score</div>
+                                                                <div class="txt">
+                                                                    {{ $studentDetail->englishTest->total_score }}
+                                                                </div>
+                                                            </div>
+                                                            <div class="studentInfoItem">
+                                                                <div class="ttl">Reading Score</div>
+                                                                <div class="txt">
+                                                                    {{ $studentDetail->englishTest->reading_score }}
+                                                                </div>
+                                                            </div>
+                                                            <div class="studentInfoItem">
+                                                                <div class="ttl">Writing Score</div>
+                                                                <div class="txt">
+                                                                    {{ $studentDetail->englishTest->writing_score }}
+                                                                </div>
+                                                            </div>
+                                                            <div class="studentInfoItem">
+                                                                <div class="ttl">Listening Score</div>
+                                                                <div class="txt">
+                                                                    {{ $studentDetail->englishTest->listening_score }}
+                                                                </div>
+                                                            </div>
+                                                            <div class="studentInfoItem">
+                                                                <div class="ttl">Speaking Score</div>
+                                                                <div class="txt">
+                                                                    {{ $studentDetail->englishTest->speaking_score }}
+                                                                </div>
+                                                            </div>
+                                                            <div class="studentInfoItem">
+                                                                <div class="ttl">Exam Date</div>
+                                                                <div class="txt">
+                                                                    {{ $studentDetail->englishTest->exam_date ? date('M d, Y', strtotime($studentDetail->englishTest->exam_date)) : '' }}
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -515,7 +493,9 @@
                                                         <div class="sintentInfo">
                                                             <div class="contentBoxFld">
                                                                 <p class="mb-0">
-                                                                    {{ $studentDetail->staffDetail->name ?? $studentDetail->agentDetail->name }}
+                                                                    @if (auth()->user()->type == 'staff')
+                                                                        {{ auth()->user()->name }}
+                                                                    @endif
                                                                 </p>
                                                             </div>
                                                         </div>
@@ -534,13 +514,13 @@
                                                         <div class="accordianHeader">
                                                             <div class="title">Student Representative:
                                                             </div>
-                                                            <div class="sintentInfo">
+                                                            {{-- <div class="sintentInfo">
                                                                 <div class="contentBoxFld">
                                                                     <p class="mb-0">
                                                                         <strong>juan.aguilera@applyboard.com</strong>
                                                                     </p>
                                                                 </div>
-                                                            </div>
+                                                            </div> --}}
                                                             <span class="toogleBtn"><i
                                                                     class="fa-regular fa-chevron-down"></i></span>
                                                         </div>
@@ -560,7 +540,7 @@
                                                                         pending</strong></p>
                                                                 <p class="mb-0">Application Fee
                                                                     @if ($applyProgram->getProgram->application_fee > 0)
-                                                                        £{{ $applyProgram->getProgram->application_fee }}
+                                                                        {{ get_currency($applyProgram->getUniversity->country) . $applyProgram->getProgram->application_fee }}
                                                                     @else
                                                                         <a href="javascript;:"
                                                                             style="color: rgb(255,0,0);">Free</a>
@@ -609,10 +589,10 @@
                                     <li><a href=""><span class="icon"><i
                                                     class="fa-regular fa-file-lines"></i></span>
                                             <span class="txt">Applicant Requirements</span></a></li>
-                                    <li><a href=""><span class="icon"><i
+                                    <li><a href="javascript:;" id="student-record"><span class="icon"><i
                                                     class="fa-regular fa-clipboard"></i></span>
                                             <span class="txt">Student Records</span></a></li>
-                                    <li><a href=""><span class="icon"><i
+                                    <li><a href="javascript:;" id="note"><span class="icon"><i
                                                     class="fa-regular fa-notebook"></i></span> <span
                                                 class="txt">Notes</span></a></li>
                                 </ul>
@@ -625,8 +605,9 @@
                                         <div class="appDtlsAccordianHeader">
                                             <div class="leftSide">
                                                 <h4 class="title">Pre-Payment</h4>
-                                                <p class="mb-0">Last requirement completed on May.
-                                                    24, 2023</p>
+                                                <p class="mb-0">Last requirement completed on
+                                                    {{ date('M d, Y', strtotime($applyProgram->getProgram->deadline)) }}
+                                                </p>
 
                                             </div>
                                             <div class="rightSide">
@@ -708,15 +689,16 @@
                                                                                     <p><br></p>
 
                                                                                     @foreach ($applyProgram->getProgram->getMedia('program-student-attachment') ?? [] as $image)
-                                                                                        <div class="links-attachments"><a
-                                                                                                class="additional-attachment university-document"
+                                                                                        <div class="links-attachments">
+                                                                                            <a class="additional-attachment university-document"
                                                                                                 href=" {{ $image->getUrl() }}"
                                                                                                 target="_blank"><span
                                                                                                     aria-hidden="true"
                                                                                                     class="fa fa-file-pdf-o"></span>
                                                                                                 {{ substr(strrchr($image->getPath(), '/'), 1) }}
 
-                                                                                            </a></div>
+                                                                                            </a>
+                                                                                        </div>
                                                                                     @endforeach
 
                                                                                 </div>
@@ -730,8 +712,8 @@
                                                                             @forelse ($uploadedDocument as $document)
                                                                                 @if ($document->document_name == 'program-student-attachment')
                                                                                     @foreach ($document->getMedia('program-student-attachment') ?? [] as $image)
-                                                                                        <div class="links-attachments"><a
-                                                                                                class="additional-attachment uploaded-document"
+                                                                                        <div class="links-attachments">
+                                                                                            <a class="additional-attachment uploaded-document"
                                                                                                 href=" {{ $image->getUrl() }}"
                                                                                                 target="_blank"><span
                                                                                                     aria-hidden="true"
@@ -739,7 +721,8 @@
                                                                                                 {{ substr(strrchr($image->getPath(), '/'), 1) }}
 
 
-                                                                                            </a></div>
+                                                                                            </a>
+                                                                                        </div>
                                                                                     @endforeach
                                                                                     <a href="javascript:;"
                                                                                         data-id="{{ $document->id }}"
@@ -833,15 +816,16 @@
                                                                             @forelse ($uploadedDocument as $document)
                                                                                 @if ($document->document_name == 'program-passport-attachment')
                                                                                     @foreach ($document->getMedia('program-passport-attachment') ?? [] as $image)
-                                                                                        <div class="links-attachments"><a
-                                                                                                class="additional-attachment uploaded-document"
+                                                                                        <div class="links-attachments">
+                                                                                            <a class="additional-attachment uploaded-document"
                                                                                                 href=" {{ $image->getUrl() }}"
                                                                                                 target="_blank"><span
                                                                                                     aria-hidden="true"
                                                                                                     class="fa fa-file-pdf-o"></span>
                                                                                                 {{ substr(strrchr($image->getPath(), '/'), 1) }}
 
-                                                                                            </a></div>
+                                                                                            </a>
+                                                                                        </div>
                                                                                     @endforeach
 
                                                                                     <a href="javascript:;"
@@ -924,15 +908,16 @@
                                                                                     <p><br></p>
 
                                                                                     @foreach ($applyProgram->getProgram->getMedia('program-custodianship-declaration-attachment') ?? [] as $image)
-                                                                                        <div class="links-attachments"><a
-                                                                                                class="additional-attachment university-document"
+                                                                                        <div class="links-attachments">
+                                                                                            <a class="additional-attachment university-document"
                                                                                                 href=" {{ $image->getUrl() }}"
                                                                                                 target="_blank"><span
                                                                                                     aria-hidden="true"
                                                                                                     class="fa fa-file-pdf-o"></span>
                                                                                                 {{ substr(strrchr($image->getPath(), '/'), 1) }}
 
-                                                                                            </a></div>
+                                                                                            </a>
+                                                                                        </div>
                                                                                     @endforeach
 
                                                                                 </div>
@@ -946,14 +931,15 @@
                                                                             @forelse ($uploadedDocument as $document)
                                                                                 @if ($document->document_name == 'program-custodianship-declaration-attachment')
                                                                                     @foreach ($document->getMedia('program-custodianship-declaration-attachment') ?? [] as $image)
-                                                                                        <div class="links-attachments"><a
-                                                                                                class="additional-attachment uploaded-document"
+                                                                                        <div class="links-attachments">
+                                                                                            <a class="additional-attachment uploaded-document"
                                                                                                 href=" {{ $image->getUrl() }}"
                                                                                                 target="_blank"><span
                                                                                                     aria-hidden="true"
                                                                                                     class="fa fa-file-pdf-o"></span>
                                                                                                 {{ substr(strrchr($image->getPath(), '/'), 1) }}
-                                                                                            </a></div>
+                                                                                            </a>
+                                                                                        </div>
                                                                                     @endforeach
                                                                                     <a href="javascript:;"
                                                                                         data-id="{{ $document->id }}"
@@ -1022,15 +1008,16 @@
                                                                                     <p><br></p>
 
                                                                                     @foreach ($applyProgram->getProgram->getMedia('program-proof-immunization-attachment') ?? [] as $image)
-                                                                                        <div class="links-attachments"><a
-                                                                                                class="additional-attachment university-document"
+                                                                                        <div class="links-attachments">
+                                                                                            <a class="additional-attachment university-document"
                                                                                                 href=" {{ $image->getUrl() }}"
                                                                                                 target="_blank"><span
                                                                                                     aria-hidden="true"
                                                                                                     class="fa fa-file-pdf-o"></span>
                                                                                                 {{ substr(strrchr($image->getPath(), '/'), 1) }}
 
-                                                                                            </a></div>
+                                                                                            </a>
+                                                                                        </div>
                                                                                     @endforeach
 
                                                                                 </div>
@@ -1044,15 +1031,16 @@
                                                                             @forelse ($uploadedDocument as $document)
                                                                                 @if ($document->document_name == 'program-proof-immunization-attachment')
                                                                                     @foreach ($document->getMedia('program-proof-immunization-attachment') ?? [] as $image)
-                                                                                        <div class="links-attachments"><a
-                                                                                                class="additional-attachment uploaded-document"
+                                                                                        <div class="links-attachments">
+                                                                                            <a class="additional-attachment uploaded-document"
                                                                                                 href=" {{ $image->getUrl() }}"
                                                                                                 target="_blank"><span
                                                                                                     aria-hidden="true"
                                                                                                     class="fa fa-file-pdf-o"></span>
                                                                                                 {{ substr(strrchr($image->getPath(), '/'), 1) }}
 
-                                                                                            </a></div>
+                                                                                            </a>
+                                                                                        </div>
                                                                                     @endforeach
                                                                                     <a href="javascript:;"
                                                                                         data-id="{{ $document->id }}"
@@ -1124,15 +1112,16 @@
                                                                                     <p><br></p>
 
                                                                                     @foreach ($applyProgram->getProgram->getMedia('program-participation-agreement-attachment') ?? [] as $image)
-                                                                                        <div class="links-attachments"><a
-                                                                                                class="additional-attachment university-document"
+                                                                                        <div class="links-attachments">
+                                                                                            <a class="additional-attachment university-document"
                                                                                                 href=" {{ $image->getUrl() }}"
                                                                                                 target="_blank"><span
                                                                                                     aria-hidden="true"
                                                                                                     class="fa fa-file-pdf-o"></span>
                                                                                                 {{ substr(strrchr($image->getPath(), '/'), 1) }}
 
-                                                                                            </a></div>
+                                                                                            </a>
+                                                                                        </div>
                                                                                     @endforeach
 
                                                                                 </div>
@@ -1146,14 +1135,15 @@
                                                                             @forelse ($uploadedDocument as $document)
                                                                                 @if ($document->document_name == 'program-participation-agreement-attachment')
                                                                                     @foreach ($document->getMedia('program-participation-agreement-attachment') ?? [] as $image)
-                                                                                        <div class="links-attachments"><a
-                                                                                                class="additional-attachment uploaded-document"
+                                                                                        <div class="links-attachments">
+                                                                                            <a class="additional-attachment uploaded-document"
                                                                                                 href=" {{ $image->getUrl() }}"
                                                                                                 target="_blank"><span
                                                                                                     aria-hidden="true"
                                                                                                     class="fa fa-file-pdf-o"></span>
                                                                                                 {{ substr(strrchr($image->getPath(), '/'), 1) }}
-                                                                                            </a></div>
+                                                                                            </a>
+                                                                                        </div>
                                                                                     @endforeach
                                                                                     <a href="javascript:;"
                                                                                         data-id="{{ $document->id }}"
@@ -1223,15 +1213,16 @@
                                                                                     <p><br></p>
 
                                                                                     @foreach ($applyProgram->getProgram->getMedia('program-self-introduction-attachment') ?? [] as $image)
-                                                                                        <div class="links-attachments"><a
-                                                                                                class="additional-attachment university-document"
+                                                                                        <div class="links-attachments">
+                                                                                            <a class="additional-attachment university-document"
                                                                                                 href=" {{ $image->getUrl() }}"
                                                                                                 target="_blank"><span
                                                                                                     aria-hidden="true"
                                                                                                     class="fa fa-file-pdf-o"></span>
                                                                                                 {{ substr(strrchr($image->getPath(), '/'), 1) }}
 
-                                                                                            </a></div>
+                                                                                            </a>
+                                                                                        </div>
                                                                                     @endforeach
 
                                                                                 </div>
@@ -1245,15 +1236,16 @@
                                                                             @forelse ($uploadedDocument as $document)
                                                                                 @if ($document->document_name == 'program-self-introduction-attachment')
                                                                                     @foreach ($document->getMedia('program-self-introduction-attachment') ?? [] as $image)
-                                                                                        <div class="links-attachments"><a
-                                                                                                class="additional-attachment uploaded-document"
+                                                                                        <div class="links-attachments">
+                                                                                            <a class="additional-attachment uploaded-document"
                                                                                                 href=" {{ $image->getUrl() }}"
                                                                                                 target="_blank"><span
                                                                                                     aria-hidden="true"
                                                                                                     class="fa fa-file-pdf-o"></span>
                                                                                                 {{ substr(strrchr($image->getPath(), '/'), 1) }}
 
-                                                                                            </a></div>
+                                                                                            </a>
+                                                                                        </div>
                                                                                     @endforeach
                                                                                     <a href="javascript:;"
                                                                                         data-id="{{ $document->id }}"
@@ -1346,6 +1338,32 @@
             </div>
         </div>
 
+        <!-- The Modal -->
+        <div class="modal" id="application-note">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="model_heading">Text Editor Modal</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <div id="editor-container">
+                            <textarea name="" class="form-control" id="application-content" cols="30" rows="10"></textarea>
+                            <!-- Quill editor will be rendered here -->
+                        </div>
+                    </div>
+
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" data-mode="" id="saveBtn">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
     </section>
 @endsection
@@ -1353,6 +1371,7 @@
 @push('js')
     <script>
         $(document).ready(function() {
+
             let ttlduc = $(".university-document").length;
             let upldduc = $(".uploaded-document").length;
             $("#total-document").text(ttlduc - upldduc);
@@ -1437,6 +1456,150 @@
                     }
                 });
             })
+
+
+
+
+
+            $("#addBackupProgran").on('click', function() {
+
+                var url = "{{ route('application.program.backup') }}";
+                var formData = new FormData();
+                formData.append("id", "{{ $applyProgram->id }}");
+                $.ajax({
+                    type: 'POST',
+                    url: url,
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+
+                        console.log(response);
+                        var options = '';
+                        var selected = '';
+                        // Loop through the data and create options for the select dropdown
+                        $.each(response.allProgram, function(index, item) {
+                            //   console.log( response.backupProgram.indexOf(item.id) !== -1)
+                            if (response.backupProgram != null) {
+                                selected = response.backupProgram.indexOf(item.id) !== -
+                                    1 ?
+                                    'selected' : '';
+                            }
+                            options += '<option value="' + item.id + '" ' + selected +
+                                '>' + item
+                                .program_title + '</option>';
+                        });
+
+                        // Append the options to the select dropdown
+                        $('#backupItemSelect').html(options);
+
+                        console.log(response);
+                        $('#addBackupProgramModal').modal('show');
+                    },
+                    error: function(xhr) {
+
+                    }
+                });
+
+            })
+
+            $("#saveBackupProgram").click(function() {
+                let backupProgramId = $("#backupItemSelect").val();
+                // alert(backupProgramId);
+
+                var url = "{{ route('application.program.backup.store') }}";
+                var formData = new FormData();
+                formData.append("programId", "{{ $applyProgram->id }}");
+                formData.append("backupProgramId", backupProgramId);
+                $.ajax({
+                    type: 'POST',
+                    url: url,
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        $('#addBackupProgramModal').modal('hide');
+                    },
+                    error: function(xhr) {
+
+                    }
+                });
+            })
+
+
+
+
+
+
+
+            $("#academic-session").on('change', function() {
+                var formData = new FormData();
+                formData.append("date", $(this).val());
+                formData.append("id", "{{ $applyProgram->id }}");
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ url('application/academic-session') }}",
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        // window.location.reload();
+                    },
+                    error: function(xhr) {
+
+                    }
+                });
+            })
+
+            $("#note").on('click', function() {
+                saveData('note', 'open')
+            })
+            $("#student-record").on('click', function() {
+                saveData('student-record', 'open')
+            })
+            $("#saveBtn").on('click', function() {
+                saveData($(this).attr('data-mode'), 'store')
+            })
+
+            function saveData(mode, action) {
+                var editorData = $("#application-content").val();
+                // console.log(editorData);
+                // alert(editorData);
+                var url = "{{ route('application.record.note') }}";
+                var formData = new FormData();
+                formData.append("editor", editorData);
+                formData.append("id", "{{ $applyProgram->id }}");
+                formData.append("mode", mode);
+                formData.append("action", action);
+                $.ajax({
+                    type: 'POST',
+                    url: url,
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        $("#application-content").val(response.note);
+                        if (response.mode == 'note' && response.action == 'open') {
+                            $('#application-note').modal('show');
+                            $("#saveBtn").attr('data-mode', 'note');
+                            $("#model_heading").text('Note')
+                        }
+                        if (response.mode == 'student-record' && response.action == 'open') {
+                            $('#application-note').modal('show');
+                            $("#saveBtn").attr('data-mode', 'student-record');
+                            $("#model_heading").text('Student Record')
+                        }
+                        if (response.modal == 'off') {
+                            $('#application-note').modal('hide');
+
+                        }
+
+                    },
+                    error: function(xhr) {
+
+                    }
+                });
+            }
         });
     </script>
 @endpush

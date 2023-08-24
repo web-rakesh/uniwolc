@@ -96,18 +96,20 @@
                                                     <div class="tableContent">{{ $program->program_title }}</div>
                                                 </td>
                                                 <td>
-                                                    <div class="tableContent">{{ $program->minimumLevel->level_name ?? '' }}
+                                                    <div class="tableContent">
+                                                        {{ $program->minimumLevel->level_name ?? '' }}
                                                     </div>
                                                 </td>
                                                 <td>
                                                     <div class="tableContent">{{ $program->minimum_gpa }}</div>
                                                 </td>
                                                 <td>
-                                                    <div class="tableContent">{{ $program->programLevel->level_name }}</div>
+                                                    <div class="tableContent">{{ $program->programLevel->level_name }}
+                                                    </div>
                                                 </td>
                                                 <td>
                                                     <div class="tableContent">
-                                                        {{ $program->created_at->format('Y-m-d') }}</div>
+                                                        {{ date('M d, Y', strtotime($program->deadline)) }}</div>
                                                 </td>
                                                 <td>
                                                     <div class="tableContent">

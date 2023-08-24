@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
 use App\Models\User;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Laravel\Socialite\Facades\Socialite;
-use Exception;
 
 class SocialController extends Controller
 {
@@ -29,7 +31,7 @@ class SocialController extends Controller
                     'name' => $user->name,
                     'email' => $user->email,
                     'fb_id' => $user->id,
-                    'password' => encrypt('admin@123')
+                    'password' => Hash::make(Str::random(16))
                 ]);
 
                 Auth::login($createUser);
@@ -50,7 +52,7 @@ class SocialController extends Controller
         try {
 
             $user = Socialite::driver('google')->user();
-
+         
             $finduser = User::where('gauth_id', $user->id)->first();
 
             if ($finduser) {
@@ -64,7 +66,7 @@ class SocialController extends Controller
                     'email' => $user->email,
                     'gauth_id' => $user->id,
                     'gauth_type' => 'google',
-                    'password' => encrypt('admin@123')
+                    'password' => Hash::make(Str::random(16))
                 ]);
 
                 Auth::login($newUser);

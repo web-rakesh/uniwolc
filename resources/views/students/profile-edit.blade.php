@@ -47,9 +47,9 @@
                         <div class="dasboardrightPartWrapper">
                             <div class="p-3 py-5 dasboardrightPartWrapperinner">
                                 <!--
-                                                                                                                                                                                                                                <div class="d-flex justify-content-between align-items-center mb-3">
-                                                                                                                                                                                                                                    <h4 class="text-right">Update Profile</h4>
-                                                                                                                                                                                                                                </div>-->
+                                                                                                                                                                                                                                                                                                                                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                                                                                                                                                                                                                                                                                                                                    <h4 class="text-right">Update Profile</h4>
+                                                                                                                                                                                                                                                                                                                                                </div>-->
                                 <h4 class="card-title text-center1 mb-0"> Update Profiles</h4>
                                 <hr>
                                 <form method="post" action="{{ route('student.student-detail.store') }}">
@@ -116,8 +116,7 @@
                                             <label class="labels">Alternate Mobile Number</label>
                                             <input type="number" class="form-control"
                                                 placeholder="enter alternative mobile number" name="alt_mobile_number"
-                                                value="{{ $studentDetail->alt_mobile_number ?? old('alt_mobile_number') }}"
-                                                required="">
+                                                value="{{ $studentDetail->alt_mobile_number ?? old('alt_mobile_number') }}">
                                         </div>
                                         <div class="col-md-6 columnBox2">
                                             <label class="labels">Address</label>
@@ -125,21 +124,10 @@
                                                 name="address" value="{{ $studentDetail->address ?? old('address') }}"
                                                 required="">
                                         </div>
-                                        <div class="col-md-6 columnBox2">
-                                            <label class="labels">City</label>
-                                            <input type="text" class="form-control" placeholder="Enter city"
-                                                name="city" value="{{ $studentDetail->city ?? old('city') }}"
-                                                required="">
-                                        </div>
-                                        <div class="col-md-6 mb-3 columnBox2">
-                                            <label class="labels">Postcode / Zipcode</label>
-                                            <input type="number" class="form-control"
-                                                placeholder="Enter your Postcode / Zipcode" name="pincode"
-                                                value="{{ $studentDetail->pincode ?? old('pincode') }}" required="">
-                                        </div>
+
                                         <div class="col-md-6 mb-3 columnBox2">
                                             <label class="labels">Student Source Country</label>
-                                            <select class="form-control" name="country" required="">
+                                            <select class="form-control" name="country" id="getCurrency" required="">
                                                 @foreach ($countries as $country)
                                                     <option value="{{ $country->id }}"
                                                         {{ $studentDetail ? ($studentDetail->country == $country->id ? 'selected' : '') : '' }}>
@@ -148,6 +136,37 @@
 
                                             </select>
                                         </div>
+                                        <div class="col-md-6 mb-3 columnBox2">
+                                            <label class="labels">Student State</label>
+                                            <select class="form-control" name="state" id="state-dropdown"
+                                                required="">
+                                                @if ($studentDetail)
+                                                    <option value="{{ $studentDetail->state }}">
+                                                        {{ get_state($studentDetail->state) }}</option>
+                                                @endif
+                                            </select>
+                                        </div>
+
+                                        <div class="col-md-6 columnBox2">
+                                            <label class="labels">City</label>
+                                            <select class="form-control" id="city-dropdown" name="city"
+                                                required="">
+                                                @if ($studentDetail)
+                                                    <option value="{{ $studentDetail->city }}">
+                                                        {{ get_state($studentDetail->city) }}</option>
+                                                @endif
+                                            </select>
+                                            {{-- <input type="text" class="form-control" placeholder="Enter city"
+                                                name="city" value="{{ $studentDetail->city ?? old('city') }}"
+                                                required=""> --}}
+                                        </div>
+                                        <div class="col-md-6 mb-3 columnBox2">
+                                            <label class="labels">Postcode / Zipcode</label>
+                                            <input type="number" class="form-control"
+                                                placeholder="Enter your Postcode / Zipcode" name="pincode"
+                                                value="{{ $studentDetail->pincode ?? old('pincode') }}" required="">
+                                        </div>
+
                                         <div class="col-md-6 mb-3 columnBox2">
                                             <label class="labels">Passport Number</label>
                                             <input type="text" class="form-control"
@@ -239,3 +258,76 @@
         </div>
     </section>
 @endsection
+@push('js')
+    <script>
+        $(document).ready(function() {
+            // alert();
+            var upd_country = $("#getCurrency").val();
+            var upd_state = $("#state-dropdown").val();
+            var upd_city = $("#city-dropdown").val();
+            getState(upd_country)
+
+            $("#getCurrency").change(function() {
+                // $(this).find(':selected').attr('data-id')
+                var id_country = $(this).val();
+                getState(id_country)
+
+            });
+
+            function getState(id_country) {
+                $.ajax({
+                    url: "{{ route('currency') }}",
+                    method: 'GET',
+                    data: {
+                        id_country: id_country,
+
+                    },
+                    success: function(data) {
+
+                        $(".currency-icon").html(data.currency);
+
+                        $('#state-dropdown').html('<option value="">Select State</option>');
+                        $.each(data.states, function(key, value) {
+                            var selectState = upd_state == value.id ? 'selected' : '';
+                            $("#state-dropdown").append('<option value="' + value.id +
+                                '" ' + selectState + '>' + value.name + '</option>');
+                        });
+                        $('#city-dropdown').html(
+                            '<option value="">Select State First</option>');
+                        upd_state ? getCity(upd_state) : ''
+
+                    }
+                });
+            }
+
+            $('#state-dropdown').on('change', function() {
+                var idState = this.value;
+                getCity(idState)
+
+            });
+
+            function getCity(city) {
+                // alert(city)
+                $("#city-dropdown").html('');
+                $.ajax({
+                    url: "{{ route('cities') }}",
+                    type: "POST",
+                    data: {
+                        state_id: city,
+                        _token: '{{ csrf_token() }}'
+                    },
+                    dataType: 'json',
+                    success: function(res) {
+                        $('#city-dropdown').html('<option value="">-- Select City --</option>');
+                        $.each(res.cities, function(key, value) {
+                            var selectCity = upd_city == value.id ? 'selected' : '';
+                            $("#city-dropdown").append('<option value="' + value
+                                .id + '" ' + selectCity + '>' + value.name + '</option>');
+                        });
+                    }
+                });
+            }
+
+        });
+    </script>
+@endpush

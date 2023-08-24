@@ -35,4 +35,9 @@ class PaymentHistory extends Model
     {
         return $this->hasMany(Program::class, 'id', 'program_id');
     }
+
+    public function getProgram()
+    {
+        return $this->belongsTo(Program::class, 'program_id', 'id');
+    }
 }

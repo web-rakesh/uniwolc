@@ -68,18 +68,13 @@
             </div>
 
             <div class="singleProgramsGalleryMoreThumnail">
-                <a href="https://www.propertyfinder.ae/property/0331397d228470003a3b2041e2e90927/1312/894/MODE/f8affc/9608948-50e5fo.webp?ctr=ae"
-                    data-lightbox="photos">
-                </a>
-                <a href="https://www.propertyfinder.ae/property/cf744a14c7045d88391d4a9fd875f596/1312/894/MODE/831d47/9608948-c8496o.webp?ctr=ae"
-                    data-lightbox="photos">
-                </a>
-                <a href="https://www.propertyfinder.ae/property/6320b81736b49cdf68f7afc1f9af68f6/1312/894/MODE/a2dfac/9608948-c7f84o.webp?ctr=ae"
-                    data-lightbox="photos">
-                </a>
-                <a href="https://www.propertyfinder.ae/property/745469241a72f848834b8b9131ded16e/1312/894/MODE/bd24d6/9608948-327d5o.webp?ctr=ae"
-                    data-lightbox="photos">
-                </a>
+                @foreach ($universityImage as $key => $image)
+                    @if ($key > 0 && $key < 3)
+                        <a href="{{ $image->getUrl() }}" data-lightbox="photos">
+                        </a>
+                    @endif
+                @endforeach
+
             </div>
 
 
@@ -213,7 +208,7 @@
                                             class="fa-regular fa-clipboard-list-check"></i></span> <span
                                         class="txt">Admission Requirements</span></h4>
                                 <div class="singleProgramsDtlsContentArea">
-                                    {{ $program->minimum_level_education }}
+                                    {{ $program->minimumLevel->level_name }}
                                 </div>
                             </div>
                             <hr class="borderHr">
@@ -326,7 +321,7 @@
                                         <div class="sidebarContent">
                                             <div class="sidebarTitle">
                                                 {{ get_currency($university->country) }}
-                                                {{ number_format($program->application_fee,2) }} </div>
+                                                {{ number_format($program->application_fee, 2) }} </div>
                                             <div class="sidebarText">Application Fees</div>
                                         </div>
                                     </li>
@@ -343,7 +338,7 @@
                                         <div class="sidebarContent">
                                             <div class="sidebarTitle">
                                                 {{ get_currency($university->country) }}
-                                                {{ number_format($program->gross_tuition,2) }} </div>
+                                                {{ number_format($program->gross_tuition, 2) }} </div>
                                             <div class="sidebarText">Total Fees</div>
                                         </div>
                                     </li>
@@ -363,7 +358,7 @@
                                         <div class="sidebarContent">
                                             <div class="sidebarTitle">
                                                 {{ get_currency($university->country) }}
-                                                {{ number_format($program->cost_of_living,2) }} </div>
+                                                {{ number_format($program->cost_of_living, 2) }} </div>
                                             <div class="sidebarText">Cost of Living</div>
                                         </div>
                                     </li>
@@ -433,7 +428,7 @@
 
                                     <li class="sidebarListItem">
                                         <div class="sidebarContent">
-                                            <div class="sidebarTitle">{{ $program->program_level }}</div>
+                                            <div class="sidebarTitle">{{ $program->programLevel->level_name }}</div>
                                             <div class="sidebarText">Program Level</div>
                                         </div>
                                     </li>
@@ -447,25 +442,28 @@
 
                                     <li class="sidebarListItem">
                                         <div class="sidebarContent">
-                                            <div class="sidebarTitle">{{ get_currency($university->country) }}{{ number_format($program->cost_of_living, 2) }}
+                                            <div class="sidebarTitle">
+                                                {{ get_currency($university->country) }}{{ number_format($program->cost_of_living, 2) }}
 
-                                                / Year</div>
+                                                </div>
                                             <div class="sidebarText">Cost of Living</div>
                                         </div>
                                     </li>
 
                                     <li class="sidebarListItem">
                                         <div class="sidebarContent">
-                                            <div class="sidebarTitle">{{ get_currency($university->country) }}{{ number_format($program->gross_tuition, 2) }}
-                                                 / Year</div>
+                                            <div class="sidebarTitle">
+                                                {{ get_currency($university->country) }}{{ number_format($program->gross_tuition, 2) }}
+                                                </div>
                                             <div class="sidebarText">Tuition</div>
                                         </div>
                                     </li>
 
                                     <li class="sidebarListItem">
                                         <div class="sidebarContent">
-                                            <div class="sidebarTitle">{{ get_currency($university->country) }}{{ number_format($program->application_fee, 2) }}
-                                                </div>
+                                            <div class="sidebarTitle">
+                                                {{ get_currency($university->country) }}{{ number_format($program->application_fee, 2) }}
+                                            </div>
                                             <div class="sidebarText">Application Fee</div>
                                         </div>
                                     </li>

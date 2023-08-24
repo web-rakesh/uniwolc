@@ -77,12 +77,13 @@ class StudentDetailController extends Controller
             ApplyProgram::create([
                 'user_id' => Auth::user()->id,
                 'program_id' => $program->id,
+                'university_id' => $program->user_id,
                 'slug' => $program->slug,
                 'application_number' => 'UW' . rand(100000, 999999),
                 'program_title' => $program->program_title,
                 'fees' => $program->application_fee,
-                'esl_start_date' => now(),
-                'start_date' => now(),
+                // 'esl_start_date' => now(),
+                // 'start_date' => now(),
 
             ]);
             return redirect()->route('student.application.index')->with('message', 'You have successfully applied for this program.');
@@ -138,8 +139,8 @@ class StudentDetailController extends Controller
                     'application_number' => 'UW' . rand(100000, 999999),
                     'program_title' => $program->program_title,
                     'fees' => $program->application_fee,
-                    'esl_start_date' => now(),
-                    'start_date' => now(),
+                    // 'esl_start_date' => now(),
+                    // 'start_date' => now(),
                     'agent_id' => $agentId,
                     'staff_id' => $staffId,
 

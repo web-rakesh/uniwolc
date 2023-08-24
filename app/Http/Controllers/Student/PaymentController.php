@@ -19,7 +19,7 @@ class PaymentController extends Controller
     public function index(Request $request)
     {
         $id = explode(",", $request->ids);
-
+        $countryId = ApplyProgram::whereIn('id', $id)->first()->getUniversity->country;
         if (Auth::user()->type == 'agent') {
             $applyPg = ApplyProgram::whereAgentId(Auth::user()->id)->whereIn('id', $id)->first();
             $studentId = $applyPg->user_id;
@@ -28,15 +28,17 @@ class PaymentController extends Controller
             $applyPg = ApplyProgram::whereStaffId(Auth::user()->id)->whereIn('id', $id)->first();
             $studentId = $applyPg->user_id;
             $totalPayableAmount = ApplyProgram::whereUserId($studentId)->whereIn('id', $id)->sum('fees');
-            return view('staff.payment-confirm', compact('totalPayableAmount', 'id'));
+
+            return view('staff.payment-confirm', compact('totalPayableAmount', 'id', 'countryId'));
         } else {
             $totalPayableAmount = ApplyProgram::whereUserId(Auth::user()->id)->whereIn('id', $id)->sum('fees');
 
             $studentId = Auth::user()->id;
         }
+
         // return $totalPayableAmount;
         // return $totalPayableAmount = ApplyProgram::whereUserId(Auth::user()->id)->whereIn('id', $id)->sum('fees');
-        return view('students.payment-confirm', compact('totalPayableAmount', 'id'));
+        return view('students.payment-confirm', compact('totalPayableAmount', 'id', 'countryId'));
     }
     public function payment(Request $request)
     {
@@ -44,7 +46,8 @@ class PaymentController extends Controller
         // $totalPayableAmount = ApplyProgram::whereUserId(Auth::user()->id)->whereIn('id', $id)->sum('fees');
         // $id = implode(",", $request->id);
 
-
+        $countryId = ApplyProgram::whereIn('id', $id)->first();
+        $countryId =  $countryId->getUniversity->country;
         if (Auth::user()->type == 'agent') {
             $applyPg = ApplyProgram::whereAgentId(Auth::user()->id)->whereIn('id', $id)->first();
             $studentId = $applyPg->user_id;
@@ -54,14 +57,15 @@ class PaymentController extends Controller
             $studentId = $applyPg->user_id;
             $totalPayableAmount = ApplyProgram::whereUserId($studentId)->whereIn('id', $id)->sum('fees');
             $id = implode(",", $request->id);
-            return view('staff.payment', compact('totalPayableAmount', 'id'));
+            return view('staff.payment', compact('totalPayableAmount', 'id', 'countryId'));
         } else {
             $totalPayableAmount = ApplyProgram::whereUserId(Auth::user()->id)->whereIn('id', $id)->sum('fees');
 
             $studentId = Auth::user()->id;
         }
+
         $id = implode(",", $request->id);
-        return view('students.payment', compact('totalPayableAmount', 'id'));
+        return view('students.payment', compact('totalPayableAmount', 'id', 'countryId'));
     }
 
     public function processPayment(Request $request)
@@ -84,7 +88,8 @@ class PaymentController extends Controller
 
             $studentId = Auth::user()->id;
         }
-
+        $countryId = ApplyProgram::whereIn('id', $id)->first()->getUniversity->country;
+        $currency = get_payment_currency($countryId);
         total_payable_amount($totalPayableAmount) * 100;
         DB::beginTransaction();
         try {
@@ -92,7 +97,7 @@ class PaymentController extends Controller
 
             $paymentStatus = $stripe->paymentIntents->create([
                 'amount' => total_payable_amount($totalPayableAmount) * 100,
-                'currency' => 'usd',
+                'currency' => $currency,
                 'payment_method' => $request->payment_method,
                 'description' => 'Uniwolc Student payment with stripe',
                 'confirm' => true,
@@ -122,7 +127,8 @@ class PaymentController extends Controller
 
             PaymentHistory::create([
                 'student_id' => $studentId,
-                'program_id' => implode(",", $id),
+                // 'program_id' => implode(",", $id),
+                'program_id' => (int)$id,
                 'amount' => $paymentStatus->amount / 100,
                 'currency' => $paymentStatus->currency,
                 'payment_method' => $paymentStatus->payment_method_types[0],

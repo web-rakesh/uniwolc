@@ -2,6 +2,9 @@
 
 namespace App\Http\Livewire\Admin\Application;
 
+use App\Models\City;
+use App\Models\State;
+use App\Models\Country;
 use Livewire\Component;
 use Livewire\WithPagination;
 use App\Exports\ApplypogramExport;
@@ -17,10 +20,23 @@ class ApplicationList extends Component
     protected $paginationTheme = 'bootstrap';
     public $searchItem, $universities, $universityId, $students, $studentId, $pay_status;
     public $applications, $label;
+    public $countries = [], $country_id, $states = [], $state_id, $cities = [], $city_id;
+
+
 
     public function render()
     {
-        // dd($this->applications);
+        $universityCountry = $this->country_id;
+        $universityState = $this->state_id;
+        $universityCity = $this->city_id;
+
+        $this->countries = Country::all();
+        if (!is_null($this->country_id)) {
+            $this->states = State::where('country_id', $this->country_id)->get();
+        }
+        if (!is_null($this->state_id)) {
+            $this->cities = City::where('state_id', $this->state_id)->get();
+        }
         $this->students = StudentDetail::all();
         $this->universities = ProfileDetail::all();
         $programs = ApplyProgram::query()
@@ -41,6 +57,22 @@ class ApplicationList extends Component
             ->when($this->universityId, function ($query) {
                 return $query->whereHas('getProgram.university', function ($query) {
                     return $query->where('id', $this->universityId);
+                });
+            })
+
+            ->when($this->country_id, function ($query) use ($universityCountry) {
+                return $query->whereHas('getProgram.university', function ($query) use ($universityCountry) {
+                    return $query->where('country', $universityCountry);
+                });
+            })
+            ->when($this->state_id, function ($query) use ($universityState) {
+                return $query->whereHas('getProgram.university', function ($query) use ($universityState) {
+                    return $query->where('state', $universityState);
+                });
+            })
+            ->when($this->city_id, function ($query) use ($universityCity) {
+                return $query->whereHas('getProgram.university', function ($query) use ($universityCity) {
+                    return $query->where('city', $universityCity);
                 });
             })
 

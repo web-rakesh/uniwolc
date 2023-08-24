@@ -20,13 +20,19 @@
 
 
                             <div class="overLayBtnArea">
-                                <a href="https://www.propertyfinder.ae/property/03aff856d68e396817c2d9f28ace7e5c/1312/894/MODE/116e48/9608948-9b215o.webp?ctr=ae"
-                                    class="overLayBtn showPhotoBtn" data-lightbox="photos"><i
-                                        class="fa-regular fa-camera"></i> <span class="txt">Show
-                                        photos</span></a>
-                                <a href="#" class="overLayBtn viewMapBtn"><i class="fa-regular fa-location-dot"></i>
-                                    <span class="txt">View on
-                                        map</span></a>
+                                @if (!empty($universityImage))
+                                    <a href="{{ $universityImage[0]->getUrl() }}" class="overLayBtn showPhotoBtn"
+                                        data-lightbox="photos"><i class="fa-regular fa-camera"></i> <span
+                                            class="txt">Show
+                                            photos</span></a>
+                                @endif
+                                @if ($university->location != '')
+                                    <a href="https://www.google.com/maps?q={{ urlencode($university->location) }}"
+                                        target="_blank" class="overLayBtn viewMapBtn"><i
+                                            class="fa-regular fa-location-dot"></i>
+                                        <span class="txt">View on
+                                            map</span></a>
+                                @endif
                             </div>
 
                         </div>
@@ -62,18 +68,13 @@
             </div>
 
             <div class="singleProgramsGalleryMoreThumnail">
-                <a href="https://www.propertyfinder.ae/property/0331397d228470003a3b2041e2e90927/1312/894/MODE/f8affc/9608948-50e5fo.webp?ctr=ae"
-                    data-lightbox="photos">
-                </a>
-                <a href="https://www.propertyfinder.ae/property/cf744a14c7045d88391d4a9fd875f596/1312/894/MODE/831d47/9608948-c8496o.webp?ctr=ae"
-                    data-lightbox="photos">
-                </a>
-                <a href="https://www.propertyfinder.ae/property/6320b81736b49cdf68f7afc1f9af68f6/1312/894/MODE/a2dfac/9608948-c7f84o.webp?ctr=ae"
-                    data-lightbox="photos">
-                </a>
-                <a href="https://www.propertyfinder.ae/property/745469241a72f848834b8b9131ded16e/1312/894/MODE/bd24d6/9608948-327d5o.webp?ctr=ae"
-                    data-lightbox="photos">
-                </a>
+                @foreach ($universityImage as $key => $image)
+                    @if ($key > 0 && $key < 3)
+                        <a href="{{ $image->getUrl() }}" data-lightbox="photos">
+                        </a>
+                    @endif
+                @endforeach
+
             </div>
 
 
@@ -207,7 +208,7 @@
                                             class="fa-regular fa-clipboard-list-check"></i></span> <span
                                         class="txt">Admission Requirements</span></h4>
                                 <div class="singleProgramsDtlsContentArea">
-                                    {{ $program->minimum_level_education }}
+                                    {{ $program->minimumLevel->level_name }}
                                 </div>
                             </div>
                             <hr class="borderHr">
@@ -305,10 +306,10 @@
                             </div>
                         </div> --}}
 
-                        <div class="sidebarAgentDtlsArea">
+                        {{-- <div class="sidebarAgentDtlsArea">
                             <div class="sidebarAgentDtlsAreainner">
                                 <div class="programsPrice">
-                                    {{-- <h4 class="mb-0">$ 47</h4> --}}
+                                    <h4 class="mb-0">$ 47</h4>
                                 </div>
                                 <div class="applyNowBtnArea">
                                     <a href="https://uniwolc.com/apply/1" class="btn btn-primary w-100 applyNowBtn"><span
@@ -317,7 +318,7 @@
                                 </div>
 
                             </div>
-                        </div>
+                        </div> --}}
 
                         <div class="singleProgramsSideBarWidget">
                             <div class="singleProgramsSideBarWidgetBody">
@@ -341,7 +342,8 @@
                                             </svg>
                                         </div>
                                         <div class="sidebarContent">
-                                            <div class="sidebarTitle">$ {{ $program->application_fee }} </div>
+                                            <div class="sidebarTitle">
+                                                {{ get_currency($university->country) . $program->application_fee }} </div>
                                             <div class="sidebarText">Application Fees</div>
                                         </div>
                                     </li>
@@ -356,7 +358,8 @@
                                             </svg>
                                         </div>
                                         <div class="sidebarContent">
-                                            <div class="sidebarTitle">$ {{ $program->gross_tuition }} </div>
+                                            <div class="sidebarTitle">
+                                                {{ get_currency($university->country) . $program->gross_tuition }} </div>
                                             <div class="sidebarText">Total Fees</div>
                                         </div>
                                     </li>
@@ -374,7 +377,8 @@
                                             </svg>
                                         </div>
                                         <div class="sidebarContent">
-                                            <div class="sidebarTitle">$ {{ $program->cost_of_living }} </div>
+                                            <div class="sidebarTitle">
+                                                {{ get_currency($university->country) . $program->cost_of_living }} </div>
                                             <div class="sidebarText">Cost of Living</div>
                                         </div>
                                     </li>
@@ -414,7 +418,7 @@
                                 <ul class="sidebarList">
                                     @forelse ($relatedPrograms as $item)
                                         <li class="sidebarListItem">
-                                            <a href="{{ route('student.program.detail', $item->id) }}"
+                                            <a href="{{ route('student.program.detail',$item->slug) }}"
                                                 class="sidebarListLink">{{ $item->program_title }}</a>
                                         </li>
                                     @empty
@@ -444,7 +448,7 @@
 
                                     <li class="sidebarListItem">
                                         <div class="sidebarContent">
-                                            <div class="sidebarTitle">{{ $program->program_level }}</div>
+                                            <div class="sidebarTitle">{{ $program->programLevel->level_name }}</div>
                                             <div class="sidebarText">Program Level</div>
                                         </div>
                                     </li>
@@ -458,25 +462,28 @@
 
                                     <li class="sidebarListItem">
                                         <div class="sidebarContent">
-                                            <div class="sidebarTitle">£{{ number_format($program->cost_of_living, 2) }}
-                                                GBP
-                                                / Year</div>
+                                            <div class="sidebarTitle">
+                                                {{ get_currency($university->country) }}{{ number_format($program->cost_of_living, 2) }}
+
+                                            </div>
                                             <div class="sidebarText">Cost of Living</div>
                                         </div>
                                     </li>
 
                                     <li class="sidebarListItem">
                                         <div class="sidebarContent">
-                                            <div class="sidebarTitle">£{{ number_format($program->gross_tuition, 2) }}
-                                                GBP / Year</div>
+                                            <div class="sidebarTitle">
+                                                {{ get_currency($university->country) }}{{ number_format($program->gross_tuition, 2) }}
+                                            </div>
                                             <div class="sidebarText">Tuition</div>
                                         </div>
                                     </li>
 
                                     <li class="sidebarListItem">
                                         <div class="sidebarContent">
-                                            <div class="sidebarTitle">£{{ number_format($program->application_fee, 2) }}
-                                                GBP</div>
+                                            <div class="sidebarTitle">
+                                                {{ get_currency($university->country) }}{{ number_format($program->application_fee, 2) }}
+                                            </div>
                                             <div class="sidebarText">Application Fee</div>
                                         </div>
                                     </li>

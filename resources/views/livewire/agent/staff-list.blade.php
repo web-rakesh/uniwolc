@@ -36,7 +36,7 @@
                                     </div> --}}
                                     <div class="col-lg-2 col-md-2 col-sm-6 col-12 columnBox">
                                         <a href="javascript:;" wire:click="create"
-                                            class="btn btn-primary applicationSearchformBtn">Add
+                                            class="btn btn-primary applicationSearchformBtn">Invite
                                             Staff</a>
                                     </div>
                                 </div>
@@ -83,8 +83,7 @@
                                             <th>#</th>
                                             <th>Name</th>
                                             <th>Email</th>
-                                            <th>Country</th>
-                                            <th>Address</th>
+                                            <th>status</th>
                                             <th>Created at</th>
                                             <th>Action</th>
                                         </tr>
@@ -103,10 +102,12 @@
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <div class="tableContent">{{ $agent->countryGet->name ?? '' }}</div>
-                                                </td>
-                                                <td>
-                                                    <div class="tableContent">{{ $agent->address }}</div>
+                                                    <div class="form-check form-switch justify-content-center">
+                                                        <input class="form-check-input" type="checkbox"
+                                                            wire:change="changeStatus({{ $agent }},$event.target.value)"
+                                                            role="switch" value="{{ $agent->status }}"
+                                                            @if ($agent->status == '1') checked @endif>
+                                                    </div>
                                                 </td>
                                                 <td>
                                                     <div class="tableContent">
@@ -247,8 +248,14 @@
 
                             <div class="form-group col-6">
                                 <label for="city">City</label>
-                                <input wire:model="city" type="text" class="form-control" id="city"
-                                    placeholder="Enter agent city">
+                                {{-- <input wire:model="city" type="text" class="form-control" id="city"
+                                    placeholder="Enter agent city"> --}}
+                                <select class="form-control" wire:model="city" id="city">
+                                    <option value="">Select City</option>
+                                    @foreach ($cities as $city)
+                                        <option value="{{ $city->id }}">{{ $city->name }}</option>
+                                    @endforeach
+                                </select>
                                 @error('city')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror

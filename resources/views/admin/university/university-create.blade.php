@@ -81,15 +81,33 @@
 
                                 <div class="form-group col-6">
                                     <label>Country</label>
-                                    <select class="form-select" name="country" id="getCurrency">
+                                    <select class="form-select country-dropdown" name="country" id="getCurrency">
 
-                                        <option value="">Select Country</option>
+                                        <option value="">Select Country {{ $profileDetail->country }}</option>
                                         @foreach ($countries as $country)
                                             <option value="{{ $country->id }}" data-currency="{{ $country->name }}"
                                                 {{ isset($universityDetail) ? ($universityDetail->country == $country->id ? 'selected' : '') : '' }}>
                                                 {{ $country->name }}</option>
                                         @endforeach
 
+                                    </select>
+                                </div>
+                                <div class="form-group col-6">
+                                    <label>State</label>
+                                    <select class="form-select" id="state-dropdown" name="state">
+                                        @if ($universityDetail)
+                                            <option value="{{ $universityDetail->state }}">
+                                                {{ get_state($universityDetail->state) }}</option>
+                                        @endif
+                                    </select>
+                                </div>
+                                <div class="form-group col-6">
+                                    <label>City</label>
+                                    <select class="form-select" id="city-dropdown" name="city">
+                                        @if ($universityDetail)
+                                            <option value="{{ $universityDetail->city }}">
+                                                {{ get_city($universityDetail->city) }}</option>
+                                        @endif
                                     </select>
                                 </div>
                             </div>
@@ -265,7 +283,8 @@
                                 </div>
                             @endforeach
 
-                            <button type="submit" class="btn btn-gradient-primary me-2">Submit</button>
+                            <button type="submit"
+                                class="btn btn-gradient-primary me-2">{{ @$universityDetail ? 'Update' : 'Submit' }}</button>
                             <a href="{{ route('admin.university') }}" class="btn btn-light">Cancel</a>
                         </form>
                     </div>
@@ -383,11 +402,42 @@
                     },
                     success: function(data) {
 
-                        $(".currency-icon").html(data);
+                        $(".currency-icon").html(data.currency);
+
+                        $('#state-dropdown').html('<option value="">Select State</option>');
+                        $.each(data.states, function(key, value) {
+                            $("#state-dropdown").append('<option value="' + value.id +
+                                '">' + value.name + '</option>');
+                        });
+                        $('#city-dropdown').html(
+                            '<option value="">Select State First</option>');
 
                     }
                 });
             });
+
+
+            $('#state-dropdown').on('change', function() {
+                var idState = this.value;
+                $("#city-dropdown").html('');
+                $.ajax({
+                    url: "{{ url('admin/fetch-cities') }}",
+                    type: "POST",
+                    data: {
+                        state_id: idState,
+                        _token: '{{ csrf_token() }}'
+                    },
+                    dataType: 'json',
+                    success: function(res) {
+                        $('#city-dropdown').html('<option value="">-- Select City --</option>');
+                        $.each(res.cities, function(key, value) {
+                            $("#city-dropdown").append('<option value="' + value
+                                .id + '">' + value.name + '</option>');
+                        });
+                    }
+                });
+            });
+
         });
     </script>
 @endpush

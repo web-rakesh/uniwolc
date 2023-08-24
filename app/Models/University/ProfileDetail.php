@@ -21,6 +21,8 @@ class ProfileDetail extends Model implements HasMedia
         'phone_number',
         'email',
         'country',
+        'state',
+        'city',
         'permit_visa',
         'address',
         'about_university',
@@ -58,5 +60,15 @@ class ProfileDetail extends Model implements HasMedia
     public function getCountry()
     {
         return $this->belongsTo(\App\Models\Country::class, 'country', 'id');
+    }
+
+    public function getState()
+    {
+        return $this->belongsTo(\App\Models\State::class, 'state', 'id');
+    }
+
+    public function getCity()
+    {
+        return $this->belongsTo(\App\Models\City::class, 'city', 'id');
     }
 }

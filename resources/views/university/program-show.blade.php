@@ -207,7 +207,7 @@
                                             class="fa-regular fa-clipboard-list-check"></i></span> <span
                                         class="txt">Admission Requirements</span></h4>
                                 <div class="singleProgramsDtlsContentArea">
-                                    {{ $program->minimum_level_education }}
+                                    {{ $program->minimumLevel->level_name }}
                                 </div>
                             </div>
                             <hr class="borderHr">
@@ -370,7 +370,7 @@
                                             </svg>
                                         </div>
                                         <div class="sidebarContent">
-                                            <div class="sidebarTitle"> {{ $program->program_length }} </div>
+                                            <div class="sidebarTitle"> {{ $program->programLevel->level_name }} </div>
                                             <div class="sidebarText">Program Length</div>
                                         </div>
                                     </li>
@@ -423,7 +423,7 @@
 
                                     <li class="sidebarListItem">
                                         <div class="sidebarContent">
-                                            <div class="sidebarTitle">{{ $program->program_level }}</div>
+                                            <div class="sidebarTitle">{{ $program->programLevel->level_name }}</div>
                                             <div class="sidebarText">Program Level</div>
                                         </div>
                                     </li>

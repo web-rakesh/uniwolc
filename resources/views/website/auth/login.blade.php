@@ -27,6 +27,11 @@
                                         </ul>
                                     </div>
                                 @endif
+                                @if (session('error'))
+                                    <div class="mb-4 font-medium text-lg alert alert-danger">
+                                        {{ session('error') }}
+                                    </div>
+                                @endif
                                 <div class="sub-login-content">
                                     <h4>Log In</h4>
                                 </div>

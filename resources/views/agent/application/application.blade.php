@@ -42,7 +42,7 @@
                                         <span>App #</span>
                                         <span>School</span>
                                         <span>Program</span>
-                                        <span>ESL Start Date</span>
+                                        {{-- <span>ESL Start Date</span> --}}
                                         <span>Start Date</span>
                                         <span>Fees</span>
                                     </div>
@@ -99,7 +99,7 @@
                                                 <a
                                                     href="{{ route('agent.program.detail', $item->getProgram->slug) }}">{{ $item->program_title }}</a>
                                             </div>
-                                            <div class="eslStartDate" data-title="ESL Start Date">
+                                            {{-- <div class="eslStartDate" data-title="ESL Start Date">
                                                 <div class="hd">ESL</div>
                                                 <div class="txt"></div>
                                                 <div class="">
@@ -109,15 +109,16 @@
                                                         <option>NA</option>
                                                     </select>
                                                 </div>
-                                            </div>
+                                            </div> --}}
                                             <div class="eslStartDate startDate" data-title="Start Date">
                                                 <div class="hd">Academic</div>
                                                 <div class="txt">Open Now</div>
                                                 <div class="">
-                                                    <select class="form-control">
+                                                    {{ $item->start_date ? date('M d, Y', strtotime($item->start_date)) : 'NA' }}
+                                                    {{-- <select class="form-control">
                                                         <option>2023-Sep</option>
                                                         <option>2024-Sep</option>
-                                                    </select>
+                                                    </select> --}}
                                                 </div>
                                             </div>
                                             <div class="appFees" data-title="Application Fees">
@@ -127,7 +128,9 @@
                                                     @if ($item->fees == 0)
                                                         <div class="amt">Free</div>
                                                     @else
-                                                        <div class="amt">{{ number_format($item->fees, 2) }}</div>
+                                                        <div class="amt">
+                                                            {{ get_currency($item->getUniversity->country) . number_format($item->fees, 2) }}
+                                                        </div>
                                                     @endif
                                                 </div>
                                             </div>
@@ -136,15 +139,17 @@
                                     <div class="rightpart">
                                         <div class="appNote">
                                             <div class="appNoteinner">
-                                                <a href="{{ route('agent.program.print', $item->getProgram->slug) }}"
-                                                    target="_blank">
-                                                    <div class="appNoteBox">
-                                                        <div class="appNoteBoxinner">
-                                                            <span class="fa-light fa-note-sticky icon"></span>
-                                                            <div class="number">0</div>
+                                                @if ($item->program_status !== 3)
+                                                    <a href="{{ route('agent.program.print', $item->getProgram->slug) }}"
+                                                        target="_blank">
+                                                        <div class="appNoteBox">
+                                                            <div class="appNoteBoxinner">
+                                                                <span class="fa-light fa-note-sticky icon"></span>
+                                                                <div class="number"></div>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                </a>
+                                                    </a>
+                                                @endif
                                             </div>
                                         </div>
                                         <div class="ml-3 viewBtnDiv">
@@ -155,17 +160,25 @@
                                                     <span class="txt">View</span>
                                                 </a>
                                             @else
-                                                <a href="{{ route('agent.application.fillup', $item->slug) }}"
-                                                    target="_blank" class="btn viewBtn">
-                                                    <span class="icon"><i
-                                                            class="fa-regular fa-up-right-from-square"></i></span>
-                                                    <span class="txt">FillUp</span>
-                                                </a>
+                                                @if ($item->program_status !== 3)
+                                                    <a href="{{ route('agent.application.fillup', $item->slug) }}"
+                                                        target="_blank" class="btn viewBtn">
+                                                        <span class="icon"><i
+                                                                class="fa-regular fa-up-right-from-square"></i></span>
+                                                        <span class="txt">FillUp</span>
+                                                    </a>
+                                                @endif
                                             @endif
                                         </div>
                                         <div class="ml-3 deleteBtnDiv">
 
-
+                                            @if ($item->program_status == 1)
+                                                <span class="txt">accepted</span>
+                                            @elseif ($item->program_status == 3)
+                                                <span class="txt">rejected</span>
+                                            @else
+                                                <span class="txt">pending</span>
+                                            @endif
                                             {{-- <form action="{{ route('student.application.destroy', $item->id) }}"
                                                 method="POST" class="delete_form">
                                                 @csrf

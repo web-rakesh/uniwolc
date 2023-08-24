@@ -122,10 +122,11 @@
                                             <div class="des">
                                                 <p><strong>Delivery Method:</strong> <span
                                                         class="classStatus">In-class</span></p>
-                                                <p><strong>Level:</strong> {{ $applyProgram->getProgram->program_level }}
+                                                <p><strong>Level:</strong>
+                                                    {{ $applyProgram->getProgram->programLevel->level_name }}
                                                 </p>
                                                 <p><strong>Required Level:</strong>
-                                                    {{ $applyProgram->getProgram->minimum_level_education }}</p>
+                                                    {{ $applyProgram->getProgram->minimumLevel->level_name }}</p>
                                                 <p><strong>Application ID:</strong>
                                                     {{ $applyProgram->application_number }}</p>
                                             </div>
@@ -147,8 +148,8 @@
                                                 <label class="labelName">ESL</label>
                                                 <select class="form-control">
                                                     <option>Select...</option>
-                                                    <option>2023 - Jun</option>
-                                                    <option>2023 - Jul</option>
+                                                    {{-- <option>2023 - Jun</option>
+                                                    <option>2023 - Jul</option> --}}
                                                 </select>
                                             </div>
                                             {{-- {{ json_decode($applyProgram->getProgram->program_till_date, true) }} --}}
@@ -159,12 +160,16 @@
                                             <div class="col-lg-5 col-md-5 col-sm-12 col-12 columnBox2">
                                                 <label class="labelName">Academic : <span class="status">Open
                                                         Now</span></label>
-                                                <select class="form-control">
+                                                <select class="form-control" id="academic-session">
+                                                    <option>Select...</option>
                                                     @foreach ($data as $item)
-                                                        <option>{{ date('Y - M', strtotime($item)) }}</option>
+                                                        @if (now()->format('Y-m-d') < date('Y-m-d', strtotime($item)))
+                                                            <option value="{{ $item }}"
+                                                                {{ date('Y-m-d', strtotime($applyProgram->start_date)) == date('Y-m-d', strtotime($item)) ? 'selected' : '' }}>
+
+                                                                {{ date('Y - M', strtotime($item)) }}</option>
+                                                        @endif
                                                     @endforeach
-                                                    {{-- <option>2023 - Sep.</option>
-                                                    <option>2023 - Sep.</option> --}}
                                                 </select>
                                             </div>
                                         </div>
@@ -218,7 +223,7 @@
                                                                     <div class="chooseProgramIteminner">
 
                                                                         <div class="programSelect">
-                                                                            <select class="form-control" multiple
+                                                                            <select class="form-selected" multiple
                                                                                 id="backupItemSelect">
 
                                                                             </select>
@@ -309,7 +314,7 @@
                                                                         {{ $studentDetail->city }}</p>
                                                                     <p class="mb-0"><span
                                                                             class="d-block">Nationality</span>
-                                                                        {{ $studentDetail->country }}</p>
+                                                                        {{ get_country($studentDetail->country) }}</p>
                                                                 </div>
                                                                 <div class="mb-0"></div>
                                                             </div>
@@ -388,7 +393,7 @@
                                                         <div class="sintentInfo">
                                                             <div class="contentBoxFld">
                                                                 <p class="mb-0">
-                                                                    {{ $studentDetail->educationDetail->education_level }}:
+                                                                    {{ get_education_level($studentDetail->educationDetail->education_level) }}:
                                                                     <a href="javascript:;"><i
                                                                             class="fa-solid fa-graduation-cap"></i></a>
                                                                 </p>
@@ -404,13 +409,13 @@
                                                                 <div class="ttl">Country of
                                                                     Education</div>
                                                                 <div class="txt">
-                                                                    {{ $studentDetail->educationDetail->education_country }}
+                                                                    {{ get_country($studentDetail->educationDetail->education_country) }}
                                                                 </div>
                                                             </div>
                                                             <div class="studentInfoItem">
                                                                 <div class="ttl">Grade</div>
                                                                 <div class="txt">
-                                                                    {{ $studentDetail->educationDetail->education_scheme_grade }}
+                                                                    {{ get_education_scheme_grade($studentDetail->educationDetail->education_scheme_grade) }}
                                                                 </div>
                                                             </div>
 
@@ -424,7 +429,7 @@
                                                         <div class="sintentInfo">
                                                             <div class="contentBoxFld">
                                                                 <p class="mb-0">
-                                                                    {{ $studentDetail->educationDetail->education_scheme_grade }}
+                                                                    {{ $studentDetail->englishTest->english_test_type }}
                                                                 </p>
                                                             </div>
                                                         </div>
@@ -433,7 +438,50 @@
                                                     </div>
                                                     <div class="accordianBody">
                                                         <div class="studentInfoArea">
-
+                                                            <div class="studentInfoArea">
+                                                                <div class="studentInfoItem">
+                                                                    <div class="ttl">English Test Type</div>
+                                                                    <div class="txt">
+                                                                        {{ $studentDetail->englishTest->english_test_type }}
+                                                                    </div>
+                                                                </div>
+                                                                <div class="studentInfoItem">
+                                                                    <div class="ttl">Total Score</div>
+                                                                    <div class="txt">
+                                                                        {{ $studentDetail->englishTest->total_score }}
+                                                                    </div>
+                                                                </div>
+                                                                <div class="studentInfoItem">
+                                                                    <div class="ttl">Reading Score</div>
+                                                                    <div class="txt">
+                                                                        {{ $studentDetail->englishTest->reading_score }}
+                                                                    </div>
+                                                                </div>
+                                                                <div class="studentInfoItem">
+                                                                    <div class="ttl">Writing Score</div>
+                                                                    <div class="txt">
+                                                                        {{ $studentDetail->englishTest->writing_score }}
+                                                                    </div>
+                                                                </div>
+                                                                <div class="studentInfoItem">
+                                                                    <div class="ttl">Listening Score</div>
+                                                                    <div class="txt">
+                                                                        {{ $studentDetail->englishTest->listening_score }}
+                                                                    </div>
+                                                                </div>
+                                                                <div class="studentInfoItem">
+                                                                    <div class="ttl">Speaking Score</div>
+                                                                    <div class="txt">
+                                                                        {{ $studentDetail->englishTest->speaking_score }}
+                                                                    </div>
+                                                                </div>
+                                                                <div class="studentInfoItem">
+                                                                    <div class="ttl">Exam Date</div>
+                                                                    <div class="txt">
+                                                                        {{ $studentDetail->englishTest->exam_date ? date('M d, Y', strtotime($studentDetail->englishTest->exam_date)) : '' }}
+                                                                    </div>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -488,7 +536,7 @@
                                                                         pending</strong></p>
                                                                 <p class="mb-0">Application Fee
                                                                     @if ($applyProgram->getProgram->application_fee > 0)
-                                                                        £{{ $applyProgram->getProgram->application_fee }}
+                                                                        {{ get_currency($applyProgram->getUniversity->country) . $applyProgram->getProgram->application_fee }}
                                                                     @else
                                                                         <a href="javascript;:"
                                                                             style="color: rgb(255,0,0);">Free</a>
@@ -540,7 +588,7 @@
                                     <li><a href=""><span class="icon"><i
                                                     class="fa-regular fa-file-lines"></i></span>
                                             <span class="txt">Applicant Requirements</span></a></li>
-                                    <li><a href=""><span class="icon"><i
+                                    <li><a href="javascript:;" id="student-record"><span class="icon"><i
                                                     class="fa-regular fa-clipboard"></i></span>
                                             <span class="txt">Student Records</span></a></li>
                                     <li><a href="javascript:;" id="note"><span class="icon"><i
@@ -556,8 +604,9 @@
                                         <div class="appDtlsAccordianHeader">
                                             <div class="leftSide">
                                                 <h4 class="title">Pre-Payment</h4>
-                                                <p class="mb-0">Last requirement completed on May.
-                                                    24, 2023</p>
+                                                <p class="mb-0">Last requirement completed on
+                                                    {{ date('M d, Y', strtotime($applyProgram->getProgram->deadline)) }}
+                                                </p>
                                             </div>
                                             <div class="rightSide">
                                                 <ul class="rightSideList">
@@ -1282,14 +1331,14 @@
                 <div class="modal-content">
                     <!-- Modal Header -->
                     <div class="modal-header">
-                        <h4 class="modal-title">Text Editor Modal</h4>
+                        <h4 class="modal-title" id="model_heading"></h4>
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
 
                     <!-- Modal body -->
                     <div class="modal-body">
                         <div id="editor-container">
-                            <textarea name="" class="form-control" id="" cols="30" rows="10"></textarea>
+                            <textarea name="" class="form-control" id="application-content" cols="30" rows="10"></textarea>
                             <!-- Quill editor will be rendered here -->
                         </div>
                     </div>
@@ -1297,7 +1346,7 @@
                     <!-- Modal footer -->
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" id="saveBtn">Save</button>
+                        <button type="button" class="btn btn-primary" data-mode="" id="saveBtn">Save</button>
                     </div>
                 </div>
             </div>
@@ -1424,13 +1473,58 @@
             })
 
             $("#note").on('click', function() {
-
-                $('#application-note').modal('show');
+                saveData('note', 'open')
             })
+            $("#student-record").on('click', function() {
+                saveData('student-record', 'open')
+            })
+            $("#saveBtn").on('click', function() {
+                saveData($(this).attr('data-mode'), 'store')
+            })
+
+            function saveData(mode, action) {
+                var editorData = $("#application-content").val();
+                // console.log(editorData);
+                // alert(editorData);
+                var url = "{{ route('application.record.note') }}";
+                var formData = new FormData();
+                formData.append("editor", editorData);
+                formData.append("id", "{{ $applyProgram->id }}");
+                formData.append("mode", mode);
+                formData.append("action", action);
+                $.ajax({
+                    type: 'POST',
+                    url: url,
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        $("#application-content").val(response.note);
+                        if (response.mode == 'note' && response.action == 'open') {
+                            $('#application-note').modal('show');
+                            $("#saveBtn").attr('data-mode', 'note');
+                            $("#model_heading").text('Note')
+                        }
+                        if (response.mode == 'student-record' && response.action == 'open') {
+                            $('#application-note').modal('show');
+                            $("#saveBtn").attr('data-mode', 'student-record');
+                            $("#model_heading").text('Student Record')
+                        }
+                        if (response.modal == 'off') {
+                            $('#application-note').modal('hide');
+
+                        }
+
+                    },
+                    error: function(xhr) {
+
+                    }
+                });
+            }
 
             $("#addBackupProgran").on('click', function() {
 
-                var url = "{{ route('student.application.program.backup') }}";
+                var url = "{{ route('application.program.backup') }}";
                 var formData = new FormData();
                 formData.append("id", "{{ $applyProgram->id }}");
                 $.ajax({
@@ -1441,14 +1535,17 @@
                     contentType: false,
                     success: function(response) {
 
-
+                        console.log(response);
                         var options = '';
                         var selected = '';
                         // Loop through the data and create options for the select dropdown
                         $.each(response.allProgram, function(index, item) {
                             //   console.log( response.backupProgram.indexOf(item.id) !== -1)
-                            selected = response.backupProgram.indexOf(item.id) !== -1 ?
-                                'selected' : '';
+                            if (response.backupProgram != null) {
+                                selected = response.backupProgram.indexOf(item.id) !== -
+                                    1 ?
+                                    'selected' : '';
+                            }
                             options += '<option value="' + item.id + '" ' + selected +
                                 '>' + item
                                 .program_title + '</option>';
@@ -1471,7 +1568,7 @@
                 let backupProgramId = $("#backupItemSelect").val();
                 // alert(backupProgramId);
 
-                var url = "{{ route('student.application.program.backup.store') }}";
+                var url = "{{ route('application.program.backup.store') }}";
                 var formData = new FormData();
                 formData.append("programId", "{{ $applyProgram->id }}");
                 formData.append("backupProgramId", backupProgramId);
@@ -1482,9 +1579,26 @@
                     processData: false,
                     contentType: false,
                     success: function(response) {
+                        $('#addBackupProgramModal').modal('hide');
+                    },
+                    error: function(xhr) {
 
-                        console.log(response);
-                        // $("#addBackupProgran").click();
+                    }
+                });
+            })
+
+            $("#academic-session").on('change', function() {
+                var formData = new FormData();
+                formData.append("date", $(this).val());
+                formData.append("id", "{{ $applyProgram->id }}");
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ url('application/academic-session') }}",
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        window.location.reload();
                     },
                     error: function(xhr) {
 

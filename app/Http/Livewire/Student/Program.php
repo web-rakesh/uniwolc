@@ -29,7 +29,7 @@ class Program extends Component
         if ($this->searchStatus == false) {
 
             $this->programs = ProgramSchool::query()
-
+                ->latest()
                 ->when($this->school_short, function ($query, $school_short) {
                     // dd($school_short);
                     if ($school_short == 'tuition_l_h') {
@@ -49,6 +49,7 @@ class Program extends Component
         } else {
             $this->searchStatus = false;
             $this->programs = ProgramSchool::query()
+                ->latest()
                 ->when($this->studies, function ($query, $search) {
 
                     $query->where('program_level', 'LIKE', "%{$search}%");

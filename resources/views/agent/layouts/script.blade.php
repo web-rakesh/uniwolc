@@ -67,25 +67,7 @@
           $(".VideoPopup iframe").attr("src", $(".VideoPopup iframe").attr("src"));
       });
   </script>
-  <script>
-      $(document).ready(function() {
-          //   $('#example').DataTable();
-          //   $('#basicModal').modal('show');
 
-          var agent_verify = "{{ agent_verify() }}";
-          if (agent_verify == 0) {
-              $("#basicModal").modal({
-                  show: true,
-                  backdrop: 'static'
-              });
-          }
-          //   $("#basicModal").modal({
-          //       show: true,
-          //       backdrop: 'static'
-          //   });
-
-      });
-  </script>
   <!-- Modal Video End -->
   <!-- JavaScript End -->
 

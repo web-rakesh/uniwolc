@@ -6,15 +6,15 @@
 
         <div class="card">
             <div class="card-body">
-                <div class="d-flex justify-content-between">
+                <div class="d-flex justify-content-between cardHeadingSection">
                     <h4 class="card-title">Question Screen</h4>
                     <a href="javascript:;" wire:click="create" class="btn btn-primary">Add Screen</a>
                 </div>
-                <div class="mt-3">
+                <div class="mt-3 mb-3">
                     <input wire:model="searchItem" type="text" class="form-control" placeholder="Search Students...">
                 </div>
-                </p>
-                <div class="table-responsive">
+               
+                <div class="table-responsive responsive_table_area">
 
                     <table class="table table-striped">
                         <thead>
@@ -29,12 +29,12 @@
                         <tbody>
 
                             @forelse ($quesScreens ?? [] as $key => $screen)
-                                <tr>
-                                    <td> {{ $screen->sequence_no ?? '' }} </td>
-                                    <td> {{ $screen->label ?? '--' }}</td>
-                                    <td> {{ $screen->description ?? '--' }} </td>
-                                    <td> {{ date('M d, Y', strtotime($screen->created_at)) }} </td>
-                                    <td> <a href="javascript:;" wire:click="editScreen({{  $screen->id }})" class="btn btn-info btn-sm">Edit</a> </td>
+                                <tr class="table_item">
+                                    <td data-title="Sequence No"> {{ $screen->sequence_no ?? '' }} </td>
+                                    <td data-title="Label"> {{ $screen->label ?? '--' }}</td>
+                                    <td data-title="Description"> {{ $screen->description ?? '--' }} </td>
+                                    <td data-title="Created_at"> {{ date('M d, Y', strtotime($screen->created_at)) }} </td>
+                                    <td data-title="Action"> <a href="javascript:;" wire:click="editScreen({{  $screen->id }})" class="btn btn-info btn-sm">Edit</a> </td>
                                 </tr>
                             @empty
                                 <tr>

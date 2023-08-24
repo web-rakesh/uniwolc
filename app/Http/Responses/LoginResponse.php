@@ -16,10 +16,18 @@ class LoginResponse implements LoginResponseContract
         if (auth()->user()->type == 'student') {
             return redirect()->route('student.dashboard');
         } else if (auth()->user()->type == 'agent') {
+            if (agent_verify() == 0) {
+                auth()->logout();
+                return redirect()->route('login')->with('error', 'Your account is not active. Please contact admin.');
+            }
             return redirect()->route('agent.dashboard');
         } else if (auth()->user()->type == 'university') {
             return redirect()->route('university.dashboard');
         } else if (auth()->user()->type == 'staff') {
+            if (staff_verify() == 0) {
+                auth()->logout();
+                return redirect()->route('login')->with('error', 'Your account is not active. Please contact your agent.');
+            }
             return redirect()->route('staff.dashboard');
         } else if (auth()->user()->type == 'admin') {
             return redirect()->route('admin.dashboard');

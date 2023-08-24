@@ -263,14 +263,13 @@
               </li>
           @endif --}}
 
-          {{-- @if (menu_permission('transactions'))
-              <li class="nav-item {{ Request::is('admin/transaction') ? 'active' : '' }}">
-                  <a class="nav-link" href="{{ route('admin.transaction') }}">
-                      <span class="menu-title">All Transactions</span>
-                      <i class="mdi mdi-currency-usd menu-icon"></i>
-                  </a>
-              </li>
-          @endif --}}
+          <li
+              class="nav-item {{ Request::is('admin/testimonial') || Request::is('admin/testimonial/*') ? 'active' : '' }}">
+              <a class="nav-link" href="{{ route('admin.testimonial.index') }}">
+                  <span class="menu-title">Testimonial</span>
+                  <i class="mdi mdi-alpha-t-box menu-icon"></i>
+              </a>
+          </li>
           <li class="nav-item {{ Request::is('admin/transaction/*') ? 'active' : '' }}">
               <a class="nav-link" data-bs-toggle="collapse" href="#transaction-pages" aria-expanded="false"
                   aria-controls="general-pages">

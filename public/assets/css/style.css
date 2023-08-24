@@ -75,7 +75,7 @@ header .navbar .navbar-brand{
   padding: 0 0;
 }
 .navbar-dark .navbar-nav .nav-link:focus, .navbar-dark .navbar-nav .nav-link:hover{
-  color: #e77517;
+  color: #9a55ff;
 }
 .navbar .dropdown-menu div[class*="col"] {
    margin-bottom:1rem;
@@ -158,6 +158,8 @@ ul.sub-menulist-header li a{
 ul.sub-menulist-header li a:hover{
   color: #CC332E;
 }
+
+.headerrightArea .sub-btn-regst{display:flex;}
 .sub-btn-regst .btn-outline-primary{
   color: #343743;
   font-size: 16px;
@@ -168,25 +170,36 @@ ul.sub-menulist-header li a:hover{
   border-radius: 30px;
   padding: 10px 20px;
 }
+.headerrightArea .sub-btn-regst .btn-outline-primary{
+	margin-right:10px;
+}
 .sub-btn-regst .btn-outline-primary:hover{
   color: #ffffff;
-  background: #e77517;
-  border: 1px solid #e77517;
+  /*background: #9a55ff;
+  border: 1px solid #9a55ff;*/
+  background: #9a55ff;
+  border: 1px solid #9a55ff;
 }
 .sub-btn-regst .btn-primary{
   color: #ffffff;
   font-size: 16px;
   font-weight: 500;
-  background: #e77517;
-  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.08);
-  border: 1px solid #e77517;
+  /*background: #9a55ff;
+   border: 1px solid #9a55ff;*/
+  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.08); 
   border-radius: 30px;
   padding: 10px 20px;
+  border: 1px solid transparent;
+  background: -webkit-gradient(linear, left top, right top, from(#da8cff), to(#9a55ff));
+background: linear-gradient(to right, #da8cff, #9a55ff);
 }
 .sub-btn-regst .btn-primary:hover{
-  color: #343743;
+  /*color: #343743;
   background: #f0effe;
-  border: 1px solid #f0effe;
+  border: 1px solid #f0effe;*/
+  color: #fff;
+  background: #9a55ff;
+  border: 1px solid #9a55ff;
 }
 .sub-btn-regst .btn-sign{
   color: #CC332E;
@@ -206,6 +219,9 @@ ul.sub-menulist-header li a:hover{
   align-items: center;
   justify-content: center;
 }
+.headerMiddleArea .header-search-box {   
+    position: relative;
+}
 .header-search-box .dropdown-toggle::after{
   display: none;
 }
@@ -213,6 +229,7 @@ ul.sub-menulist-header li a:hover{
   background: #fff;
   border: 1px solid #fff;
   margin: 8px 0 0 0;
+    box-shadow: none;  
 }
 .header-search-box .dropdown .btn i{
   font-size: 22px;
@@ -262,7 +279,8 @@ ul.sub-menulist-header li a:hover{
   text-transform: uppercase;
 }
 .header-slider-bg .carousel-item .carousel-caption h1 span{
-  color: #e77517;
+  /*color: #9a55ff;*/
+  color: #9a55ff;
 }
 .header-slider-bg .carousel-item .carousel-caption p{
   color: #000000;
@@ -301,7 +319,9 @@ ul.sub-menulist-header li a:hover{
   color: #ffffff;
   font-size: 16px;
   font-weight: 500;
-  background: #e77517;
+  /*background: #9a55ff;*/
+  background: -webkit-gradient(linear, left top, right top, from(#da8cff), to(#9a55ff));
+background: linear-gradient(to right, #da8cff, #9a55ff);
   box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.08);
   border-radius: 30px;
   padding: 10px 20px;
@@ -321,17 +341,20 @@ ul.sub-menulist-header li a:hover{
   padding: 10px 20px;
 }
 .carousel-slider-btn-white:hover{
+  /*color: #ffffff;
+  background: #9a55ff;*/
   color: #ffffff;
-  background: #e77517;
+  background: -webkit-gradient(linear, left top, right top, from(#da8cff), to(#9a55ff));
+	background: linear-gradient(to right, #da8cff, #9a55ff);
 }
 .header-slider-bg .carousel-indicators .active{
   width: 30px;
-  background: #e77517;
+  background: #9a55ff;
 }
 .header-slider-bg .carousel-indicators li{
   width: 20px;
   height: 5px;
-  background: #fbd4b4;
+  background: #e0cefb;
 }
 .header-slider-bg .carousel-indicators{
   justify-content: left;
@@ -389,10 +412,10 @@ ul.sub-menulist-header li a:hover{
   margin: 0 5px 0 0;
 }
 .sub-awolc-tab ul li a:hover{
-  color: #e77517;
+  color: #9a55ff;
 }
 .sub-awolc-tab .nav-tabs .active {
-  color: #e77517;
+  color: #9a55ff;
 }
 .sub-awolc-tab .nav-tabs{
   display: flex;
@@ -412,7 +435,7 @@ ul.sub-menulist-header li a:hover{
 .main-universities-blog a{
   width: 100%;
   display: inline-block;
-  color: #e77517;
+  color: #9a55ff;
   font-size: 18px;
   font-weight: 600;
   text-decoration: underline;
@@ -458,7 +481,7 @@ ul.sub-menulist-header li a:hover{
   margin: 0;
 }
 .sub-content-universities h3 a:hover{
-  color: #e77517;
+  color: #9a55ff;
 }
 .sub-content-universities p{
   width: 100%;
@@ -1017,7 +1040,7 @@ ul.sub-menulist-header li a:hover{
 }
 .carousel-control-next:focus, .carousel-control-next:hover, .carousel-control-prev:focus, .carousel-control-prev:hover{
  color: #ffffff;
- background: #e77517;
+ background: #9a55ff;
 }
 /* ------testimonial  close-------*/
 /* What Our Partners Have to Say */
@@ -1075,7 +1098,7 @@ ul.sub-menulist-header li a:hover{
   margin: 0;
 }
 .sub-how-we-help-content h3 span{
-  color: #e77517;
+  color: #9a55ff;
 }
 .sub-how-we-help-content p{
   color: #353848;
@@ -1087,7 +1110,9 @@ ul.sub-menulist-header li a:hover{
 .sub-how-we-help-content a{
   color: #ffffff;
   display: inline-block;
-  background: #e77517;
+  /*background: #9a55ff;*/
+  background: -webkit-gradient(linear, left top, right top, from(#da8cff), to(#9a55ff));
+background: linear-gradient(to right, #da8cff, #9a55ff);
   border-radius: 30px;
   box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
   padding: 10px 35px;
@@ -1117,7 +1142,7 @@ ul.sub-menulist-header li a:hover{
   margin: 0 15px 0 0;
 }
 .sub-plat-support-accordion .card-header .accicon {
-  color: #e77517;
+  color: #9a55ff;
   float: right;
   font-size: 26px;
   width: 1.2em;
@@ -1154,8 +1179,12 @@ ul.sub-menulist-header li a:hover{
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  background-color: #e77517;
+  /*background-color: #9a55ff;
   background-image: url("../images/count-number-bg.png");
+  */
+	background: -webkit-gradient(linear, left top, right top, from(#da8cff), to(#9a55ff));
+	background: linear-gradient(to right, #da8cff, #9a55ff);
+  
   background-position: top center;
   background-repeat: no-repeat;
   background-size: auto;
@@ -1215,7 +1244,9 @@ ul.sub-menulist-header li a:hover{
   color: #ffffff;
   font-size: 16px;
   font-weight: 500;
-  background: #e77517;
+  /*background: #9a55ff;*/
+  background: -webkit-gradient(linear, left top, right top, from(#da8cff), to(#9a55ff));
+background: linear-gradient(to right, #da8cff, #9a55ff);
   box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.08);
   border-radius: 30px;
   text-align: center;
@@ -1256,7 +1287,9 @@ ul.sub-menulist-header li a:hover{
   color: #ffffff;
   font-size: 16px;
   font-weight: 500;
-  background: #e77517;
+  /*background: #9a55ff;*/
+   background: -webkit-gradient(linear, left top, right top, from(#da8cff), to(#9a55ff));
+background: linear-gradient(to right, #da8cff, #9a55ff);
   box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.08);
   border-radius: 30px;
   padding: 10px 35px;
@@ -1306,7 +1339,7 @@ footer{
   margin: 0;
 }
 .sub-footer-list ul li a:hover{
-  color: #e77517;
+  color: #9a55ff;
 }
 .sub-footer-list-bold{
   margin: -4px 0 0 30px;
@@ -1410,7 +1443,7 @@ footer{
   margin: 0;
 }
 .header-abroad-content h1 span{
-  color: #e77517;
+  color: #9a55ff;
 }
 .header-abroad-content p{
   width: 100%;
@@ -1426,7 +1459,7 @@ footer{
   font-size: 16px;
   font-weight: 500;
   display: inline-block;
-  background: #e77517;
+  background: #9a55ff;
   box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.08);
   border-radius: 30px;
   text-align: center;
@@ -1441,7 +1474,7 @@ footer{
   padding: 0 0 60px 0;
 }
 .sub-choose-tt-pd h2 span{
-  color: #e77517;
+  color: #9a55ff;
 }
 .sub-choose-box{
   width: 100%;
@@ -1499,7 +1532,7 @@ footer{
   font-size: 16px;
   font-weight: 500;
   display: inline-block;
-  background: #e77517;
+  background: #9a55ff;
   box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.08);
   border-radius: 30px;
   text-align: center;
@@ -1535,7 +1568,7 @@ footer{
   margin: 0;
 }
 .sub-book-meeting-white-btn{
-  color: #e77517;
+  color: #9a55ff;
   font-size: 16px;
   font-weight: 500;
   display: inline-block;
@@ -1573,7 +1606,7 @@ footer{
   margin: 0;
 }
 .sub-best-programs-content h2 span{
-  color: #e77517;
+  color: #9a55ff;
 }
 .sub-best-programs-content p{
   color: #414454;
@@ -1588,7 +1621,7 @@ footer{
   font-size: 16px;
   font-weight: 500;
   display: inline-block;
-  background: #e77517;
+  background: #9a55ff;
   box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.08);
   border-radius: 30px;
   text-align: center;
@@ -1644,8 +1677,8 @@ footer{
 }
 .sub-access-guide-form .btn-primary{
   color: #ffffff;
-  background: #e77517;
-  border: 1px solid #e77517;
+  background: #9a55ff;
+  border: 1px solid #9a55ff;
   border-radius: 30px;
   padding: 12px 35px;
 }
@@ -1711,7 +1744,7 @@ footer{
   width: 100%;
   height: 480px;
   display: inline-block;
-  background: #e77517;
+  background: #9a55ff;
   padding: 85px 0;
 }
 .sub-intern-education-title h2{
@@ -1846,7 +1879,7 @@ img.univ-img-ct{
   height: 405px;
 }
 .sub-new-programs-hg a{
-  color: #e77517;
+  color: #9a55ff;
   font-size: 18px;
   font-weight: 600;
   background: none;
@@ -1882,12 +1915,12 @@ img.univ-img-ct{
   width: 290px;
 }
 a.sub-intern-border-btn{
-  color: #e77517;
+  color: #9a55ff;
   font-size: 16px;
   font-weight: 500;
   display: inline-block;
   background: none;
-  border:1px solid #e77517;
+  border:1px solid #9a55ff;
   box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.08);
   border-radius: 30px;
   text-align: center;
@@ -1896,8 +1929,8 @@ a.sub-intern-border-btn{
 }
 a.sub-intern-border-btn:hover{
   color: #ffffff;
-  background: #e77517;
-  border:1px solid #e77517;
+  background: #9a55ff;
+  border:1px solid #9a55ff;
 }
 .sub-how-works-process{
   width: 100%;
@@ -2093,7 +2126,7 @@ a.sub-intern-border-btn:hover{
 }
 
 .course-tab-list a.active h4 {
-  color: #e77517;
+  color: #9a55ff;
 }
 
 .course-tab-list a.active:before {
@@ -2144,7 +2177,7 @@ a.sub-intern-border-btn:hover{
 }
 .sub-course-appl-bg {
   display: inline-block;
-  border: 2px solid #e77517;
+  border: 2px solid #9a55ff;
   border-radius: 6px;
   padding: 20px;
   margin: 15px 0 0 0;
@@ -2154,14 +2187,14 @@ a.sub-intern-border-btn:hover{
   padding-right: 30px;
 }
 .sub-tution-text h6 {
-  color: #e77517;
+  color: #9a55ff;
   font-size: 16px;
   font-weight: 600;
   text-transform: uppercase;
   padding: 0 0 4px 0;
 }
 .sub-tution-text p {
-  color: #e77517;
+  color: #9a55ff;
   font-size: 20px;
   font-weight: 600;
   padding: 0;
@@ -2174,7 +2207,7 @@ a.sub-intern-border-btn:hover{
   width: 100%;
   color: #ffffff;
   display: inline-block;
-  background: #e77517;
+  background: #9a55ff;
   font-size: 16px;
   font-weight: 500;
   padding: 16px 0;
@@ -2193,11 +2226,11 @@ a.sub-intern-border-btn:hover{
 }
 .sub-program-det-border-btn{
   width: 100%;
-  color: #e77517;
+  color: #9a55ff;
   font-size: 16px;
   font-weight: 500;
   display: inline-block;
-  border: 1px solid #e77517;
+  border: 1px solid #9a55ff;
   box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.08);
   border-radius: 30px;
   text-align: center;
@@ -2207,8 +2240,8 @@ a.sub-intern-border-btn:hover{
 }
 .sub-program-det-border-btn:hover {
   color: #ffffff;
-  background: #e77517;
-  border: 1px solid #e77517;
+  background: #9a55ff;
+  border: 1px solid #9a55ff;
 }
 .course-tab-content {
   width: 100%;
@@ -2248,7 +2281,7 @@ a.sub-intern-border-btn:hover{
   padding: 0 0 0 0;
 }
 .sub-course-unt-title h3{
-  color: #e77517;
+  color: #9a55ff;
   font-size: 22px;
   font-weight: 600;
   line-height: 30px;
@@ -2257,7 +2290,7 @@ a.sub-intern-border-btn:hover{
   margin: 0;
 }
 .sub-course-unt-title p{
-  color: #e77517;
+  color: #9a55ff;
   font-size: 18px;
   padding: 0;
   margin: 0;
@@ -2280,8 +2313,8 @@ a.sub-intern-border-btn:hover{
 .sub-courses-form .btn-primary {
   width: 100%;
   color: #ffffff;
-  background: #e77517;
-  border: 1px solid #e77517;
+  background: #9a55ff;
+  border: 1px solid #9a55ff;
   border-radius: 30px;
   display: inline-block;
   padding: 8px 0;
@@ -2357,8 +2390,8 @@ a.sub-intern-border-btn:hover{
   color: #ffffff;
   font-size: 18px;
   font-weight: 600;
-  background: #e77517;
-  border: 1px solid #e77517;
+  background: #9a55ff;
+  border: 1px solid #9a55ff;
   border-radius: 30px;
   text-transform: uppercase;
   display: inline-block;
@@ -2456,7 +2489,7 @@ a.sub-intern-border-btn:hover{
   border-radius: 50%;
   left: -7px;
   top: -7px;
-  background-color: #e77517;
+  background-color: #9a55ff;
 }
 .slider-labels{
   width: 100%;
@@ -2471,7 +2504,7 @@ a.sub-intern-border-btn:hover{
 }
 
 .noUi-connect {
-  background: #e77517;
+  background: #9a55ff;
   -webkit-transition: background 450ms;
   transition: background 450ms;
 }
@@ -2505,7 +2538,7 @@ a.sub-intern-border-btn:hover{
 }
 
 .noUi-handle:active {
-  border: 8px solid #e77517;
+  border: 8px solid #9a55ff;
   border: 8px solid rgba(53,93,187,0.38);
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
@@ -2515,7 +2548,7 @@ a.sub-intern-border-btn:hover{
 
 /* Disabled state; */
 [disabled].noUi-connect,[disabled] .noUi-connect {
-  background: #e77517;
+  background: #9a55ff;
 }
 
 [disabled].noUi-origin,[disabled] .noUi-handle {
@@ -2584,7 +2617,7 @@ a.sub-content-univer-price-btn{
   color: #ffffff;
   font-size: 16px;
   font-weight: 500;
-  background: #e77517;
+  background: #9a55ff;
   box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.08);
   text-decoration: none;
   border-radius: 30px;
@@ -2597,20 +2630,22 @@ a.sub-content-univer-price-btn:hover{
 .sub-menu-save,.navbar .dropdown-menu{
   top: 46px;
 }
+
+
 .sub-cart-btn a{
   position: relative;
 }
 .sub-cart-btn a i{
-  color: #e77517;
+  color: #9a55ff;
   font-size: 22px;
 }
 .sub-cart-btn a span{
   width: 20px;
   height: 20px;
-  color: #e77517;
+  color: #9a55ff;
   font-weight: 600;
   background: #ffffff;
-  border: 1px solid #e77517;
+  border: 1px solid #9a55ff;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -2621,6 +2656,14 @@ a.sub-content-univer-price-btn:hover{
   left: 18px;
 }
 /* Save More on English Tests End */
+
+
+.navbar .headerMiddleArea .dropdown-menu {
+    min-width: 200px;
+    left: inherit;
+    right: -150%;    
+}
+
 
 /* Our Story */
 .sub-our-story-title{
@@ -2740,7 +2783,7 @@ a.sub-content-univer-price-btn:hover{
   padding: 15px 0;
 }
 .sub-unver-content h4{
-  color: #e77517;
+  color: #9a55ff;
   font-size: 18px;
   font-weight: 600;
   line-height: 30px;
@@ -2803,7 +2846,7 @@ a.sub-content-univer-price-btn:hover{
   content: "";
   right: -2px;
   bottom: 0;
-  background: #e77517;
+  background: #9a55ff;
   transition: all 0.3s ease;
 }
 .btn-5:before {
@@ -2826,7 +2869,7 @@ a.sub-content-univer-price-btn:hover{
   content: "";
   left: 0;
   top: 0;
-  background: #e77517;
+  background: #9a55ff;
   transition: all 0.3s ease;
 }
 .btn-5 span:before {
@@ -2925,9 +2968,9 @@ a.sub-content-univer-price-btn:hover{
   color: #ffffff;
   font-size: 16px;
   font-weight: 500;
-  background: #e77517;
+  background: #9a55ff;
   box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.08);
-  border: 1px solid #e77517;
+  border: 1px solid #9a55ff;
   border-radius: 30px;
 }
 .sub-job-search-box .form-group .btn-primary:hover{
@@ -2939,7 +2982,7 @@ a.sub-content-univer-price-btn:hover{
   border-radius: 30px !important;
   background: #F7F8FC !important;
   box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.08);
-  border: 1px solid #e77517 !important;
+  border: 1px solid #9a55ff !important;
 }
 .sub-search-content-box{
   width: 100%;
@@ -2961,7 +3004,7 @@ a.sub-content-univer-price-btn:hover{
 .sub-search-details h6{
   width: 100%;
   display: inline-block;
-  color: #e77517;
+  color: #9a55ff;
   font-size: 16px;
   font-weight: 600;
   padding: 0;
@@ -2989,7 +3032,7 @@ a.sub-content-univer-price-btn:hover{
   color: #ffffff;
   font-size: 16px;
   font-weight: 500;
-  background: #e77517;
+  background: #9a55ff;
   box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.08);
   border-radius: 30px;
   padding: 6px 20px;
@@ -3030,7 +3073,7 @@ a.sub-content-univer-price-btn:hover{
   margin: 0 0 15px 0;
 }
 .sub-awards-logo-box p{
-  color: #e77517;
+  color: #9a55ff;
   font-size: 22px;
   font-weight: 600;
   padding: 0;
@@ -3095,13 +3138,13 @@ a.sub-content-univer-price-btn:hover{
   display: inline-block;
 }
 .sub-contact-icon i{
-  color: #e77517;
+  color: #9a55ff;
   font-size: 36px;
   display: inline-block;
   padding: 0 0 10px 0;
 }
 .sub-contact-icon h5{
-  color: #e77517;
+  color: #9a55ff;
   font-size: 24px;
   font-weight: 600;
   padding: 0;
@@ -3116,7 +3159,7 @@ a.sub-content-univer-price-btn:hover{
   padding: 30px 0;
 }
 .sub-contact-content a:hover{
-  color: #e77517;
+  color: #9a55ff;
 }
 .sub-map-contact{
   width: 100%;
@@ -3157,7 +3200,7 @@ a.sub-content-univer-price-btn:hover{
   margin: 0 15px 0 0;
 }
 .sub-social-icon a:hover{
-  background: #e77517;
+  background: #9a55ff;
 }
 /* Contact Us End */
 
@@ -3252,7 +3295,7 @@ a.sub-content-univer-price-btn:hover{
   left: -5px;
 }
 .sub-subscribe-form .btn-primary{
-  color: #e77517;
+  color: #9a55ff;
   font-size: 16px;
   font-weight: 500;
   display: inline-block;
@@ -3324,7 +3367,7 @@ a.sub-content-univer-price-btn:hover{
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  background-color: #e77517;
+  background-color: #9a55ff;
   background-image: url("../images/count-number-bg.png");
   background-position: top center;
   background-repeat: no-repeat;
@@ -3348,7 +3391,7 @@ a.sub-content-univer-price-btn:hover{
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #e77517;
+  background-color: #9a55ff;
   background-image: url("../images/count-number-bg.png");
   background-position: top center;
   background-repeat: no-repeat;
@@ -3565,7 +3608,7 @@ a.sub-content-univer-price-btn:hover{
   border-radius: 30px;
 }
 .sub-intake-open-btn-blue span{
-  background: #e77517;
+  background: #9a55ff;
 }
 .sub-intake-date a i{
   color: #000000;
@@ -3713,7 +3756,7 @@ a.sub-content-univer-price-btn:hover{
 .sub-relevance-opton-btn a:hover{
   color: #353848;
   background: #f0effe;
-  border: 1px solid #e77517;
+  border: 1px solid #9a55ff;
 }
 .sub-course-filters-form .form-group .form-control{
   width: 100%;
@@ -3748,7 +3791,7 @@ a.sub-content-univer-price-btn:hover{
   margin: 0 0 20px 0;
 }
 .sub-university-spotlights-box a{
-  color: #e77517;
+  color: #9a55ff;
   font-size: 22px;
   font-weight: 600;
   text-decoration: underline;
@@ -3790,7 +3833,7 @@ a.sub-content-univer-price-btn:hover{
   color: #ffffff;
   font-size: 16px;
   font-weight: 500;
-  background: #e77517;
+  background: #9a55ff;
   box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.08);
   border-radius: 30px;
   display: inline-block;
@@ -3809,7 +3852,7 @@ a.sub-content-univer-price-btn:hover{
 }
 .sub-studt-abroad-btn a{
   font-size: 22px;
-  color: #e77517;
+  color: #9a55ff;
   font-weight: 600;
   background: none;
   border-radius: 0px;
@@ -3831,7 +3874,7 @@ a.sub-content-univer-price-btn:hover{
   width: 100%;
   display: inline-block;
   font-size: 18px;
-  color: #e77517;
+  color: #9a55ff;
   font-weight: 600;
   background: none;
   border-radius: 0px;
@@ -3863,20 +3906,20 @@ a.sub-content-univer-price-btn:hover{
 }
 .sub-tags-btn .btn-primary{
   width: 100%;
-  color: #e77517;
+  color: #9a55ff;
   font-size: 16px;
   font-weight: 500;
   background: #f0effe;
   box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.08);
-  border: 1px solid #e77517;
+  border: 1px solid #9a55ff;
   border-radius: 30px;
   padding: 10px 20px;
   margin: 0 0 30px 0;
 }
 .sub-tags-btn .btn-primary:hover{
   color: #ffffff;
-  background: #e77517;
-  border: 1px solid #e77517;
+  background: #9a55ff;
+  border: 1px solid #9a55ff;
 }
 /* News Centre End */
 
@@ -3952,7 +3995,7 @@ a.sub-content-univer-price-btn:hover{
 }
 .sub-uniwolc-fees-content-bg h6{
   width: 100%;
-  color: #e77517;
+  color: #9a55ff;
   font-size: 18px;
   font-weight: 600;
   line-height: 26px;
@@ -3975,16 +4018,17 @@ a.sub-content-univer-price-btn:hover{
 .sub-login-bg{
   width: 100%;
   display: inline-block;
-  background: #e77517;
+  background: #9a55ff;
   padding: 85px 0;
 }
 .sub-login-welcome-text{
-  width: 100%;
-  display: inline-block;
-  background: url(../images/login-welcom-bg.png);
-  background-size: cover;
-  background-position: top center;
-  padding: 85px;
+    width: 100%;
+    display: inline-block;
+    /* background: url(../images/login-welcom-bg.png); */
+    background-size: cover;
+    background-position: top center;
+    padding: 85px;
+    background-color: #934dfb;
 }
 .sub-login-welcome-text h3{
   color: #ffffff;
@@ -4022,22 +4066,38 @@ a.sub-content-univer-price-btn:hover{
   padding: 35px 0 0 0;
 }
 .sub-login-form .input-group{
-  margin: 0 0 15px 0;
+  /*margin: 0 0 15px 0;*/
+    margin: 0 0 25px 0;
+    box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.15);
+    border-radius: 8px;
+    overflow: hidden;
+    height: 50px; 
 }
 .sub-login-form .form-control{
-  height: 45px;
+/*  height: 45px;
   color: #ffffff;
   background: #ACC4F2;
   border-top-right-radius: 30px;
-  border-bottom-right-radius: 30px;
+  border-bottom-right-radius: 30px;*/
+    height: auto;
+    color: #000;
+    background: transparent;    
+    box-shadow: none;
+    border: 0;
 }
 .sub-login-form .input-group-text{
-  background: #ACC4F2;
+ /* background: #ACC4F2;
   border-top-left-radius: 30px;
   border-bottom-left-radius: 30px;
+  */
+    background: transparent; 
+    border: 0;
+    padding-right: 5px;
+    padding-left: 20px;
 }
 .sub-login-form .input-group-text i{
-  color: #ffffff;
+  /*color: #ffffff;*/
+    color: #000;
 }
 .sub-login-form a{
   width: 100%;
@@ -4049,15 +4109,15 @@ a.sub-content-univer-price-btn:hover{
   margin: 30px 0 0 0;
 }
 .sub-login-form a:hover{
-  color: #e77517;
+  color: #9a55ff;
 }
 .sub-login-form .btn-primary{
   color: #ffffff;
   font-size: 16px;
   font-weight: 500;
-  background: #e77517;
+  background: #9a55ff;
   box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.08);
-  border: 1px solid #e77517;
+  border: 1px solid #9a55ff;
   text-transform: uppercase;
   border-radius: 30px;
   padding: 10px 35px;
@@ -4069,12 +4129,15 @@ a.sub-content-univer-price-btn:hover{
   border: 1px solid #f0effe;
 }
 .sub-login-social-main{
-  width: 100%;
+  /*width: 100%;
   display: inline-block;
-  padding: 40px 0 0 0;
+  padding: 40px 0 0 0;*/
+     width: 100%;
+    display: inline-flex;
+    padding: 40px 0 0 0;
 }
 .sub-login-social-box{
-  width: 90%;
+  /*width: 90%;
   height: 55px;
   display: flex;
   align-items: center;
@@ -4082,29 +4145,67 @@ a.sub-content-univer-price-btn:hover{
   background: #ACC4F2;
   border-radius: 60px;
   padding: 10px;
-  margin: 0 auto 20px;
+  margin: 0 auto 20px;*/
+     width: 100%;
+    height: 50px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: start;
+    background: #ACC4F2;
+    border-radius: 60px;
+    padding: 5px;
+    /* margin: 0 auto 20px; */
+    margin: 5px 2px;
 }
 .sub-login-social-box span{
-  width: 55px;
+ /* width: 55px;
   height: 55px;
   display: flex;
   align-items: center;
   justify-content: center;
   background: #353848;
   border-radius: 100%;
-  margin: 0 0 0 -10px;
+  margin: 0 0 0 -10px;*/
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #353848;
+    border-radius: 100%;    
 }
 .sub-login-social-box span i{
-  color: #ffffff;
-  font-size: 28px;
+  /*color: #ffffff;
+  font-size: 28px;*/
+    color: #ffffff;
+    font-size: 18px;
 }
 .sub-login-social-box p{
-  color: #000000;
+  /*color: #000000;
   font-size: 20px;
   font-weight: 600;
   padding: 0 0 0 20px;
-  margin: 0;
+  margin: 0;*/
+    color: #000000;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 0 0 0 6px;
+    margin: 0;
 }
+
+.sub-login-social-box.google{background:#4484e9;}
+.sub-login-social-box.google span{background:#fff;}
+.sub-login-social-box.google span i {color: #4484e9;}
+.sub-login-social-box.google p{color:#fff}
+.sub-login-social-box.apple{background:#f74338;}
+.sub-login-social-box.apple span{background:#fff;}
+.sub-login-social-box.apple span i {color: #f74338;font-size:22px;}
+.sub-login-social-box.apple p{color:#fff}
+.sub-login-social-box.facebook{background:#3b5998;}
+.sub-login-social-box.facebook span{background:#fff;}
+.sub-login-social-box.facebook span i {color: #3b5998;}
+.sub-login-social-box.facebook p{color:#fff}
+
 .sub-login-social-or{
   position: relative;
   text-align: center;
@@ -4145,7 +4246,7 @@ a.sub-content-univer-price-btn:hover{
   margin: 30px 0 0 0;
 }
 .sub-already-login-btn a{
-  color: #e77517;
+  color: #9a55ff;
   padding: 0 0 0 10px;
 }
 .sub-already-login-btn a:hover{
@@ -4173,12 +4274,12 @@ a.sub-content-univer-price-btn:hover{
   margin: 40px 0 0 0;
 }
 .sub-new-associate-form-box .form-group label{
-  color: #e77517;
+  color: #9a55ff;
   font-size: 16px;
   font-weight: 600;
 }
 .sub-new-associate-form-box .form-group .form-control{
-  border: 1px solid #e77517;
+  border: 1px solid #9a55ff;
 }
 .sub-new-associate-form-btn{
   width: 100%;
@@ -4188,8 +4289,8 @@ a.sub-content-univer-price-btn:hover{
 }
 .sub-new-associate-form-btn .btn-primary{
   color: #ffffff;
-  background: #e77517;
-  border: 1px solid #e77517;
+  background: #9a55ff;
+  border: 1px solid #9a55ff;
   border-radius: 30px;
   padding: 8px 45px;
 }
@@ -4210,7 +4311,7 @@ a.sub-content-univer-price-btn:hover{
   top: 38px;
 }
 .sub-trach-icon i:hover{
-  color: #e77517;
+  color: #9a55ff;
 }
 .sub-add-btn{
   width: 100%;
@@ -4298,7 +4399,7 @@ a.sub-content-univer-price-btn:hover{
   margin: 0;
 }
 .header-assist-content a{
-  color: #e77517;
+  color: #9a55ff;
   text-decoration: underline;
 }
 .header-assist-content a:hover{
@@ -4312,12 +4413,12 @@ a.sub-content-univer-price-btn:hover{
 }
 .sub-assist-btn a{
   width: 40%;
-  color: #e77517;
+  color: #9a55ff;
   font-size: 16px;
   font-weight: 500;
   background: #ffffff;
   box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.08);
-  border: 1px solid #e77517;
+  border: 1px solid #9a55ff;
   border-radius: 30px;
   display: inline-block;
   text-align: center;
@@ -4326,8 +4427,8 @@ a.sub-content-univer-price-btn:hover{
 }
 .sub-assist-btn a:hover{
   color: #ffffff;
-  background: #e77517;
-  border: 1px solid #e77517;
+  background: #9a55ff;
+  border: 1px solid #9a55ff;
 }
 /* Assist End */
 
@@ -4348,7 +4449,7 @@ a.sub-content-univer-price-btn:hover{
 }
 .sub-std-guide-content-box h5{
   width: 100%;
-  color: #e77517;
+  color: #9a55ff;
   font-size: 32px;
   font-weight: 600;
   display: inline-block;
@@ -4357,12 +4458,12 @@ a.sub-content-univer-price-btn:hover{
 }
 .sub-std-guide-content-box a{
   width: auto;
-  color: #e77517;
+  color: #9a55ff;
   font-size: 16px;
   font-weight: 500;
   background: #F7F8FC;
   box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.08);
-  border: 1px solid #e77517;
+  border: 1px solid #9a55ff;
   border-radius: 30px;
   display: inline-block;
   text-align: center;
@@ -4371,8 +4472,8 @@ a.sub-content-univer-price-btn:hover{
 }
 .sub-std-guide-content-box a:hover{
   color: #ffffff;
-  background: #e77517;
-  border: 1px solid #e77517;
+  background: #9a55ff;
+  border: 1px solid #9a55ff;
 }
 .sub-std-guide-btn2{
   padding: 0 0 30px 0;
@@ -4399,7 +4500,7 @@ a.sub-content-univer-price-btn:hover{
 }
 .sub-appl-requment-content span{
   width: 100%;
-  color: #e77517;
+  color: #9a55ff;
   font-size: 20px;
   display: inline-block;
   padding: 0 0 30px 0;
@@ -4411,7 +4512,7 @@ a.sub-content-univer-price-btn:hover{
   padding: 0;
 }
 .sub-appl-requment-content h2{
-  color: #e77517;
+  color: #9a55ff;
   font-size: 32px;
   font-weight: 600;
   text-decoration: underline;
@@ -4419,7 +4520,7 @@ a.sub-content-univer-price-btn:hover{
   margin: 0;
 }
 .sub-appl-requment-content h4{
-  color: #e77517;
+  color: #9a55ff;
   font-size: 22px;
   font-weight: 600;
   padding: 15px 0;
@@ -4436,7 +4537,7 @@ a.sub-content-univer-price-btn:hover{
   padding: 0;
 }
 .sub-appl-requment-list ul li a{
-  color: #e77517;
+  color: #9a55ff;
   background: none;
   box-shadow: none;
   border-radius: 0;
@@ -4453,7 +4554,7 @@ a.sub-content-univer-price-btn:hover{
 }
 .sub-why-std-text h3{
   width: 100%;
-  color: #e77517;
+  color: #9a55ff;
   font-size: 32px;
   font-weight: 600;
   display: inline-block;
@@ -4494,7 +4595,7 @@ a.sub-content-univer-price-btn:hover{
     top: 0;
     left: 0;
     height: 100%;
-    background-color: #e77517;
+    background-color: #9a55ff;
     color: #fff;
     box-shadow: 0 0 13px 0 rgba(82, 63, 105, 0.05);
 	z-index:10;
@@ -4694,12 +4795,24 @@ a.sub-content-univer-price-btn:hover{
 	color: rgb(50, 56, 71);
 }
 .rightSideMenuList li a.notificationLink{
-	font-size:20px;
+    font-size: 20px;
+    color: #ff0000;
+}
+.rightSideMenuList li a.topNavUserLink{
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid #ddd;
+    background-color: #fbfbfb;
+    padding: 5px 10px;
+    border-radius: 6px;
+}
+.rightSideMenuList li a.topNavUserLink .userName{
+	margin-right:10px;
 }
 .rightSideMenuList li a.topNavUserLink .avatarImage{
     display: inline-block;
-    width:32px;
-    height:32px;
+    width:30px;
+    height:30px;
 	border-radius:50%;
 	overflow:hidden;
 }
@@ -4707,6 +4820,8 @@ a.sub-content-univer-price-btn:hover{
 	width:100%;
 	height:100%;
 }
+
+
 
 .buttonMenuMobile {
     border: none;
@@ -4770,8 +4885,8 @@ a.sub-content-univer-price-btn:hover{
 
 }
 .paid .dashboardCardHeader{
-    background: #e77517;
-    border: 1px solid #e77517;
+    background: #9a55ff;
+    border: 1px solid #9a55ff;
     color: #ffffff;
 }
 .dashboardCardBody{
@@ -4858,8 +4973,8 @@ a.sub-content-univer-price-btn:hover{
     font-weight: 500;
     border-radius: 4px;
     padding: 5px 12px;
-	background: #e77517;
-    border: 1px solid #e77517;
+	background: #9a55ff;
+    border: 1px solid #9a55ff;
     color: #ffffff;
     box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.08);
     font-size: 12px;
@@ -4919,12 +5034,12 @@ a.sub-content-univer-price-btn:hover{
 }
 .applicationBtnArea .btn.btn1{
     background: transparent;
-	border:1px solid #e77517;
-	color: #e77517;
+	border:1px solid #9a55ff;
+	color: #9a55ff;
 }
 .applicationBtnArea .btn.btn2{
-    background: #e77517;
-	border:1px solid #e77517;
+    background: #9a55ff;
+	border:1px solid #9a55ff;
 	color: #ffffff
 }
 .applicationBtnArea .btn:hover {
@@ -4959,7 +5074,7 @@ a.sub-content-univer-price-btn:hover{
   width: 20px;
   height: 20px;
   background: #fff;
-  border: 2px solid #e77517;
+  border: 2px solid #9a55ff;
   cursor: pointer;
   transition: background 0.3s;
   border-radius:4px;
@@ -4974,7 +5089,7 @@ a.sub-content-univer-price-btn:hover{
   font-size: inherit;
 }
 .mdCheckbox input[type=checkbox]:checked + label:before {
-  background: #e77517;
+  background: #9a55ff;
   border: none;
 }
 .mdCheckbox input[type=checkbox]:checked + label:after {
@@ -5025,7 +5140,7 @@ a.sub-content-univer-price-btn:hover{
   width: 20px;
   height: 20px;
   background: #fff;
-  border: 2px solid #e77517;
+  border: 2px solid #9a55ff;
   cursor: pointer;
   transition: background 0.3s;
   border-radius:50%;
@@ -5040,7 +5155,7 @@ a.sub-content-univer-price-btn:hover{
   font-size: inherit;
 }
 .mdradiobox input[type=radio]:checked + label:before {
-  background: #e77517;
+  background: #9a55ff;
   /*border: none;*/
 }
 .mdradiobox input[type=radio]:checked + label:after {
@@ -5161,8 +5276,8 @@ a.sub-content-univer-price-btn:hover{
   display: none;
 }
 .form-steps__step--active .form-steps__step-circle {
-  background: #e77517;
-  border: 1px solid #e77517;
+  background: #9a55ff;
+  border: 1px solid #9a55ff;
   color: #fff;
 }
 .form-steps__step--completed:after {
@@ -5229,7 +5344,7 @@ a.sub-content-univer-price-btn:hover{
     padding: 8px;
     border-radius: 7px;
     box-shadow: rgba(0, 0, 0, 0.05) 0px 5px 6px 0px;
-    border: 4px solid #e77517;
+    border: 4px solid #9a55ff;
 }
 .apptDlsRightSideArea {
     display: flex;
@@ -5246,7 +5361,7 @@ a.sub-content-univer-price-btn:hover{
 }
 .appSidebarTopArea .muiIconBtn{
     border: none;
-    color: #e77517;
+    color: #9a55ff;
     width: 30px;
     background-color: transparent;
     cursor: pointer;
@@ -5344,20 +5459,20 @@ a.sub-content-univer-price-btn:hover{
     width: 25px;
 }
 .appUserDtlsArea .userInfo .title{
-	color: #e77517;
+	color: #9a55ff;
     font-weight: 600;
     font-size: 14px;
 }
 .appUserDtlsArea .userInfo .title a{
-    color: #e77517;
+    color: #9a55ff;
 }
 
 .appUserDtlsArea .para{
-	color: #e77517;
+	color: #9a55ff;
 	margin-bottom:5px;
 }
 .appUserDtlsArea .para a{
-    color: #e77517;
+    color: #9a55ff;
 }
 .appUserDtlsArea .des{
 	margin-bottom:5px;
@@ -5481,8 +5596,8 @@ a.sub-content-univer-price-btn:hover{
     box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.08);
     font-size: 13px;
     background: transparent;
-    border: 1px solid #e77517;
-    color: #e77517;
+    border: 1px solid #9a55ff;
+    color: #9a55ff;
 }
 .appDtlsAccordian{}
 .appDtlsAccordian .appDtlsAccordianItem{
@@ -5669,7 +5784,7 @@ a.sub-content-univer-price-btn:hover{
     margin: 13px;
     height: 34px;
     width: 34px;
-    background: #e77517;
+    background: #9a55ff;
     color: #fff;
     text-align: center;
     line-height: 34px;
@@ -5684,7 +5799,7 @@ a.sub-content-univer-price-btn:hover{
     margin: 13px;
     height: 34px;
     width: 34px;
-    background: #e77517;
+    background: #9a55ff;
     color: #fff;
     text-align: center;
     line-height: 34px;
@@ -5880,8 +5995,8 @@ a.sub-content-univer-price-btn:hover{
     padding: 10px 20px;
     box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.08);
     font-size: 14px;
-	    background: #e77517;
-    border: 1px solid #e77517;
+	    background: #9a55ff;
+    border: 1px solid #9a55ff;
     color: #ffffff;
 }
 .dashSideBar{}
@@ -5924,7 +6039,7 @@ a.sub-content-univer-price-btn:hover{
 	margin-left: auto;
 }
 .dashSideBarList li a:hover{
-	color:#e77517;
+	color:#9a55ff;
 }
 .dashSideBarList-1 li a{
     display: flex;
@@ -6111,7 +6226,7 @@ a.sub-content-univer-price-btn:hover{
 .applyBoardModalLeftPart{
     width: 550px;
     background-color: #A06DF2;
-    background-color: #e77517;
+    background-color: #9a55ff;
 	color:#fff;
 	display: flex;
 	align-items:center;
@@ -6182,8 +6297,8 @@ a.sub-content-univer-price-btn:hover{
     padding: 15px 15px;
     box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.08);
     font-size: 16px;
-    background: #e77517;
-    border: 1px solid #e77517;
+    background: #9a55ff;
+    border: 1px solid #9a55ff;
     color: #ffffff;
 	width:100%;
 }
@@ -6195,8 +6310,8 @@ a.sub-content-univer-price-btn:hover{
     box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.08);
     font-size: 16px;
     background: #fff;
-    border: 1px solid #e77517;
-    color: #e77517;
+    border: 1px solid #9a55ff;
+    color: #9a55ff;
 	width:100%;
 }
 
@@ -6241,8 +6356,8 @@ a.sub-content-univer-price-btn:hover{
     padding: 10px 35px;
     box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.08);
     font-size: 16px;
-    background: #e77517;
-    border: 1px solid #e77517;
+    background: #9a55ff;
+    border: 1px solid #9a55ff;
     color: #ffffff;
 	display:inline-block;
 	width:100%;
@@ -6273,7 +6388,7 @@ a.sub-content-univer-price-btn:hover{
 	text-decoration:underline;
 }
 .paymentContentArea p a:hover{
-    color: #e77517;
+    color: #9a55ff;
 }
 
 .paymentSuccessFulArea{
@@ -6313,7 +6428,7 @@ a.sub-content-univer-price-btn:hover{
 	margin-bottom:5px;
 }
 .paymentInfo p .copyBtn{
-	color: #e77517;
+	color: #9a55ff;
 }
 .paymentSuccessFulAreainner .backBtnArea{
 	margin-top:20px;
@@ -6326,8 +6441,8 @@ a.sub-content-univer-price-btn:hover{
     padding: 5px 15px;
     box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.08);
     font-size: 14px;
-    background: #e77517;
-    border: 1px solid #e77517;
+    background: #9a55ff;
+    border: 1px solid #9a55ff;
     color: #ffffff;
     display: inline-block;
     font-weight: 600;
@@ -7047,10 +7162,10 @@ a.sub-content-univer-price-btn:hover{
 }
 ..dasboardLeftSideBarMenuArea .nav li a .txt{}
 .dasboardLeftSideBarMenuArea .nav li.active a{
-	color:#e77517;
+	color:#9a55ff;
 }
 .dasboardLeftSideBarMenuArea .nav li a:hover{
-	color:#e77517;
+	color:#9a55ff;
 }
 .dasboardrightPartWrapper{
 	min-height:90vh;
@@ -7159,7 +7274,7 @@ a.sub-content-univer-price-btn:hover{
     overflow: hidden;
 }
 .paymentInvoiceCardHeader{
-    background-color: #e77517;
+    background-color: #9a55ff;
 	color: #fff;
 }
 .paymentInvoiceCardHeader .title {

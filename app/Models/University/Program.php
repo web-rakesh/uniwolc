@@ -2,6 +2,7 @@
 
 namespace App\Models\University;
 
+use Illuminate\Support\Str;
 use App\Models\EducationLevel;
 use Spatie\MediaLibrary\HasMedia;
 use App\Models\Student\ApplyProgram;
@@ -65,5 +66,10 @@ class Program extends Model implements HasMedia
     public function programLevel()
     {
         return $this->belongsTo(EducationLevel::class, 'program_level', 'id');
+    }
+
+    public function getProgramTitleLimitAttribute()
+    {
+        return Str::words($this->program_title, '5');
     }
 }

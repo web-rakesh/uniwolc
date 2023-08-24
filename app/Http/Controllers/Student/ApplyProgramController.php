@@ -39,7 +39,7 @@ class ApplyProgramController extends Controller
     public function applicationProgramBackup(Request $request)
     {
         // return $request->all();
-        $applyProgram =  ApplyProgram::whereUserId(Auth::user()->id)->where('id', $request->id)->first();
+        $applyProgram =  ApplyProgram::where('id', $request->id)->first();
         $program = Program::where('id', $applyProgram->program_id)->first();
         $allProgram = Program::where('id', '!=', $applyProgram->program_id)->where('user_id', $program->user_id)->get();
         $backupProgram = json_decode($applyProgram->backup_program, true);
@@ -49,7 +49,7 @@ class ApplyProgramController extends Controller
     public function applicationProgramBackupStore(Request $request)
     {
         // return $request->all();
-        $applyProgram =  ApplyProgram::whereUserId(Auth::user()->id)->where('id', $request->programId)->first();
+        $applyProgram =  ApplyProgram::where('id', $request->programId)->first();
         $applyProgram->backup_program = json_encode($request->backupProgramId);
         $applyProgram->save();
         return response()->json(['success' => 'Program Changed Successfully']);
@@ -88,16 +88,38 @@ class ApplyProgramController extends Controller
         //
     }
 
-    public function agentStaffApplication()
+    public function agentStaffApplication(Request $request)
     {
-
+        // return $request;
         // return $applyPrograms[0]->getProgram;
         if (Auth::user()->type == 'agent') {
-            $applyPrograms = ApplyProgram::whereAgentId(Auth::user()->id)->where('status', 1)->get();
+            if ($request->status == 'accepted') {
+                $applyPrograms = ApplyProgram::whereAgentId(Auth::user()->id)->where('program_status', 1)->get();
+            } elseif ($request->status == 'rejected') {
+
+                $applyPrograms = ApplyProgram::whereAgentId(Auth::user()->id)->where('program_status', 3)->get();
+            } else {
+
+                $applyPrograms = ApplyProgram::whereAgentId(Auth::user()->id)->get();
+            }
+            // return $applyPrograms;
+
             return view('agent.application.application', compact('applyPrograms',));
         } elseif (Auth::user()->type == 'staff') {
-            $applyPrograms = ApplyProgram::whereStaffId(Auth::user()->id)->where('status', 1)->get();
-            $applyProgramPaid = ApplyProgram::whereStaffId(Auth::user()->id)->where('status', 2)->get();
+            if ($request->status == 'accepted') {
+                # code...
+                $applyPrograms = ApplyProgram::whereStaffId(Auth::user()->id)->where('status', 1)->where('program_status', 1)->get();
+                $applyProgramPaid = ApplyProgram::whereStaffId(Auth::user()->id)->where('status', 2)->where('program_status', 1)->get();
+            } elseif ($request->status == 'rejected') {
+                $applyPrograms = ApplyProgram::whereStaffId(Auth::user()->id)->where('program_status', 3)->get();
+                $applyProgramPaid = [];
+            } else {
+                # code...
+                $applyPrograms = ApplyProgram::whereStaffId(Auth::user()->id)->where('status', 1)->get();
+                $applyProgramPaid = ApplyProgram::whereStaffId(Auth::user()->id)->where('status', 2)->get();
+            }
+
+
             return view('staff.application.application', compact('applyPrograms', 'applyProgramPaid'));
         }
         return view('staff.application.application', compact('applyPrograms', 'applyProgramPaid'));
@@ -222,5 +244,54 @@ class ApplyProgramController extends Controller
         // $schoolDetails = ProfileDetail::find($slug);
         $universityImage = $schoolDetails->getMedia('university-picture');
         return view('students.school-details', compact('schoolDetails', 'universityImage'));
+    }
+
+    public function applicationAcademicSession(Request $request)
+    {
+        // return $request->all();
+        try {
+            //code...
+            $applyProgram = ApplyProgram::where('id', $request->id)->first();
+            $applyProgram->start_date = $request->date;
+            $applyProgram->save();
+            return response()->json(['success' => 'Academic Session Changed Successfully']);
+        } catch (\Throwable $th) {
+            //throw $th;
+            return $th->getMessage();
+        }
+    }
+
+    // application record and note section
+    public function applicationRecordNote(Request $request)
+    {
+        // return $request->all();
+        $applyProgram = ApplyProgram::whereUserId(Auth::user()->id)->where('id', $request->id)->first();
+        if ($request->action == 'open' && $request->mode == 'note') {
+            $note =  $applyProgram->student_note ?? '';
+            return response()->json(['mode' => 'note', 'action' => 'open', 'note' => $note, 'success' => 'Note Open Successfully']);
+        }
+        if ($request->action == 'open' && $request->mode == 'student-record') {
+            $note =  $applyProgram->student_record ?? '';
+            return response()->json(['mode' => 'student-record', 'action' => 'open', 'note' => $note, 'success' => 'Note Open Successfully']);
+        }
+        // return $request->all();
+        // return "error";
+        try {
+            //code...
+            if ($request->action == 'store' && $request->mode == 'note') {
+                $applyProgram->student_note = $request->editor;
+                $applyProgram->save();
+                return response()->json(['modal' => 'off', 'success' => 'Note store Successfully']);
+            }
+            if ($request->action == 'store' && $request->mode == 'student-record') {
+
+                $applyProgram->student_record = $request->editor;
+                $applyProgram->save();
+                return response()->json(['modal' => 'off', 'success' => 'Note student record Successfully']);
+            }
+        } catch (\Throwable $th) {
+            //throw $th;
+            return $th->getMessage();
+        }
     }
 }

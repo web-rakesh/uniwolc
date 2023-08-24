@@ -18,7 +18,8 @@ class ProfileDetailController extends Controller
     public function index()
     {
         $profileDetail = ProfileDetail::where('user_id', Auth::user()->id)->first();
-        return view('university.profile', compact('profileDetail'));
+        $countries = DB::table('countries')->get();
+        return view('university.profile', compact('profileDetail', 'countries'));
     }
 
     /**

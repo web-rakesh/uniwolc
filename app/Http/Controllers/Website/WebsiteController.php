@@ -10,12 +10,22 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\EducationPartnerFormMail;
+use App\Models\Admin\Testimonial;
 
 class WebsiteController extends Controller
 {
     public function index()
     {
-        return view('website.landing');
+        $testimonial['education'] = Testimonial::where('category', '3')->get();
+        $testimonial['recruitment'] = Testimonial::where('category', '2')->get();
+        $testimonial['student'] = Testimonial::where('category', '1')->get();
+        return view('website.landing', compact('testimonial'));
+    }
+
+    public function recruitersPartner()
+    {
+        $testimonial['recruitment'] = Testimonial::where('category', '2')->get();
+        return view('website.recruiters', compact('testimonial'));
     }
 
     public function about()
@@ -69,8 +79,9 @@ class WebsiteController extends Controller
 
     public function educationPartner()
     {
+        $testimonial['education'] = Testimonial::where('category', '3')->get();
         $countries = DB::table('countries')->get();
-        return view('website.education-partners', compact('countries'));
+        return view('website.education-partners', compact('countries', 'testimonial'));
     }
 
     public function educationPartnerStore(Request $request)

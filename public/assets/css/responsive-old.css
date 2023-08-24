@@ -1,0 +1,797 @@
+/******** 1366 ********/
+@media screen and (max-width: 1366px) {
+	header .container-header{padding: 0 15px;}
+	.sub-btn-regst .btn-outline-primary{padding: 8px 10px;}
+	.sub-btn-regst .btn-primary{padding: 8px 10px;}
+	.sub-sign-in-register-right{padding: 30px 50px;}
+	.sub-sign-in-register-left{padding: 30px 50px;}
+	.header-slider-bg .carousel-item .carousel-caption h1{font-size: 52px; line-height: 60px;}
+	.header-slider-bg .carousel-item .carousel-caption p{font-size: 16px;}
+	.sub-footer-list ul li a{font-size: 14px;}
+	.sub-footer-list-bold ul li a{font-size: 22px;}
+	.sub-footer-list h6{font-size: 22px;}
+
+
+	.dasboardAppHeaderInfo{
+		font-size:13px;
+	}
+
+}
+/******** 1366 End ********/
+
+/******** 1280 ********/
+@media screen and (max-width: 1280px) {
+	.navbar-dark .navbar-nav .nav-link{font-size: 14px;}
+	.sub-uniwolc-title h2{font-size: 32px; line-height: 42px;}
+	.sub-students-box h5{font-size: 22px; line-height: 32px;}
+	.sub-how-we-help-content h3{font-size: 42px;}
+	.sub-plat-img-support h2{font-size: 32px; line-height: 42px;}
+	.sub-plat-support-accordion .card-header .title{font-size: 20px;}
+	.sub-count-number-box h6{font-size: 32px;}
+	.sub-get-started-text h5{font-size: 22px;}
+	.sub-awolc-tab ul li a{font-size: 16px;}
+	.testimonial4_slide p{font-size: 16px;}
+	.sub-content-universities h3 a{font-size: 18px; line-height: 26px;}
+
+.applyBoardModalLeftPart {
+    width: 450px;
+}
+}
+/******** 1280 End ********/
+
+/******** 1176 ********/
+@media screen and (max-width: 1176px) {
+	.header-slider-bg .carousel-item .carousel-caption h1{font-size: 32px; line-height: 42px;}
+	.carousel-slider-box{width: 70%;}
+	.carousel-slider-box{flex-wrap: wrap;}
+	.header-slider-bg .carousel-item{height: 120vh;}
+	.navbar .nav-item{margin: 0 4px;}
+
+.topNavMenuList li {
+    font-size: 12px;
+}
+.appDtlsSec {
+    display: block;
+}
+.apptDlsRightSideArea {
+    margin-top:30px;
+    margin-left: 0px;
+    width: 100%;
+}
+.appSidebarTopArea .muiIconBtn {
+
+}
+.appSidebarinner {
+    width: 100%;
+    max-width: 100%;
+}
+.appSidebarWrapper {
+    width: 100%;
+    max-width: 100%;
+}
+.appSidebar.hide .appSidebarTopArea .dropdown {
+    display: block;
+}
+.appSidebar.appSidebarinner {
+    width: 100%;
+}
+.appSidebar.hide .appSidebarinner {
+    width: 100%;
+	display:none;
+}
+.appUserDtlsArea {
+    display: block;
+
+}
+.form-steps {
+    white-space: nowrap;
+}
+.form-steps__step {
+    width: 200px;
+}
+
+
+}
+
+
+/******** 1176 End ********/
+
+/******** 991 ********/
+@media screen and (max-width: 991px) {
+	.navbar-dark .navbar-toggler{color: #ffffff; background: #0F292A;}
+	.navbar-collapse{position: absolute; width: 100%; background: #ffffff; top: 95%; z-index: 9999; padding: 30px;}
+	.navbar-dark .navbar-nav .nav-link{font-size: 16px; padding: 0 0 15px 0;}
+	.mega-menu-title{font-size: 16px;}
+	ul.sub-menulist-header li a{font-size: 14px;}
+	.mega-menu-btn{font-size: 14px; padding: 8px 10px;}
+	.sub-btn-regst{width: 100%; text-align: center; padding: 10px 0 0 0;}
+	.sub-btn-regst .btn-outline-primary{width: 20%;}
+	.sub-btn-regst .btn-primary{width: 20%;}
+	header{padding: 10px 0;}
+	.navbar-dark .navbar-toggler{background:#5d4bdc;}
+	.navbar-collapse{width: 96.5%;}
+	.carousel-slider-box img{display: none;}
+	.header-slider-bg .carousel-item{height: 35vh;}
+	.sub-get-started-text{margin: 0 0 30px 0;}
+	.sub-how-img-help{text-align: center; margin: 0 0 30px 0;}
+	.sub-plat-img-support{text-align: center; margin: 30px 0;}
+	.sub-making-edu-content{text-align: center;}
+	.sub-making-edu-content p{margin: 15px 0 30px 0;}
+	.sub-making-edu-btn{padding:0;}
+	.sub-new-awolc-bg{padding: 35px 0;}
+	.sub-footer-list{padding: 30px 0 0 0;}
+	footer{padding: 35px 0;}
+	.footer-copyright-text{text-align: center;}
+	.footer-copyright-app a{width: 100%; text-align: center; padding: 10px 0 0 0;}
+	.sub-how-we-help-bg{padding: 35px 0;}
+	.sub-plat-support-accordion .card-header{display: flex; align-items: center; justify-content: space-around;}
+	.sub-plat-support-accordion .card-body{text-align: left;}
+	.sub-students-box{height: 220px; margin: 0 0 30px 0;}
+	.carousel-control-prev{display: none;}
+	.carousel-control-next{display: none;}
+	.sub-get-started-text-last{margin: 0;}
+	.sub-plat-img-support{margin: 15px 0 0 0;}
+	.sub-std-guide-content-box h1{font-size: 32px;}
+	.sub-appl-requment-content h1{font-size: 32px; padding: 0 0 15px 0;}
+	.sub-appl-requment-content h2{font-size: 22px; padding: 0 0 15px 0;}
+	.sub-appl-requment-content span{font-size: 18px; padding: 0 0 15px 0;}
+	.sub-appl-requment-content h4{font-size: 18px;}
+	.header-abroad-content{width: 100%; text-align: center;}
+	.header-assist-content{width: 100%; text-align: center; padding: 15px 0 0 0;}
+	.header-img-abroad{width: 100%; text-align: center; margin: 15px 0 0 0;}
+	.header-abroad-content p{padding: 15px 0;}
+	.header-banner-box{padding: 35px 0;}
+	.sub-success-rec-box{height: auto;}
+	.sub-get-started-text p{padding: 15px 0 0 0;}
+	.sub-recruiters-pt{padding: 0 0 0 0;}
+	.sub-best-img-programs{width: 100%; text-align: center; margin: 0 0 15px 0;}
+	.sub-register-bg{margin: 30px 0 0 0;}
+	.sub-how-we-help-content p{padding: 15px 0;}
+	.sub-get-started-text a{margin: 15px 0 0 0; display: inline-block;}
+	.header-abroad-content h1{font-size: 32px;}
+	.sub-how-we-help-content h3 {font-size: 32px;}
+	.sub-best-img-programs{margin: 30px 0;}
+	.sub-ready-num-pb{margin: 0 0 35px 0;}
+	.sub-university-spotlights-box a{font-size: 18px;}
+	.sub-explore-btn{padding: 15px 0 0 0;}
+	.sub-best-programs-content h2{font-size: 32px;}
+	.sub-easy-to-use-box h6{font-size: 18px; line-height: 26px;}
+	.sub-benefits-height{height: auto;}
+	.sub-how-work-btn{height: auto; margin: 15px 0 0 0;}
+	.sub-count-number-bg-pt-pb{margin: 40px 0 0 0;}
+	.sub-career-exp-btn{margin: 30px 0 0 0;}
+	.sub-career-join-pt-pb {padding: 10px 0 40px 0;}
+	.sub-gmp-text-ct{width: 100%; text-align: center;}
+	.sub-unver-title{padding: 30px 0 0 0;}
+	.sub-menu-save, .navbar .dropdown-menu{top: 0;}
+	.sub-unver-title h1{font-size: 32px;}
+	.sub-contact-box{margin: 0 0 30px 0;}
+	.sub-uniwolc-title p{font-size: 18px;}
+	.sub-intern-education-title h2{font-size: 32px; line-height: 42px;}
+	.sub-intern-educat-box h6{font-size: 18px;}
+	.sub-intern-educat-box{height: auto; margin: 0 0 30px 0;}
+	.sub-intern-education-bg{height: auto;}
+	.sub-intern-education-bg{padding: 35px 0 20px 0;}
+	.sub-intern-educat-pt-pb{top: 0; padding: 30px 0 0 0;}
+	.sub-mb{margin: 0;}
+	.sub-relationship-testimonial .testimonial4_slide img{margin: 0 auto 30px;}
+	.sub-relationship-testimonial .testimonial4_slide p{padding: 15px 0 0 0;}
+	.sub-choose-box{margin: 0 0 30px 0; padding: 0;}
+	.sub-how-it-work-height{height: auto;}
+	.sub-choose-tt-pd{padding: 0 0 30px 0;}
+	.sub-intern-hg{height: auto;}
+	.sub-how-works-process::after{display: none;}
+	.sub-how-works-process-box{margin: 0 0 30px 0;}
+	.sub-how-works-img-process{height: auto; padding: 30px 0 0 0;}
+	.sub-best-programs-main{padding: 35px 0;}
+	.sub-how-we-help-content{text-align: center;}
+	.sub-best-programs-content{text-align: center;}
+	.sub-candin-pt-pb{padding: 30px 0 0 0 !important;}
+	.sub-unver-right-box-two{margin: 60px 0 0 0;}
+	.sub-uk-adv-pt-pb{padding: 30px 0 !important;}
+	.sub-abroad-user-three-pb{padding: 0;}
+	.sub-team-text-pt-pb{margin: 0 0 30px 0;}
+	.sub-making-edu-content{margin: 0 0 30px 0;}
+	.sub-login-bg{padding: 35px 0;}
+	.sub-login-welcome-text{padding: 35px;}
+	.sub-login-welcome-text p{font-size: 16px;}
+	.sub-login-white-bg{padding: 35px 30px;}
+	.sub-our-story-title h1{font-size: 32px;}
+	.sub-our-story-title span{font-size: 16px;}
+	.sub-our-story-img-blog{padding: 0;}
+	.sub-new-programs-hg{height: auto;}
+	.sub-our-story-title p{font-size: 22px;}
+	.sub-awards-logo-box{margin: 0 0 30px 0;}
+	.sub-press-pt-pb{margin: 35px 0; padding: 0;}
+	.sub-english-test-title h2{font-size: 32px; line-height: 46px;}
+	.sub-english-test-title h6{font-size: 22px;}
+	.sub-course-deta-title h2{font-size: 26px;}
+	.sub-course-btn-left{margin: 30px 0 0 0;}
+	.sub-similar-pr-title h3{font-size: 26px;}
+	.sub-course-unt-title h6{font-size: 18px;}
+	.sub-course-unt-title h3{font-size: 18px;}
+	.main-prog-mt .col-lg-4{padding: 0;}
+	.sub-quality-applications-two{padding: 0;}
+	.sub-stem-scholp-pt{padding: 35px 0;}
+	.sub-best-img-programs-mt-0{margin: 0 0 30px 0;}
+	.sub-how-we-help-content ul li{text-align: left;}
+	.sub-two-uk-box{margin: 0 0 30px 0;}
+	.sub-subscribe-pt-pb{margin: 30px 0;}
+	.sub-relevance-opton-mt{margin: 15px 0 0 0;}
+	.sub-relevance-opton-btn a{margin: 0 0 0 0;}
+	.course-tab-relevance{right: 0;}
+	.sub-courses-form-left{padding: 30px 0 0 0;}
+	.sub-courses-form .btn-primary{margin: 0px 0 0 0;}
+	.sub-start-btn-applica{margin: 15px 0 0 0;}
+	.sub-cour-two-right{right: 15px;}
+	.sub-plat-support-accordion .card-header .title{width: 100%; display: flex; align-items: center; justify-content: flex-start;}
+
+
+
+.dashboardPagSection {
+    display: block;
+}
+.topNavMenuList {
+    display: none;
+}
+.topNavbar{
+	height:50px;
+}
+.topNavbar .backMenu{
+    font-size: 20px;
+}
+.dashboardMenuArea{
+	 width: 280px;
+    left: -300px;
+    height: 100%;
+    background-color: #23263c;
+    background-color: #fff;
+    background-color: #5D4BDC;
+    color: #fff;
+    color: #000;
+    box-shadow: box-shadow: 18px 0 35px 0 rgb(0 0 0 / 2%);
+    z-index: 13;
+    -webkit-transition: transform .5s ease;
+    -moz-transition: transform .5s ease;
+    transition: transform .5s ease;
+    transition: .3s ease all;
+    backface-visibility: hidden;
+    transform: translate3d(0,0,0);
+    transition: .3s ease all;
+}
+.dashboardMenuArea:hover {
+    width: 280px;
+}
+.dasboardMenuWrap li a .title{
+	 display: block;
+}
+.dashboardMenuArea:hover .dasboardMenuWrap li a .title {
+    display: block;
+}
+.dashboardMenuArea.open {
+    -webkit-transition: transform .5s ease;
+    -moz-transition: transform .5s ease;
+    transition: transform .5s ease;
+    width: 260px;
+    left: 0;
+    transition: .3s ease all;
+}
+.dashboardPagesWrapper {
+    margin-left: 0px;
+}
+.buttonMenuMobile {
+    display: block;
+}
+.dashmenuOverlay.open {
+    display: block;
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.7);
+    z-index: 12;
+}
+.dasboardAppHeader {
+    /*grid-template-columns: 1fr;*/
+    display: none;
+}
+.dasboardAppHeader.dasboardAppBody {
+    /*grid-template-columns: 1fr;*/
+    display: block;
+}
+.dasboardAppHeaderInfo {
+    /*grid-template-columns: 1fr 1fr;*/
+	    display: block;
+}
+.dasboardAppHeaderInfo div[data-title]{
+	margin-bottom:15px;
+}
+.dasboardAppHeaderInfo div[data-title]::before {
+    content: attr(data-title) ": ";
+    font-weight: 600;
+    float: left;
+	width:100%;
+    font-size: 14px;
+    /* text-transform: uppercase; */
+    color: #000000;
+    font-weight: 600;
+	margin-bottom:5px;
+}
+.dasboardAppHeaderInfo > :nth-of-type(1),
+ .dasboardAppHeaderInfo > :nth-of-type(2),
+ .dasboardAppHeaderInfo > :nth-of-type(3),
+ .dasboardAppHeaderInfo > :nth-of-type(4),
+ .dasboardAppHeaderInfo > :nth-of-type(5),
+ .dasboardAppHeaderInfo > :nth-of-type(6) {
+    text-align: left;
+}
+.dasboardAppHeader .status {
+    align-items: flex-start;
+}
+.dasboardAppHeaderInfo .startDate {
+    text-align: left;
+}
+.appFeesinner {
+    display: block;
+}
+.dasboardAppHeader .rightpart {
+    justify-content: start;
+}
+.dasboardAppTotal {
+    display: block;
+}
+.applicationBtnArea{
+    display: block !important;
+    text-align: center;
+}
+.applicationBtnArea .btn {
+    padding: 7px 15px;
+    font-size: 13px;
+}
+.applyBoardModalLeftPart {
+    width: 300px;
+}
+.applyHeighLightBoxinner .content .title {
+    font-size: 20px;
+}
+.applyHeighLightBoxinner .content .para {
+    font-size: 14px;
+}
+
+}
+/******** 991 End ********/
+
+/******** 767 ********/
+@media screen and (max-width: 767px) {
+	.sub-count-number-box h6{font-size: 22px;}
+	.sub-count-number-box{width: 30%; padding: 0 0 30px 0;}
+	.sub-count-number-bg{padding: 35px 15px 15px 0;}
+	.carousel-caption{left: 0;}
+	.header-slider-bg .carousel-item .carousel-caption{top: -15%;}
+	.carousel-slider-box{width: 100%;}
+	.sub-uniwolc-title h2{font-size: 24px; line-height: 32px;}
+	.sub-students-box h5 {font-size: 20px; line-height: 30px;}
+	.sub-how-we-help-content h3 {font-size: 26px;}
+	.sub-plat-img-support h2{font-size: 24px; line-height: 32px;}
+	.sub-plat-support-accordion .card-header .title{width: 100%; font-size: 18px;}
+	.sub-making-edu-content p{font-size: 16px; line-height: 28px;}
+	.sub-how-we-help-content p{font-size: 16px; line-height: 28px; padding: 15px 0;}
+	.sub-making-education-pt-pb{padding: 30px 0 0 0;}
+	.sub-get-started-text p{line-height: 28px;}
+	.modal-popup-vd .modal-dialog{max-width: 650px;}
+	.modal-popup-vd .modal-body iframe{height: 320px;}
+	.testimonial6_slide p{font-size: 16px; padding: 15px 0 0 0;}
+	.testimonial6_slide img{margin: 0 auto 15px;}
+	.testimonial5_slide p{font-size: 16px; padding: 15px 0 0 0;}
+	.testimonial5_slide img{margin: 0 auto 15px;}
+	.testimonial4_slide img{margin: 0 auto 15px;}
+	.testimonial4_slide p{font-size: 16px; padding: 15px 0 0 0;}
+	header{position: relative;}
+	.header-slider-bg .carousel-item .carousel-caption h1{font-size: 24px;}
+	.sub-students-box h5 {font-size: 18px; line-height: 26px;}
+	.sub-std-guide-content-box h1{font-size: 22px;}
+	.sub-awolc-tab ul li a{display: inline-block; margin: 0 0 15px 0;}
+	.sub-how-we-help-bg .sub-awolc-tab .nav-tabs{padding: 0 0 0 0;}
+	.sub-how-we-help-bg .sub-awolc-tab{padding: 0;}
+	.header-abroad-content h1{font-size: 32px;}
+	.header-assist-content p{font-size: 16px;}
+	.header-abroad-content p{font-size: 16px;}
+	.sub-register-bg{padding: 0 15px 30px 15px !important;}
+	.sub-best-programs-main{padding: 35px 0;}
+	.sub-expanding-hgt{height: auto; margin: 0 0 30px 0;}
+	.sub-career-exp-btn{margin: 0;}
+	.sub-count-number-bg {padding: 0px 15px 30px 0;}
+	.sub-career-join-pt-pb .sub-abroad-text-std h5{font-size: 24px; padding: 30px 0 10px 0;}
+	.sub-career-count-pt-pb{padding: 30px 0 10px 0;}
+	.sub-map-contact p{font-size: 14px;}
+	.sub-map-contact{padding: 10px 0 30px 0;}
+	.sub-edu-pt-pb{padding: 30px 0 0 0;}
+	.sub-quality-applications-btn{margin: 0;}
+	.sub-submit-application-title h5{font-size: 18px;}
+	.sub-submit-application-title p{font-size: 14px;}
+	.sub-currnt-inter-flag{width: 50%; margin: 0 0 30px 0;}
+	.sub-currnt-inter-flag h6{font-size: 20px;}
+	.sub-gic-application-tab .card-title{font-size: 14px;}
+	.sub-gic-application-tab .card-body{font-size: 14px;}
+	.sub-our-story-blog-content p{font-size: 14px;}
+	.sub-our-story-blog-content h3{font-size: 22px;}
+	.sub-our-story-blog-content ul li{font-size: 14px;}
+	.sub-subscribe-form{max-width: 90%;}
+	.sub-abroad-text-std h5{font-size: 22px;}
+	.sub-abroad-text-std p{font-size: 16px;}
+	.sub-more-blog-bg{margin: 30px 0 0 0;}
+	.sub-new-associate-form-box{padding: 30px;}
+	.sub-new-associate-title h2{font-size: 22px; margin: 20px 0 0 0;}
+	.sub-new-associate-main-round .nav-tabs{width: 95%;}
+	.sub-save-numb-pt-pb{padding: 30px 0 0 0;}
+	.sub-save-img-mt{margin: 0;}
+	.sub-stem-pt-pb{padding: 0;}
+	.sub-have-ques-pt-pb {padding: 35px 0 35px 0 !important;}
+	.sub-application-box{padding: 35px 0 0 0;}
+	.sub-application-icon-box h6{font-size: 18px;}
+	.sub-best-programs-content p{font-size: 16px;}
+	.sub-trends-report-testimonials{text-align: center;}
+	.sub-trends-report-testimonials p{font-size: 16px; margin: 15px 0 0 0;}
+	.sub-ver-mt{margin: 30px 0 0 0;}
+	.sub-prog-dtl p{font-size: 14px;}
+	.sub-prog-dtl h5{font-size: 22px;}
+	.sub-uniwolc-fees-content-bg p{font-size: 14px;}
+	.sub-uniwolc-fees-content-bg h5{font-size: 22px; padding: 0 0 15px 0;}
+	.sub-uniwolc-fees-content-bg ul li{font-size: 14px;}
+	.sub-uniwolc-fees-content-bg h6{font-size: 16px;}
+	.sub-uniwolc-fees-content-bg{margin: 0 0 30px 0;}
+	.sub-uniwolc-fees-pt-pb{padding:0;}
+	.sub-uniwolc-fees-content-bg ul{padding: 15px 0 0 20px;}
+	.sub-view-all-post{padding: 0 0 30px 0;}
+	.sub-why-std-text h3{font-size: 32px;}
+
+
+
+
+.programsCard{
+    font-size: 12px;
+}
+.programsCardThumnailGalleryArea {
+    width: 250px;
+}
+.programsCardIntroPrice {
+    font-size: 16px;
+    margin-bottom: 4px;
+}
+
+
+.applyBoardModalLeftPart {
+    display: none;
+}
+.applyBoardCardBody{
+
+}
+.applyBoardCard{
+	padding:10px;
+}
+
+
+
+
+
+}
+/******** 767 End ********/
+
+/******** 668 ********/
+@media screen and (max-width: 668px) {
+	.sub-appl-requment-content h1{font-size: 24px;}
+	.sub-appl-requment-content span{font-size: 16px;}
+	.sub-appl-requment-content p{font-size: 14px; line-height: 28px;}
+	.sub-appl-requment-content ul li{font-size: 14px; line-height: 28px;}
+	.sub-appl-requment-content ul { margin: 0 0 15px 0 !important;}
+	.sub-abroad-text-std h5{font-size: 24px;}
+	.header-abroad-content h1{font-size: 22px;}
+	.header-abroad-content p{font-size: 14px;}
+	.sub-how-we-help-content h3 {font-size: 22px;}
+	.sub-how-we-help-content p{font-size: 14px;}
+	.sub-studt-abroad-btn a{font-size: 18px;}
+	.sub-uniwolc-title p{font-size: 14px;}
+	.sub-how-we-help-list a{font-size: 16px;}
+	.sub-ready-num-pb{padding: 0 0 30px 0; margin: 0 0 15px 0;}
+	.sub-best-programs-content h2{font-size: 22px; line-height: 32px;}
+	.sub-intern-wd-btn h2{padding: 0 0 15px 0;}
+	.sub-count-number-box{width: 50%;}
+	.sub-blog-careers-pb{padding: 30px 0 0 0;}
+	.sub-best-programs-content p{font-size: 14px;}
+	.sub-unver-title h1 {font-size: 24px;}
+	.sub-unver-text p{font-size: 16px;}
+	.sub-unver-main-bg{padding: 15px;}
+	.sub-unver-content ul li{font-size: 14px; padding: 0;}
+	.sub-unver-content p{font-size: 14px;}
+	.sub-unver-content h4{font-size: 16px;}
+	.sub-unver-content ul{margin: 0 0 15px 0;}
+	ul.blog-list-two-mt{margin: 15px 0 0 0;}
+	.sub-contact-box{height: auto;}
+	.sub-choose-tt-pd {padding: 0 0 30px 0;}
+	.sub-intern-education-title h2{font-size: 22px; line-height: 36px;}
+	.sub-easy-to-use-box{padding: 15px;}
+	.sub-easy-to-use-box h6{font-size: 16px;}
+	.sub-awolc-tab{padding: 30px 0 0 0;}
+	.sub-access-guide-form-num{padding: 0;}
+	.sub-form-text p{font-size: 14px;}
+	.sub-access-guide-form .form-group .form-check .form-check-label{font-size: 14px;}
+	.sub-choose-box p{font-size: 16px;}
+	.sub-choose-box h4{font-size: 20px;}
+	.sub-plat-support-accordion .card-header .title{font-size: 14px;}
+	.sub-plat-support-accordion .card-body{font-size: 14px;}
+	.sub-new-associate-form-box h6{font-size: 14px; line-height: 22px;}
+	.sub-new-associate-form-box .form-group label{font-size: 14px;}
+	.sub-trach-icon i{font-size: 22px; top: 36px;}
+	.sub-new-associate-main-round ul li a{width: 75px !important; height: 75px !important;}
+	.sub-new-associate-main-round span.sub-new-associate-tab-num{top: 14px; left: 28px;}
+	.sub-new-associate-main-round .nav-tabs::before{width: 72%;}
+	.sub-new-associate-form-btn .btn-primary{width: 100%; margin: 0 0 15px 0;}
+	.sub-new-associate-form-box .form-check-label{font-size: 14px;}
+	.sub-our-story-title p{font-size: 18px;}
+	.sub-coverage-box h5{font-size: 18px;}
+	.sub-coverage-box p{padding: 15px;}
+	.sub-coverage-box{min-height: auto;}
+	.sub-awards-logo-box p{font-size: 20px;}
+	.sub-english-test-title h2{font-size: 22px; line-height: 36px;}
+	.sub-english-test-title p{font-size: 16px;}
+	.sub-course-details-title h6{font-size: 16px;}
+	.sub-course-deta-title h2{font-size: 20px; padding: 15px 0;}
+	.sub-course-dtn-two a{font-size: 12px;}
+	.sub-prog-dtl h5{font-size: 20px;}
+	.sub-see-program-pt-pb p{font-size: 14px;}
+	.sub-similar-pr-title h3{font-size: 20px;}
+	.sub-tution-text p{font-size: 18px;}
+	.sub-course-appl-bg{width: 100%;}
+	.sub-similar-pr-title{padding: 30px 0 0 0;}
+	.sub-access-guide-form-num-two{margin: 32px 0 0 0;}
+	.sub-trends-report-bg{padding: 15px;}
+	.sub-trends-report-content p{font-size: 14px;}
+	.sub-trends-report-content h3{font-size: 18px;}
+	.sub-two-uk-box h5{font-size: 22px;}
+	.sub-two-uk-box p{font-size: 14px;}
+	.sub-two-uk-btn a{margin: 15px 0 0 0;}
+	.sub-prog-dtl ul li{font-size: 14px;}
+	.sub-why-std-text h3{font-size: 22px; padding: 0 0 15px 0;}
+	.sub-why-std-text p{font-size: 14px;}
+	.sub-why-std-mt-mb{padding: 0 0 0 0;}
+	.sub-cour-two-right{position: relative; top: -10px; margin: 0 0 0 15px;}
+	.sub-courses-form-left-box .form-group label{font-size: 13px;}
+	.sub-courses-form-left h3{font-size: 18px;}
+	.course-tab-list a h4{font-size: 14px;}
+}
+/******** 668 End ********/
+
+
+/******** 575 ********/
+@media screen and (max-width: 575px) {
+.appDtlsAccordianHeader {
+	padding: 10px 10px;
+    display: block;
+}
+.appDtlsAccordianHeader .rightSide {
+    justify-content: start;
+    margin-top: 10px;
+}
+.appDtlsAccordianHeader .toggleBtn {
+    margin-left: auto;
+}
+.appbtnListArea .appbtnList{
+   margin:0 -5px;
+   margin-bottom:10px;
+}
+.appbtnListArea .appbtnList li {
+    margin-right: 0px;
+    padding: 5px 5px;
+}
+
+
+.appbtnListArea .appbtnList li a {
+    display: inline-block;
+}
+
+.appInfiDtls {
+    width: 100%;
+    display: block;
+}
+.wrappedContentinner {
+    display: block;
+    max-width: 100%;
+    margin-bottom: 0px;
+}
+.wrappedContentinner .req-desc {
+    width: 100%;
+    padding-right: 0px;
+}
+.appInfiDtls .editBtn {
+    margin: 0px 10px 15px;
+}
+.logoThumnail {
+    width: 100%;
+    padding: 15px 0 0 0;
+}
+.dashBeforeApplySec {
+   padding:0px;
+}
+.applyStepAccordianHeader .title {
+    font-size: 18px;
+}
+.applyStepAccordianBody .headerContent h5.title{
+	font-size:16px;
+}
+.applyStepAccordianBody .headerContent .content{
+ -webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+	font-size:14px;
+}
+
+.programsCardBody {
+    display: block;
+}
+.programsCardThumnailGalleryArea {
+    width:100%;
+}
+.sidebarAgentSocialBtnList li a {
+    padding: 6px 4px;
+    font-size: 12px;
+}
+.programLocationAgentinner .mapThumnail {
+    width: 60px;
+    height: 60px;
+}
+.programLocationAgentinner .userThumnail {
+    width: 60px;
+    height: 60px;
+}
+.singleProgramsAmenitiesIteminner .title {
+    min-width: 135px;
+}
+.singleProgramsDtls .programsCardIntroTitle {
+    font-size: 18px;
+    line-height: 26px;
+}
+
+
+}
+
+
+
+
+
+
+/******** 428 ********/
+@media screen and (max-width: 428px) {
+	.sub-btn-regst .btn-outline-primary{width: 40%;}
+	.sub-btn-regst .btn-primary{width: 40%;}
+	.carousel-slider-btn-bg{width: 100%; margin: 0;}
+	.carousel-slider-btn{flex-wrap: wrap;}
+	.carousel-slider-btn-white{width: 100%; margin: 15px 0 0 0;}
+	.carousel-slider-content{padding: 0 15px;}
+	.header-slider-bg .carousel-indicators{bottom: 0;}
+	.header-slider-bg .carousel-item .carousel-caption h1{font-size: 22px; line-height: 30px;}
+	.header-slider-bg .carousel-item .carousel-caption p {font-size: 14px;}
+	.header-search-box .dropdown-menu{left: -150% !important; width: 100%; position: absolute !important;}
+	.navbar-collapse {width: 93.5%;}
+	.sub-uniwolc-title h2{font-size: 22px;}
+    .sub-students-box{height: auto; text-align: center;}
+	.sub-plat-img-support h2{font-size: 22px;}
+	.sub-plat-support-accordion .card-header .title{font-size: 14px;}
+	.sub-count-number-box{width: 50%;}
+	.sub-count-number-bg {padding: 35px 15px 0 0;}
+	.sub-how-we-help-content p{font-size: 14px;}
+	.sub-plat-support-accordion .card-body{font-size: 14px; line-height: 28px;}
+	.sub-how-we-help-content h3{font-size: 20px;}
+	.sub-new-awolc-bg {padding: 25px 0;}
+	.sub-making-edu-content p{font-size: 14px;}
+	.sub-get-started-text p{font-size: 14px;}
+	.sub-get-started-text h5{font-size: 20px;}
+	.sub-awolc-tab ul li a{display: inline-block; margin: 0 0 15px 0;}.sub-awolc-tab
+	.sub-awolc-tab{padding: 30px 0 0 0;}
+	.testimonial4_slide p{font-size: 14px;}
+	.testimonial4_slide{padding: 20px 15px;}
+	.testimonial5_slide{padding: 20px 15px;}
+	.testimonial6_slide{padding: 20px 15px;}
+	.sub-awolc-tab ul{margin: 0 0 0 0;}
+	.main-universities-blog-last{margin: 0;}
+	.sub-footer-list-bold ul li a{font-size: 18px;}
+	.sub-footer-list ul li a{line-height: 34px;}
+	.sub-footer-list h6{padding: 0 0 15px 0;}
+	.sub-footer-list{padding: 15px 0 0 0;}
+	.footer-copyright-text p{font-size: 14px;}
+	.footer-copyright-app a{font-size: 14px;}
+	.sub-footer-list h6{font-size: 20px;}
+	.sub-content-universities h3 a{font-size: 16px;}
+	.main-universities-blog a{font-size: 16px;}
+	.sub-content-universities p{padding: 15px 0;}
+	.sub-awolc-tab ul li a{font-size: 14px;}
+	.sub-students-box h5{font-size: 16px;}
+	.testimonial4_slide h4{font-size: 18px;}
+	.sub-std-guide-content-box h1{padding: 0 0 15px 0;}
+	.sub-std-guide-content-box p{font-size: 14px;}
+	.sub-std-guide-content-box a{width: 100%; font-size: 14px; margin: 0 30px 20px 0;}
+	.sub-two-uk-btn a{width: 100%; text-align: center;}
+	.sub-std-guide-btn2{padding: 0;}
+	.sub-appl-requment-content h1{font-size: 20px;}
+	.sub-appl-requment-content h2{font-size: 20px;}
+	.header-abroad-content h1{font-size: 24px;}
+	.header-abroad-content p {padding: 15px 0 10px 0;}
+	.sub-assist-btn a{width: 100%; margin: 0 30px 15px 0;}
+	.sub-assist-pt-pb p{font-size: 16px;}
+	.sub-subscribe-form{max-width: 90%;}
+	.sub-university-spotlights-box{padding: 15px;}
+	.sub-university-img-spotl{height: auto;}
+	.sub-university-spotlights-box a{font-size: 14px; padding: 0 0 10px 0;}
+	.sub-ready-num-pb{padding: 0 15px 15px 15px !important;}
+	.sub-application-ml a{width: 100%; margin: 0 0 10px 0;}
+	.sub-unver-title h1{font-size: 20px;}
+	.sub-unver-title{padding: 0;}
+	.custom-btn img{width: 90%;}
+	.sub-contact-content a{font-size: 16px;}
+	.sub-contact-icon h5{font-size: 20px;}
+	.sub-map iframe{height: 250px;}
+	.sub-ver-mt{margin: 30px 0 0 0;}
+	.sub-abroad-img-user img{width: 200px; height: 180px;}
+	.sub-abroad-user-box h6{font-size: 20px;}
+	.sub-abroad-user-box span{font-size: 14px;}
+	.sub-abroad-user-pt-pb{padding: 30px 0 0 0;}
+	.sub-team-text-pt-pb{padding: 30px 0;}
+	.sub-team-text-pt-pb .sub-abroad-text-std h5{padding: 0 0 15px 0;}
+	.sub-login-social-box p{font-size: 16px;}
+	.sub-login-white-bg{padding: 30px 0;}
+	.sub-login-social-or span::before{width: 26%;}
+	.sub-login-social-or span::after{width: 26%;}
+	.sub-login-welcome-text{padding: 20px;}
+	.sub-subscribe-form .form-check label{font-size: 11px;}
+	.sub-our-story-title h1{font-size: 22px; line-height: 34px;}
+	.sub-our-story-blog-content h3{line-height: 34px;}
+	.sub-already-login-btn{font-size: 16px;}
+	.sub-save-stov-mt-mb{margin: 0 0 30px 0;}
+	.sub-course-details-title{width: 100%; margin: 30px 0 0 0;}
+	.sub-course-deta-title h2{line-height: 30px;}
+	.sub-course-unt-title h3{font-size: 16px; line-height: 24px;}
+	.sub-course-unt-title p{font-size: 16px; line-height: 24px;}
+	.sub-tution-text h6{font-size: 14px;}
+	.sub-tution-text{padding: 0;}
+	.course-tab-content{padding: 15px;}
+	.sub-stem-pt-pb{padding: 30px 15px 0 15px;}
+	.sub-stem-pt-pb .sub-abroad-text-std h5{font-size: 18px; line-height: 26px; padding: 0 0 30px 0;}
+	.sub-abroad-text-std span{font-size: 18px;}
+	.sub-std-applit{flex-wrap: nowrap;}
+	.sub-application-img-icon{height: auto; min-height: auto;}
+	.sub-application-icon-box h6{font-size: 16px; padding: 0 0 0 15px;}
+	.sub-access-guide-form-num-two{margin: 0 0 0 0;}
+	.sub-std-guide-content-box h5{font-size: 20px;}
+	.sub-cand-mt{padding: 30px 0 0 0;}
+	.sub-trends-report-bg{padding: 10px;}
+	.sub-vraf-pt-pb{padding: 0 30px 30px 30px;}
+	.course-tab-list a{padding: 0 10px;}
+}
+/******** 428 End ********/
+
+
+
+
+
+
+
+
+
+
+
+/******** 375 ********/
+@media screen and (max-width: 375px) {
+	.header-slider-bg .carousel-item{height: 50vh;}
+}
+/******** 375 End ********/
+
+/******** 360 ********/
+@media screen and (max-width: 360px) {
+	.navbar-brand{width: 200px;}
+	.navbar-collapse {width: 91.5%;}
+	.sub-abroad-text-std h5{font-size: 18px;}
+	.sub-abroad-text-std p{font-size: 14px;}
+	.sub-subscribe-form .form-check .form-check-input{width: 15px; height: 15px; top: -14px; left: 0;}
+}
+/******** 360 End ********/

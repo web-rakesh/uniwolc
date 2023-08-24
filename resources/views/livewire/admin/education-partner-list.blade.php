@@ -2,12 +2,12 @@
     {{-- The best athlete wants his opponent at his best. --}}
     <div class="col-lg-12 grid-margin stretch-card">
         <div class="card">
-            <div class="card-body">
+            <div class="card-body p-0">
                 <h4 class="card-title">Education Partner</h4>
-                <div>
+                <div class="mb-4">
                     <input wire:model="searchItem" type="search" class="form-control" placeholder="Search Partner...">
                 </div>
-                </p>
+               <div class="table-responsive responsive_table_area">
                 <table class="table table-striped">
                     <thead>
                         <tr>
@@ -22,11 +22,11 @@
                     </thead>
                     <tbody>
                         @forelse ($partners ?? [] as $partner)
-                            <tr>
-                                <td class="py-1">
+                             <tr class="table_item">
+                                <td data-title="#" class="py-1">
                                     {{ $loop->iteration }}
                                 </td>
-                                <td>
+                                <td data-title="School Name">
                                     @if (action_permission('partner', 'view') == true)
                                         <a
                                             href="{{ route('admin.education.partner.details', $partner->id) }}">{{ $partner->school_name }}</a>
@@ -35,11 +35,11 @@
                                     @endif
 
                                 </td>
-                                <td> {{ $partner->name }} </td>
-                                <td> {{ $partner->email }} </td>
-                                <td> {{ $partner->getCountry->name }} </td>
-                                <td> {{ date('M d, Y', strtotime($partner->created_at)) }} </td>
-                                <td>
+                                <td data-title="Name"> {{ $partner->name }} </td>
+                                <td data-title="Email"> {{ $partner->email }} </td>
+                                <td data-title="Country"> {{ $partner->getCountry->name }} </td>
+                                <td data-title="Created_at"> {{ date('M d, Y', strtotime($partner->created_at)) }} </td>
+                                <td data-title="Action">
                                     @if (action_permission('partner', 'view') == true)
                                         <a href="{{ route('admin.education.partner.details', $partner->id) }}"
                                             class="btn btn-info btn-sm">View</a>
@@ -59,7 +59,8 @@
                         @endforelse
                     </tbody>
                 </table>
-
+				</div>
+				
                 {{ $partners->links() }}
             </div>
         </div>

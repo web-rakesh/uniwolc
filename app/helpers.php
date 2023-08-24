@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\City;
+use App\Models\Staff;
 use App\Models\State;
 use App\Models\Country;
 use Illuminate\Support\Str;
@@ -143,6 +145,15 @@ if (!function_exists('get_currency_code')) {
     }
 }
 
+if (!function_exists('get_payment_currency')) {
+    function get_payment_currency($id = 101)
+    {
+        $country =  Country::where('id', $id)->first();
+        $currency =  DB::table('currencies')->where('country', $country->name)->first();
+        return $currency->code;
+    }
+}
+
 if (!function_exists('get_country')) {
     function get_country($id = 101)
     {
@@ -160,6 +171,17 @@ if (!function_exists('get_state')) {
         if ($state) {
             return $state->name;
         }
+    }
+}
+
+if (!function_exists('get_city')) {
+    function get_city($id = 101)
+    {
+        $city =  City::where('id', $id)->first();
+        if ($city) {
+            return $city->name;
+        }
+        return false;
     }
 }
 
@@ -215,6 +237,38 @@ if (!function_exists('agent_verify')) {
         $agent = AgentProfile::where('user_id', auth()->user()->id)->first();
         if ($agent) {
             return $agent->is_verify;
+        }
+        return null;
+    }
+}
+
+if (!function_exists('staff_verify')) {
+    function staff_verify()
+    {
+        $staff = Staff::where('user_id', auth()->user()->id)->first();
+        if ($staff) {
+            return $staff->status;
+        }
+        return null;
+    }
+}
+
+if (!function_exists('get_education_scheme_grade')) {
+    function get_education_scheme_grade($id)
+    {
+        $education = \App\Models\GradingScheme::where('id', $id)->first();
+        if ($education) {
+            return $education->scheme;
+        }
+        return null;
+    }
+}
+if (!function_exists('get_education_level')) {
+    function get_education_level($id)
+    {
+        $education = \App\Models\EducationLevel::where('id', $id)->first();
+        if ($education) {
+            return $education->level_name;
         }
         return null;
     }

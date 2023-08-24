@@ -16,7 +16,8 @@
                                   </a>
                               </li>
 
-                              <li class="{{ request()->is('staff/student') ? 'active' : '' }}">
+                              <li
+                                  class="{{ request()->is('staff/student') || request()->is('staff/student/*') ? 'active' : '' }}">
                                   <a href="{{ route('staff.student') }}">
                                       <span class="icon"><i class="fa-regular fa-user"></i></span>
                                       <span class="title">Students</span>
@@ -40,12 +41,12 @@
 
                               <!---->
 
-                              {{--   <li>
-                                  <a href="payment.html">
+                              <li>
+                                  <a href="{{ route('staff.payment.list') }}">
                                       <span class="icon"><i class="fa-regular fa-circle-dollar"></i></span>
                                       <span class="title">Payments</span>
                                   </a>
-                              </li> --}}
+                              </li>
 
                               <li>
                                   <a href="{{ route('logout') }}"

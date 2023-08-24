@@ -4,7 +4,7 @@
                       class="fa-sharp fa-regular fa-arrow-left"></i></a></span>
           <ul class="topNavMenuList">
               <li><a href=" {{ route('agent.dashboard') }}">Home </a></li>
-              <li><span>{{ substr(strrchr(url()->current(), '/'), 1) }}</span></li>
+              <li><span>{{ ucfirst(str_replace('-', ' ', substr(strrchr(url()->current(), '/'), 1))) }}</span></li>
           </ul>
       </div>
       <div class="rightTopNavbar">
@@ -13,7 +13,7 @@
               <li class="topNavNotificationItem"><a href="#" class="notificationLink"><i
                           class="fa-regular fa-bell"></i></a></li>
               <li class="topNavUserItem">
-                  <a href="#" class="topNavUserLink">
+                  <a href="{{ route('agent.general.details') }}" class="topNavUserLink">
                       <span class="avatarImage">
 
                           <img src="{{ asset('/') }}assets/images/user.png" class="img-fluid" alt="">

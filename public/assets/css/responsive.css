@@ -98,6 +98,21 @@
   
 /******** 991 ********/
 @media screen and (max-width: 991px) {
+	
+.header-menu-uinw.headerArea  {
+    flex-wrap:wrap;
+}	
+.headerMiddleArea{
+    display: flex;	
+}
+.headerrightArea{
+	width:100%;
+}
+.headerrightArea .sub-btn-regst {
+    display: block;
+    width: 100%;
+}	
+	
 	.navbar-dark .navbar-toggler{color: #ffffff; background: #0F292A;}
 	.navbar-collapse{position: absolute; width: 100%; background: #ffffff; top: 95%; z-index: 9999; padding: 30px;}
 	.navbar-dark .navbar-nav .nav-link{font-size: 16px; padding: 0 0 15px 0;}
@@ -675,7 +690,7 @@
 	.header-search-box .dropdown-menu{left: -150% !important; width: 100%; position: absolute !important;}
 	.navbar-collapse {width: 93.5%;}
 	.sub-uniwolc-title h2{font-size: 22px;}
-	.sub-students-box{height: auto;}
+	.sub-students-box{height: auto; text-align: center;}
 	.sub-plat-img-support h2{font-size: 22px;}
 	.sub-plat-support-accordion .card-header .title{font-size: 14px;}
 	.sub-count-number-box{width: 50%;}
@@ -767,6 +782,39 @@
 	.sub-trends-report-bg{padding: 10px;}
 	.sub-vraf-pt-pb{padding: 0 30px 30px 30px;}
 	.course-tab-list a{padding: 0 10px;}
+	
+header .headerArea .navbar .navbar-brand {
+    max-width: 150px;  
+}
+header .headerArea .navbar {
+    padding:0px;
+}	
+.headerrightArea .sub-btn-regst{
+	padding-top:0px;
+}
+.headerrightArea .sub-btn-regst .btn-outline-primary{
+    width: 100px;
+    font-size: 14px;
+    padding: 5px 5px;	
+}
+.headerrightArea .sub-btn-regst .btn-primary{
+    width: 100px;
+    font-size: 14px;
+    padding: 5px 5px;	
+}
+.navbar .headerMiddleArea .dropdown-menu {
+    min-width: 160px;   
+    right: 0;
+    top: 40px;
+    left: inherit !important;
+}
+.navbar .headerMiddleArea .dropdown-menu .dropdown-item {   
+    font-size: 14px;
+    padding: 5px 15px;
+}
+
+
+
 }
 /******** 428 End ********/
 

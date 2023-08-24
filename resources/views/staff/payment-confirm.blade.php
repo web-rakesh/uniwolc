@@ -21,7 +21,7 @@
                                             Payment Account
                                         </div>
                                         <div class="txt">
-                                            ${{ number_format($totalPayableAmount, 2) }}
+                                            ${{ get_currency($countryId) . number_format($totalPayableAmount, 2) }}
                                         </div>
                                     </li>
                                     <li class="d-flex justify-content-between paymenyInfoListItem">
@@ -37,7 +37,7 @@
                                             Total
                                         </div>
                                         <div class="txt">
-                                            ${{ number_format(total_payable_amount($totalPayableAmount), 2) }}
+                                            {{ get_currency($countryId) . number_format(total_payable_amount($totalPayableAmount), 2) }}
                                         </div>
                                     </li>
                                     <li class="d-flex justify-content-between paymenyInfoListItem method">
