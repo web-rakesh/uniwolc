@@ -13,14 +13,14 @@
                             <p>Discover Programs And Schools, Get Matched To The Best Options, And Easily Submit Your
                                 Applications. From Research And Admission To Visa And Arrival At Your Dream School, We Guide
                                 You At Every Step Of The Way!</p>
-                            <a href="javascript:;">Explore Programs</a>
+                            <a href="{{ route('programs') }}">Explore Programs</a>
                         </div>
                     </div>
 
                     <div class="col-lg-6">
                         <div class="header-img-abroad">
                             <a href="javascript:;" data-toggle="modal" data-target="#exampleModal"><img
-                                    src="assets/images/inner-banner/students-banner.png" alt="" /></a>
+                                    src="assets/images/students-banner.jpg" height="480"  alt="" /></a>
                         </div>
                     </div>
                 </div>
@@ -109,7 +109,7 @@
 
                 <div class="col-lg-4">
                     <div class="sub-get-started-text sub-how-work-pb">
-                        <img src="assets/images/01-help-students.png" alt="">
+                        <img src="assets/images/student-eligibility.png" height="81" alt="">
                         <h5>Check Your Eligibility</h5>
                         <p>Complete a short survey and get matched to programs and schools.</p>
                     </div>
@@ -117,7 +117,7 @@
 
                 <div class="col-lg-4">
                     <div class="sub-get-started-text sub-how-work-pb">
-                        <img src="assets/images/02-help-students.png" alt="">
+                        <img src="assets/images/student-school.png" height="81" alt="">
                         <h5>Apply to Schools</h5>
                         <p>Select a school and program, complete profile, pay fees, and submit documents.</p>
                     </div>
@@ -125,7 +125,7 @@
 
                 <div class="col-lg-4">
                     <div class="sub-get-started-text sub-how-work-pb">
-                        <img src="assets/images/03-help-students.png" alt="">
+                        <img src="assets/images/student-accepted.png" height="81" alt="">
                         <h5>Get Accepted</h5>
                         <p>The schools review your application and an acceptance letter is issued.</p>
                     </div>
@@ -133,7 +133,7 @@
 
                 <div class="col-lg-4">
                     <div class="sub-get-started-text sub-how-work-pb">
-                        <img src="assets/images/04-apply-for-visa.png" alt="">
+                        <img src="assets/images/student-apply-visa.png" height="81" alt="">
                         <h5>Apply for Visa</h5>
                         <p>ApplyBoard’s experts guide you through the visa application process.</p>
                     </div>
@@ -141,7 +141,7 @@
 
                 <div class="col-lg-4">
                     <div class="sub-get-started-text sub-how-work-pb">
-                        <img src="assets/images/05-start-your-iourney.png" alt="">
+                        <img src="assets/images/student-journey.png" height="81" alt="">
                         <h5>Start Your Journey</h5>
                         <p>Book your flight, pack your bags, and start your adventure.</p>
                     </div>
@@ -149,7 +149,7 @@
 
                 <div class="col-lg-4">
                     <div class="sub-how-work-btn">
-                        <a class="sub-get-started-btn" href="javascript:;">Get Started</a>
+                        <a class="sub-get-started-btn" href="{{ route('login') }}">Get Started</a>
                     </div>
                 </div>
 
@@ -168,7 +168,7 @@
                         <div class="sub-abroad-text-std">
                             <span>Have Questions?</span>
                             <h5>Schedule a Free Counselling Session with Our Study Abroad Expert</h5>
-                            <a class="sub-book-meeting-white-btn" href="javascript:;">Book a Meeting</a>
+                            <a class="sub-book-meeting-white-btn" href="{{ route('login') }}">Book a Meeting</a>
                         </div>
                     </div>
                 </div>
@@ -192,7 +192,7 @@
                 <div class="col-lg-4">
                     <div class="main-universities-blog">
                         <div class="sub-img-universities">
-                            <img src="assets/images/blogs/blog-01.jpg" alt="" />
+                            <img src="assets/images/blog-thumb.jpg" height="310" alt="" />
                             <div class="sub-logo-universities">
                                 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
                                     xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
@@ -305,7 +305,7 @@
                 <div class="col-lg-4">
                     <div class="main-universities-blog">
                         <div class="sub-img-universities">
-                            <img src="assets/images/blogs/blog-01.jpg" alt="" />
+                            <img src="assets/images/blog-thumb.jpg" height="310" alt="" />
                             <div class="sub-logo-universities">
                                 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
                                     xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
@@ -418,7 +418,7 @@
                 <div class="col-lg-4">
                     <div class="main-universities-blog">
                         <div class="sub-img-universities">
-                            <img src="assets/images/blogs/blog-01.jpg" alt="" />
+                            <img src="assets/images/blog-thumb.jpg" height="310" alt="" />
                             <div class="sub-logo-universities">
                                 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
                                     xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
@@ -546,7 +546,7 @@
                             <p>“UNIWOLC Guided Me Through The Application Process To Make Sure It Went Smoothly. They Filled
                                 Me With Trust Because Their Communication Is So Strong. Applyboard Double-Checked Every Part
                                 Of My Application And Visa Requirements So That Everything Was Correct.”</p>
-                            <a href="javascript:;">Get Started</a>
+                            <a href="{{ route('login') }}">Get Started</a>
                         </div>
                     </div>
 
@@ -581,53 +581,32 @@
                             data-ride="carousel" data-pause="hover" data-interval="5000" data-duration="2000">
 
                             <div class="carousel-inner" role="listbox">
-                                <div class="carousel-item active">
-                                    <div class="testimonial4_slide">
-                                        <div class="col-lg-4"><img src="assets/images/testimonial/02-testimonial.png"
-                                                class="img-circle img-responsive" /></div>
-                                        <div class="col-lg-8">
-                                            <h4>Athena K.</h4>
-                                            <span>University Of Waterloo Graduate – International Student From Iran</span>
-                                            <p>“UNIWOLC Guided Me Through The Application Process To Make Sure It Went
-                                                Smoothly. They Filled Me With Trust Because Their Communication Is So
-                                                Strong. Applyboard Double-Checked Every Part Of My Application And Visa
-                                                Requirements So That Everything Was Correct.”</p>
+                                @forelse ($testimonial['student'] as $i => $recruitment_partner)
+                                    <div class="carousel-item {{ $i == 0 ? 'active' : '' }} ">
+
+                                        <div class="testimonial4_slide">
+                                            <div class="col-12 col-lg-4"><img
+                                                    src="{{ $recruitment_partner->testimonial_image_url ?? 'assets/images/our-partners/01-our-partners.png' }}"
+                                                    class="img-circle img-responsive" /></div>
+                                            <div class="col-lg-8">
+                                                <h4>{{ $recruitment_partner->label ?? '' }}
+                                                </h4>
+                                                <span>{{ $recruitment_partner->title ?? '' }}</span>
+                                                <p>{{ $recruitment_partner->content ?? '' }}
+                                                </p>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="carousel-item">
-                                    <div class="testimonial4_slide">
-                                        <div class="col-lg-4"><img src="assets/images/testimonial/02-testimonial.png"
-                                                class="img-circle img-responsive" /></div>
-                                        <div class="col-lg-8">
-                                            <h4>Athena K.</h4>
-                                            <span>University Of Waterloo Graduate – International Student From Iran</span>
-                                            <p>“UNIWOLC Guided Me Through The Application Process To Make Sure It Went
-                                                Smoothly. They Filled Me With Trust Because Their Communication Is So
-                                                Strong. Applyboard Double-Checked Every Part Of My Application And Visa
-                                                Requirements So That Everything Was Correct.”</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="carousel-item">
-                                    <div class="testimonial4_slide">
-                                        <div class="col-lg-4"><img src="assets/images/testimonial/02-testimonial.png"
-                                                class="img-circle img-responsive" /></div>
-                                        <div class="col-lg-8">
-                                            <h4>Athena K.</h4>
-                                            <span>University Of Waterloo Graduate – International Student From Iran</span>
-                                            <p>“UNIWOLC Guided Me Through The Application Process To Make Sure It Went
-                                                Smoothly. They Filled Me With Trust Because Their Communication Is So
-                                                Strong. Applyboard Double-Checked Every Part Of My Application And Visa
-                                                Requirements So That Everything Was Correct.”</p>
-                                        </div>
-                                    </div>
-                                </div>
+                                @empty
+                                    <h4>No data found</h4>
+                                @endforelse
                             </div>
-                            <a class="carousel-control-prev" href="#testimonial4" data-slide="prev"><i
-                                    class="fa-solid fa-arrow-left"></i></a>
-                            <a class="carousel-control-next" href="#testimonial4" data-slide="next"><i
-                                    class="fa-solid fa-arrow-right"></i></a>
+                            @if (!empty($testimonial['student']) && count($testimonial['student']) > 1)
+                                <a class="carousel-control-prev" href="#testimonial4" data-slide="prev"><i
+                                        class="fa-solid fa-arrow-left"></i></a>
+                                <a class="carousel-control-next" href="#testimonial4" data-slide="next"><i
+                                        class="fa-solid fa-arrow-right"></i></a>
+                            @endif
                         </div>
 
                     </div>

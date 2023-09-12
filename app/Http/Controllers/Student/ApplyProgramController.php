@@ -21,8 +21,8 @@ class ApplyProgramController extends Controller
      */
     public function index()
     {
-        $applyPrograms = ApplyProgram::whereUserId(Auth::user()->id)->where('status', 1)->get();
-        $applyProgramPaid = ApplyProgram::whereUserId(Auth::user()->id)->where('status', 2)->get();
+        $applyPrograms = ApplyProgram::whereUserId(Auth::user()->id)->where('status', 1)->latest()->get();
+        $applyProgramPaid = ApplyProgram::whereUserId(Auth::user()->id)->where('status', 2)->latest()->get();
         return view('students.application', compact('applyPrograms', 'applyProgramPaid'));
 
         // return view('students.apply', compact('program'));
@@ -93,46 +93,43 @@ class ApplyProgramController extends Controller
         // return $request;
         // return $applyPrograms[0]->getProgram;
         if (Auth::user()->type == 'agent') {
+            $programStatus = 0;
             if ($request->status == 'accepted') {
-                $applyPrograms = ApplyProgram::whereAgentId(Auth::user()->id)->where('program_status', 1)->get();
+                $programStatus = 1;
             } elseif ($request->status == 'rejected') {
-
-                $applyPrograms = ApplyProgram::whereAgentId(Auth::user()->id)->where('program_status', 3)->get();
+                $programStatus = 3;
             } else {
-
-                $applyPrograms = ApplyProgram::whereAgentId(Auth::user()->id)->get();
+                $programStatus = 0;
             }
-            // return $applyPrograms;
-
-            return view('agent.application.application', compact('applyPrograms',));
+            // return $programStatus;
+            // return view('staff.application.application', ['applications' => 1]);
+            // return view('agent.application.application', compact('applyPrograms',));
+            return view('agent.application.application', ['applications' => 1, 'programStatus' => $programStatus]);
         } elseif (Auth::user()->type == 'staff') {
+            $programStatus = 0;
             if ($request->status == 'accepted') {
-                # code...
-                $applyPrograms = ApplyProgram::whereStaffId(Auth::user()->id)->where('status', 1)->where('program_status', 1)->get();
-                $applyProgramPaid = ApplyProgram::whereStaffId(Auth::user()->id)->where('status', 2)->where('program_status', 1)->get();
+                $programStatus = 1;
             } elseif ($request->status == 'rejected') {
-                $applyPrograms = ApplyProgram::whereStaffId(Auth::user()->id)->where('program_status', 3)->get();
-                $applyProgramPaid = [];
+                $programStatus = 3;
             } else {
-                # code...
-                $applyPrograms = ApplyProgram::whereStaffId(Auth::user()->id)->where('status', 1)->get();
-                $applyProgramPaid = ApplyProgram::whereStaffId(Auth::user()->id)->where('status', 2)->get();
+                $programStatus = 0;
             }
-
-
-            return view('staff.application.application', compact('applyPrograms', 'applyProgramPaid'));
+            // return $programStatus;
+            return view('staff.application.application', ['applications' => 1, 'programStatus' => $programStatus]);
         }
-        return view('staff.application.application', compact('applyPrograms', 'applyProgramPaid'));
+        // return view('staff.application.application', compact('applyPrograms', 'applyProgramPaid'));
     }
 
     public function agentStaffPaidApplication()
     {
 
+        // return "paid application";
         // return $applyPrograms[0]->getProgram;
         if (Auth::user()->type == 'agent') {
             $applyProgramPaid = ApplyProgram::whereAgentId(Auth::user()->id)->where('status', 2)->get();
-            return view('agent.application.paid-application', compact('applyProgramPaid'));
+            return view('agent.application.paid-application', ['applications' => 2]);
         } elseif (Auth::user()->type == 'staff') {
+            return view('staff.application.application', ['applications' => 2]);
             $applyProgramPaid = ApplyProgram::whereStaffId(Auth::user()->id)->where('status', 2)->get();
             return view('staff.application.application', compact('applyProgramPaid'));
         }
@@ -237,13 +234,25 @@ class ApplyProgramController extends Controller
         }
     }
 
-    public function schoolDetails($slug)
+    public function schoolDetails($id, $slug)
     {
+        // return $id;
         // return $slug;
-        $schoolDetails = ProfileDetail::where('slug', $slug)->first();
+        $schoolDetails = ProfileDetail::whereId($id)->where('slug', $slug)->first();
         // $schoolDetails = ProfileDetail::find($slug);
         $universityImage = $schoolDetails->getMedia('university-picture');
-        return view('students.school-details', compact('schoolDetails', 'universityImage'));
+        if (Auth::user()->type == 'agent') {
+            return view('agent.school-details', compact('schoolDetails', 'universityImage'));
+        } elseif (Auth::user()->type == 'staff') {
+            return view('staff.school-details', compact('schoolDetails', 'universityImage'));
+        } else {
+            return view('students.school-details', compact('schoolDetails', 'universityImage'));
+        }
+
+
+
+
+        $applyProgram = ApplyProgram::whereAgentId(Auth::user()->id)->where('university_id', $id)->get();
     }
 
     public function applicationAcademicSession(Request $request)

@@ -18,15 +18,8 @@
                 <div class="card">
                     <div class="card-body">
 
+                        @include('flash-messages')
 
-                        @if (session('error'))
-                            <div class="col-sm-12">
-                                <div class="alert  alert-danger alert-dismissible fade show" role="alert">
-                                    {{ session('error') }}
-
-                                </div>
-                            </div>
-                        @endif
                         <h4 class="card-title">University Form elements </h4>
                         {{-- <p class="card-description"> Basic form elements </p> --}}
                         <form class="forms-sample" method="post" id="add-university"
@@ -83,7 +76,7 @@
                                     <label>Country</label>
                                     <select class="form-select country-dropdown" name="country" id="getCurrency">
 
-                                        <option value="">Select Country {{ $profileDetail->country }}</option>
+                                        <option value="">Select Country</option>
                                         @foreach ($countries as $country)
                                             <option value="{{ $country->id }}" data-currency="{{ $country->name }}"
                                                 {{ isset($universityDetail) ? ($universityDetail->country == $country->id ? 'selected' : '') : '' }}>
@@ -188,8 +181,23 @@
 
                                 <div class="form-group col-6">
                                     <label class="labels">Institution type</label>
-                                    <input type="text" class="form-control" name="institution_type"
-                                        value="{{ $universityDetail->institution_type ?? old('institution_type') }}">
+                                    <select name="institution_type" class="form-select">
+                                        <option value="">Select Institution Type</option>
+                                        <option
+                                            {{ @$universityDetail->institution_type == 'university' ? 'selected' : '' }}
+                                            value="university">University</option>
+                                        <option {{ @$universityDetail->institution_type == 'college' ? 'selected' : '' }}
+                                            value="college">College</option>
+                                        <option
+                                            {{ @$universityDetail->institution_type == 'englist_institute' ? 'selected' : '' }}
+                                            value="englist_institute">English Institute</option>
+                                        <option {{ @$universityDetail->institution_type == 'school' ? 'selected' : '' }}
+                                            value="school">High School</option>
+                                        <option {{ @$universityDetail->institution_type == 'other' ? 'selected' : '' }}
+                                            value="other">Other</option>
+                                    </select>
+                                    {{-- <input type="text" class="form-control" name="institution_type"
+                                        value="{{ $universityDetail->institution_type ?? old('institution_type') }}"> --}}
                                 </div>
 
                                 {{-- <div class="form-group col-6">
@@ -323,12 +331,12 @@
         });
 
 
-        // addressUniversity.root.innerHTML = '{!! $universityDetail->address ?? '' !!}';
-        aboutUniversity.root.innerHTML = '{!! $universityDetail->about_university ?? '' !!}';
-        featureUniversity.root.innerHTML = '{!! $universityDetail->feature ?? '' !!}';
-        // locationUniversity.root.innerHTML = '{!! $universityDetail->location ?? '' !!}';
-        letterAcceptanceUniversity.root.innerHTML = '{!! $universityDetail->letter_of_acceptance ?? '' !!}';
-        disciplineUniversity.root.innerHTML = '{!! $universityDetail->disciplines ?? '' !!}';
+        // addressUniversity.root.innerHTML = `{!! $universityDetail->address ?? '' !!}`;
+        aboutUniversity.root.innerHTML = `{!! $universityDetail->about_university ?? '' !!}`;
+        featureUniversity.root.innerHTML = `{!! $universityDetail->feature ?? '' !!}`;
+        // locationUniversity.root.innerHTML = `{!! $universityDetail->location ?? '' !!}`;
+        letterAcceptanceUniversity.root.innerHTML = `{!! $universityDetail->letter_of_acceptance ?? '' !!}`;
+        disciplineUniversity.root.innerHTML = `{!! $universityDetail->disciplines ?? '' !!}`;
 
 
         document.getElementById('add-university').addEventListener('submit', function(e) {
@@ -387,12 +395,17 @@
     <script>
         $(document).ready(function() {
 
+            var countryIdUpd = $("#getCurrency").val();
+            var stateIdUpd = $("#state-dropdown").val();
+            var cityIdUpd = $("#city-dropdown").val();
+            getCountry(countryIdUpd)
             $("#getCurrency").change(function() {
-                // $(this).find(':selected').attr('data-id')
                 var id_country = $(this).val();
-                // alert(id_country)
-                // return
-                // var token = $("input[name='_token']").val();
+                getCountry(id_country)
+            });
+
+            function getCountry(id_country) {
+
                 $.ajax({
                     url: "{{ route('admin.currency') }}",
                     method: 'GET',
@@ -406,20 +419,26 @@
 
                         $('#state-dropdown').html('<option value="">Select State</option>');
                         $.each(data.states, function(key, value) {
+                            var selectState = stateIdUpd == value.id ? 'selected' : '';
                             $("#state-dropdown").append('<option value="' + value.id +
-                                '">' + value.name + '</option>');
+                                '" ' + selectState + '>' + value.name + '</option>');
                         });
                         $('#city-dropdown').html(
                             '<option value="">Select State First</option>');
 
+                        getState(stateIdUpd)
                     }
                 });
-            });
+            }
 
 
             $('#state-dropdown').on('change', function() {
                 var idState = this.value;
                 $("#city-dropdown").html('');
+                getState(idState);
+            });
+
+            function getState(idState) {
                 $.ajax({
                     url: "{{ url('admin/fetch-cities') }}",
                     type: "POST",
@@ -431,12 +450,13 @@
                     success: function(res) {
                         $('#city-dropdown').html('<option value="">-- Select City --</option>');
                         $.each(res.cities, function(key, value) {
+                            var selectCity = cityIdUpd == value.id ? 'selected' : '';
                             $("#city-dropdown").append('<option value="' + value
-                                .id + '">' + value.name + '</option>');
+                                .id + '"' + selectCity + '>' + value.name + '</option>');
                         });
                     }
                 });
-            });
+            }
 
         });
     </script>

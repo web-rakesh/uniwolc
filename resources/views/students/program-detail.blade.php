@@ -194,7 +194,7 @@
                                     <div class="programAminitiesAreainner">
                                         <div class="row rowBox2">
 
-                                            {{ $program->program_summary }}
+                                            {{ $program->program_summary ?? '' }}
 
                                         </div>
                                     </div>
@@ -208,7 +208,7 @@
                                             class="fa-regular fa-clipboard-list-check"></i></span> <span
                                         class="txt">Admission Requirements</span></h4>
                                 <div class="singleProgramsDtlsContentArea">
-                                    {{ $program->minimumLevel->level_name }}
+                                    {{ $program->minimumLevel->level_name ?? '' }}
                                 </div>
                             </div>
                             <hr class="borderHr">
@@ -428,7 +428,7 @@
 
                                     <li class="sidebarListItem">
                                         <div class="sidebarContent">
-                                            <div class="sidebarTitle">{{ $program->programLevel->level_name }}</div>
+                                            <div class="sidebarTitle">{{ $program->programLevel->level_name ?? '' }}</div>
                                             <div class="sidebarText">Program Level</div>
                                         </div>
                                     </li>

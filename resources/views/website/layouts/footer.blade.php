@@ -17,7 +17,7 @@
                 <div class="sub-footer-list-bold">
                     <ul>
                         <li><a href="{{ route('students') }}">Students</a></li>
-                        <li><a href="javascript:;">Schools</a></li>
+                        <li><a href="{{ route('schools') }}">Schools</a></li>
                         <li><a href="{{ route('recruiters') }}">Recruiters</a></li>
                     </ul>
                 </div>
@@ -45,7 +45,7 @@
                     <ul>
                         <li><a href="javascript:;">Discover Programs</a></li>
                         <li><a href="javascript:;">Discover Schools</a></li>
-                        <li><a href="javascript:;">Register</a></li>
+                        <li><a href="{{ route('register') }}">Register</a></li>
                     </ul>
                 </div>
             </div>
@@ -54,9 +54,9 @@
                 <div class="sub-footer-list">
                     <h6>Resources</h6>
                     <ul>
-                        <li><a href="javascript:;">Our Solutions</a></li>
-                        <li><a href="javascript:;">UK Resources</a></li>
-                        <li><a href="javascript:;">AU Resources</a></li>
+                        <li><a href="{{ route('our.solutions') }}">Our Solutions</a></li>
+                        <li><a href="{{ route('uk.resources') }}">UK Resources</a></li>
+                        <li><a href="{{ route('au.resources') }}">AU Resources</a></li>
                     </ul>
                 </div>
             </div>
@@ -65,9 +65,9 @@
                 <div class="sub-footer-list">
                     <h6>Legal</h6>
                     <ul>
-                        <li><a href="javascript:;">Privacy & Cookies Policy</a></li>
-                        <li><a href="javascript:;">Terms & Conditions</a></li>
-                        <li><a href="javascript:;">ApplyBoard Fees</a></li>
+                        <li><a href="{{ route('privacy.policy') }}">Privacy & Cookies Policy</a></li>
+                        <li><a href="{{ route('term.conditions') }}">Terms & Conditions</a></li>
+                        <li><a href="{{ route('uniwolc.fees') }}">Uniwolc Fees</a></li>
                     </ul>
                 </div>
             </div>

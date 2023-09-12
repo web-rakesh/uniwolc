@@ -93,7 +93,8 @@
                                                     <div class="tableContent">#</div>
                                                 </td>
                                                 <td>
-                                                    <div class="tableContent">{{ $program->program_title }}</div>
+                                                    <div class="tableContent">
+                                                        <a href="{{ route('university.program.details', ['id' => $program->id, 'slug' => $program->slug]) }}">{{ $program->program_title }}</a></div>
                                                 </td>
                                                 <td>
                                                     <div class="tableContent">
@@ -114,7 +115,7 @@
                                                 <td>
                                                     <div class="tableContent">
                                                         <a class="btn btn-primary viewBtn"
-                                                            href="{{ route('university.program.show', $program->id) }}">View</a>
+                                                            href="{{ route('university.program.details', ['id' => $program->id, 'slug' => $program->slug]) }}">View</a>
                                                         <a class="btn btn-primary viewBtn"
                                                             href="{{ route('university.program.edit', $program->id) }}">Edit</a>
                                                     </div>

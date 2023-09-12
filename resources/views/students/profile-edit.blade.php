@@ -46,10 +46,7 @@
                     <div class="col-md-9 columnBox border-right dasboardrightPart">
                         <div class="dasboardrightPartWrapper">
                             <div class="p-3 py-5 dasboardrightPartWrapperinner">
-                                <!--
-                                                                                                                                                                                                                                                                                                                                                <div class="d-flex justify-content-between align-items-center mb-3">
-                                                                                                                                                                                                                                                                                                                                                    <h4 class="text-right">Update Profile</h4>
-                                                                                                                                                                                                                                                                                                                                                </div>-->
+                                @include('flash-messages')
                                 <h4 class="card-title text-center1 mb-0"> Update Profiles</h4>
                                 <hr>
                                 <form method="post" action="{{ route('student.student-detail.store') }}">
@@ -60,7 +57,7 @@
                                             <label class="labels">First Name</label>
                                             <input type="text" class="form-control" placeholder="first name"
                                                 name="first_name"
-                                                value="{{ $studentDetail->first_name ?? old('first_name') }}"
+                                                value="{{ explode(' ', auth()->user()->name)[0] ?? old('first_name') }}"
                                                 required="">
                                         </div>
                                         <div class="col-md-6 mb-3 columnBox2">
@@ -72,7 +69,8 @@
                                         <div class="col-md-6 mb-3 columnBox2">
                                             <label class="labels">Last Name</label><input type="text"
                                                 class="form-control" name="last_name" placeholder="surname"
-                                                value="{{ $studentDetail->last_name ?? old('last_name') }}" required="">
+                                                value="{{ explode(' ', auth()->user()->name)[1] ?? old('last_name') }}"
+                                                required="">
                                         </div>
                                         <div class="col-md-6 mb-3 columnBox2">
                                             <label class="labels">Email ID</label>
@@ -149,8 +147,7 @@
 
                                         <div class="col-md-6 columnBox2">
                                             <label class="labels">City</label>
-                                            <select class="form-control" id="city-dropdown" name="city"
-                                                required="">
+                                            <select class="form-control" id="city-dropdown" name="city">
                                                 @if ($studentDetail)
                                                     <option value="{{ $studentDetail->city }}">
                                                         {{ get_state($studentDetail->city) }}</option>
@@ -164,7 +161,7 @@
                                             <label class="labels">Postcode / Zipcode</label>
                                             <input type="number" class="form-control"
                                                 placeholder="Enter your Postcode / Zipcode" name="pincode"
-                                                value="{{ $studentDetail->pincode ?? old('pincode') }}" required="">
+                                                value="{{ $studentDetail->pincode ?? old('pincode') }}">
                                         </div>
 
                                         <div class="col-md-6 mb-3 columnBox2">
@@ -176,14 +173,13 @@
                                         </div>
                                         <div class="col-md-6 mb-3 columnBox2">
                                             <label class="labels">Passport Expiry Date</label>
-                                            <input type="date" class="form-control"
+                                            <input type="date" class="form-control" id="passport_expiry_date"
                                                 placeholder="Enter your passport expiry date" name="passport_expiry_date"
-                                                value="{{ date('Y-m-d', strtotime($studentDetail->passport_expiry_date ?? now())) ?? old('passport_expiry_date') }}"
-                                                required="">
+                                                value="{{ date('Y-m-d', strtotime($studentDetail->passport_expiry_date ?? now())) ?? old('passport_expiry_date') }}">
                                         </div>
                                         <div class="col-md-6 mb-3 columnBox2">
                                             <label class="labels">Marital Status</label>
-                                            <select class="form-control" name="marital_status" required="">
+                                            <select class="form-control" name="marital_status">
                                                 <option
                                                     {{ $studentDetail ? ($studentDetail->marital_status == 'Single' ? 'selected' : '') : '' }}
                                                     value="Single">Single</option>
@@ -194,7 +190,7 @@
                                         </div>
                                         <div class="col-md-6 mb-3 columnBox2">
                                             <label class="labels">Gender</label>
-                                            <select class="form-control" name="gender" required="">
+                                            <select class="form-control" name="gender">
                                                 <option
                                                     {{ $studentDetail ? ($studentDetail->gender == 'Male' ? 'selected' : '') : '' }}
                                                     value="Male">Male</option>
@@ -208,17 +204,15 @@
                                         </div>
                                         <div class="col-md-6 mb-3 columnBox2">
                                             <label class="labels">Date of Birth</label>
-                                            <input type="date" class="form-control"
+                                            <input type="date" class="form-control" id="date_of_birth"
                                                 placeholder="Enter your date of birth" name="dob"
-                                                value="{{ date('Y-m-d', strtotime($studentDetail->dob ?? now())) ?? old('dob') }}"
-                                                required="">
+                                                value="{{ date('Y-m-d', strtotime($studentDetail->dob ?? now())) ?? old('dob') }}">
                                         </div>
                                         <div class="col-md-6 mb-3 columnBox2">
                                             <label class="labels">Fast Language</label>
                                             <input type="text" class="form-control"
                                                 placeholder="Enter your fast language" name="fast_language"
-                                                value="{{ $studentDetail->fast_language ?? old('fast_language') }}"
-                                                required="">
+                                                value="{{ $studentDetail->fast_language ?? old('fast_language') }}">
                                         </div>
 
                                         <div class="col-md-6 mb-3 columnBox2">
@@ -261,6 +255,11 @@
 @push('js')
     <script>
         $(document).ready(function() {
+
+            flatpickr("#passport_expiry_date, #date_of_birth", {
+                dateFormat: "Y-m-d",
+                // Add any other options here
+            });
             // alert();
             var upd_country = $("#getCurrency").val();
             var upd_state = $("#state-dropdown").val();

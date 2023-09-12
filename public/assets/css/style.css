@@ -186,7 +186,7 @@ ul.sub-menulist-header li a:hover{
   font-weight: 500;
   /*background: #9a55ff;
    border: 1px solid #9a55ff;*/
-  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.08); 
+  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.08);
   border-radius: 30px;
   padding: 10px 20px;
   border: 1px solid transparent;
@@ -219,7 +219,7 @@ background: linear-gradient(to right, #da8cff, #9a55ff);
   align-items: center;
   justify-content: center;
 }
-.headerMiddleArea .header-search-box {   
+.headerMiddleArea .header-search-box {
     position: relative;
 }
 .header-search-box .dropdown-toggle::after{
@@ -229,7 +229,7 @@ background: linear-gradient(to right, #da8cff, #9a55ff);
   background: #fff;
   border: 1px solid #fff;
   margin: 8px 0 0 0;
-    box-shadow: none;  
+    box-shadow: none;
 }
 .header-search-box .dropdown .btn i{
   font-size: 22px;
@@ -268,7 +268,7 @@ background: linear-gradient(to right, #da8cff, #9a55ff);
 .header-slider-bg .carousel-item {
   width: 100%;
   height: 75vh;
-  background: #fbf8f5;
+  background: #ffffff;
 }
 .header-slider-bg .carousel-item .carousel-caption h1{
   color: #353848;
@@ -1047,6 +1047,7 @@ background: linear-gradient(to right, #da8cff, #9a55ff);
 
 /* Help Students */
 .sub-students-box{
+    text-align: center;
   width: 100%;
   height: 280px;
   display: inline-block;
@@ -1080,7 +1081,7 @@ background: linear-gradient(to right, #da8cff, #9a55ff);
 .sub-how-we-help-bg{
   width: 100%;
   display: inline-block;
-  background: #fbf8f5;
+  background: #fff;
   padding: 85px 0;
 }
 .sub-how-we-help-main{
@@ -1184,7 +1185,7 @@ background: linear-gradient(to right, #da8cff, #9a55ff);
   */
 	background: -webkit-gradient(linear, left top, right top, from(#da8cff), to(#9a55ff));
 	background: linear-gradient(to right, #da8cff, #9a55ff);
-  
+
   background-position: top center;
   background-repeat: no-repeat;
   background-size: auto;
@@ -1260,6 +1261,7 @@ background: linear-gradient(to right, #da8cff, #9a55ff);
 
 /* Get Started With UNIWOLC */
 .sub-get-started-text{
+    text-align: center;
   width: 100%;
   display: inline-block;
   background: #ffffff;
@@ -2595,6 +2597,9 @@ a.sub-intern-border-btn:hover{
 .sub-currnt-inter-std-main-pt{
   padding: 60px 0 0 0;
 }
+.career-team-culture{
+    margin-top:40px;
+}
 .sub-count-number-bg-pt-pb{
   margin: 85px 0;
 }
@@ -2661,7 +2666,7 @@ a.sub-content-univer-price-btn:hover{
 .navbar .headerMiddleArea .dropdown-menu {
     min-width: 200px;
     left: inherit;
-    right: -150%;    
+    right: -150%;
 }
 
 
@@ -4071,7 +4076,7 @@ a.sub-content-univer-price-btn:hover{
     box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.15);
     border-radius: 8px;
     overflow: hidden;
-    height: 50px; 
+    height: 50px;
 }
 .sub-login-form .form-control{
 /*  height: 45px;
@@ -4081,7 +4086,7 @@ a.sub-content-univer-price-btn:hover{
   border-bottom-right-radius: 30px;*/
     height: auto;
     color: #000;
-    background: transparent;    
+    background: transparent;
     box-shadow: none;
     border: 0;
 }
@@ -4090,7 +4095,7 @@ a.sub-content-univer-price-btn:hover{
   border-top-left-radius: 30px;
   border-bottom-left-radius: 30px;
   */
-    background: transparent; 
+    background: transparent;
     border: 0;
     padding-right: 5px;
     padding-left: 20px;
@@ -4172,7 +4177,7 @@ a.sub-content-univer-price-btn:hover{
     align-items: center;
     justify-content: center;
     background: #353848;
-    border-radius: 100%;    
+    border-radius: 100%;
 }
 .sub-login-social-box span i{
   /*color: #ffffff;

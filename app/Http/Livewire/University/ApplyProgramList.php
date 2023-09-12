@@ -4,6 +4,7 @@ namespace App\Http\Livewire\University;
 
 use Livewire\Component;
 use Livewire\WithPagination;
+use Illuminate\Support\Carbon;
 use App\Models\University\Program;
 use Illuminate\Support\Facades\DB;
 use App\Models\Student\ApplyProgram;
@@ -15,23 +16,27 @@ class ApplyProgramList extends Component
     public $programSelectId, $programList, $confirming, $backupPrograms, $backup_program_id, $reject_id;
     public $searchItem, $textareaValue = '';
     public $showModal = false, $mood = false, $program_status;
-    public $student_id, $program_name;
+    public $student_id, $program_name, $startDate, $endDate;
     // public $paginationCount = 15;
     public function render()
     {
         $applyProgram = ApplyProgram::query()
-        ->where('university_id', auth()->user()->id)
-        ->when($this->program_status, function ($query, $program_status) {
-            if($program_status == 4){
-                // dd($program_status);
-                $query->where('program_status',  0);
-            }else{
-                $query->where('program_status',  $program_status);
-            }
-        })
+            ->where('university_id', auth()->user()->id)
+            ->when($this->program_status, function ($query, $program_status) {
+                if ($program_status == 4) {
+                    // dd($program_status);
+                    $query->where('program_status',  0);
+                } else {
+                    $query->where('program_status',  $program_status);
+                }
+            })
             ->when($this->programSelectId, function ($query, $programSelectId) {
                 $query->where('program_id', $programSelectId);
             })
+            ->whereBetween('created_at', [
+                !empty($this->startDate) ? Carbon::parse($this->startDate)->startOfDay() : Carbon::now()->subMonth(), // Default to one month ago if not provided
+                !empty($this->endDate) ?  Carbon::parse($this->endDate)->endOfDay() : Carbon::now(),
+            ])
             ->paginate(10);
 
 
@@ -42,6 +47,12 @@ class ApplyProgramList extends Component
 
 
         return view('livewire.university.apply-program-list', ['applyPrograms' => $applyProgram]);
+    }
+
+    public function clearDate()
+    {
+        $this->startDate = null;
+        $this->endDate = null;
     }
 
     public function confirmAccept($id)

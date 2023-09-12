@@ -119,7 +119,7 @@
                                                 <div class="hd">Academic</div>
                                                 <div class="txt">Open Now</div>
                                                 <div class="">
-                                                    {{ date('M d, Y', strtotime($item->start_date)) }}
+                                                    {{ @$item->start_date ? date('M d, Y', strtotime($item->start_date)) : '--' }}
                                                     {{-- <select class="form-control">
                                                         <option>2023-Sep</option>
                                                         <option>2024-Sep</option>
@@ -332,10 +332,11 @@
                                         <div class="hd">Academic</div>
                                         <div class="txt">Open Now</div>
                                         <div class="">
-                                            <select class="form-control">
+                                            {{ @$item->start_date ? date('M d, Y', strtotime($item->start_date)) : '--' }}
+                                            {{-- <select class="form-control">
                                                 <option>2023-Sep</option>
                                                 <option>2024-Sep</option>
-                                            </select>
+                                            </select> --}}
                                         </div>
                                     </div>
                                     <div class="appFees" data-title="Application Fees">
@@ -354,11 +355,11 @@
                             <div class="rightpart">
                                 <div class="appNote">
                                     <div class="appNoteinner">
-                                        <a href="{{ route('student.program.print', $item->id) }}">
+                                        <a href="{{ route('student.program.print', $item->slug) }}">
                                             <div class="appNoteBox">
                                                 <div class="appNoteBoxinner">
                                                     <span class="fa-light fa-note-sticky icon"></span>
-                                                    <div class="number">0</div>
+                                                    <div class="number"></div>
                                                 </div>
                                             </div>
                                         </a>
@@ -374,57 +375,3 @@
         </div>
     </div>
 @endsection
-
-
-@push('js')
-    <script>
-        var dataArray = [];
-        $(document).ready(function() {
-            $('input[name="application_fee"]').change(function() {
-                var total = 0;
-
-                $("#pay_for_application").attr("disabled", true);
-                $('input[name="application_fee"]:checked').each(function() {
-                    total += parseInt($(this).val());
-                    $("#pay_for_application").removeAttr("disabled");
-
-                });
-                $('#totalAmount').text(`£${total} GBP`);
-
-
-                var value = $(this).data('id'); // Get the value of the checkbox
-
-                if (this.checked) {
-                    // Checkbox is checked, add the value to the array
-                    if (dataArray.indexOf(value) === -1) {
-                        dataArray.push(value);
-                    }
-                } else {
-                    // Checkbox is unchecked, remove the value from the array
-                    var index = dataArray.indexOf(value);
-                    if (index !== -1) {
-                        dataArray.splice(index, 1);
-                    }
-                }
-
-                console.log(dataArray); // Output the updated array
-
-            });
-
-            $("#pay_for_application").on('click', function() {
-
-
-                window.location.href = "{{ route('student.payment.confirm') }}?ids=" + dataArray;
-            })
-
-            $('.delete_form').on('submit', function() {
-                if (confirm("Are you sure you want to delete it?")) {
-                    return true;
-                } else {
-                    return false;
-                }
-            });
-
-        });
-    </script>
-@endpush

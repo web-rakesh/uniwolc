@@ -1,13 +1,15 @@
-@if (auth()->user()->type == '3')
+{{-- @if (auth()->user()->type == '3')
     @extends('staff.layouts.layout')
 @elseif(auth()->user()->type == '1')
     @extends('agent.layouts.layout')
 @else
-    @extends('students.layouts.layout')
-@endif
+@endif --}}
 
+@extends('students.layouts.layout')
 
 @section('content')
+
+    
     <div class="singleProgramsSec">
 
 
@@ -77,7 +79,7 @@
                 </div>
             </div>
 
-            <div class="singleProgramsGalleryMoreThumnail">
+            {{-- <div class="singleProgramsGalleryMoreThumnail">
                 <a href="https://www.propertyfinder.ae/property/0331397d228470003a3b2041e2e90927/1312/894/MODE/f8affc/9608948-50e5fo.webp?ctr=ae"
                     data-lightbox="photos">
                 </a>
@@ -90,7 +92,7 @@
                 <a href="https://www.propertyfinder.ae/property/745469241a72f848834b8b9131ded16e/1312/894/MODE/bd24d6/9608948-327d5o.webp?ctr=ae"
                     data-lightbox="photos">
                 </a>
-            </div>
+            </div> --}}
 
 
         </div>

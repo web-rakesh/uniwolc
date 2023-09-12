@@ -7,6 +7,34 @@
                   <i class="mdi mdi-home menu-icon"></i>
               </a>
           </li>
+          <li class="nav-item {{ Request::is('admin/student/*') ? 'active' : '' }}">
+              <a class="nav-link" data-bs-toggle="collapse" href="#register-page" aria-expanded="false"
+                  aria-controls="register-page">
+                  <span class="menu-title">Register List</span>
+                  <i class="menu-arrow"></i>
+                  <i class="mdi mdi-contacts menu-icon"></i>
+              </a>
+              <div class="collapse {{ Request::is('admin/register/student/list') || Request::is('admin/register/university/list') || Request::is('admin/register/agent/list') ? 'show' : '' }} }}"
+                  id="register-page">
+                  <ul class="nav flex-column sub-menu">
+                      <li class="nav-item">
+                          <a class="nav-link {{ Request::is('admin/register/student/list') ? 'active' : '' }}"
+                              href="{{ route('admin.register.list.student') }}"> Student Register </a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link {{ Request::is('admin/register/university/list') ? 'active' : '' }}"
+                              href="{{ route('admin.register.list.university') }}"> University Register </a>
+                      </li>
+
+                      <li class="nav-item">
+                          <a class="nav-link {{ Request::is('admin/register/agent/list') ? 'active' : '' }}"
+                              href="{{ route('admin.register.list.agent') }}">
+                              Agent Register </a>
+                      </li>
+
+                  </ul>
+              </div>
+          </li>
           @if (menu_permission('student'))
               <li class="nav-item {{ Request::is('admin/student/*') ? 'active' : '' }}">
                   <a class="nav-link" data-bs-toggle="collapse" href="#question-pages" aria-expanded="false"
@@ -122,7 +150,8 @@
                       <i class="menu-arrow"></i>
                       <i class="mdi  mdi-school menu-icon"></i>
                   </a>
-                  <div class="collapse {{ Request::is('admin/application/*') ? 'show' : '' }}" id="application-pages">
+                  <div class="collapse {{ Request::is('admin/application/*') ? 'show' : '' }}"
+                      id="application-pages">
                       <ul class="nav flex-column sub-menu">
                           {{-- @if (action_permission('program', 'add') == true) --}}
                           <li class="nav-item">
@@ -291,6 +320,10 @@
                       <li class="nav-item">
                           <a class="nav-link {{ Request::is('admin/transaction/agent-payout') ? 'active' : '' }}"
                               href="{{ route('admin.transaction.agent.payout') }}">Payouts</a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link {{ Request::is('admin/transaction/wallet-request') ? 'active' : '' }}"
+                              href="{{ route('admin.transaction.wallet.request') }}">Payment Request</a>
                       </li>
                   </ul>
               </div>

@@ -13,13 +13,13 @@
                             <p>UniWolc is more than a platform. We are your trusted partner, empowering you to excel at what
                                 you do best: assisting countless students in realizing their aspirations for international
                                 education.</p>
-                            <a href="javascript:;">Partner With Us</a>
+                            <a href="{{ route('login') }}">Partner With Us</a>
                         </div>
                     </div>
 
                     <div class="col-lg-6">
                         <div class="header-img-abroad">
-                            <img src="assets/images/inner-banner/recruitments-partners-banner.png" alt="" />
+                            <img src="assets/images/inner-banner/recruitments-partners-banner.jpg" alt="" />
                         </div>
                     </div>
                 </div>
@@ -36,21 +36,21 @@
 
                 <div class="col-lg-4">
                     <div class="sub-get-started-text sub-success-rec-box">
-                        <img src="assets/images/01-help-students.png" alt="" />
+                        <img src="assets/images/grow_quicke.png" alt="" />
                         <h5>Grow Quicker with Lower Costs </h5>
                         <p>UniWolc Recruitment Partners have grown more than 2X in the last 1 years.</p>
                     </div>
                 </div>
                 <div class="col-lg-4">
                     <div class="sub-get-started-text sub-success-rec-box">
-                        <img src="assets/images/02-help-students.png" alt="" />
+                        <img src="assets/images/trust.png" alt="" />
                         <h5>Trusted and Transparent Payments</h5>
                         <p>We Pay You At Multiple Stages Of The Application And Enrollment Process.</p>
                     </div>
                 </div>
                 <div class="col-lg-4">
                     <div class="sub-get-started-text sub-success-rec-box">
-                        <img src="assets/images/03-help-students.png" alt="" />
+                        <img src="assets/images/recruitment-location.png" alt="" />
                         <h5>More Schools Globally</h5>
                         <p>More Than 1,600 Educational Institutions Across Canada, The United Kingdom, The United States,
                             Australia, And Ireland.</p>
@@ -60,14 +60,14 @@
                 <div class="sub-recruiters-pt">
                     <div class="col-lg-4">
                         <div class="sub-get-started-text sub-success-rec-box">
-                            <img src="assets/images/05-start-your-iourney.png" alt="" />
+                            <img src="assets/images/platform.png" alt="" />
                             <h5>One Platform for Every Need</h5>
                             <p>Discover unique opportunities to deliver value and earn more with UniWolc.</p>
                         </div>
                     </div>
                     <div class="col-lg-4">
                         <div class="sub-get-started-text sub-success-rec-box">
-                            <img src="assets/images/04-apply-for-visa.png" alt="" />
+                            <img src="assets/images/industry.png" alt="" />
                             <h5>Industry-leading Insights and Training </h5>
                             <p>Receive best-in-class training on Education Industry and AI-driven Insights to future-proof
                                 their business.</p>
@@ -143,13 +143,13 @@
                     <div class="col-6 col-lg-6">
                         <div class="sub-making-edu-content">
                             <a href="javascript:;" data-toggle="modal" data-target="#exampleModal"><img
-                                    src="assets/images/01-success-stories.png" alt="" /></a>
+                                    src="assets/images/6876640.jpg" height="491" alt="" /></a>
                         </div>
                     </div>
                     <div class="col-6 col-lg-6">
                         <div class="sub-making-edu-content">
                             <a href="javascript:;" data-toggle="modal" data-target="#exampleModal"><img
-                                    src="assets/images/02-success-stories.png" alt="" /></a>
+                                    src="assets/images/6876640.jpg" height="491" alt="" /></a>
                         </div>
                     </div>
                 </div>
@@ -175,25 +175,25 @@
 
                     <div class="col-6 col-lg-3">
                         <div class="sub-easy-to-use-box">
-                            <img src="assets/images/easy-to-use-platform/01-easy-to-use-platform.png" alt="" />
+                            <img src="assets/images/clock.png" alt="" />
                             <h6>Find Programs Faster</h6>
                         </div>
                     </div>
                     <div class="col-6 col-lg-3">
                         <div class="sub-easy-to-use-box">
-                            <img src="assets/images/easy-to-use-platform/02-easy-to-use-platform.png" alt="" />
+                            <img src="assets/images/profile.png" alt="" />
                             <h6>One Easy Application</h6>
                         </div>
                     </div>
                     <div class="col-6 col-lg-3">
                         <div class="sub-easy-to-use-box">
-                            <img src="assets/images/easy-to-use-platform/03-easy-to-use-platform.png" alt="" />
+                            <img src="assets/images/platform.png" alt="" />
                             <h6>Central Platform</h6>
                         </div>
                     </div>
                     <div class="col-6 col-lg-3">
                         <div class="sub-easy-to-use-box">
-                            <img src="assets/images/easy-to-use-platform/04-easy-to-use-platform.png" alt="" />
+                            <img src="assets/images/business-report.png" alt="" />
                             <h6>Data Driven Insights</h6>
                         </div>
                     </div>
@@ -592,7 +592,7 @@
 
                                     <div class="col-lg-12">
                                         <div class="sub-explore-btn">
-                                            <a class="sub-get-started-btn" href="{{ route('login') }}">Explore
+                                            <a class="sub-get-started-btn" href="{{ route('programs') }}">Explore
                                                 Institutions</a>
                                         </div>
                                     </div>

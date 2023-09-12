@@ -38,88 +38,104 @@
                         <h2>Latest Resources</h2>
                     </div>
                 </div>
+                
+                 @forelse($blogs as $blog)
+                        <div class="col-lg-4">
+                            <div class="main-universities-blog">
+                                <div class="sub-img-universities">
+                                    <img src="{{ $blog->profile_url }}" weight="612" height="307" alt="{{ $blog->title }}" />
+                                </div>
+                                <div class="sub-content-universities">
+                                    <h3><a href="{{ route('blog-details', $blog->slug) }}">{{ \Str::words($blog->title, $limit = 10, $end = '...') }}</a></h3>
+                                    <p>{{ date('F d, Y', strtotime($blog->created_at)) }}</p>
+                                    <a href="{{ route('blog-details', $blog->slug) }}">Read More</a>
+                                </div>
+                            </div>
+                        </div>
+                    @empty
+                    @endforelse
 
-                <div class="col-lg-4">
-                    <div class="main-universities-blog">
-                        <div class="sub-img-universities">
-                            <img src="assets/images/blogs/blog-01.jpg" alt="" />
-                        </div>
-                        <div class="sub-content-universities">
-                            <h3><a href="javascript:;">Uniwolc Year In Review 2022</a></h3>
-                            <p>DECEMBER 12, 2022</p>
-                            <a href="javascript:;">Read More</a>
-                        </div>
-                    </div>
-                </div>
+                <!--<div class="col-lg-4">-->
+                <!--    <div class="main-universities-blog">-->
+                <!--        <div class="sub-img-universities">-->
+                <!--            <img src="assets/images/blogs/blog-01.jpg" alt="" />-->
+                <!--        </div>-->
+                <!--        <div class="sub-content-universities">-->
+                <!--            <h3><a href="javascript:;">Uniwolc Year In Review 2022</a></h3>-->
+                <!--            <p>DECEMBER 12, 2022</p>-->
+                <!--            <a href="javascript:;">Read More</a>-->
+                <!--        </div>-->
+                <!--    </div>-->
+                <!--</div>-->
 
-                <div class="col-lg-4">
-                    <div class="main-universities-blog">
-                        <div class="sub-img-universities">
-                            <img src="assets/images/blogs/blog-01.jpg" alt="" />
-                        </div>
-                        <div class="sub-content-universities">
-                            <h3><a href="javascript:;">Uniwolc Year In Review 2022</a></h3>
-                            <p>DECEMBER 12, 2022</p>
-                            <a href="javascript:;">Read More</a>
-                        </div>
-                    </div>
-                </div>
+                <!--<div class="col-lg-4">-->
+                <!--    <div class="main-universities-blog">-->
+                <!--        <div class="sub-img-universities">-->
+                <!--            <img src="assets/images/blogs/blog-01.jpg" alt="" />-->
+                <!--        </div>-->
+                <!--        <div class="sub-content-universities">-->
+                <!--            <h3><a href="javascript:;">Uniwolc Year In Review 2022</a></h3>-->
+                <!--            <p>DECEMBER 12, 2022</p>-->
+                <!--            <a href="javascript:;">Read More</a>-->
+                <!--        </div>-->
+                <!--    </div>-->
+                <!--</div>-->
 
-                <div class="col-lg-4">
-                    <div class="main-universities-blog">
-                        <div class="sub-img-universities">
-                            <img src="assets/images/blogs/blog-01.jpg" alt="" />
-                        </div>
-                        <div class="sub-content-universities">
-                            <h3><a href="javascript:;">Uniwolc Year In Review 2022</a></h3>
-                            <p>DECEMBER 12, 2022</p>
-                            <a href="javascript:;">Read More</a>
-                        </div>
-                    </div>
-                </div>
+                <!--<div class="col-lg-4">-->
+                <!--    <div class="main-universities-blog">-->
+                <!--        <div class="sub-img-universities">-->
+                <!--            <img src="assets/images/blogs/blog-01.jpg" alt="" />-->
+                <!--        </div>-->
+                <!--        <div class="sub-content-universities">-->
+                <!--            <h3><a href="javascript:;">Uniwolc Year In Review 2022</a></h3>-->
+                <!--            <p>DECEMBER 12, 2022</p>-->
+                <!--            <a href="javascript:;">Read More</a>-->
+                <!--        </div>-->
+                <!--    </div>-->
+                <!--</div>-->
 
-                <div class="col-lg-4">
-                    <div class="main-universities-blog">
-                        <div class="sub-img-universities">
-                            <img src="assets/images/blogs/blog-01.jpg" alt="" />
-                        </div>
-                        <div class="sub-content-universities">
-                            <h3><a href="javascript:;">Uniwolc Year In Review 2022</a></h3>
-                            <p>DECEMBER 12, 2022</p>
-                            <a href="javascript:;">Read More</a>
-                        </div>
-                    </div>
-                </div>
+                <!--<div class="col-lg-4">-->
+                <!--    <div class="main-universities-blog">-->
+                <!--        <div class="sub-img-universities">-->
+                <!--            <img src="assets/images/blogs/blog-01.jpg" alt="" />-->
+                <!--        </div>-->
+                <!--        <div class="sub-content-universities">-->
+                <!--            <h3><a href="javascript:;">Uniwolc Year In Review 2022</a></h3>-->
+                <!--            <p>DECEMBER 12, 2022</p>-->
+                <!--            <a href="javascript:;">Read More</a>-->
+                <!--        </div>-->
+                <!--    </div>-->
+                <!--</div>-->
 
-                <div class="col-lg-4">
-                    <div class="main-universities-blog">
-                        <div class="sub-img-universities">
-                            <img src="assets/images/blogs/blog-01.jpg" alt="" />
-                        </div>
-                        <div class="sub-content-universities">
-                            <h3><a href="javascript:;">Uniwolc Year In Review 2022</a></h3>
-                            <p>DECEMBER 12, 2022</p>
-                            <a href="javascript:;">Read More</a>
-                        </div>
-                    </div>
-                </div>
+                <!--<div class="col-lg-4">-->
+                <!--    <div class="main-universities-blog">-->
+                <!--        <div class="sub-img-universities">-->
+                <!--            <img src="assets/images/blogs/blog-01.jpg" alt="" />-->
+                <!--        </div>-->
+                <!--        <div class="sub-content-universities">-->
+                <!--            <h3><a href="javascript:;">Uniwolc Year In Review 2022</a></h3>-->
+                <!--            <p>DECEMBER 12, 2022</p>-->
+                <!--            <a href="javascript:;">Read More</a>-->
+                <!--        </div>-->
+                <!--    </div>-->
+                <!--</div>-->
 
-                <div class="col-lg-4">
-                    <div class="main-universities-blog">
-                        <div class="sub-img-universities">
-                            <img src="assets/images/blogs/blog-01.jpg" alt="" />
-                        </div>
-                        <div class="sub-content-universities">
-                            <h3><a href="javascript:;">Uniwolc Year In Review 2022</a></h3>
-                            <p>DECEMBER 12, 2022</p>
-                            <a href="javascript:;">Read More</a>
-                        </div>
-                    </div>
-                </div>
+                <!--<div class="col-lg-4">-->
+                <!--    <div class="main-universities-blog">-->
+                <!--        <div class="sub-img-universities">-->
+                <!--            <img src="assets/images/blogs/blog-01.jpg" alt="" />-->
+                <!--        </div>-->
+                <!--        <div class="sub-content-universities">-->
+                <!--            <h3><a href="javascript:;">Uniwolc Year In Review 2022</a></h3>-->
+                <!--            <p>DECEMBER 12, 2022</p>-->
+                <!--            <a href="javascript:;">Read More</a>-->
+                <!--        </div>-->
+                <!--    </div>-->
+                <!--</div>-->
 
                 <div class="col-lg-12">
                     <div class="sub-explore-btn">
-                        <a class="sub-get-started-btn" href="javascript:;">See More Posts</a>
+                        <a class="sub-get-started-btn" href="{{ route('blog') }}">See More Posts</a>
                     </div>
                 </div>
 
@@ -160,7 +176,7 @@
 
                 <div class="col-lg-12">
                     <div class="sub-explore-btn">
-                        <a class="sub-get-started-btn" href="javascript:;">Our Story</a>
+                        <a class="sub-get-started-btn" href="{{ route('our.story') }}">Our Story</a>
                     </div>
                 </div>
 

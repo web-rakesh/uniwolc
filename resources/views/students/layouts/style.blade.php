@@ -3,6 +3,8 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.8.2/css/lightbox.min.css">
 <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css'>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
 <link rel="stylesheet" href="{{ asset('/') }}assets/css/style.css" rel="stylesheet">
 <link rel="stylesheet" href="{{ asset('/') }}assets/css/style-timeline.css" rel="stylesheet">
 <link rel="stylesheet" href="{{ asset('/') }}assets/css/responsive.css" rel="stylesheet">

@@ -316,7 +316,7 @@
                                                                         {{ $studentDetail->city }}</p>
                                                                     <p class="mb-0"><span
                                                                             class="d-block">Nationality</span>
-                                                                        {{ get_country($studentDetail->country) }}</p>
+                                                                        {{ get_country(@$studentDetail->country) }}</p>
                                                                 </div>
                                                                 <div class="mb-0"></div>
                                                             </div>
@@ -395,7 +395,7 @@
                                                         <div class="sintentInfo">
                                                             <div class="contentBoxFld">
                                                                 <p class="mb-0">
-                                                                    {{ get_education_level($studentDetail->educationDetail->education_level) }}:
+                                                                    {{ get_education_level(@$studentDetail->educationDetail->education_level) }}:
                                                                     <a href="javascript:;"><i
                                                                             class="fa-solid fa-graduation-cap"></i></a>
                                                                 </p>
@@ -411,13 +411,13 @@
                                                                 <div class="ttl">Country of
                                                                     Education</div>
                                                                 <div class="txt">
-                                                                    {{ get_country($studentDetail->educationDetail->education_country) }}
+                                                                    {{ get_country(@$studentDetail->educationDetail->education_country) }}
                                                                 </div>
                                                             </div>
                                                             <div class="studentInfoItem">
                                                                 <div class="ttl">Grade</div>
                                                                 <div class="txt">
-                                                                    {{ get_education_scheme_grade($studentDetail->educationDetail->education_scheme_grade) }}
+                                                                    {{ get_education_scheme_grade(@$studentDetail->educationDetail->education_scheme_grade) }}
                                                                 </div>
                                                             </div>
 
@@ -431,7 +431,7 @@
                                                         <div class="sintentInfo">
                                                             <div class="contentBoxFld">
                                                                 <p class="mb-0">
-                                                                    {{ $studentDetail->englishTest->english_test_type }}
+                                                                    {{ $studentDetail->englishTest->english_test_type ?? '' }}
                                                                 </p>
                                                             </div>
                                                         </div>
@@ -443,43 +443,43 @@
                                                             <div class="studentInfoItem">
                                                                 <div class="ttl">English Test Type</div>
                                                                 <div class="txt">
-                                                                    {{ $studentDetail->englishTest->english_test_type }}
+                                                                    {{ $studentDetail->englishTest->english_test_type ?? ''}}
                                                                 </div>
                                                             </div>
                                                             <div class="studentInfoItem">
                                                                 <div class="ttl">Total Score</div>
                                                                 <div class="txt">
-                                                                    {{ $studentDetail->englishTest->total_score }}
+                                                                    {{ $studentDetail->englishTest->total_score ?? '' }}
                                                                 </div>
                                                             </div>
                                                             <div class="studentInfoItem">
                                                                 <div class="ttl">Reading Score</div>
                                                                 <div class="txt">
-                                                                    {{ $studentDetail->englishTest->reading_score }}
+                                                                    {{ $studentDetail->englishTest->reading_score ?? '' }}
                                                                 </div>
                                                             </div>
                                                             <div class="studentInfoItem">
                                                                 <div class="ttl">Writing Score</div>
                                                                 <div class="txt">
-                                                                    {{ $studentDetail->englishTest->writing_score }}
+                                                                    {{ $studentDetail->englishTest->writing_score ?? '' }}
                                                                 </div>
                                                             </div>
                                                             <div class="studentInfoItem">
                                                                 <div class="ttl">Listening Score</div>
                                                                 <div class="txt">
-                                                                    {{ $studentDetail->englishTest->listening_score }}
+                                                                    {{ $studentDetail->englishTest->listening_score ?? '' }}
                                                                 </div>
                                                             </div>
                                                             <div class="studentInfoItem">
                                                                 <div class="ttl">Speaking Score</div>
                                                                 <div class="txt">
-                                                                    {{ $studentDetail->englishTest->speaking_score }}
+                                                                    {{ $studentDetail->englishTest->speaking_score ?? '' }}
                                                                 </div>
                                                             </div>
                                                             <div class="studentInfoItem">
                                                                 <div class="ttl">Exam Date</div>
                                                                 <div class="txt">
-                                                                    {{ $studentDetail->englishTest->exam_date ? date('M d, Y', strtotime($studentDetail->englishTest->exam_date)) : '' }}
+                                                                    {{ @$studentDetail->englishTest->exam_date ? date('M d, Y', strtotime($studentDetail->englishTest->exam_date)) : '' }}
                                                                 </div>
                                                             </div>
                                                         </div>

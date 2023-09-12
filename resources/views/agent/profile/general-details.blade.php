@@ -81,9 +81,10 @@
                                         @if ($errors->has('company_logo'))
                                             <span class="text-danger">{{ $errors->first('company_logo') }}</span>
                                         @endif
-
-                                        <img src="{{ $agentDetail->getFirstMediaUrl('agent-company-logo', 'thumb') }}"
-                                            width="120px">
+                                        @if ($agentDetail)
+                                            <img src="{{ $agentDetail->getFirstMediaUrl('agent-company-logo', 'thumb') }}"
+                                                width="120px">
+                                        @endif
                                     </div>
                                     <div class="col-md-6 mb-3 columnBox2">
                                         <label class="labels">Certification of Incorporation/Trade Licence</label>
@@ -91,8 +92,10 @@
                                         @if ($errors->has('trade_license'))
                                             <span class="text-danger">{{ $errors->first('trade_license') }}</span>
                                         @endif
-                                        <img src="{{ $agentDetail->getFirstMediaUrl('agent-company-logo', 'thumb') }}"
-                                            width="120px">
+                                        @if ($agentDetail)
+                                            <img src="{{ $agentDetail->getFirstMediaUrl('agent-company-logo', 'thumb') }}"
+                                                width="120px">
+                                        @endif
                                     </div>
                                     <div class="col-md-6 mb-3 columnBox2">
                                         <label class="labels">Address Proof</label>
@@ -100,14 +103,21 @@
                                         @if ($errors->has('address_proof'))
                                             <span class="text-danger">{{ $errors->first('address_proof') }}</span>
                                         @endif
-                                        <img src="{{ $agentDetail->getFirstMediaUrl('agent-company-logo', 'thumb') }}"
-                                            width="120px">
+                                        @if ($agentDetail)
+                                            <img src="{{ $agentDetail->getFirstMediaUrl('agent-company-logo', 'thumb') }}"
+                                                width="120px">
+                                        @endif
                                     </div>
                                     <div class="col-md-6 mb-3 columnBox2">
                                         <label class="labels">Tax Registration number <small>(optional)</small></label>
                                         <input type="file" class="form-control" name="tax_register_proof">
-                                        <img src="{{ $agentDetail->getFirstMediaUrl('agent-company-logo', 'thumb') }}"
-                                            width="120px">
+                                        @if ($errors->has('tax_register_proof'))
+                                            <span class="text-danger">{{ $errors->first('tax_register_proof') }}</span>
+                                        @endif
+                                        @if ($agentDetail)
+                                            <img src="{{ $agentDetail->getFirstMediaUrl('agent-company-logo', 'thumb') }}"
+                                                width="120px">
+                                        @endif
                                     </div>
 
                                     <div class="col-md-6 mb-3 columnBox2">

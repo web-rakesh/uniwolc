@@ -12,8 +12,8 @@
                                         src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
                                 </div>
                                 <div class="userProfileInfo">
-                                    <p class="userName font-weight-bold mb-0">Test Student</p>
-                                    <p class="text text-black-50 mb-0">teststd@gmail.com</p>
+                                    <p class="userName font-weight-bold mb-0">{{ auth()->user()->name }}</p>
+                                    <p class="text text-black-50 mb-0">{{ auth()->user()->email }}</p>
                                 </div>
                             </div>
                             <div class="dasboardLeftSideBarMenuArea">
@@ -46,6 +46,7 @@
 
                     <div class="col-md-9 columnBox border-right dasboardrightPart">
                         <div class="dasboardrightPartWrapper">
+                            @include('flash-messages')
                             <form method="post" action="{{ route('student.test-score.store') }}">
                                 @csrf
                                 <div
@@ -419,3 +420,15 @@
         </div>
     </section>
 @endsection
+
+@push('js')
+    <script>
+        $(document).ready(function() {
+
+            flatpickr("#passport_expiry_date, #date_of_birth", {
+                dateFormat: "Y-m-d",
+                // Add any other options here
+            });
+        })
+    </script>
+@endpush

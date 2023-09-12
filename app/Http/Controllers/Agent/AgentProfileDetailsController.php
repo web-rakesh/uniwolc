@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Agent;
 
+use App\Models\User;
 use App\Models\State;
 use App\Models\Country;
 use Illuminate\Http\Request;
@@ -80,13 +81,17 @@ class AgentProfileDetailsController extends Controller
             //     $agentDetail->clearMediaCollection('agent-tax-register-proof');
             //     $agentDetail->addMedia($request->tax_register_proof)->toMediaCollection('agent-tax-register-proof');
             // }
-
+            if (!auth()->user()->profile_is_updated) {
+                User::where('id', auth()->user()->id)->update([
+                    'profile_is_updated' => 1
+                ]);
+            }
             DB::commit();
             return redirect()->back()->with('success', 'Profile Updated Successfully');
         } catch (\Throwable $th) {
             //throw $th;
             DB::rollback();
-            return redirect()->back()->with('error', $th->getMessage());
+            return redirect()->back()->with('error', 'Something went wrong. Please try again later.');
         }
     }
 

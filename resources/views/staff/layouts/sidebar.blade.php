@@ -38,6 +38,12 @@
                                       <span class="title">No. of Application</span>
                                   </a>
                               </li>
+                              <li class="{{ request()->is('staff/application/paid') ? 'active' : '' }}">
+                                  <a href="{{ route('staff.application.paid') }}">
+                                      <span class="icon"><i class="fa-regular fa-file-text"></i></span>
+                                      <span class="title">No. of Paid Application</span>
+                                  </a>
+                              </li>
 
                               <!---->
 

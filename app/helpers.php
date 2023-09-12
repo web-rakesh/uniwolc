@@ -93,7 +93,7 @@ if (!function_exists('total_payable_amount')) {
         $setting = GeneralSetting::first();
         $fees = $setting->processing_fees;
         $fees = ($amount * $fees) / 100;
-        return $amount + $fees;
+        return number_format($amount + $fees, 2, '.', '');
     }
 }
 

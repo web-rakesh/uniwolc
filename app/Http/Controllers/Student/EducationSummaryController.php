@@ -78,7 +78,7 @@ class EducationSummaryController extends Controller
             );
             DB::commit();
 
-            return redirect()->back();
+            return redirect()->back()->with('success', 'Education Summary Updated');
         } catch (\Throwable $th) {
             //throw $th;
             DB::rollback();

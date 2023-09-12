@@ -55,7 +55,7 @@
                     <div class="col-md-9 columnBox border-right dasboardrightPart">
                         <div class="dasboardrightPartWrapper">
 
-                            <h4 class="card-title text-center1 mb-0"> Update Bank Details</h4>
+                            <h4 class="card-title text-center1 mb-0"> Manage Staff</h4>
                             <hr>
 
                             @livewire('agent.staff-list')

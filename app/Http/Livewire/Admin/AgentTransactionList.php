@@ -3,9 +3,14 @@
 namespace App\Http\Livewire\Admin;
 
 use Livewire\Component;
+use App\Models\AgentProfile;
 use Livewire\WithPagination;
 use Illuminate\Support\Carbon;
 use App\Models\AgentCommission;
+use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\AgentProgramTransaction;
+use App\Exports\AgentCommissionTransaction;
 
 class AgentTransactionList extends Component
 {
@@ -19,9 +24,9 @@ class AgentTransactionList extends Component
         // dd($this->payout);
         $agentCommissions = AgentCommission::query()
             ->when($this->payout, function ($query, $payout) {
-                if($payout == 4){
+                if ($payout == 4) {
                     $query->where('payment_status', 0);
-                }else{
+                } else {
                     $query->where('payment_status', $payout);
                 }
             })
@@ -50,18 +55,36 @@ class AgentTransactionList extends Component
 
     public function release($id)
     {
+        $agent = AgentCommission::find($id);
+        $currency = get_payment_currency($agent->country_id);
+        $amount = $agent->amount;
+        if ($currency != 'USD') {
+            $amount = $agent->amount * 82.5;
+        }
+        // dd($agent->agent_id);
+
+        DB::beginTransaction();
         try {
             //code...
             AgentCommission::find($id)->update([
                 'payment_status' => 1
             ]);
+            AgentProfile::whereUserId($agent->agent_id)->increment('wallet', $amount);
+            DB::commit();
             session()->flash('message', 'Agent Commission Released Successfully.');
         } catch (\Throwable $th) {
             //throw $th;
+            DB::rollback();
+            // dd($th->getMessage());
             session()->flash(
                 'message',
                 $th->getMessage()
             );
         }
+    }
+
+    public function exportAgentCommissionPaymentHistory()
+    {
+        return Excel::download(new AgentCommissionTransaction($this->startDate, $this->endDate), 'agent-commission-payment-history-' . time() . '.csv');
     }
 }

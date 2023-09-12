@@ -2,13 +2,15 @@
 
 namespace App\Http\Livewire\Admin;
 
+use PDF;
 use App\Mail\Invoice;
 use Livewire\Component;
 use Livewire\WithPagination;
 use App\Models\PaymentHistory;
 use Illuminate\Support\Carbon;
+use App\Exports\AllTransactionList;
 use Illuminate\Support\Facades\Mail;
-use PDF;
+use Maatwebsite\Excel\Facades\Excel;
 
 class TransactionList extends Component
 {
@@ -79,5 +81,11 @@ class TransactionList extends Component
             //throw $th;
             dd($th->getMessage());
         }
+    }
+
+    public function exportAllPaymentHistory()
+    {
+
+        return  Excel::download(new AllTransactionList($this->startDate, $this->endDate), 'all-transaction-list-' . time() . '.csv');
     }
 }

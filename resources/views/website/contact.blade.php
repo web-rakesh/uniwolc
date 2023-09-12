@@ -11,7 +11,7 @@
                             <h1>Contact Us</h1>
                             <p>We are here to help. Don't hesitate to contact our expert support team who can help answer
                                 any questions you may have.</p>
-                            <a href="javascript:;">Contact Us</a>
+                            <a href="mailto:hepl@uniwolc.com">Contact Us</a>
                         </div>
                     </div>
 
@@ -44,7 +44,7 @@
                             <div class="sub-contact-icon-box">
                                 <i class="fa-solid fa-envelope"></i>
                             </div>
-                            <h5>Email</h5>
+                            <h5><a href="mailto:hepl@uniwolc.com">Email</a></h5>
                         </div>
                         <div class="sub-contact-content">
                             <a href="javascript:;">help@uniwolc.com</a>
@@ -62,7 +62,7 @@
                             {{-- <p>(For Registered Users Only )</p> --}}
                         </div>
                         <div class="sub-contact-content">
-                            <a href="javascript:;">Login</a>
+                            <a href="{{ route('login') }}">Login</a>
                             <p>Available 24/7</p>
                         </div>
                     </div>
@@ -115,10 +115,10 @@
                             referrerpolicy="no-referrer-when-downgrade"></iframe>
                     </div>
                     <div class="sub-social-icon">
-                        <a href="javascript:;"><i class="fa-brands fa-facebook-f"></i></a>
-                        <a href="javascript:;"><i class="fa-brands fa-linkedin-in"></i></a>
-                        <a href="javascript:;"><i class="fa-brands fa-twitter"></i></a>
-                        <a href="javascript:;"><i class="fa-brands fa-instagram"></i></a>
+                        <a target="_blank" href="https://www.facebook.com/uniwolc" ><i class="fa-brands fa-facebook-f"></i></a>
+                        <a target="_blank" href="https://www.linkedin.com/company/uniwolc"><i class="fa-brands fa-linkedin-in"></i></a>
+                        <a target="_blank" href="https://twitter.com/UniWolc"><i class="fa-brands fa-twitter"></i></a>
+                        <a target="_blank" href="https://www.instagram.com/uniwolc/"><i class="fa-brands fa-instagram"></i></a>
                     </div>
                 </div>
 

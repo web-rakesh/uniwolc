@@ -18,79 +18,83 @@ class PaymentController extends Controller
 {
     public function index(Request $request)
     {
-        $id = explode(",", $request->ids);
-        $countryId = ApplyProgram::whereIn('id', $id)->first()->getUniversity->country;
+        // $id = explode(",", $request->ids);
+        $id = $request->ids;
+        $countryId = ApplyProgram::where('id', $id)->first()->getUniversity->country;
         if (Auth::user()->type == 'agent') {
-            $applyPg = ApplyProgram::whereAgentId(Auth::user()->id)->whereIn('id', $id)->first();
+            $applyPg = ApplyProgram::whereAgentId(Auth::user()->id)->where('id', $id)->first();
             $studentId = $applyPg->user_id;
-            $totalPayableAmount = ApplyProgram::whereUserId($studentId)->whereIn('id', $id)->sum('fees');
+            $totalPayableAmount = ApplyProgram::whereUserId($studentId)->where('id', $id)->sum('fees');
         } elseif (Auth::user()->type == 'staff') {
-            $applyPg = ApplyProgram::whereStaffId(Auth::user()->id)->whereIn('id', $id)->first();
+            $applyPg = ApplyProgram::whereStaffId(Auth::user()->id)->where('id', $id)->first();
             $studentId = $applyPg->user_id;
-            $totalPayableAmount = ApplyProgram::whereUserId($studentId)->whereIn('id', $id)->sum('fees');
+            $totalPayableAmount = ApplyProgram::whereUserId($studentId)->where('id', $id)->sum('fees');
 
             return view('staff.payment-confirm', compact('totalPayableAmount', 'id', 'countryId'));
         } else {
-            $totalPayableAmount = ApplyProgram::whereUserId(Auth::user()->id)->whereIn('id', $id)->sum('fees');
+            $totalPayableAmount = ApplyProgram::whereUserId(Auth::user()->id)->where('id', $id)->sum('fees');
 
             $studentId = Auth::user()->id;
         }
 
-        // return $totalPayableAmount;
+        // return $id;
         // return $totalPayableAmount = ApplyProgram::whereUserId(Auth::user()->id)->whereIn('id', $id)->sum('fees');
         return view('students.payment-confirm', compact('totalPayableAmount', 'id', 'countryId'));
     }
     public function payment(Request $request)
     {
+        // return $request->all();
         $id = $request->id;
         // $totalPayableAmount = ApplyProgram::whereUserId(Auth::user()->id)->whereIn('id', $id)->sum('fees');
         // $id = implode(",", $request->id);
 
-        $countryId = ApplyProgram::whereIn('id', $id)->first();
+        $countryId = ApplyProgram::findOrFail($id);
         $countryId =  $countryId->getUniversity->country;
         if (Auth::user()->type == 'agent') {
-            $applyPg = ApplyProgram::whereAgentId(Auth::user()->id)->whereIn('id', $id)->first();
+            $applyPg = ApplyProgram::whereAgentId(Auth::user()->id)->where('id', $id)->first();
             $studentId = $applyPg->user_id;
-            $totalPayableAmount = ApplyProgram::whereUserId($studentId)->whereIn('id', $id)->sum('fees');
+            $totalPayableAmount = ApplyProgram::whereUserId($studentId)->where('id', $id)->sum('fees');
         } elseif (Auth::user()->type == 'staff') {
-            $applyPg = ApplyProgram::whereStaffId(Auth::user()->id)->whereIn('id', $id)->first();
+            $applyPg = ApplyProgram::whereStaffId(Auth::user()->id)->where('id', $id)->first();
             $studentId = $applyPg->user_id;
-            $totalPayableAmount = ApplyProgram::whereUserId($studentId)->whereIn('id', $id)->sum('fees');
+            $totalPayableAmount = ApplyProgram::whereUserId($studentId)->where('id', $id)->sum('fees');
             $id = implode(",", $request->id);
             return view('staff.payment', compact('totalPayableAmount', 'id', 'countryId'));
         } else {
-            $totalPayableAmount = ApplyProgram::whereUserId(Auth::user()->id)->whereIn('id', $id)->sum('fees');
+            $totalPayableAmount = ApplyProgram::whereUserId(Auth::user()->id)->where('id', $id)->sum('fees');
 
             $studentId = Auth::user()->id;
         }
 
-        $id = implode(",", $request->id);
+        // return $id;
         return view('students.payment', compact('totalPayableAmount', 'id', 'countryId'));
     }
 
     public function processPayment(Request $request)
     {
-        $id = explode(",", $request->id);
+        // return $request->all();
+        $id = $request->id;
+        // $id = explode(",", $request->id);
 
         // get student id
         if (Auth::user()->type == 'agent') {
-            $applyPg = ApplyProgram::whereAgentId(Auth::user()->id)->whereIn('id', $id)->first();
+            $applyPg = ApplyProgram::whereAgentId(Auth::user()->id)->where('id', $id)->first();
             $studentId = $applyPg->user_id;
-            $totalPayableAmount = ApplyProgram::whereUserId($studentId)->whereIn('id', $id)->sum('fees');
+            $totalPayableAmount = ApplyProgram::whereUserId($studentId)->where('id', $id)->sum('fees');
         } elseif (Auth::user()->type == 'staff') {
 
-            $applyPg = ApplyProgram::whereStaffId(Auth::user()->id)->whereIn('id', $id)->first();
+            $applyPg = ApplyProgram::whereStaffId(Auth::user()->id)->where('id', $id)->first();
             $studentId = $applyPg->user_id;
 
-            $totalPayableAmount = ApplyProgram::whereUserId($studentId)->whereIn('id', $id)->sum('fees');
+            $totalPayableAmount = ApplyProgram::whereUserId($studentId)->where('id', $id)->sum('fees');
         } else {
-            $totalPayableAmount = ApplyProgram::whereUserId(Auth::user()->id)->whereIn('id', $id)->sum('fees');
+            $totalPayableAmount = ApplyProgram::whereUserId(Auth::user()->id)->where('id', $id)->sum('fees');
 
             $studentId = Auth::user()->id;
         }
-        $countryId = ApplyProgram::whereIn('id', $id)->first()->getUniversity->country;
-        $currency = get_payment_currency($countryId);
-        total_payable_amount($totalPayableAmount) * 100;
+        $countryId = ApplyProgram::where('id', $id)->first();
+        $currency = get_payment_currency($countryId->getUniversity->country);
+        // return total_payable_amount($totalPayableAmount) * 100;
         DB::beginTransaction();
         try {
             $stripe = new StripeClient(env('STRIPE_SECRET'));
@@ -99,22 +103,22 @@ class PaymentController extends Controller
                 'amount' => total_payable_amount($totalPayableAmount) * 100,
                 'currency' => $currency,
                 'payment_method' => $request->payment_method,
-                'description' => 'Uniwolc Student payment with stripe',
+                'description' => "$countryId->program_title - application fees ",
                 'confirm' => true,
                 'receipt_email' => $request->email
             ]);
 
             if (Auth::user()->type == 'agent') {
-                $applyPg = ApplyProgram::whereAgentId(Auth::user()->id)->whereIn('id', $id)->first();
+                $applyPg = ApplyProgram::whereAgentId(Auth::user()->id)->where('id', $id)->first();
                 $studentId = $applyPg->user_id;
-                ApplyProgram::whereUserId($studentId)->whereIn('id', $id)->update(['status' => 2]);
+                ApplyProgram::whereUserId($studentId)->where('id', $id)->update(['status' => 2]);
             } elseif (Auth::user()->type == 'staff') {
-                $applyPg = ApplyProgram::whereStaffId(Auth::user()->id)->whereIn('id', $id)->first();
+                $applyPg = ApplyProgram::whereStaffId(Auth::user()->id)->where('id', $id)->first();
                 $studentId = $applyPg->user_id;
-                ApplyProgram::whereUserId($studentId)->whereIn('id', $id)->update(['status' => 2]);
+                ApplyProgram::whereUserId($studentId)->where('id', $id)->update(['status' => 2]);
                 $agentId = get_agent_id(Auth::user()->id);
                 AgentCommission::whereStudentId($studentId)->whereAgentId($agentId)
-                    ->whereIn('apply_program_id', $id)->update(
+                    ->where('apply_program_id', $id)->update(
                         [
                             'status' => 1,
                             'payment_date' => now()
@@ -122,7 +126,7 @@ class PaymentController extends Controller
                     );
             } else {
                 $studentId = Auth::user()->id;
-                ApplyProgram::whereUserId($studentId)->whereIn('id', $id)->update(['status' => 2]);
+                ApplyProgram::whereUserId($studentId)->where('id', $id)->update(['status' => 2]);
             }
 
             PaymentHistory::create([

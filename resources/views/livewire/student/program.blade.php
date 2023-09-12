@@ -323,7 +323,7 @@
                         <h4>Programs <span>({{ $programs->count() }}+)</span></h4>
                     </a>
                     <a href="#course-details-2" data-toggle="tab" class="">
-                        <h4>Schools <span>({{ $schools->count() }}+)</span></h4>
+                        <h4>Schools <span>({{ $schoolCount }}+)</span></h4>
                     </a>
                 </div>
                 <div class="course-tab-relevance sub-cour-two-right">
@@ -413,6 +413,8 @@
                                     <div class="programsCardContentArea">
                                         <div class="d-flex justify-content-between programsCardIntro">
                                             <div class="programsCardIntroLeftPart">
+                                                
+                                                @auth
                                                 @if (auth()->user()->type == 'agent')
                                                     <a target="blank"
                                                         href="{{ route('agent.program.detail', $item->slug) }}">
@@ -435,12 +437,13 @@
                                                         </div>
                                                     </a>
                                                 @endif
+                                                @endauth
                                                 <div class="programsCardIntroTitle">
 
-                                                    {{ $item->programLevel->level_name }}
+                                                    {{ @$item->programLevel->level_name }}
                                                 </div>
                                                 <div class="programsCardIntroTitle">
-                                                    {{ $item->minimumLevel->level_name }}
+                                                    {{ @$item->minimumLevel->level_name }}
                                                 </div>
                                                 <div class="programsCardIntroTitle">
                                                     Tuition Fee:
@@ -486,6 +489,7 @@
 
                                         <div class="rightpart">
                                             <div class="programsCardFooterButtonsArea">
+                                                @auth
                                                 @if (auth()->user()->type == 'agent')
                                                     <a href="{{ route('agent.program.detail', $item->slug) }}">
                                                         <button type="button"
@@ -524,6 +528,7 @@
                                                         </button>
                                                     </a>
                                                 @endif
+                                                @endauth
                                                 <!-- <button  type="button" class="programsCardFooterButton callBtn"><i class="fa-regular fa-phone"></i> Call</button>
                                                  <button  type="button" class="programsCardFooterButton emailBtn"><i class="fa-regular fa-envelope"></i> Email</button>
                                                  <button  type="button" class="programsCardFooterButton whatsappBtn"><i class="fa-brands fa-whatsapp"></i> Whatsapp</button>
@@ -2072,7 +2077,7 @@
                                         </div>
                                         <div>
                                             <div class="sub-agent-text">
-                                                <a href="{{ route('school.detail', $school->slug) }}"
+                                                <a href="{{ route('school.detail',['id' => $school->id,'slug' => $school->slug]) }}"
                                                     target="_blank">{{ $school->university_name }}
                                                     , {{ $school->address }}</a>
                                             </div>

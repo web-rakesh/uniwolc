@@ -95,11 +95,12 @@ class TestScoreController extends Controller
             );
             DB::commit();
 
-            return redirect()->back();
+            return redirect()->back()->with('success', 'Test Score Saved Successfully');
         } catch (\Throwable $th) {
             //throw $th;
             DB::rollback();
-            return $th->getMessage();
+
+            return redirect()->back()->with('error', 'Test Score Saved Failed');
         }
     }
 

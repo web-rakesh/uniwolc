@@ -199,8 +199,12 @@ class StudentDetailController extends Controller
         $uploadedDocument = ApplicantUploadDocument::whereUserId($userId)->whereApplyProgramId($programId)->get();
         if (Auth::user()->type == 'agent') {
             return view('agent.print', compact('data', 'uploadedDocument'));
-        } elseif (Auth::user()->type == 'student') {
+        } elseif (Auth::user()->type == 'staff') {
+            return view('staff.print', compact('data', 'uploadedDocument'));
             // return $data;
+
+        } else {
+
             return view('students.print', compact('data', 'uploadedDocument'));
         }
         // return view('agent.print', compact('data', 'uploadedDocument'));
@@ -218,7 +222,7 @@ class StudentDetailController extends Controller
      */
     public function store(StoreStudentDetailRequest $request)
     {
-        // return $request->all();
+        return $request->all();
         // return $request->user_id;
         try {
             //code...
@@ -249,7 +253,7 @@ class StudentDetailController extends Controller
                 $agentId = $staff->agent_id;
                 $staffId = $staff->user_id;
                 if ($request->user_id != null) {
-                    return "Asda";
+                    // return "Asda";
                     $student = StudentDetail::whereUserId($request->user_id)->whereAgentId($agentId)->whereStaffId($staffId)->first();
                     $userId = $student->user_id;
                 } else {
@@ -266,6 +270,7 @@ class StudentDetailController extends Controller
                 $request['user_id'] = $userId;
                 $userId = $userId;
                 $redirectUrl = 'staff.student';
+                
             } else {
                 $request['user_id'] = Auth::user()->id;
                 $redirectUrl = 'student.student-detail.index';
@@ -281,7 +286,7 @@ class StudentDetailController extends Controller
                 $request->all()
             );
             DB::commit();
-            return redirect()->route($redirectUrl)->with('message', 'Student detail saved successfully.');
+            return redirect()->route($redirectUrl)->with('success', 'Student detail saved successfully.');
         } catch (\Throwable $th) {
             //throw $th;
             DB::rollback();

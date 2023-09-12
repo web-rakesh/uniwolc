@@ -9,54 +9,54 @@
                       <div class="dasboardMenuinner">
                           <ul class="dasboardMenuWrap">
 
-                              <li class="active">
+                              <li class="{{ request()->is('university/dashboard') ? 'active' : '' }}">
                                   <a href="{{ route('university.dashboard') }}">
                                       <span class="icon"><i class="fa-solid fa-gauge-high"></i></span>
                                       <span class="title">Home</span>
                                   </a>
                               </li>
 
-                              <li>
+                              <li class="{{ request()->is('university/program') ? 'active' : '' }}">
                                   <a href="{{ route('university.program.index') }}">
                                       <span class="icon"><i class="fa-regular fa-magnifying-glass"></i></span>
                                       <span class="title">Programs </span>
                                   </a>
                               </li>
 
-                              <li>
+                              <li class="{{ request()->is('university/profile') ? 'active' : '' }}">
                                   <a href="{{ route('university.profile.index') }}">
                                       <span class="icon"><i class="fa-regular fa-circle-user"></i></span>
                                       <span class="title">Profile</span>
                                   </a>
                               </li>
 
-                              <li class="">
+                              <li class="{{ request()->is('university/application') ? 'active' : '' }}">
                                   <a href="{{ route('university.application') }}">
                                       <span class="icon"><i class="fa-regular fa-file-text"></i></span>
                                       <span class="title">My Programs</span>
                                   </a>
                               </li>
 
-                              <li class="">
+                              <li class="{{ request()->is('university/application/all') ? 'active' : '' }}">
                                   <a href="{{ route('university.application.all') }}">
                                       <span class="icon"><i class="fa-regular fa-file-text"></i></span>
                                       <span class="title">All Applications</span>
                                   </a>
                               </li>
-                              <li class="">
+                              <li class="{{ request()->is('university/application/new') ? 'active' : '' }}">
                                   <a href="{{ route('university.application.new') }}">
                                       <span class="icon"><i class="fa-regular fa-file-text"></i></span>
                                       <span class="title"> New Applications</span>
                                   </a>
                               </li>
 
-                              <li class="">
+                              <li class="{{ request()->is('university/application/accepted') ? 'active' : '' }}">
                                   <a href="{{ route('university.application.accepted') }}">
                                       <span class="icon"><i class="fa-regular fa-file-text"></i></span>
                                       <span class="title"> Accepted Applications</span>
                                   </a>
                               </li>
-                              <li class="">
+                              <li class="{{ request()->is('university/application/rejected') ? 'active' : '' }}">
                                   <a href="{{ route('university.application.rejected') }}">
                                       <span class="icon"><i class="fa-regular fa-file-text"></i></span>
                                       <span class="title"> Rejected Applications</span>

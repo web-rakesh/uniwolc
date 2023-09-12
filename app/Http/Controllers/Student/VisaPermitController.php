@@ -46,6 +46,9 @@ class VisaPermitController extends Controller
                 $request['agent_id'] = Auth::user()->id;
                 $request['user_id'] = $student->user_id;
                 $userId = $student->user_id;
+                User::whereId($userId)->update([
+                    'profile_is_updated' => 1
+                ]);
             } elseif (Auth::user()->type == 'staff') {
                 $staff = Staff::whereUserId(Auth::user()->id)->first();
                 $agentId = $staff->agent_id;
@@ -56,6 +59,10 @@ class VisaPermitController extends Controller
                 }
                 $request['agent_id'] = $agentId;
                 $request['staff_id'] = $staffId;
+
+                User::whereId($userId)->update([
+                    'profile_is_updated' => 1
+                ]);
             } else {
                 $request['user_id'] = Auth::user()->id;
 
@@ -75,11 +82,11 @@ class VisaPermitController extends Controller
             );
             DB::commit();
 
-            return redirect()->back();
+            return redirect()->back()->with('success', 'Visa and Permit Information Saved Successfully');
         } catch (\Throwable $th) {
             //throw $th;
             DB::rollback();
-            return $th->getMessage();
+            return redirect()->back()->with('error', 'Visa and Permit Information Saved Failed');
         }
     }
 

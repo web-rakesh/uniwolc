@@ -43,7 +43,8 @@ class Program extends Component
                     } else {
                     }
                 })
-
+                ->latest()
+                ->take(25)
                 ->get();
             // dd($this->programs);
         } else {
@@ -96,16 +97,18 @@ class Program extends Component
                         }
                     });
                 })
-
+                   ->latest()
+                ->take(25)
                 ->get();
         }
 
 
         $this->searchStatus = false;
 
-        $school = ProfileDetail::all();
+        $school = ProfileDetail::latest()->take(50)->get();
+        $schoolCount = ProfileDetail::count();
         // dd($educationLevel);
-        return view('livewire.student.program', ['schools' => $school]);
+        return view('livewire.student.program', ['schools' => $school, 'schoolCount' => $schoolCount]);
     }
 
 

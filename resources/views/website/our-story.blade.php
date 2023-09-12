@@ -10,13 +10,13 @@
                         <div class="header-abroad-content">
                             <h1>We’re UNIWOLC</h1>
                             <p>We Empower People Around The World To Study Abroad And Access The Best Education.</p>
-                            <a href="javascript:;">Learn How</a>
+                            <a href="{{ route('login') }}">Learn How</a>
                         </div>
                     </div>
 
                     <div class="col-lg-6">
                         <div class="header-img-abroad">
-                            <img src="assets/images/inner-banner/our-story-two-banner.png" alt="" />
+                            <img src="assets/images/inner-banner/our-story-two-banner.jpg" height="603" alt="" />
                         </div>
                     </div>
                 </div>
@@ -33,9 +33,9 @@
 
                 <div class="col-lg-6">
                     <div class="sub-best-img-programs">
-                        <img src="assets/images/quality-applications.png" alt="" />
+                        <img src="assets/images/quality-applications.jpg" height="600" width="630" alt="" />
                         <div class="sub-story-btn-pt">
-                            <a class="sub-start-btn-applica" href="javascript:;">Learn More About Our Leaders</a>
+                            <a class="sub-start-btn-applica" href="{{ route('leadership') }}">Learn More About Our Leaders</a>
                         </div>
                     </div>
                 </div>
@@ -129,7 +129,7 @@
                     <div class="sub-plat-img-support">
                         <img src="assets/images/what-we-do.jpg" alt="" />
                         <div class="sub-story-btn-pt">
-                            <a class="sub-start-btn-applica" href="javascript:;">Recruiter Registration</a>
+                            <a class="sub-start-btn-applica" href="{{ route('login') }}">Recruiter Registration</a>
                         </div>
                     </div>
                 </div>
@@ -147,14 +147,14 @@
                 <div class="sub-best-programs-box">
                     <div class="col-lg-6">
                         <div class="sub-best-img-programs">
-                            <a href="javascript:;" data-toggle="modal" data-target="#exampleModal"><img
-                                    src="assets/images/how-we-help-three.png" alt="" /></a>
+                            <a href="{{ route('login') }}" data-toggle="modal" data-target="#exampleModal"><img
+                                    src="assets/images/how-we-help-three.jpg" height="616" alt="" /></a>
                         </div>
                     </div>
                     <div class="col-lg-6">
                         <div class="sub-best-programs-content sub-intern-wd-btn">
                             <h2>How We Help</h2>
-                            <a href="javascript:;">Partner With Us</a>
+                            <a href="{{ route('login') }}">Partner With Us</a>
                         </div>
                     </div>
                 </div>
@@ -179,19 +179,19 @@
 
                     <div class="col-lg-4">
                         <div class="sub-easy-to-use-box sub-expanding-hgt">
-                            <img src="assets/images/01-expanding.png" alt="" />
+                            <img src="assets/images/help-students.png" height="71" alt="" />
                             <h6>Helping Students Achieve Success</h6>
                         </div>
                     </div>
                     <div class="col-lg-4">
                         <div class="sub-easy-to-use-box sub-expanding-hgt">
-                            <img src="assets/images/02-expanding.png" alt="" />
+                            <img src="assets/images/caring-about.png" height="71" alt="" />
                             <h6>Caring About Each Other</h6>
                         </div>
                     </div>
                     <div class="col-lg-4">
                         <div class="sub-easy-to-use-box sub-expanding-hgt">
-                            <img src="assets/images/03-expanding.png" alt="" />
+                            <img src="assets/images/experience.png" height="71" alt="" />
                             <h6>Delivering A+ Customer Experience</h6>
                         </div>
                     </div>
@@ -202,19 +202,19 @@
 
                     <div class="col-lg-4">
                         <div class="sub-easy-to-use-box sub-expanding-hgt">
-                            <img src="assets/images/01-expanding.png" alt="" />
+                            <img src="assets/images/ownership.png" height="71" alt="" />
                             <h6>Taking Ownership</h6>
                         </div>
                     </div>
                     <div class="col-lg-4">
                         <div class="sub-easy-to-use-box sub-expanding-hgt">
-                            <img src="assets/images/02-expanding.png" alt="" />
+                            <img src="assets/images/innovating.png" height="71" alt="" />
                             <h6>Innovating an Improving</h6>
                         </div>
                     </div>
                     <div class="col-lg-4">
                         <div class="sub-easy-to-use-box sub-expanding-hgt">
-                            <img src="assets/images/03-expanding.png" alt="" />
+                            <img src="assets/images/making-work.png" height="71" alt="" />
                             <h6>Making Work Fun</h6>
                         </div>
                     </div>
@@ -223,7 +223,7 @@
 
                 <div class="col-lg-12">
                     <div class="sub-explore-btn">
-                        <a class="sub-get-started-btn" href="javascript:;">Let’s Get Started</a>
+                        <a class="sub-get-started-btn" href="{{ route('login') }}">Let’s Get Started</a>
                     </div>
                 </div>
 
@@ -429,13 +429,13 @@
                 <div class="col-lg-4">
                     <div class="main-universities-blog">
                         <div class="sub-img-universities">
-                            <img src="assets/images/get-started-uniwolc/01-get-started-uniwolc.jpg" alt="" />
+                            <img src="assets/images/blog-thumb.jpg" alt="" />
                         </div>
                         <div class="sub-content-universities">
-                            <h3><a href="javascript:;">Students</a></h3>
+                            <h3><a href="{{ route('login') }}">Students</a></h3>
                             <p>Are You A Student Looking To Study Abroad In Canada, The United States, The United Kingdom,
                                 Or Australia? Register To Let Our Team Of Experts Guide You Through Your Journey.</p>
-                            <a href="javascript:;">Student Registration</a>
+                            <a href="{{ route('register') }}">Student Registration</a>
                         </div>
                     </div>
                 </div>
@@ -443,14 +443,14 @@
                 <div class="col-lg-4">
                     <div class="main-universities-blog">
                         <div class="sub-img-universities">
-                            <img src="assets/images/get-started-uniwolc/01-get-started-uniwolc.jpg" alt="" />
+                            <img src="assets/images/blog-thumb.jpg" alt="" />
                         </div>
                         <div class="sub-content-universities">
-                            <h3><a href="javascript:;">Partner Schools</a></h3>
+                            <h3><a href="{{ route('login') }}">Partner Schools</a></h3>
                             <p>Become An Uniwolc Partner School To Diversify Your Campus By Attracting Qualified Students
                                 From Around The World. Complete This Form And Our Partner Relations Team Will Be In Touch.
                             </p>
-                            <a href="javascript:;">Partner Inquiry</a>
+                            <a href="{{ route('register') }}">Partner Inquiry</a>
                         </div>
                     </div>
                 </div>
@@ -458,14 +458,14 @@
                 <div class="col-lg-4">
                     <div class="main-universities-blog">
                         <div class="sub-img-universities">
-                            <img src="assets/images/get-started-uniwolc/01-get-started-uniwolc.jpg" alt="" />
+                            <img src="assets/images/blog-thumb.jpg" alt="" />
                         </div>
                         <div class="sub-content-universities">
-                            <h3><a href="javascript:;">Recruitment Partners</a></h3>
+                            <h3><a href="{{ route('login') }}">Recruitment Partners</a></h3>
                             <p>Do You Recruit Prospective Students Who Want To Study In Canada, The United States, The
                                 United Kingdom, Or Australia? Register To Become An Uniwolc Certified Recruitment Partner.
                             </p>
-                            <a href="javascript:;">Recruiter Registration</a>
+                            <a href="{{ route('register') }}">Recruiter Registration</a>
                         </div>
                     </div>
                 </div>

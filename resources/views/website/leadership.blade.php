@@ -17,7 +17,6 @@
                             <p class="pt-0">Today Meti, Martin, And Massi Have Built An Expanded Leadership Team With More
                                 Than A Century Of Collective Experience And Expertise In Higher Education, Technology,
                                 Security, Engineering, HR, Finance, Marketing, Customer Success, And More.</p>
-                            <a href="javascript:;">Submit Your Verifiable Payment</a>
                         </div>
                     </div>
 
@@ -191,7 +190,7 @@
                     <div class="sub-count-number-bg sub-abroad-text-pt-pb sub-team-text-pt-pb">
                         <div class="sub-abroad-text-std">
                             <h5>Ready to Join Our Team?</h5>
-                            <a class="sub-book-meeting-white-btn" href="javascript:;">View Open Roles</a>
+                            <a class="sub-book-meeting-white-btn" href="{{ route('careers') }}">View Open Roles</a>
                         </div>
                     </div>
                 </div>

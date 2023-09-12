@@ -12,7 +12,8 @@
                             <p>UniWolc is on a mission to educate the world. We're building a future where anyone, anywhere
                                 has access to the best education possible, regardless of where they were born. We want you
                                 to be a part of this movement—and have tons of fun along the way!</p>
-                            <a href="javascript:;">View Open Roles</a>
+                            <a href="javascript:;" onclick="navigateToSection('reward-and-advantage')">View Open Roles</a>
+                            
                         </div>
                     </div>
 
@@ -36,14 +37,14 @@
                 <div class="sub-best-programs-box">
                     <div class="col-lg-6">
                         <div class="sub-best-img-programs">
-                            <a href="javascript:;" data-toggle="modal" data-target="#exampleModal"><img
+                            <a href="{{ route('login') }}" data-toggle="modal" data-target="#exampleModal"><img
                                     src="assets/images/how-we-help-three.png" alt="" /></a>
                         </div>
                     </div>
                     <div class="col-lg-6">
                         <div class="sub-best-programs-content sub-intern-wd-btn sub-gmp-text-ct">
                             <h3>Join the UniWolc team and empower people around the world to get the best of education.</h3>
-                            <a href="javascript:;">Partner With Us</a>
+                            <a href="{{ route('adminLogin') }}">Join the Team</a>
                         </div>
                     </div>
                 </div>
@@ -112,7 +113,7 @@
 
                 <div class="col-lg-12">
                     <div class="sub-explore-btn sub-career-exp-btn">
-                        <a class="sub-get-started-btn" href="javascript:;">Let’s Get Started</a>
+                        <a class="sub-get-started-btn" href="{{ route('login') }}">Let’s Get Started</a>
                     </div>
                 </div>
 
@@ -129,7 +130,7 @@
                 <div class="sub-count-number-bg sub-career-join-pt-pb">
                     <div class="sub-abroad-text-std">
                         <h4>Join Us in Making an Impact! </h4>
-                        <a class="sub-book-meeting-white-btn" href="javascript:;">View Open Roles</a>
+                        <a class="sub-book-meeting-white-btn" href="{{ route('login') }}">View Open Roles</a>
                     </div>
                 </div>
             </div>
@@ -196,7 +197,7 @@
 
                 <div class="col-lg-4">
                     <div class="sub-how-work-btn">
-                        <a class="sub-get-started-btn" href="javascript:;">Get Started</a>
+                        <a class="sub-get-started-btn" href="{{ route('login') }}">Get Started</a>
                     </div>
                 </div>
 
@@ -210,7 +211,14 @@
         <div class="row">
 
             <div class="col-lg-12">
-                <div class="sub-count-number-bg sub-count-number-bg-pt-pb sub-career-count-pt-pb">
+                <div class="sub-uniwolc-title career-team-culture sub-choose-tt-pd">
+                    <h2>Nurturing a Collaborative Team Culture</h2>
+                </div>
+            </div>
+
+
+            <div class="col-lg-12">
+                <div class="sub-count-number-bg sub-career-count-pt-pb">
                     <div class="sub-count-number-box sub-career-count-num">
                         <h6>50</h6>
                         <p>Gender Parity</p>
@@ -240,9 +248,9 @@
                         <div class="sub-best-programs-content sub-intern-wd-btn sub-gmp-text-ct">
                             <h2>A Glimpse at Uniwolc</h2>
                             <p class="pt-0">See What Our Team Has Been Up To</p>
-                            <a href="javascript:;">Life At Uniwolc</a>
+                            <a href="{{ route('life') }}">Life At Uniwolc</a>
                             <div class="sub-intern-wd">
-                                <a href="javascript:;">Uniwolc On The Muse</a>
+                                <a href="{{ route('login') }}">Uniwolc On The Muse</a>
                             </div>
                         </div>
                     </div>
@@ -259,13 +267,13 @@
     <!-- A Glimpse at Uniwolc End -->
 
     <!-- Latest Resources -->
-    <section class="sub-how-we-help-bg sub-blog-careers-pb">
+    <section class="sub-how-we-help-bg sub-blog-careers-pb" id="reward-and-advantage">
         <div class="container">
             <div class="row">
 
                 <div class="col-lg-12">
                     <div class="sub-uniwolc-title sub-blog-pt-pb">
-                        <h3>Rewards and Advantages </h3>
+                        <h2>Rewards and Advantages </h2>
                     </div>
                 </div>
 
@@ -278,7 +286,7 @@
                             <h5>Health and Wellness </h5>
                             <p>Comprehensive health and wellness benefits include dental and vision, employee and family
                                 assistance programs, personal spending accounts, and more.</p>
-                            <a href="javascript:;">Read More</a>
+                            <a href="{{ route('login') }}">Read More</a>
                         </div>
                     </div>
                 </div>
@@ -292,7 +300,7 @@
                             <p>We build relationships with fellow team members from day one, as well as provide access to
                                 the technical and critical training and resources needed for a great onboarding experience.
                             </p>
-                            <a href="javascript:;">Read More</a>
+                            <a href="{{ route('login') }}">Read More</a>
                         </div>
                     </div>
                 </div>
@@ -305,7 +313,7 @@
                             <h5>Competitive Compensation </h5>
                             <p>We offer a generous compensation package that includes an industry-average salary and regular
                                 performance bonuses.</p>
-                            <a href="javascript:;">Read More</a>
+                            <a href="{{ route('login') }}">Read More</a>
                         </div>
                     </div>
                 </div>
@@ -318,7 +326,7 @@
                             <h5>Equity </h5>
                             <p>We are proud to offer company stock options to our team members so they can benefit and grow
                                 with UniWolc.</p>
-                            <a href="javascript:;">Read More</a>
+                            <a href="{{ route('login') }}">Read More</a>
                         </div>
                     </div>
                 </div>
@@ -331,7 +339,7 @@
                             <h5>Professional Development </h5>
                             <p>We want our team members to grow and develop every day, so we offer LinkedIn Learning
                                 alongside internal development programs.</p>
-                            <a href="javascript:;">Read More</a>
+                            <a href="{{ route('login') }}">Read More</a>
                         </div>
                     </div>
                 </div>
@@ -341,3 +349,18 @@
     </section>
     <!-- Latest Resources End -->
 @endsection
+
+@push('js')
+<script>
+    function navigateToSection(sectionId) {
+        // Find the section by its ID
+        const section = document.getElementById(sectionId);
+
+        // Scroll to the section
+        if (section) {
+            section.scrollIntoView({ behavior: "smooth" });
+        }
+    }
+</script>
+
+@endpush

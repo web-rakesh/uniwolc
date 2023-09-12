@@ -10,4 +10,16 @@ class CategoriesOfEducation extends Model
     use HasFactory;
 
     protected $table = 'categories_of_educations';
+
+    protected $fillable = [
+        'name',
+        'slug',
+        'description',
+        'status',
+    ];
+
+    public function educationLevels()
+    {
+        return $this->hasMany(EducationLevel::class, 'category_id', 'id');
+    }
 }

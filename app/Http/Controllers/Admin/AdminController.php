@@ -300,4 +300,23 @@ class AdminController extends Controller
 
         return response()->json($data);
     }
+
+    public function agentWalletDetails()
+    {
+        return view('admin.transaction.agent-wallet-details');
+    }
+
+    public function registerListStudent()
+    {
+        return view('admin.register.register-list', ['type' => 0]);
+    }
+    public function registerListAgent()
+    {
+        return view('admin.register.register-list', ['type' => 1]);
+    }
+
+    public function registerListUniversity()
+    {
+        return view('admin.register.register-list', ['type' => 2]);
+    }
 }

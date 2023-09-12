@@ -8,13 +8,12 @@
                 <div class="header-abroad-main">
                     <div class="col-lg-6">
                         <div class="header-abroad-content">
-                            <h1>Our Story</h1>
-                            <p>Uniwolc Empowers People Around The World To Access The Best Education. We Are The World’s
-                                Largest Online Platform For International Student Recruitment. Founded In 2015, The Company
-                                Has Built Partnerships With Over 1,600+ Primary, Secondary, And Post-Secondary Schools, And
-                                Works With Over 10,000+ Recruitment Partners To Drive Diversity On Campuses Across Canada,
-                                The United States, The United Kingdom, And Australia. Uniwolc Has 1,500+ Team Members In 30+
-                                Countries.</p>
+                            <h1>Our Story </h1>
+                            <p>UniWolc empowers people around the world to get the best of education. We are the world's
+                                largest online platform for international student recruitment. Founded in 2023, the company
+                                has partnered with over 1,500+ elementary, middle and high schools and works with over 5,000
+                                recruiting partners to diversify campuses across Canada, the United States, the United
+                                Kingdom, Australia and . Ireland. UniWolc has 1,000+ team members in 10+ countries.</p>
                             <a href="javascript:;">Join Us</a>
                         </div>
                     </div>
@@ -38,7 +37,7 @@
 
                 <div class="col-lg-12">
                     <div class="sub-uniwolc-title sub-choose-tt-pd">
-                        <h2>Accomplishments</h2>
+                        <h2>Awards </h2>
                     </div>
                 </div>
 
@@ -80,10 +79,10 @@
                 <div class="sub-best-programs-box">
                     <div class="col-lg-6">
                         <div class="sub-best-programs-content sub-intern-wd-btn">
-                            <h2>Top Trends for 2022 and Beyond</h2>
-                            <p class="pt-0">The COVID-19 Pandemic Forced The International Education Sector To Adapt At An
+                            <h2>Accomplishments </h2>
+                            {{-- <p class="pt-0">The COVID-19 Pandemic Forced The International Education Sector To Adapt At An
                                 Unprecedented Rate. But Which Changes Are Temporary, And Which Are Poised To Last?</p>
-                            <a href="javascript:;">Read Full Report</a>
+                            <a href="javascript:;">Read Full Report</a> --}}
                         </div>
                     </div>
 
@@ -107,7 +106,7 @@
 
                 <div class="col-lg-12">
                     <div class="sub-uniwolc-title">
-                        <h2>Coverage</h2>
+                        <h2>Broadcast </h2>
                     </div>
                 </div>
 
@@ -347,9 +346,11 @@
                     <div class="sub-count-number-bg">
                         <div class="sub-abroad-text-std">
                             <h5>Press Contact</h5>
-                            <p><strong>Alessandra Manieri</strong><br /> Manager, Public Relations</p>
-                            <p><i class="fa-solid fa-phone"></i> 1-844-972-7759 &nbsp;&nbsp;&nbsp; <i
-                                    class="fa-solid fa-envelope"></i> Press@Uniwolc.Com</p>
+                            <p><strong>Umang Shah </strong><br />Managing Director</p>
+                            <p>
+                                {{-- <i class="fa-solid fa-phone"> </i> 1-844-972-7759  --}}
+                                &nbsp;&nbsp;&nbsp;
+                                <i class="fa-solid fa-envelope"></i> press@uniwolc.com</p>
                         </div>
                     </div>
                 </div>

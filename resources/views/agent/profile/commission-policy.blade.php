@@ -55,10 +55,10 @@
                     <div class="col-md-9 columnBox border-right dasboardrightPart">
                         <div class="dasboardrightPartWrapper">
 
-                            <h4 class="card-title text-center1 mb-0"> Update Bank Details</h4>
+                            <h4 class="card-title text-center1 mb-0"> Commission Policy</h4>
                             <hr>
                             <div>
-                                <span> School Commission : 15%</span>
+                                <span> School Commission : </span>
                             </div>
 
                         </div>

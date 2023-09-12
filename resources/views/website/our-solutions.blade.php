@@ -14,13 +14,13 @@
                                 promotions that enable you to achieve financial savings and enjoy a worry-free international
                                 student journey. Explore these offerings right at your fingertips and seize the opportunity
                                 today.</p>
-                            <a href="javascript:;">Let’s Get Started</a>
+                            <a href="{{ route('login') }}">Let’s Get Started</a>
                         </div>
                     </div>
 
                     <div class="col-lg-6">
                         <div class="header-img-abroad">
-                            <img src="assets/images/inner-banner/our-solutions-two-banner.png" alt="" />
+                            <img src="assets/images/inner-banner/our-solutions-banner.jpg" alt="" />
                         </div>
                     </div>
                 </div>
@@ -51,7 +51,7 @@
                             <h5>International Student GIC Program</h5>
                             <p>Enhance and simplify your study permit application process by utilizing a Guaranteed
                                 Investment Certificate (GIC) from RBC, the largest bank in Canada.</p>
-                            <a href="javascript:;">Read More</a>
+                            <a href="{{ route('login') }}">Read More</a>
                         </div>
                     </div>
                     <div class="col-lg-4">
@@ -60,16 +60,16 @@
                             <h5>Student Loans </h5>
                             <p>Empower your students to pursue their dreams without being limited by financial constraints.
                                 Kickstart their journey with UniWolc Student Loans.</p>
-                            <a href="javascript:;">Read More</a>
+                            <a href="{{ route('login') }}">Read More</a>
                         </div>
                     </div>
                     <div class="col-lg-4">
                         <div class="sub-get-started-text sub-new-programs-hg">
                             <img src="assets/images/03-new-programs.png" alt="" />
-                            <h5>Tuition Payments Made Easy </h5>
+                            <h5>Tuition Payments Made Easy - Uniwolc - Student Loan Services </h5>
                             <p>Accelerate the application process by utilizing Flywire's fast and dependable fee payment
                                 services.</p>
-                            <a href="javascript:;">Read More</a>
+                            <a href="{{ route('login') }}">Read More</a>
                         </div>
                     </div>
                 </div>
@@ -97,7 +97,7 @@
                             <h5>Save More on English Tests </h5>
                             <p>Obtain the TOEFL & PTE, two highly recognized English language tests, at the most competitive
                                 price available anywhere.</p>
-                            <a href="javascript:;">Read More</a>
+                            <a href="{{ route('login') }}">Read More</a>
                         </div>
                     </div>
                 </div>

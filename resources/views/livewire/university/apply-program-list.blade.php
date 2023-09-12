@@ -32,6 +32,26 @@
                                             type="search" class="form-control form-control-sm" placeholder=""
                                             wire:model="searchItem"></label></div>
                             </div> --}}
+
+                            <div class="col-md-5 col-12 mb-2">
+                                <form wire:submit.prevent="render">
+                                    <div class="row">
+                                        {{-- <label for="start_date"> Date Filter:</label> --}}
+                                        <div class="col-md-6 col-6 mb-2">
+                                            <input type="date" class="form-control" wire:model="startDate"
+                                                id="start_date">
+                                        </div>
+                                        <div class="col-md-6 col-6 mb-2">
+                                            <input type="date" class="form-control" wire:model="endDate"
+                                                id="end_date">
+                                        </div>
+
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="col-md-1 col-12 mb-2">
+                                <button class="btn btn-danger" wire:click="clearDate" type="button">Clear</button>
+                            </div>
                         </div>
                         {{-- {{ $programs }} --}}
                         <div class="row">
@@ -45,7 +65,7 @@
                                             {{-- <th>Education Level</th> --}}
                                             <th>Application Number</th>
                                             <th>Application Status</th>
-                                            {{-- <th>Program End Date</th> --}}
+                                            <th>Created At</th>
                                             <th>Payment</th>
                                             <th>Student</th>
                                             <th>Action</th>
@@ -60,7 +80,12 @@
                                                         <div class="tableContent">#</div>
                                                     </td>
                                                     <td>
-                                                        <div class="tableContent">{{ $item->program_title }}</div>
+                                                        <div class="tableContent">
+                                                            <a
+                                                                href="{{ route('university.program.details', ['id' => $item->id, 'slug' => $item->slug]) }}">
+                                                                {{ $item->program_title }}
+                                                            </a>
+                                                        </div>
                                                     </td>
                                                     {{--  <td>
                                                          <div class="tableContent">
@@ -76,10 +101,10 @@
                                                             {{ $item->application_status == 1 ? 'Done' : 'Pending' }}
                                                         </div>
                                                     </td>
-                                                    {{-- <td>
+                                                    <td>
                                                         <div class="tableContent">
-                                                            {{ $item->created_at->format('Y-m-d') }}</div>
-                                                    </td> --}}
+                                                            {{ $item->created_at->format('M d, Y') }}</div>
+                                                    </td>
                                                     <td>
                                                         <div class="tableContent">
                                                             {{ $item->status == 2 ? 'Paid' : 'Due' }}</div>
@@ -195,7 +220,8 @@
                 <button type="button" class="btn btn-secondary" data-dismiss="modal"
                     wire:click="closeModal">Close</button>
                 @if (!$mood)
-                    <button type="button" class="btn btn-primary" wire:click="saveBackupReject">Save changes</button>
+                    <button type="button" class="btn btn-primary" wire:click="saveBackupReject">Save
+                        changes</button>
                 @endif
             </div>
         </div>

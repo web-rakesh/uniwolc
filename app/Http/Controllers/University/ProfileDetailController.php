@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\University;
 
+use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
@@ -58,15 +59,20 @@ class ProfileDetailController extends Controller
                     $universityProfile->addMedia($image)->toMediaCollection('university-picture');
                 }
             }
-
+            if (!auth()->user()->profile_is_updated) {
+                User::where('id', auth()->user()->id)->update([
+                    'profile_is_updated' => 1
+                ]);
+            }
 
             DB::commit();
 
-            return redirect()->back();
+            return redirect()->back()->with('success', 'Profile updated successfully.');
         } catch (\Throwable $th) {
             //throw $th;
             DB::rollback();
-            return $th->getMessage();
+            // return $th->getMessage();
+            return redirect()->back()->with('error', 'Something went wrong. Please try again later.');
         }
     }
 

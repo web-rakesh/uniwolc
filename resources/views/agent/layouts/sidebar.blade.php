@@ -61,10 +61,17 @@
 
                               <!---->
 --}}
-                              <li>
+                              <li class="{{ request()->is('agent/payment-history') ? 'active' : '' }}">
                                   <a href="{{ route('agent.payment.history') }}">
                                       <span class="icon"><i class="fa-regular fa-circle-dollar"></i></span>
                                       <span class="title">Payments</span>
+                                  </a>
+                              </li>
+
+                              <li class="{{ request()->is('agent/wallet-history') ? 'active' : '' }}">
+                                  <a href="{{ route('agent.wallet.history') }}">
+                                      <span class="icon"><i class="fa-regular fa-circle-dollar"></i></span>
+                                      <span class="title">Wallet Request</span>
                                   </a>
                               </li>
 

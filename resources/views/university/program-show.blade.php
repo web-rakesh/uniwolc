@@ -391,7 +391,7 @@
 
                                     @forelse ($relatedPrograms as $item)
                                         <li class="sidebarListItem">
-                                            <a href="{{ route('university.program.show', $item->id) }}"
+                                                <a href="{{ route('university.program.details', ['id' => $item->id, 'slug' => $item->slug ?? '']) }}"
                                                 class="sidebarListLink">{{ $item->program_title }}</a>
                                         </li>
                                     @empty

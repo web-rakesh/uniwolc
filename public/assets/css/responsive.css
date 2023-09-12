@@ -10,15 +10,15 @@
 	.sub-footer-list ul li a{font-size: 14px;}
 	.sub-footer-list-bold ul li a{font-size: 22px;}
 	.sub-footer-list h6{font-size: 22px;}
-	
-	
+
+
 	.dasboardAppHeaderInfo{
 		font-size:13px;
 	}
-	
+
 }
 /******** 1366 End ********/
- 
+
 /******** 1280 ********/
 @media screen and (max-width: 1280px) {
 	.navbar-dark .navbar-nav .nav-link{font-size: 14px;}
@@ -32,11 +32,11 @@
 	.sub-awolc-tab ul li a{font-size: 16px;}
 	.testimonial4_slide p{font-size: 16px;}
 	.sub-content-universities h3 a{font-size: 18px; line-height: 26px;}
-	
+
 .applyBoardModalLeftPart {
     width: 450px;
-}	
-}   
+}
+}
 /******** 1280 End ********/
 
 /******** 1176 ********/
@@ -46,20 +46,20 @@
 	.carousel-slider-box{flex-wrap: wrap;}
 	.header-slider-bg .carousel-item{height: 120vh;}
 	.navbar .nav-item{margin: 0 4px;}
-	
-.topNavMenuList li {    
-    font-size: 12px;   
+
+.topNavMenuList li {
+    font-size: 12px;
 }
 .appDtlsSec {
     display: block;
 }
 .apptDlsRightSideArea {
     margin-top:30px;
-    margin-left: 0px;   
-    width: 100%;    
+    margin-left: 0px;
+    width: 100%;
 }
-.appSidebarTopArea .muiIconBtn {   
-   
+.appSidebarTopArea .muiIconBtn {
+
 }
 .appSidebarinner {
     width: 100%;
@@ -68,7 +68,7 @@
 .appSidebarWrapper {
     width: 100%;
     max-width: 100%;
-}	
+}
 .appSidebar.hide .appSidebarTopArea .dropdown {
     display: block;
 }
@@ -83,27 +83,27 @@
     display: block;
 
 }
-.form-steps {   
+.form-steps {
     white-space: nowrap;
 }
 .form-steps__step {
     width: 200px;
 }
 
-	
+
 }
 
 
 /******** 1176 End ********/
-  
+
 /******** 991 ********/
 @media screen and (max-width: 991px) {
-	
+
 .header-menu-uinw.headerArea  {
     flex-wrap:wrap;
-}	
+}
 .headerMiddleArea{
-    display: flex;	
+    display: flex;
 }
 .headerrightArea{
 	width:100%;
@@ -111,15 +111,15 @@
 .headerrightArea .sub-btn-regst {
     display: block;
     width: 100%;
-}	
-	
+}
+
 	.navbar-dark .navbar-toggler{color: #ffffff; background: #0F292A;}
 	.navbar-collapse{position: absolute; width: 100%; background: #ffffff; top: 95%; z-index: 9999; padding: 30px;}
 	.navbar-dark .navbar-nav .nav-link{font-size: 16px; padding: 0 0 15px 0;}
 	.mega-menu-title{font-size: 16px;}
 	ul.sub-menulist-header li a{font-size: 14px;}
 	.mega-menu-btn{font-size: 14px; padding: 8px 10px;}
-	.sub-btn-regst{width: 100%; text-align: center; padding: 10px 0 0 0;}	
+	.sub-btn-regst{width: 100%; text-align: center; padding: 10px 0 0 0;}
 	.sub-btn-regst .btn-outline-primary{width: 20%;}
 	.sub-btn-regst .btn-primary{width: 20%;}
 	header{padding: 10px 0;}
@@ -240,20 +240,20 @@
 	.sub-start-btn-applica{margin: 15px 0 0 0;}
 	.sub-cour-two-right{right: 15px;}
 	.sub-plat-support-accordion .card-header .title{width: 100%; display: flex; align-items: center; justify-content: flex-start;}
-	
-	
-	
+
+
+
 .dashboardPagSection {
     display: block;
-}	
-.topNavMenuList {    
+}
+.topNavMenuList {
     display: none;
-}	
+}
 .topNavbar{
 	height:50px;
-}	
+}
 .topNavbar .backMenu{
-    font-size: 20px;	
+    font-size: 20px;
 }
 .dashboardMenuArea{
 	 width: 280px;
@@ -261,7 +261,7 @@
     height: 100%;
     background-color: #23263c;
     background-color: #fff;
-    background-color: #5D4BDC;	
+    background-color: #5D4BDC;
     color: #fff;
     color: #000;
     box-shadow: box-shadow: 18px 0 35px 0 rgb(0 0 0 / 2%);
@@ -272,14 +272,14 @@
     transition: .3s ease all;
     backface-visibility: hidden;
     transform: translate3d(0,0,0);
-    transition: .3s ease all;	 
-}	
+    transition: .3s ease all;
+}
 .dashboardMenuArea:hover {
     width: 280px;
-}	
+}
 .dasboardMenuWrap li a .title{
 	 display: block;
-}	
+}
 .dashboardMenuArea:hover .dasboardMenuWrap li a .title {
     display: block;
 }
@@ -292,9 +292,9 @@
     transition: .3s ease all;
 }
 .dashboardPagesWrapper {
-    margin-left: 0px;    
-}	
-.buttonMenuMobile {   
+    margin-left: 0px;
+}
+.buttonMenuMobile {
     display: block;
 }
 .dashmenuOverlay.open {
@@ -310,16 +310,16 @@
 }
 .dasboardAppHeader {
     /*grid-template-columns: 1fr;*/
-    display: none;	
+    display: none;
 }
 .dasboardAppHeader.dasboardAppBody {
     /*grid-template-columns: 1fr;*/
-    display: block;	
-}		
+    display: block;
+}
 .dasboardAppHeaderInfo {
     /*grid-template-columns: 1fr 1fr;*/
 	    display: block;
-}	
+}
 .dasboardAppHeaderInfo div[data-title]{
 	margin-bottom:15px;
 }
@@ -333,7 +333,7 @@
     color: #000000;
     font-weight: 600;
 	margin-bottom:5px;
-}	
+}
 .dasboardAppHeaderInfo > :nth-of-type(1),
  .dasboardAppHeaderInfo > :nth-of-type(2),
  .dasboardAppHeaderInfo > :nth-of-type(3),
@@ -341,28 +341,28 @@
  .dasboardAppHeaderInfo > :nth-of-type(5),
  .dasboardAppHeaderInfo > :nth-of-type(6) {
     text-align: left;
-}	
-.dasboardAppHeader .status {    
+}
+.dasboardAppHeader .status {
     align-items: flex-start;
 }
 .dasboardAppHeaderInfo .startDate {
     text-align: left;
 }
-.appFeesinner {   
+.appFeesinner {
     display: block;
 }
-.dasboardAppHeader .rightpart {   
+.dasboardAppHeader .rightpart {
     justify-content: start;
-}	
+}
 .dasboardAppTotal {
     display: block;
 }
 .applicationBtnArea{
     display: block !important;
-    text-align: center;	
+    text-align: center;
 }
-.applicationBtnArea .btn {    
-    padding: 7px 15px;    
+.applicationBtnArea .btn {
+    padding: 7px 15px;
     font-size: 13px;
 }
 .applyBoardModalLeftPart {
@@ -373,7 +373,7 @@
 }
 .applyHeighLightBoxinner .content .para {
     font-size: 14px;
-}	
+}
 
 }
 /******** 991 End ********/
@@ -461,42 +461,42 @@
 	.sub-uniwolc-fees-content-bg ul{padding: 15px 0 0 20px;}
 	.sub-view-all-post{padding: 0 0 30px 0;}
 	.sub-why-std-text h3{font-size: 32px;}
-	
-	
-	
-	
+
+
+
+
 .programsCard{
-    font-size: 12px;	
-}	
-.programsCardThumnailGalleryArea {   
-    width: 250px;    
+    font-size: 12px;
 }
-.programsCardIntroPrice {    
+.programsCardThumnailGalleryArea {
+    width: 250px;
+}
+.programsCardIntroPrice {
     font-size: 16px;
     margin-bottom: 4px;
 }
 
 
-.applyBoardModalLeftPart {   
+.applyBoardModalLeftPart {
     display: none;
-}	
+}
 .applyBoardCardBody{
-	
-}	
+
+}
 .applyBoardCard{
 	padding:10px;
-}	
-	
-	
-	
-	
-	
+}
+
+
+
+
+
 }
 /******** 767 End ********/
 
 /******** 668 ********/
 @media screen and (max-width: 668px) {
-	.sub-appl-requment-content h1{font-size: 24px;}	
+	.sub-appl-requment-content h1{font-size: 24px;}
 	.sub-appl-requment-content span{font-size: 16px;}
 	.sub-appl-requment-content p{font-size: 14px; line-height: 28px;}
 	.sub-appl-requment-content ul li{font-size: 14px; line-height: 28px;}
@@ -585,44 +585,44 @@
 	padding: 10px 10px;
     display: block;
 }
-.appDtlsAccordianHeader .rightSide {   
+.appDtlsAccordianHeader .rightSide {
     justify-content: start;
     margin-top: 10px;
 }
-.appDtlsAccordianHeader .toggleBtn {    
+.appDtlsAccordianHeader .toggleBtn {
     margin-left: auto;
 }
 .appbtnListArea .appbtnList{
    margin:0 -5px;
    margin-bottom:10px;
 }
-.appbtnListArea .appbtnList li {   
+.appbtnListArea .appbtnList li {
     margin-right: 0px;
     padding: 5px 5px;
 }
 
 
-.appbtnListArea .appbtnList li a {    
+.appbtnListArea .appbtnList li a {
     display: inline-block;
 }
 
 .appInfiDtls {
     width: 100%;
-    display: block;    
+    display: block;
 }
 .wrappedContentinner {
     display: block;
     max-width: 100%;
     margin-bottom: 0px;
 }
-.wrappedContentinner .req-desc {   
+.wrappedContentinner .req-desc {
     width: 100%;
     padding-right: 0px;
 }
-.appInfiDtls .editBtn {  
+.appInfiDtls .editBtn {
     margin: 0px 10px 15px;
 }
-.logoThumnail {    
+.logoThumnail {
     width: 100%;
     padding: 15px 0 0 0;
 }
@@ -638,7 +638,7 @@
 .applyStepAccordianBody .headerContent .content{
  -webkit-box-flex: 1;
     -ms-flex: 1;
-    flex: 1;	
+    flex: 1;
 	font-size:14px;
 }
 
@@ -648,9 +648,9 @@
 .programsCardThumnailGalleryArea {
     width:100%;
 }
-.sidebarAgentSocialBtnList li a {   
-    padding: 6px 4px;   
-    font-size: 12px;   
+.sidebarAgentSocialBtnList li a {
+    padding: 6px 4px;
+    font-size: 12px;
 }
 .programLocationAgentinner .mapThumnail {
     width: 60px;
@@ -661,7 +661,7 @@
     height: 60px;
 }
 .singleProgramsAmenitiesIteminner .title {
-    min-width: 135px;   
+    min-width: 135px;
 }
 .singleProgramsDtls .programsCardIntroTitle {
     font-size: 18px;
@@ -675,7 +675,7 @@
 
 
 
- 
+
 /******** 428 ********/
 @media screen and (max-width: 428px) {
 	.sub-btn-regst .btn-outline-primary{width: 40%;}
@@ -782,33 +782,33 @@
 	.sub-trends-report-bg{padding: 10px;}
 	.sub-vraf-pt-pb{padding: 0 30px 30px 30px;}
 	.course-tab-list a{padding: 0 10px;}
-	
+
 header .headerArea .navbar .navbar-brand {
-    max-width: 150px;  
+    max-width: 150px;
 }
 header .headerArea .navbar {
     padding:0px;
-}	
+}
 .headerrightArea .sub-btn-regst{
 	padding-top:0px;
 }
 .headerrightArea .sub-btn-regst .btn-outline-primary{
     width: 100px;
     font-size: 14px;
-    padding: 5px 5px;	
+    padding: 5px 5px;
 }
 .headerrightArea .sub-btn-regst .btn-primary{
     width: 100px;
     font-size: 14px;
-    padding: 5px 5px;	
+    padding: 5px 5px;
 }
 .navbar .headerMiddleArea .dropdown-menu {
-    min-width: 160px;   
+    min-width: 160px;
     right: 0;
     top: 40px;
     left: inherit !important;
 }
-.navbar .headerMiddleArea .dropdown-menu .dropdown-item {   
+.navbar .headerMiddleArea .dropdown-menu .dropdown-item {
     font-size: 14px;
     padding: 5px 15px;
 }
@@ -836,7 +836,7 @@ header .headerArea .navbar {
 
 /******** 360 ********/
 @media screen and (max-width: 360px) {
-	.navbar-brand{width: 200px;}	
+	.navbar-brand{width: 200px;}
 	.navbar-collapse {width: 91.5%;}
 	.sub-abroad-text-std h5{font-size: 18px;}
 	.sub-abroad-text-std p{font-size: 14px;}

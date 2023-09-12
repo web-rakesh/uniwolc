@@ -6,7 +6,7 @@
                 <h4 class="card-title">Program Table</h4>
                 <div class="row mb-2">
                     <div class="col-md-4 col-12 mb-2">
-                        <input wire:model="searchItem" type="text" class="form-control" placeholder="Search Program...">
+                        <input wire:model="searchItem" type="search" class="form-control" placeholder="Search Program...">
 
                     </div>
                     {{-- @dd(action_permission('program', 'add')) --}}
@@ -83,12 +83,14 @@
                                     <td data-title="Program Name">
                                         @if (action_permission('program', 'view') == true || action_permission('program', 'update') == true)
                                             <a
-                                                href="{{ route('admin.university.course.edit', $course->id) }}">{{ $course->program_title }}</a>
+                                                href="{{ route('admin.university.course.edit', $course->id) }}">{{ \Str::limit($course->program_title, '40', '...') }}</a>
                                         @else
-                                            {{ $course->program_title }}
+                                            {{ \Str::limit($course->program_title, '45', '...') }}
                                         @endif
                                     </td>
-                                    <td data-title="University"> {{ $course->getUniversity[0]->university_name }} </td>
+                                    <td data-title="University">
+                                        {{ \Str::limit($course->getUniversity[0]->university_name, '35', '...') }}
+                                    </td>
                                     <td data-title="Deadline"> {{ date('M d, Y', strtotime($course->deadline)) }}
                                     </td>
                                     <td data-title="Created_at"> {{ date('M d, Y', strtotime($course->created_at)) }}

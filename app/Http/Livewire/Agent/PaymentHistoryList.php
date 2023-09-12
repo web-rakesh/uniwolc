@@ -7,6 +7,8 @@ use Livewire\WithPagination;
 use Illuminate\Support\Carbon;
 use App\Models\AgentCommission;
 use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\AgentProgramTransaction;
 
 class PaymentHistoryList extends Component
 {
@@ -63,5 +65,10 @@ class PaymentHistoryList extends Component
         $this->created_at = date('M d, Y', strtotime($transaction->created_at))
             ?? '';
         $this->payment_date = date('M d, Y', strtotime($transaction->payment_date));
+    }
+
+    public function exportAgentPaymentHistory()
+    {
+        return  Excel::download(new AgentProgramTransaction($this->startDate, $this->endDate), 'agent-payment-history-' . time() . '.csv');
     }
 }

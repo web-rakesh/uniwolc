@@ -88,4 +88,9 @@ class AgentController extends Controller
 
         return view('agent.payment-history');
     }
+
+    public function walletHistory()
+    {
+        return view('agent.wallet-history');
+    }
 }

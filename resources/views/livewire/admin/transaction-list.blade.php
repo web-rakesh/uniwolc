@@ -3,11 +3,21 @@
     <div class="col-lg-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body p-0">
-                <h4 class="card-title">Transaction List</h4>
-                <div class="row">
+                <div class="row d-flex justify-content-between mb-2">
+                    <div class="col-md-9 col-12">
+
+                        <h4 class="card-title">Transaction List</h4>
+                    </div>
+                    <div class="col-md-3 col-12">
+                        <button class="btn btn-success" wire:click="exportAllPaymentHistory"
+                            type="button">Export</button>
+                    </div>
+                </div>
+                <div class="row mb-2">
 
                     <div class="col-md-7 col-12 mb-2">
-                        <input wire:model="searchItem" type="text" class="form-control" placeholder="Search Students...">
+                        <input wire:model="searchItem" type="text" class="form-control"
+                            placeholder="Search Students...">
                     </div>
                     <div class="col-md-5 mb-2">
                         <form wire:submit.prevent="render">
@@ -42,7 +52,7 @@
                                 <th> Currency </th>
                                 <th> Status </th>
                                 <th> Payment Date </th>
-                                {{-- <th> Action </th> --}}
+                                <th> Action </th>
                             </tr>
                         </thead>
                         <tbody>

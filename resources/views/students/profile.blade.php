@@ -2,13 +2,14 @@
 @section('content')
     <section style="background-color: #eee;">
         <div class="container py-5">
+            @include('flash-messages')
             <div class="row">
                 <div class="col-lg-4">
                     <div class="card mb-4">
                         <div class="card-body text-center">
                             <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp"
                                 alt="avatar" class="rounded-circle img-fluid" style="width: 150px;">
-                            <h5 class="my-3">Test Student</h5>
+                            <h5 class="my-3">{{ auth()->user()->name }}</h5>
                             <p class="text-muted mb-1">{{ Auth::user()->email }}</p>
 
                             <div class="d-flex justify-content-center mb-2">
@@ -78,7 +79,7 @@
                                     <p class="mb-0">Mobile Number</p>
                                 </div>
                                 <div class="col-sm-9">
-                                    <p class="text-muted mb-0">+91 {{ $studentDetail->mobile_number ?? '' }}</p>
+                                    <p class="text-muted mb-0"> {{ $studentDetail->mobile_number ?? '' }}</p>
                                 </div>
                             </div>
 
@@ -103,8 +104,10 @@
 
                                 <div class="col-sm-9">
                                     <p class="text-muted mb-0">
-                                        {{ $studentDetail->address ?? '' }},{{ $studentDetail->city ?? '' }},
-                                        {{ $studentDetail->country ?? '' }}, {{ $studentDetail->pincode ?? '' }}</p>
+                                        {{ $studentDetail->address ?? '' }}
+                                        {{ @$studentDetail->city ? ',' . @$studentDetail->city : '' }}
+                                        {{ @$studentDetail->country ? ',' . $studentDetail->userCountry->name : '' }}
+                                        {{ @$studentDetail->pincode ? ',' . $studentDetail->pincode : '' }}</p>
                                 </div>
                             </div>
 
@@ -115,12 +118,15 @@
                                     <p class="mb-0">Status</p>
                                 </div>
                                 <div class="col-sm-9">
+                                    @if (auth()->user()->profile_is_updated == 1)
+                                        <label class="badge badge-success">Active</label>
+                                    @else
+                                        <label class="badge badge-warning">Pending</label>
+                                    @endif
 
-                                    <label class="badge badge-warning">Pending</label>
+                                    {{-- <label class="badge badge-success">Active</label>
 
-                                    <label class="badge badge-success">Active</label>
-
-                                    <label class="badge badge-danger">Inactive</label>
+                                    <label class="badge badge-danger">Inactive</label> --}}
 
                                 </div>
                             </div>

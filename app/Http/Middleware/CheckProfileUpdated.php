@@ -16,8 +16,15 @@ class CheckProfileUpdated
     public function handle(Request $request, Closure $next): Response
     {
         // dd($request->user()->profile_is_updated);
+        // dd(auth()->user()->type);
         if ($request->user() && !$request->user()->profile_is_updated) {
-            return redirect()->route('student.profile');
+            if (auth()->user()->type == 'student') {
+                return redirect()->route('student.profile')->with('error', 'Please complete your profile first.');
+            } else if (auth()->user()->type == 'agent') {
+                return redirect()->route('agent.general.details')->with('error', 'Please complete your profile first.');
+            } else {
+                return redirect()->route('university.profile.index')->with('error', 'Please complete your profile first.');
+            }
         }
         return $next($request);
     }

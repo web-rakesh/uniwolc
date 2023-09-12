@@ -90,12 +90,12 @@ class ProgramController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Program $program)
+    public function programShow($id, $slug)
     {
         //
-        // return $program;
+        $program = Program::with('university')->where('id', $id)->where('slug', $slug)->first();
         $university = ProfileDetail::where('user_id', $program->user_id)->first();
-        $relatedPrograms = Program::select('id', 'program_title')->where('id', '!=', $program->id)->limit(5)->latest()->get();
+        $relatedPrograms = Program::select('id', 'slug', 'program_title')->where('id', '!=', $program->id)->limit(5)->latest()->get();
         // $universityImage = $university->getMedia('university-picture');
         $breadcrumbs = $university->program_title;
         return view('university.program-show', compact('program', 'relatedPrograms', 'breadcrumbs'));

@@ -5,9 +5,9 @@
     <section class="header-slider-bg">
         <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
             <ol class="carousel-indicators">
-                <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
-                <li data-target="#carouselExampleCaptions" data-slide-to="1" class=""></li>
-                <li data-target="#carouselExampleCaptions" data-slide-to="2" class=""></li>
+                {{-- <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
+                 <li data-target="#carouselExampleCaptions" data-slide-to="1" class=""></li>
+                <li data-target="#carouselExampleCaptions" data-slide-to="2" class=""></li> --}}
             </ol>
             <div class="carousel-inner">
                 <div class="carousel-item active">
@@ -18,22 +18,21 @@
                                 {{-- <h1>CHANGING THE <span>WORLD</span> THROUGH <span>EDUCATION</span></h1> --}}
                                 <p>I am a student exploring studying abroad</p>
                                 <div class="carousel-slider-btn">
-                                    <a class="carousel-slider-btn-bg" href="javascript:;">I am a recruitment partner</a>
-                                    <a class="carousel-slider-btn-white" href="javascript:;">I work at a school</a>
+                                    <a class="carousel-slider-btn-bg" href="{{ route('login') }}">I am a recruitment partner</a>
+                                    <a class="carousel-slider-btn-white" href="{{ route('login') }}">I work at a school</a>
                                 </div>
                             </div>
                             <div>
-                                <img src="assets/images/slider-01.jpg" height="400" alt="" />
+                                <img src="assets/images/slider-01.webp" height="400" alt="" />
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="carousel-item">
+                {{-- <div class="carousel-item">
                     <div class="carousel-caption d-md-block">
                         <div class="carousel-slider-box">
                             <div class="carousel-slider-content">
                                 <h1>Our Commitment to <span>Educating the World </span></h1>
-                                {{-- <h1>CHANGING THE <span>WORLD</span> THROUGH <span>EDUCATION</span></h1> --}}
                                 <p>I am a student exploring studying abroad</p>
                                 <div class="carousel-slider-btn">
                                     <a class="carousel-slider-btn-bg" href="javascript:;">I am a recruitment partner</a>
@@ -51,7 +50,6 @@
                         <div class="carousel-slider-box">
                             <div class="carousel-slider-content">
                                 <h1>Our Commitment to <span>Educating the World </span></h1>
-                                {{-- <h1>CHANGING THE <span>WORLD</span> THROUGH <span>EDUCATION</span></h1> --}}
                                 <p>I am a student exploring studying abroad</p>
                                 <div class="carousel-slider-btn">
                                     <a class="carousel-slider-btn-bg" href="javascript:;">I am a recruitment partner</a>
@@ -63,16 +61,16 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
             </div>
             <!--<a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
-                                                                                                                                                                                                                          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                                                                                                                                                                                                          <span class="sr-only">Previous</span>
-                                                                                                                                                                                                                        </a>
-                                                                                                                                                                                                                        <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
-                                                                                                                                                                                                                          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                                                                                                                                                                                                          <span class="sr-only">Next</span>
-                                                                                                                                                                                                                        </a>-->
+                                                                                                                                                                                                                                      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                                                                                                                                                                                                                      <span class="sr-only">Previous</span>
+                                                                                                                                                                                                                                    </a>
+                                                                                                                                                                                                                                    <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
+                                                                                                                                                                                                                                      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                                                                                                                                                                                                                      <span class="sr-only">Next</span>
+                                                                                                                                                                                                                                    </a>-->
         </div>
     </section>
     <!-- Header Slider End -->
@@ -149,8 +147,7 @@
                                             </div>
                                             <div class="col-12 col-lg-4">
                                                 <div class="sub-students-box">
-                                                    <img src="assets/images/knowledge.png" height="81"
-                                                        alt="" />
+                                                    <img src="assets/images/knowledge.png" height="81" alt="" />
                                                     <h5>Knowledgeable Support Team</h5>
                                                 </div>
                                             </div>
@@ -196,7 +193,7 @@
                             <p></p>
                             {{-- <p>Lorem Ipsum Dolor Sit Amet, Consectetur Adipiscing Elit, Sed Do Eiusmod Tempor Incididunt Ut
                                     Labore Et Dolore Magna Aliqua.</p> --}}
-                            <a href="javascript:;">Partner With Us</a>
+                            <a href="{{ route('login') }}">Partner With Us</a>
                         </div>
                     </div>
                 </div>
@@ -340,7 +337,7 @@
 
                 <div class="col-lg-12">
                     <div class="sub-making-edu-btn">
-                        <a href="javascript:;">Our Story</a>
+                        <a href="{{ route('our.story') }}">Our Story</a>
                     </div>
                 </div>
 
@@ -361,6 +358,7 @@
                 </div>
 
                 <div class="sub-making-education-pt-pb">
+                    
                     <div class="col-lg-4">
                         <div class="sub-get-started-text">
                             <img src="assets/images/student.png" alt="" />
@@ -389,7 +387,7 @@
                                 United States, the United Kingdom, Australia, or Ireland? Join us as a Recruitment Partner
                                 at UniWolc and expand your reach to connect with aspiring students in these popular study
                                 destinations.</p>
-                            <a href="javascript:;">Recruiter Registration</a>
+                            <a href="{{ route('recruiters') }}">Recruiter Registration</a>
                         </div>
                     </div>
                 </div>
@@ -596,43 +594,49 @@
                         <h2>We Support Every Stakeholder in the Industry by Being Thought Leaders</h2>
                     </div>
                 </div>
+                
+                
+                    @forelse($blogs as $blog)
+                        <div class="col-lg-4">
+                            <div class="main-universities-blog">
+                                <div class="sub-img-universities">
+                                    <img src="{{ $blog->profile_url }}" weight="612" height="307" alt="{{ $blog->title }}" />
+                                </div>
+                                <div class="sub-content-universities">
+                                    <h3><a href="{{ route('blog-details', $blog->slug) }}">{{ \Str::words($blog->title, $limit = 10, $end = '...') }}</a></h3>
+                                    <p>{{ date('F d, Y', strtotime($blog->created_at)) }}</p>
+                                    <a href="{{ route('blog-details', $blog->slug) }}">Read More</a>
+                                </div>
+                            </div>
+                        </div>
+                    @empty
+                    @endforelse
 
-                <div class="col-lg-4">
-                    <div class="main-universities-blog">
-                        <div class="sub-img-universities">
-                            <img src="assets/images/winners-thumb.jpg" alt="" />
-                        </div>
-                        <div class="sub-content-universities">
-                            <h3><a href="javascript:;">Top Winter Wonderlands For Students In Ontario This Year</a></h3>
-                            <p>DECEMBER 12, 2022</p>
-                            <a href="javascript:;">Read More</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="main-universities-blog">
-                        <div class="sub-img-universities">
-                            <img src="assets/images/winners-thumb.jpg" alt="" />
-                        </div>
-                        <div class="sub-content-universities">
-                            <h3><a href="javascript:;">Top Winter Wonderlands For Students In Ontario This Year</a></h3>
-                            <p>DECEMBER 12, 2022</p>
-                            <a href="javascript:;">Read More</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="main-universities-blog main-universities-blog-last">
-                        <div class="sub-img-universities">
-                            <img src="assets/images/winners-thumb.jpg" alt="" />
-                        </div>
-                        <div class="sub-content-universities">
-                            <h3><a href="javascript:;">Top Winter Wonderlands For Students In Ontario This Year</a></h3>
-                            <p>DECEMBER 12, 2022</p>
-                            <a href="javascript:;">Read More</a>
-                        </div>
-                    </div>
-                </div>
+           
+                <!--<div class="col-lg-4">-->
+                <!--    <div class="main-universities-blog">-->
+                <!--        <div class="sub-img-universities">-->
+                <!--            <img src="assets/images/winners-thumb.jpg" alt="" />-->
+                <!--        </div>-->
+                <!--        <div class="sub-content-universities">-->
+                <!--            <h3><a href="javascript:;">Top Winter Wonderlands For Students In Ontario This Year</a></h3>-->
+                <!--            <p>DECEMBER 12, 2022</p>-->
+                <!--            <a href="javascript:;">Read More</a>-->
+                <!--        </div>-->
+                <!--    </div>-->
+                <!--</div>-->
+                <!--<div class="col-lg-4">-->
+                <!--    <div class="main-universities-blog main-universities-blog-last">-->
+                <!--        <div class="sub-img-universities">-->
+                <!--            <img src="assets/images/winners-thumb.jpg" alt="" />-->
+                <!--        </div>-->
+                <!--        <div class="sub-content-universities">-->
+                <!--            <h3><a href="javascript:;">Top Winter Wonderlands For Students In Ontario This Year</a></h3>-->
+                <!--            <p>DECEMBER 12, 2022</p>-->
+                <!--            <a href="javascript:;">Read More</a>-->
+                <!--        </div>-->
+                <!--    </div>-->
+                <!--</div>-->
 
             </div>
         </div>

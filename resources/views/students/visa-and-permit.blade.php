@@ -48,10 +48,12 @@
                         <div class="dasboardrightPartWrapper">
                             <div class="card shadow1 p-3 py-5 mb-0 bg-white border-0 rounded dasboardrightPartWrapperinner">
                                 <h4 class="card-title text-center1 mb-0"> Visa And Permit</h4>
-                                <hr>
+
                                 <p class="text-muted">Please enter the information for the highest academic level that you
                                     have
                                     completed.</p>
+                                <hr>
+                                @include('flash-messages')
                                 <div class="card-body p-0">
                                     <div class="pp-3a py-2">
                                         <form method="post" action="{{ route('student.visa-and-permit.store') }}">

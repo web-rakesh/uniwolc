@@ -52,6 +52,8 @@
                                     have
                                     completed.
                                 </p>
+                                <hr>
+                                @include('flash-messages')
                                 <div class="card-body p-0 ">
                                     <div class="p-3a py-2">
                                         <form method="post" action="{{ route('student.education-summary.store') }}">

@@ -12,13 +12,13 @@
                             <h1>Be Seen by 100,000+ Students Every Month</h1>
                             <p>Increase Your Global Presence And The Number Of Qualified Students From A Single, Easy-To-Use
                                 Platform Trusted By More Than 1,600 Institutions Worldwide.</p>
-                            <a href="javascript:;">Work With Us</a>
+                            <a href="{{ route('login') }}">Work With Us</a>
                         </div>
                     </div>
 
                     <div class="col-lg-6">
                         <div class="header-img-abroad">
-                            <img src="assets/images/inner-banner/education-partners-banner.png" alt="" />
+                            <img src="assets/images/4543969.jpg" alt="" />
                         </div>
                     </div>
                 </div>
@@ -35,21 +35,21 @@
 
                 <div class="col-lg-4">
                     <div class="sub-get-started-text sub-success-rec-box">
-                        <img src="assets/images/01-help-students.png" alt="" />
+                        <img src="assets/images/quality-applications-education.png" height="81" alt="" />
                         <h5>Quality Applications</h5>
                         <p>For Every Hundred Students, We Get Fifteen More Enrolled Than Others.</p>
                     </div>
                 </div>
                 <div class="col-lg-4">
                     <div class="sub-get-started-text sub-success-rec-box">
-                        <img src="assets/images/02-help-students.png" alt="" />
+                        <img src="assets/images/unmatched-diversity.png" height="81" alt="" />
                         <h5>Unmatched Diversity</h5>
                         <p>UNIWOLC Students Come From More Than 125 Countries.</p>
                     </div>
                 </div>
                 <div class="col-lg-4">
                     <div class="sub-get-started-text sub-success-rec-box sub-get-started-text-last">
-                        <img src="assets/images/03-help-students.png" alt="" />
+                        <img src="assets/images/administration.png" height="81" alt="" />
                         <h5>Less administration. More education</h5>
                         <p>Partner Schools Spend 25% More Time On Things That Matter.</p>
                     </div>
@@ -121,13 +121,13 @@
                     <div class="col-6 col-lg-6">
                         <div class="sub-making-edu-content">
                             <a href="javascript:;" data-toggle="modal" data-target="#exampleModal"><img
-                                    src="assets/images/03-success-stories.png" alt="" /></a>
+                                    src="assets/images/success-stories.png" height="670" alt="" /></a>
                         </div>
                     </div>
                     <div class="col-6 col-lg-6">
                         <div class="sub-making-edu-content">
                             <a href="javascript:;" data-toggle="modal" data-target="#exampleModal"><img
-                                    src="assets/images/04-success-stories.png" alt="" /></a>
+                                    src="assets/images/success-stories.png" height="670" alt="" /></a>
                         </div>
                     </div>
                 </div>
@@ -150,7 +150,7 @@
 
                 <div class="col-lg-4">
                     <div class="sub-get-started-text sub-how-work-pb sub-how-it-work-height">
-                        <img src="assets/images/01-help-students.png" alt="" />
+                        <img src="assets/images/eligibility.png" height="81" alt="" />
                         <h5>Students Check Their Eligibility</h5>
                         <p>Students Complete A Short Survey And Get Matched To Programs And Schools.</p>
                     </div>
@@ -158,7 +158,7 @@
 
                 <div class="col-lg-4">
                     <div class="sub-get-started-text sub-how-work-pb sub-how-it-work-height">
-                        <img src="assets/images/02-help-students.png" alt="" />
+                        <img src="assets/images/apply-school.png" height="81" alt="" />
                         <h5>Students Apply to Schools</h5>
                         <p>Students Select A School And Program, Complete Their Profile, Pay Their Fees, And Submit The
                             Proper Documentation.</p>
@@ -167,7 +167,7 @@
 
                 <div class="col-lg-4">
                     <div class="sub-get-started-text sub-how-work-pb sub-how-it-work-height">
-                        <img src="assets/images/03-help-students.png" alt="" />
+                        <img src="assets/images/student-accept.png" height="81" alt="" />
                         <h5>Students Get Accepted</h5>
                         <p>The Application Is Reviewed By The School And A Letter Of Acceptance Is Issued.</p>
                     </div>
@@ -175,7 +175,7 @@
 
                 <div class="col-lg-4">
                     <div class="sub-get-started-text sub-how-work-pb sub-how-it-work-height">
-                        <img src="assets/images/04-apply-for-visa.png" alt="" />
+                        <img src="assets/images/applies-visa.png" height="81" alt="" />
                         <h5>Student Applies for Visa</h5>
                         <p>UNIWOLC Experts Guide The Student Through The Visa Application Process.</p>
                     </div>
@@ -183,7 +183,7 @@
 
                 <div class="col-lg-4">
                     <div class="sub-get-started-text sub-how-work-pb sub-how-it-work-height">
-                        <img src="assets/images/05-start-your-iourney.png" alt="" />
+                        <img src="assets/images/student-journey.png" height="81" alt="" />
                         <h5>Student Journey Begins</h5>
                         <p>The Student Sets Off With Bags Packed Ready To Start Their Adventure On Your Campus.</p>
                     </div>
@@ -191,7 +191,7 @@
 
                 <div class="col-lg-4">
                     <div class="sub-how-work-btn">
-                        <a class="sub-get-started-btn" href="javascript:;">Get Started</a>
+                        <a class="sub-get-started-btn" href="{{ route('login') }}">Get Started</a>
                     </div>
                 </div>
 
@@ -268,37 +268,37 @@
 
                     <div class="col-6 col-lg-4">
                         <div class="sub-easy-to-use-box sub-expanding-hgt">
-                            <img src="assets/images/01-expanding.png" alt="" />
+                            <img src="assets/images/student-diversity.png" height="71" alt="" />
                             <h6>Increase Student Diversity</h6>
                         </div>
                     </div>
                     <div class="col-6 col-lg-4">
                         <div class="sub-easy-to-use-box sub-expanding-hgt">
-                            <img src="assets/images/02-expanding.png" alt="" />
+                            <img src="assets/images/quality-applications-education.png" height="71" alt="" />
                             <h6>Receive Quality Applications</h6>
                         </div>
                     </div>
                     <div class="col-6 col-lg-4">
                         <div class="sub-easy-to-use-box sub-expanding-hgt">
-                            <img src="assets/images/03-expanding.png" alt="" />
+                            <img src="assets/images/03-expanding.png" height="71" alt="" />
                             <h6>Approved Recruiter Network</h6>
                         </div>
                     </div>
                     <div class="col-6 col-lg-4">
                         <div class="sub-easy-to-use-box sub-expanding-hgt">
-                            <img src="assets/images/01-expanding.png" alt="" />
+                            <img src="assets/images/verify.png" height="71" alt="" />
                             <h6>Document Verification</h6>
                         </div>
                     </div>
                     <div class="col-6 col-lg-4">
                         <div class="sub-easy-to-use-box sub-expanding-hgt">
-                            <img src="assets/images/02-expanding.png" alt="" />
+                            <img src="assets/images/promotional.png" height="71" alt="" />
                             <h6>Promotional Channels</h6>
                         </div>
                     </div>
                     <div class="col-6 col-lg-4">
                         <div class="sub-easy-to-use-box sub-expanding-hgt">
-                            <img src="assets/images/03-expanding.png" alt="" />
+                            <img src="assets/images/applicant-matching.png" height="71" alt="" />
                             <h6>Applicant Matching</h6>
                         </div>
                     </div>
@@ -307,7 +307,7 @@
 
                 <div class="col-lg-12">
                     <div class="sub-explore-btn">
-                        <a class="sub-get-started-btn" href="javascript:;">Let’s Get Started</a>
+                        <a class="sub-get-started-btn" href="{{ route('login') }}">Let’s Get Started</a>
                     </div>
                 </div>
 
@@ -640,7 +640,8 @@
 
                                     <div class="col-lg-12">
                                         <div class="sub-explore-btn">
-                                            <a class="sub-get-started-btn" href="javascript:;">Explore Institutions</a>
+                                            <a class="sub-get-started-btn" href="{{ route('login') }}">Explore
+                                                Institutions</a>
                                         </div>
                                     </div>
 
