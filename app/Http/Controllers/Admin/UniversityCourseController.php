@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Models\ProgramIntake;
 use App\Models\EducationLevel;
 use App\Models\University\Program;
 use Illuminate\Support\Facades\DB;
@@ -30,12 +31,21 @@ class UniversityCourseController extends Controller
             //code...
             $request['user_id'] = $request->university_id;
             $request['slug'] = Str::slug($request->program_title);
-            $request['program_till_date'] = json_encode($request->program_till_date);
+            // $request['program_till_date'] = json_encode($request->program_till_date);
             // return $request->all();
             DB::beginTransaction();
 
             $program = Program::Create($request->all());
 
+            foreach ($request->intake_status as $key => $value) {
+                ProgramIntake::create([
+                    'program_id' => $program->id,
+                    'intake_status' => $value,
+                    'deadline' => $request->intake_deadline[$key],
+                    'open_date' => $request->open_date[$key],
+                    'intake_date' => $request->intake_date[$key],
+                ]);
+            }
 
             if ($request->has('student_attachment')) {
                 foreach ($request->student_attachment as $image) {
@@ -67,12 +77,14 @@ class UniversityCourseController extends Controller
                     $program->addMedia($image)->toMediaCollection('program-self-introduction-attachment');
                 }
             }
-            DB::commit();
 
-            return redirect()->back();
+
+            DB::commit();
+            return redirect()->back()->with('success', 'Program Created Successfully');
         } catch (\Throwable $th) {
             //throw $th;
             DB::rollback();
+            return redirect()->back()->with('error', $th->getMessage());
             return $th->getMessage();
         }
     }

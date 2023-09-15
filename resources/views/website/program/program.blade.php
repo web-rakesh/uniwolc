@@ -102,12 +102,13 @@
                                 <div class="form-group">
                                     <label>English Exam Type</label>
                                     <select class="form-control" name="english_exam_type">
-                                        <option selected="selected" value="">I don't have this</option>
-                                        <option>I will provide this later</option>
-                                        <option>TOEFL</option>
-                                        <option>IETLS</option>
-                                        <option>Duolingo English Test</option>
-                                        <option>PTE</option>
+                                        <option value="">Select...</option>
+                                        <option value="I don't have this">I don't have this</option>
+                                        <option value="I will provide this later">I will provide this later</option>
+                                        <option value="TOEFL">TOEFL</option>
+                                        <option value="IETLS">IETLS</option>
+                                        <option value="Duolingo">Duolingo English Test</option>
+                                        <option value="PTE">PTE</option>
                                     </select>
                                 </div>
                                 {{-- <div class="form-group sub-border-none">
@@ -128,7 +129,7 @@
                                 <div class="form-group">
                                     <label>Countries</label>
                                     <select class="form-control" name="school_country" id="school_country">
-                                        <option selected="selected">Select...</option>
+                                        <option value="">Select...</option>
                                         @foreach ($countries as $county)
                                             <option value="{{ $county->id }}">{{ $county->name }}</option>
                                         @endforeach
@@ -187,7 +188,7 @@
                                 </div>
                                 <div class="form-group sub-border-none">
                                     <label>Schools</label>
-                                    <select class="form-control">
+                                    <select class="form-control" id="country_by_school" name="country_school">
                                         <option value="">Select...</option>
                                         @foreach ($schools as $item)
                                             <option value="{{ $item->id }}">{{ $item->university_name }}</option>
@@ -215,25 +216,69 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label>Intakes</label>
-                                    <select class="form-control">
-                                        <option selected="selected">Select...</option>
-                                        <option>Dec 2022 - Mar 2023</option>
-                                        <option>February 2023</option>
-                                        <option>March 2023</option>
-                                        <option>Apr - Jul 2023</option>
-                                        <option>April 2023</option>
-                                        <option>May 2023</option>
+                                    <label>Intakes </label>
+                                    <select class="form-control" id="intake" name="intake">
+                                        <option value="">Select...</option>
+                                        <optgroup label="Aug - Nov 2023">
+                                            <option value="{{ date('2023-09-01') }}">
+                                                {{ date('F Y', strtotime('2023-09-23')) }}</option>
+                                            <option value="{{ date('2023-10-10') }}">
+                                                {{ date('F Y', strtotime('2023-10-23')) }}</option>
+                                            <option value="{{ date('2023-11-10') }}">
+                                                {{ date('F Y', strtotime('2023-11-23')) }}</option>
+
+                                        </optgroup>
+                                        <optgroup label="Dec 2023 - Mar 2024">
+                                            <option value="{{ date('2023-12-01') }}">
+                                                {{ date('F Y', strtotime('2023-12-01')) }}</option>
+                                            <option value="{{ date('2024-01-01') }}">
+                                                {{ date('F Y', strtotime('2024-01-01')) }}</option>
+                                            <option value="{{ date('2024-02-01') }}">
+                                                {{ date('F Y', strtotime('2024-02-01')) }}</option>
+                                            <option value="{{ date('2024-03-01') }}">
+                                                {{ date('F Y', strtotime('2024-03-01')) }}</option>
+                                        </optgroup>
+                                        <optgroup label="Apr - Jul 2024">
+                                            <option value="{{ date('2024-04-01') }}">
+                                                {{ date('F Y', strtotime('2024-04-01')) }}</option>
+                                            <option value="{{ date('2024-05-01') }}">
+                                                {{ date('F Y', strtotime('2024-05-01')) }}</option>
+                                            <option value="{{ date('2024-06-01') }}">
+                                                {{ date('F Y', strtotime('2024-06-01')) }}</option>
+                                            <option value="{{ date('2024-07-01') }}">
+                                                {{ date('F Y', strtotime('2024-07-01')) }}</option>
+                                        </optgroup>
+                                        <optgroup label="Aug - Nov 2024">
+                                            <option value="{{ date('2024-08-01') }}">
+                                                {{ date('F Y', strtotime('2024-08-01')) }}</option>
+                                            <option value="{{ date('2024-09-01') }}">
+                                                {{ date('F Y', strtotime('2024-09-01')) }}</option>
+                                            <option value="{{ date('2024-10-01') }}">
+                                                {{ date('F Y', strtotime('2024-10-01')) }}</option>
+                                            <option value="{{ date('2024-11-01') }}">
+                                                {{ date('F Y', strtotime('2024-11-01')) }}</option>
+                                        </optgroup>
+                                        <optgroup label="Dec 2024 - Apr 2025">
+                                            <option value="{{ date('2024-12-01') }}">
+                                                {{ date('F Y', strtotime('2024-12-01')) }}</option>
+                                            <option value="{{ date('2025-01-01') }}">
+                                                {{ date('F Y', strtotime('2025-01-01')) }}</option>
+                                            <option value="{{ date('2025-02-01') }}">
+                                                {{ date('F Y', strtotime('2025-02-01')) }}</option>
+                                            <option value="{{ date('2025-03-01') }}">
+                                                {{ date('F Y', strtotime('2025-03-01')) }}</option>
+                                        </optgroup>
                                     </select>
+
                                 </div>
                                 <div class="form-group">
                                     <label>Intakes Status</label>
-                                    <select class="form-control" disabled>
-                                        <option selected="selected">Select...</option>
-                                        <option>Open</option>
-                                        <option>Likely Open</option>
-                                        <option>Will Open</option>
-                                        <option>Waitlist</option>
+                                    <select class="form-control" name="intake_status" id="intake_status" disabled>
+                                        <option value="">Select...</option>
+                                        <option value="1">Open</option>
+                                        <option value="">Likely Open</option>
+                                        <option value="">Will Open</option>
+                                        <option value="">Waitlist</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
@@ -261,44 +306,101 @@
                                 </div>
                                 <div class="form-group sub-border-none">
                                     <div class="d-flex flex-wrap justify-content-between">
-                                        <div><label>Tuition Fee</label></div>
+                                        <div>
+                                            <label>Tuition Fee</label>
+
+
+                                        </div>
+
+
+
                                         <div>
                                             <div class="sub-school-border-none">
                                                 <div class="form-check">
                                                     <input type="checkbox" class="form-check-input" id="exampleCheck8">
                                                     <label class="form-check-label" for="exampleCheck8">Include living
                                                         costs</label>
+
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-12">
+                                            <div class="range-slider">
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <div id="tuition-slider-range"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="slider-labels">
+                                                    <div class="caption"><span id="tuition-slider-range-value1"></span>
+                                                    </div>
+                                                    <div class="text-right caption"><span
+                                                            id="tuition-slider-range-value2"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <input type="hidden" name="tuition_min_value"
+                                                            id="tuition_min_value">
+                                                        <input type="hidden" name="tuition_max_value"
+                                                            id="tuition_max_value">
+
+                                                    </div>
                                                 </div>
                                             </div>
+
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="form-group sub-border-none">
+
                                     <div class="range-slider">
-                                        <div class="row">
+                                        {{-- <div class="row">
                                             <div class="col-sm-12">
                                                 <div id="slider-range"></div>
                                             </div>
                                         </div>
-                                        <div class="slider-labels">
+                                       <div class="slider-labels">
                                             <div class="caption"><span id="slider-range-value1"></span></div>
                                             <div class="text-right caption"><span id="slider-range-value2"></span></div>
-                                        </div>
+                                        </div> --}}
                                         <div class="row">
                                             <div class="col-sm-12">
+                                                <label>Application Fee:</label><br>
+                                                <div class="range-slider">
+                                                    <div class="row">
+                                                        <div class="col-sm-12 px-4">
+                                                            <div id="slider-range"></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="slider-labels">
+                                                        <div class="caption"><span id="slider-range-value1"></span></div>
+                                                        <div class="text-right caption"><span
+                                                                id="slider-range-value2"></span></div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-sm-12">
+                                                            <input type="hidden" id="min-value"
+                                                                name="application_min_value" value="">
+                                                            <input type="hidden" id="max-value"
+                                                                name="application_max_value" value="">
 
-                                                <input type="hidden" name="min-value" value="">
-                                                <input type="hidden" name="max-value" value="">
+                                                        </div>
+                                                    </div>
+                                                </div>
 
                                             </div>
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="form-group sub-border-none">
+                                {{-- <div class="form-group sub-border-none">
                                     <label>Application Fee</label>
-                                </div>
+                                </div> --}}
 
                                 <div class="form-group sub-border-none">
                                     <div class="row sub-form-btn-appl-clear d-flex flex-wrap justify-content-between">
@@ -333,13 +435,21 @@
                         </div>
                         <div class="course-tab-relevance sub-cour-two-right">
                             <div class="form-group">
-                                <select class="form-control">
+                                <select class="form-control" id="relevance_filter">
                                     <option value="" selected="selected">Relevance</option>
-                                    <option value="School Rank">School Rank</option>
-                                    <option value="Tuition (Low to High)">Tuition (Low to High)</option>
-                                    <option value="Tuition (High to Low)">Tuition (High to Low)</option>
-                                    <option value="Application Fee (Low to High)">Application Fee (Low to High)</option>
-                                    <option value="Application Fee (High to Low)">Application Fee (High to Low)</option>
+                                    <option value="school_rank">School Rank</option>
+                                    <option value="tuition_l_h">
+                                        Tuition (Low to High)
+                                    </option>
+                                    <option value="tuition_h_l">
+                                        Tuition (High to Low)
+                                    </option>
+                                    <option value="application_fee_l_h">
+                                        Application Fee (Low to High)
+                                    </option>
+                                    <option value="application_fee_h_l">
+                                        Application Fee (High to Low)
+                                    </option>
                                 </select>
                             </div>
                         </div>
@@ -434,200 +544,25 @@
 
                             <!-- course-details-2 -->
                             <div class="tab-pane" id="course-details-2">
-                                <div class="d-flex flex-wrap align-items-center justify-content-center">
+                                <div class="d-flex flex-wrap align-items-center justify-content-center" id="school_list">
+                                    @include('website.program.school-list')
+                                    {{-- <div class="col-lg-6">
+                                        <div class="sub-agent-content">
+                                            <div>
+                                                <div class="sub-agent-icon">
+                                                    <img src="assets/images/courses/Cambridge_ Education.png"
+                                                        alt="" />
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <div class="sub-agent-text">
+                                                    <a href="javascript:;">University of Greenwich (Medway Campus) Chattam
+                                                        , South East</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div> --}}
 
-                                    <div class="col-lg-6">
-                                        <div class="sub-agent-content">
-                                            <div>
-                                                <div class="sub-agent-icon">
-                                                    <img src="assets/images/courses/Cambridge_ Education.png"
-                                                        alt="" />
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <div class="sub-agent-text">
-                                                    <a href="javascript:;">University of Greenwich (Medway Campus) Chattam
-                                                        , South East</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <div class="sub-agent-content">
-                                            <div>
-                                                <div class="sub-agent-icon">
-                                                    <img src="assets/images/courses/Cambridge_ Education.png"
-                                                        alt="" />
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <div class="sub-agent-text">
-                                                    <a href="javascript:;">University of Greenwich (Medway Campus) Chattam
-                                                        , South East</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <div class="sub-agent-content">
-                                            <div>
-                                                <div class="sub-agent-icon">
-                                                    <img src="assets/images/courses/Cambridge_ Education.png"
-                                                        alt="" />
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <div class="sub-agent-text">
-                                                    <a href="javascript:;">University of Greenwich (Medway Campus) Chattam
-                                                        , South East</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <div class="sub-agent-content">
-                                            <div>
-                                                <div class="sub-agent-icon">
-                                                    <img src="assets/images/courses/Cambridge_ Education.png"
-                                                        alt="" />
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <div class="sub-agent-text">
-                                                    <a href="javascript:;">University of Greenwich (Medway Campus) Chattam
-                                                        , South East</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <div class="sub-agent-content">
-                                            <div>
-                                                <div class="sub-agent-icon">
-                                                    <img src="assets/images/courses/Cambridge_ Education.png"
-                                                        alt="" />
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <div class="sub-agent-text">
-                                                    <a href="javascript:;">University of Greenwich (Medway Campus) Chattam
-                                                        , South East</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <div class="sub-agent-content">
-                                            <div>
-                                                <div class="sub-agent-icon">
-                                                    <img src="assets/images/courses/Cambridge_ Education.png"
-                                                        alt="" />
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <div class="sub-agent-text">
-                                                    <a href="javascript:;">University of Greenwich (Medway Campus) Chattam
-                                                        , South East</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <div class="sub-agent-content">
-                                            <div>
-                                                <div class="sub-agent-icon">
-                                                    <img src="assets/images/courses/Cambridge_ Education.png"
-                                                        alt="" />
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <div class="sub-agent-text">
-                                                    <a href="javascript:;">University of Greenwich (Medway Campus) Chattam
-                                                        , South East</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <div class="sub-agent-content">
-                                            <div>
-                                                <div class="sub-agent-icon">
-                                                    <img src="assets/images/courses/Cambridge_ Education.png"
-                                                        alt="" />
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <div class="sub-agent-text">
-                                                    <a href="javascript:;">University of Greenwich (Medway Campus) Chattam
-                                                        , South East</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <div class="sub-agent-content">
-                                            <div>
-                                                <div class="sub-agent-icon">
-                                                    <img src="assets/images/courses/Cambridge_ Education.png"
-                                                        alt="" />
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <div class="sub-agent-text">
-                                                    <a href="javascript:;">University of Greenwich (Medway Campus) Chattam
-                                                        , South East</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <div class="sub-agent-content">
-                                            <div>
-                                                <div class="sub-agent-icon">
-                                                    <img src="assets/images/courses/Cambridge_ Education.png"
-                                                        alt="" />
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <div class="sub-agent-text">
-                                                    <a href="javascript:;">University of Greenwich (Medway Campus) Chattam
-                                                        , South East</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <div class="sub-agent-content">
-                                            <div>
-                                                <div class="sub-agent-icon">
-                                                    <img src="assets/images/courses/Cambridge_ Education.png"
-                                                        alt="" />
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <div class="sub-agent-text">
-                                                    <a href="javascript:;">University of Greenwich (Medway Campus) Chattam
-                                                        , South East</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <div class="sub-agent-content">
-                                            <div>
-                                                <div class="sub-agent-icon">
-                                                    <img src="assets/images/courses/Cambridge_ Education.png"
-                                                        alt="" />
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <div class="sub-agent-text">
-                                                    <a href="javascript:;">University of Greenwich (Medway Campus) Chattam
-                                                        , South East</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
 
                                 </div>
                             </div>
@@ -700,38 +635,57 @@
                     url: "{{ route('programs.school.location.study.search') }}", // The URL to send the data to
                     type: 'GET', // The HTTP method to use
                     data: formData, // The data to send
-                    success: function(response) {
-                        $('#program-list').html(
-                            response); // Display the response from the server
+                    beforeSend: function() {
+                        $('#loader').removeClass('hidden')
                     },
-                    error: function() {
-                        $('#program-list').html('There was an error'); // Handle errors
-                    }
+                    success: function(response) {
+                        // console.log('response', response);
+                        $('#program-list').html(response
+                            .programS); // Display the response from the server
+                        $('#school_list').html(response.schoolLists);
+                    },
+                    complete: function() {
+                        $('#loader').addClass('hidden')
+                    },
+
+
                 });
             });
 
             $('#school_program_filter').submit(function(e) {
                 e.preventDefault(); // Prevent the form from submitting via the browser
-
+                $("#eligibility").trigger("reset");
                 var formData = $(this).serialize(); // Serialize the form data
 
                 $.ajax({
                     url: "{{ route('programs.school.program.search') }}", // The URL to send the data to
                     type: 'GET', // The HTTP method to use
                     data: formData, // The data to send
-                    success: function(response) {
-                        $('#program-list').html(
-                            response); // Display the response from the server
+                    beforeSend: function() {
+                        $('#loader').removeClass('hidden')
                     },
+                    success: function(response) {
+                        // console.log('response', response);
+                        $('#program-list').html(response
+                            .programLists); // Display the response from the server
+                        $('#school_list').html(response.schoolLists);
+                    },
+                    complete: function() {
+                        $('#loader').addClass('hidden')
+                    },
+
                     error: function() {
+                        $('#loader').addClass('hidden')
                         $('#program-list').html('There was an error'); // Handle errors
                     }
                 });
             });
+
+            $("#eligibility_submit_button").click()
         });
 
         $(document).on('click', '#reset_btn', function() {
-            console.log('reset');
+            location.reload(true);
             $("#school_location_study").trigger("reset");
             $("#eligibility").trigger("reset");
             $("#school_program_filter").trigger("reset");
@@ -748,6 +702,7 @@
 
         $('#eligibility').submit(function(e) {
             e.preventDefault();
+            $("#school_program_filter").trigger("reset");
             var query = $(this).val();
             var formData = $(this).serialize();
 
@@ -756,10 +711,18 @@
                 url: "{{ route('programs.eligibility') }}",
                 type: 'GET',
                 data: formData,
-                success: function(data) {
-                    console.log('data', data);
-                    $('#program-list').html(data);
-                }
+                beforeSend: function() {
+                    $('#loader').removeClass('hidden')
+                },
+                success: function(response) {
+                    // console.log('data', response);
+                    $('#program-list').html(response
+                        .programLists); // Display the response from the server
+                    $('#school_list').html(response.schoolLists);
+                },
+                complete: function() {
+                    $('#loader').addClass('hidden')
+                },
             });
         });
 
@@ -794,10 +757,9 @@
                 method: 'GET',
                 data: {
                     id_country: id_country,
-
                 },
                 success: function(data) {
-
+                    console.log('data', data);
                     $('#provinces_state').html('<option value="">Select State</option>');
                     $.each(data.states, function(key, value) {
 
@@ -807,11 +769,25 @@
                     $('#city-dropdown').html(
                         '<option value="">Select State First</option>');
 
-                    // getState(stateIdUpd)
+                    $('#country_by_school').html('<option value="">Select ...</option>');
+                    if (data.school.length > 0) {
+
+                        $.each(data.school, function(key, value) {
+
+                            $("#country_by_school").append('<option value="' + value.id +
+                                '" >' + value.university_name + '</option>');
+                        });
+                    }
+
+                    // getState(stateIdUpd) school_list
                 }
             });
         }
 
+        $("#intake").on('change', function() {
+
+            $("#intake_status").attr('disabled', false);
+        })
 
         $('#provinces_state').on('change', function() {
             var idState = this.value;
@@ -837,5 +813,36 @@
                 }
             });
         }
+
+        $('#relevance_filter').on('change', function() {
+            var relevance = this.value;
+            var formData = $('#school_program_filter').serialize();
+            if ($('#eligibility').serialize()) {
+                formData = formData + '&' + $('#eligibility').serialize();
+            }
+
+            $.ajax({
+                url: "{{ route('programs.school.program.search') }}", // The URL to send the data to
+                type: 'GET', // The HTTP method to use
+                data: formData + '&relevance=' + relevance, // The data to send
+                beforeSend: function() {
+                    $('#loader').removeClass('hidden')
+                },
+                success: function(response) {
+                    // console.log('response', response);
+                    $('#program-list').html(response
+                        .programLists); // Display the response from the server
+                    $('#school_list').html(response.schoolLists);
+                },
+                complete: function() {
+                    $('#loader').addClass('hidden')
+                },
+
+                error: function() {
+                    $('#loader').addClass('hidden')
+                    $('#program-list').html('There was an error'); // Handle errors
+                }
+            });
+        })
     </script>
 @endpush

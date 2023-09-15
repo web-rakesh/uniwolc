@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Staff;
 use App\Models\Country;
 use Illuminate\Http\Request;
+use App\Models\GradingScheme;
 use App\Models\AgentCommission;
 use App\Models\Student\TestScore;
 use App\Models\Student\VisaPermit;
@@ -14,8 +15,10 @@ use App\Models\University\Program;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Models\Student\ApplyProgram;
+use App\Models\WizardQuestionAnswer;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use App\Models\CategoriesOfEducation;
 use App\Models\Student\StudentDetail;
 use App\Models\Student\EducationSummary;
 use App\Models\University\ProfileDetail;
@@ -43,7 +46,113 @@ class StudentDetailController extends Controller
 
     public function program()
     {
-        return view('students.programs');
+        $countries = Country::all();
+        $educationLevels = CategoriesOfEducation::with('educationLevels')->get();
+        $programs = Program::latest()->paginate(10);
+        $programCount = Program::count();
+        $schoolCount = ProfileDetail::count();
+        $schools = ProfileDetail::select('id', 'university_name')->latest()->get();
+        $schoolLists = ProfileDetail::latest()->take(30)->get();
+
+
+
+        $quick_data = [
+            'quick_search' => true,
+            'nationality' => '',
+            'residence' => '',
+            'state' => '',
+            'visa' => '',
+            'countryEducation' => '',
+        ];
+
+
+        return view(
+            'students.quick_search.quick-search',
+            compact(
+                'programs',
+                'programCount',
+                'schoolCount',
+                'countries',
+                'educationLevels',
+                'schools',
+                'schoolLists',
+                'quick_data'
+            )
+        );
+    }
+
+    public function quickSearch()
+    {
+
+
+        $countries = Country::all();
+        $gradingSchemeAll = GradingScheme::all();
+        $educationLevels = CategoriesOfEducation::with('educationLevels')->get();
+        $programs = Program::latest()->paginate(10);
+        $programCount = Program::count();
+        $schoolCount = ProfileDetail::count();
+        $schools = ProfileDetail::select('id', 'university_name')->latest()->get();
+        $schoolLists = ProfileDetail::latest()->take(30)->get();
+
+        $nationality =   WizardQuestionAnswer::select('answer_from_category', 'answer_from_subcategory', 'answer_from_table', 'answer_value_from_table')
+            ->where('screen_id', 7)
+            ->where('student_id', Auth::user()->id)->first()->answer_value_from_table;
+        $residence =   WizardQuestionAnswer::select('answer_from_category', 'answer_from_subcategory', 'answer_from_table', 'answer_value_from_table')
+            ->where('screen_id', 8)
+            ->where('student_id', Auth::user()->id)->first()->answer_value_from_table;
+        $state =   WizardQuestionAnswer::select('answer_from_category', 'answer_from_subcategory', 'answer_from_table', 'answer_value_from_table')
+            ->where('screen_id', 9)
+            ->where('student_id', Auth::user()->id)->first()->answer_value_from_table;
+
+        $visa =   WizardQuestionAnswer::select('answer_from_category', 'answer_from_subcategory', 'answer_from_table', 'answer_value', 'answer_value_from_table')
+            ->where('screen_id', 10)
+            ->where('student_id', Auth::user()->id)->first()->answer_value;
+
+        $countryEducation =   WizardQuestionAnswer::select('answer_from_category', 'answer_from_subcategory', 'answer_from_table', 'answer_value_from_table')
+            ->where('screen_id', 11)
+            ->where('answer_from_table', 'countries')
+            ->where('student_id', Auth::user()->id)->first()->answer_value_from_table;
+
+        $levelOfEducations =   WizardQuestionAnswer::select('answer_from_category', 'answer_from_subcategory', 'answer_from_table', 'answer_value_from_table')
+            ->where('screen_id', 11)
+            ->where('answer_from_table', 'level_of_educations')
+            ->where('student_id', Auth::user()->id)->first()->answer_value_from_table ?? '11';
+
+        $gradingSchemes =   WizardQuestionAnswer::select('answer_from_category', 'answer_from_subcategory', 'answer_from_table', 'answer_value_from_table')
+            ->where('screen_id', 11)
+            ->where('answer_from_table', 'grading_schemes')
+            ->where('student_id', Auth::user()->id)->first()->answer_value_from_table ?? '11';
+        $englishTest =   WizardQuestionAnswer::select('answer_from_category', 'answer_from_subcategory', 'answer_from_table', 'answer_value_from_table', 'answer_value')
+            ->where('screen_id', 13)
+            ->where('student_id', Auth::user()->id)->first();
+
+
+        $quick_data = [
+            'nationality' => @$nationality,
+            'residence' => @$residence,
+            'state' => @$state,
+            'visa' => @$visa,
+            'countryEducation' => @$countryEducation,
+            'englishTest' => @$englishTest->answer_value,
+            'levelOfEducations' => @$levelOfEducations,
+            'gradingSchemes' => @$gradingSchemes,
+        ];
+
+
+        return view(
+            'students.quick_search.quick-search',
+            compact(
+                'programs',
+                'programCount',
+                'schoolCount',
+                'countries',
+                'educationLevels',
+                'gradingSchemeAll',
+                'schools',
+                'schoolLists',
+                'quick_data'
+            )
+        );
     }
 
     public function programDetail($slug)
@@ -222,7 +331,7 @@ class StudentDetailController extends Controller
      */
     public function store(StoreStudentDetailRequest $request)
     {
-        return $request->all();
+        // return $request->all();
         // return $request->user_id;
         try {
             //code...
@@ -270,7 +379,6 @@ class StudentDetailController extends Controller
                 $request['user_id'] = $userId;
                 $userId = $userId;
                 $redirectUrl = 'staff.student';
-                
             } else {
                 $request['user_id'] = Auth::user()->id;
                 $redirectUrl = 'student.student-detail.index';

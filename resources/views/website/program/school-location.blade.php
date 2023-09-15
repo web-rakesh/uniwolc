@@ -1,9 +1,7 @@
-@forelse ($schoolLocationResult as $item)
-    <ul class="dropdown-menu d-block position-relative w-100 job-search-dropdown" role="menu">
+<ul class="dropdown-menu custome-dropdown-menu d-block position-relative w-100 job-search-dropdown" role="menu">
+    @forelse ($schoolLocationResult as $item)
         <li>{{ $item->university_name }}</li>
-    </ul>
-@empty
-    <ul class="dropdown-menu d-block position-relative w-100 job-search-dropdown" role="menu">
+    @empty
         <li>No Result Found</li>
-    </ul>
-@endforelse
+    @endforelse
+</ul>

@@ -1,7 +1,4 @@
 @extends('admin.layouts.layout')
-@push('css')
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-@endpush
 @section('content')
     <div class="content-wrapper">
         <div class="page-header">
@@ -18,13 +15,14 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title mb-4">Add Programs </h4>
+                        @include('flash-messages')
                         {{-- <p class="card-description"> Basic form elements </p> --}}
                         <form class="forms-sample" method="post" action="{{ route('admin.university.course.store') }}"
                             enctype="multipart/form-data">
                             @csrf
 
                             <div class="form-group">
-                                <select class="form-select" name="university_id" required>
+                                <select class="form-select" name="university_id" id="universityList" required>
                                     <option value="">Select University</option>
                                     @foreach ($universities as $university)
                                         <option value="{{ $university->user_id }}"> {{ $university->university_name }}
@@ -48,8 +46,7 @@
                             </div>
                             <div class="form-group">
                                 <label class="labels">Minimum Level of Education Completed</label>
-                                <select class="form-control" name="minimum_level_education">
-
+                                <select class="form-control minimum-level-education" name="minimum_level_education">
                                     @foreach ($educationLevels as $educationLevel)
                                         <option value="{{ $educationLevel->id }}"> {{ $educationLevel->level_name }}
                                         </option>
@@ -104,7 +101,7 @@
                                 <input type="text" class="form-control" name="agent_commission" value=""
                                     required="">
                             </div>
-                            <div class="form-group">
+                            {{-- <div class="form-group">
                                 <label class="labels">Deadline</label>
                                 <input type="date" class="form-control" id="deadline" name="deadline" value="">
                             </div>
@@ -122,7 +119,7 @@
                                 <input type="date" class="form-control" id="date-field" name="program_till_date"
                                     value="">
 
-                            </div>
+                            </div> --}}
                             <div class="form-group">
                                 <label class="labels"><b>Commissions</b></label>
 
@@ -221,6 +218,47 @@
                                     multiple>
                             </div>
 
+                            <div class="form-group">
+                                <label class="labels"><b>Intakes</b></label>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <label class="labels"><b>Deadline</b> </label>
+                                        <input type="date" class="form-control deadline" name="intake_deadline[]">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="labels"><b>Program Intakes Status</b> </label>
+                                        <select class="form-select" id="select-option" required=""
+                                            name="intake_status[]">
+                                            <option value="1">Open</option>
+                                            <option value="2">Likely Open</option>
+                                            <option value="2">Will Open</option>
+                                            <option value="2">Wait List</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="labels"><b>Open Date</b> </label>
+                                        <input type="date" class="form-control" id="date-field" name="open_date[]"
+                                            required="">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="labels"><b>Program Intakes</b> </label>
+                                        <input type="date" class="form-control" id="date-field" name="intake_date[]"
+                                            required="">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="labels"><b></b> </label>
+                                        <button type="button" id="intakeMoreAdd"
+                                            class="btn btn-gradient-primary me-2">Add</button>
+                                    </div>
+                                </div>
+                                <div id="intakeAddMoreField">
+
+                                </div>
+                            </div>
+
 
                             <button type="submit" class="btn btn-gradient-primary me-2">Submit</button>
                             <button class="btn btn-light">Cancel</button>
@@ -233,18 +271,21 @@
 @endsection
 
 @push('js')
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script>
         $(document).ready(function() {
             var selectedDates = [];
 
-            flatpickr("#date-field", {
+            $('#universityList, .minimum-level-education').select2({
+                placeholder: 'Select an option',
+                allowClear: true
+            });
+
+            flatpickr("#date-field, .deadline", {
                 mode: "multiple",
                 dateFormat: "Y-m-d"
             });
 
             flatpickr("#deadline", {
-
                 dateFormat: "Y-m-d",
                 minDate: "today"
             })
@@ -262,6 +303,47 @@
                 }
             });
 
+
+            $("#intakeMoreAdd").on('click', function() {
+                var html = `<div class="row">
+                                    <div class="col-md-2">
+                                        <label class="labels"><b>Deadline</b> </label>
+                                        <input type="date" class="form-control deadline" name="intake_deadline[]">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="labels"><b>Program Intake Status</b> </label>
+                                        <select class="form-select" id="select-option"  required="" name="intake_status[]">
+                                            <option value="1">Open</option>
+                                            <option value="2">Likely Open</option>
+                                            <option value="3">Will Open</option>
+                                            <option value="4">Wait List</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="labels"><b>Open Date</b> </label>
+                                        <input type="date" class="form-control intakeTillDate"
+                                            name="open_date[]" required="">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="labels"><b>Program Intakes</b> </label>
+                                        <input type="date" class="form-control intakeTillDate" name="intake_date[]"
+                                            value="">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <button type="button"
+                                            class="btn btn-gradient-danger reomveIntakeMoreField me-2">Removw</button>
+                                    </div>
+                                </div>`;
+                $("#intakeAddMoreField").append(html);
+                flatpickr(".deadline, .intakeTillDate", {
+                    dateFormat: "Y-m-d"
+                });
+
+            });
+
+            $(document).on('click', '.reomveIntakeMoreField', function() {
+                $(this).closest('.row').remove();
+            });
         });
     </script>
 @endpush

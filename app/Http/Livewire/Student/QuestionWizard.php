@@ -33,36 +33,42 @@ class QuestionWizard extends Component
     {
         $this->formData = [];
         $saveData = WizardQuestionAnswer::whereStudentId(Auth::user()->id)->whereScreenId($this->currentStep)->get();
-
+        // dd($this->currentStep);
+        // dd($saveData);
+        // $test = [];
         foreach ($saveData ?? [] as $key => $value) {
             # code...
             $rbb = QuestionCategory::find($value->answer_from_category);
+            if ($key == 3) {
 
-            // dd($value);
-            // dd($rbb);
+                // dd($rbb);
+            }
+            // dd($rbb->type.''.$value->answer_value);
             if ($value->answer_from_table != null) {
 
-                if ($value->answer_from_table == 'countries') {
+                if ($value->answer_from_table != 'categories_of_educations' && $value->answer_from_table == 'countries' && $value->answer_from_table != 'states' && $value->answer_from_table != 'level_of_educations' && $value->answer_from_table != 'grading_schemes') {
                     $this->country_id = (string)$value->answer_value_from_table;
-                } elseif ($value->answer_from_table == 'states') {
+                } elseif ($value->answer_from_table != 'categories_of_educations' && $value->answer_from_table != 'countries' && $value->answer_from_table == 'states' && $value->answer_from_table != 'level_of_educations' && $value->answer_from_table != 'grading_schemes') {
                     $this->state_id = (string)$value->answer_value_from_table;
-                } elseif ($value->answer_from_table == 'categories_of_education') {
+                } elseif ($value->answer_from_table == 'categories_of_educations') {
                     $this->categories_of_education_id = (string)$value->answer_value_from_table;
-                } elseif ($value->answer_from_table == 'level_of_education') {
+                } elseif ($value->answer_from_table != 'categories_of_educations' && $value->answer_from_table != 'countries' && $value->answer_from_table != 'states' && $value->answer_from_table == 'level_of_educations' && $value->answer_from_table != 'grading_schemes') {
                     $this->level_of_education_id = (string)$value->answer_value_from_table;
-                } elseif ($value->answer_from_table == 'grading_scheme') {
+                } elseif ($value->answer_from_table != 'categories_of_educations' && $value->answer_from_table != 'countries' && $value->answer_from_table != 'states' && $value->answer_from_table != 'level_of_educations' && $value->answer_from_table == 'grading_schemes') {
                     $this->grading_scheme_id = (string)$value->answer_value_from_table;
+                    // dd($this->grading_scheme_id);
                 }
-                // dd('');
+                // $this->formDataStr = (string)$value->answer_from_subcategory;
+            } else if ($rbb->type == 'radio' && $value->answer_from_table == null && $value->answer_value == null) {
                 $this->formDataStr = (string)$value->answer_from_subcategory;
-            } else if ($rbb->type == 'radio' && $value->answer_from_table == null) {
+            } else if ($rbb->type == 'radio' && $value->answer_value != null && $value->answer_from_table == null) {
 
                 $this->formDataStr = (string)$value->answer_from_subcategory;
             } elseif ($rbb->type == 'checkbox') {
                 array_push($this->formData, (string)$value->answer_from_subcategory);
             }
         }
-        // dd($saveData);
+        // dd($this->country_id . '' . $this->categories_of_education_id . '' );
     }
 
     public function prevStep()
@@ -81,8 +87,7 @@ class QuestionWizard extends Component
 
     public function submit()
     {
-        return redirect()->route('student.dashboard');
-        dd(WizardQuestionAnswer::all());
+        return redirect()->route('student.quick.search');
     }
 
     public function wizardFormStore()

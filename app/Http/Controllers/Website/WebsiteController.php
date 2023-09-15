@@ -164,13 +164,36 @@ class WebsiteController extends Controller
 
     public function program()
     {
+
         $countries = Country::all();
         $educationLevels = CategoriesOfEducation::with('educationLevels')->get();
         $programs = Program::latest()->paginate(10);
         $programCount = Program::count();
         $schoolCount = ProfileDetail::count();
         $schools = ProfileDetail::select('id', 'university_name')->latest()->get();
-        return view('website.program.program', compact('programs', 'programCount', 'schoolCount', 'countries', 'educationLevels', 'schools'));
+        $schoolLists = ProfileDetail::latest()->take(30)->get();
+        return view('website.program.program', compact('programs', 'programCount', 'schoolCount', 'countries', 'educationLevels', 'schools', 'schoolLists'));
+    }
+
+    public function programDetails($id, $slug)
+    {
+        $program = Program::with('intake')->where('id', $id)->where('slug', $slug)->first();
+        $intakes = $program->intake;
+        $recentPrograms = Program::latest()->whereNot('slug', $slug)->take(3)->get();
+        $university = ProfileDetail::where('user_id', $program->user_id)->first();
+        $universityImage = $university->getMedia('university-picture');
+        return view('website.program.program-details', compact('program', 'recentPrograms', 'universityImage', 'university', 'intakes'));
+    }
+
+    public function schoolDetails($id, $slug)
+    {
+
+
+        $schoolDetails = ProfileDetail::whereId($id)->where('slug', $slug)->first();
+
+        $universityImage = $schoolDetails->getMedia('university-picture');
+
+        return view('website.program.school-details', compact('schoolDetails', 'universityImage'));
     }
 
     public function programList()
@@ -217,7 +240,7 @@ class WebsiteController extends Controller
                 $query->whereHas('university', function ($query) use ($schoolLocation) {
 
                     $query->where('university_name', 'LIKE', "%{$schoolLocation}%");
-                    // $query->orWhere('location', 'LIKE', "%{$schoolLocation}%");
+                    $query->orWhere('location', 'LIKE', "%{$schoolLocation}%");
                 });
             })
             ->when($study, function ($query, $study) {
@@ -226,9 +249,31 @@ class WebsiteController extends Controller
                 $query->orWhere('program_length', 'LIKE', "%{$study}%");
             })
             ->latest()
-            ->paginate(10);
+            ->get();
 
-        return view('website.program.program-list', ['programs' => $schoolLocationResult])->render();
+        $programS = view('website.program.program-list', ['programs' => $schoolLocationResult])->render();
+
+
+        $schoolId = $schoolLocationResult->pluck('user_id');
+        $displaySchool = '';
+        if ($study != '' || $schoolLocation != '') {
+
+            $schoolId  = collect($schoolId)->unique();
+            $displaySchool = $schoolId->count() > 0 ? $schoolId : null;
+        }
+        $schools = ProfileDetail::query()
+            ->when($displaySchool, function ($query) use ($displaySchool) {
+
+                $query->whereIn('id', $displaySchool);
+            })
+            ->when($schoolLocation, function ($query) use ($schoolLocation) {
+                $query->where('university_name', 'LIKE', "%{$schoolLocation}%");
+                $query->orWhere('location', 'LIKE', "%{$schoolLocation}%");
+            })
+            ->latest()
+            ->paginate(50);
+        $schoolLists = view('website.program.school-list', ['schoolLists' => $schools])->render();
+        return response()->json(['programS' => $programS, 'schoolLists' => $schoolLists]);
     }
 
     public function programEligibility(Request $request)
@@ -239,7 +284,7 @@ class WebsiteController extends Controller
         $education_level = $request->education_level;
         $english_exam_type = $request->english_exam_type;
         $permit_visa = $request->permit_visa;
-        $schoolLocationResult = Program::query()
+        $programs = Program::query()
 
             ->when($education_country, function ($query) use ($education_country) {
                 $query->whereHas('university', function ($query) use ($education_country) {
@@ -255,9 +300,42 @@ class WebsiteController extends Controller
                 $query->where('program_level', 'LIKE', "%{$education_level}%");
             })
             ->latest()
-            ->paginate(10);
+            ->take(50)
+            ->get();
 
-        return view('website.program.program-list', ['programs' => $schoolLocationResult])->render();
+        $programShow = view('website.program.program-list', ['programs' => $programs])->render();
+
+
+        $schoolId = $programs->pluck('user_id');
+        $displaySchool = '';
+        if ($permit_visa != '') {
+
+            $schoolId  = collect($schoolId)->unique();
+            $displaySchool = $schoolId->count() > 0 ? $schoolId : null;
+        }
+
+        $schools = ProfileDetail::query()
+            ->when($displaySchool, function ($query) use ($displaySchool) {
+                $query->whereIn(
+                    'id',
+                    $displaySchool
+                );
+            })
+            ->when($education_country, function ($query) use ($education_country) {
+
+                $query->where('country', $education_country);
+            })
+
+            // ->when($permit_visa, function ($query) use ($permit_visa) {
+            //     $query->whereIn('permit_visa', $permit_visa);
+            // })
+
+            ->latest()
+            ->paginate(50);
+        // return $schools;
+        $schoolLists = view('website.program.school-list', ['schoolLists' => $schools])->render();
+        return response()->json(['programLists' => $programShow, 'schoolLists' => $schoolLists]);
+        // return view('website.program.program-list', compact('programs', 'schoolLists'))->render();
     }
 
     public function programSchoolProgramSearch(Request $request)
@@ -267,37 +345,124 @@ class WebsiteController extends Controller
         $provinces_state = $request->provinces_state;
         $campus_city = $request->campus_city;
         $school_type = $request->school_type;
+        $country_school = $request->country_school;
         $program_education_level = $request->program_education_level;
+        $relevance = $request->relevance;
+        $intake = $request->intake;
+        $intake_status = $request->intake_status;
+        $rangeValueTuition = $request->tuition_fee;
+        $application_min_value = $request->application_min_value;
+        $application_max_value = $request->application_max_value;
+        $tuition_min_value = $request->tuition_min_value == '0' ? '100' : $request->tuition_min_value;
+        $tuition_max_value = $request->tuition_max_value == '100000' ? '50000' :  $request->tuition_max_value;
 
         $schoolLocationResult = Program::query()
+
+            ->whereBetween('gross_tuition', [$tuition_min_value, $tuition_max_value])
+
+            ->when($application_min_value && $application_max_value, function ($query) use ($application_min_value, $application_max_value) {
+                $query->whereBetween('application_fee', [$application_min_value, $application_max_value]);
+            })
+            ->when($intake, function ($query) use ($intake) {
+                $query->whereHas('intake', function ($query) use ($intake) {
+                    $month = date('Y-m', strtotime($intake));
+                    $query->where('intake_date', 'LIKE', "%{$month}%");
+                });
+            })
+            // ->when($intake, function ($query) use ($intake) {
+            //     $month = date('Y-m', strtotime($intake));
+            //     $query->where('deadline', 'LIKE', "%{$month}%");
+            // })
+
+            ->when($intake_status, function ($query) use ($intake_status) {
+                $query->where('program_intake', $intake_status);
+            })
+
 
             ->when($school_type, function ($query) use ($school_type) {
                 $query->whereHas('university', function ($query) use ($school_type) {
                     $query->whereIn('institution_type', $school_type);
                 });
             })
+            ->when($country_school, function ($query) use ($country_school) {
+                $query->whereHas('university', function ($query) use ($country_school) {
+                    $query->where('id', $country_school);
+                });
+            })
 
-            ->when($school_country, function ($query) use ($school_country, $provinces_state, $campus_city) {
-                $query->whereHas('university', function ($query) use ($school_country, $provinces_state, $campus_city) {
+            ->when($school_country, function ($query) use ($school_country) {
+                $query->whereHas('university', function ($query) use ($school_country) {
                     $query->where('country', $school_country);
-                    $query->orWhere('state', $provinces_state);
-                    $query->orWhere('city', $campus_city);
+                });
+            })
+            ->when($provinces_state, function ($query) use ($provinces_state) {
+                $query->whereHas('university', function ($query) use ($provinces_state) {
+                    $query->where('state', $provinces_state);
                 });
             })
             ->when($program_education_level, function ($query, $program_education_level) {
                 $query->where('program_level', 'LIKE', "%{$program_education_level}%");
             })
-            ->latest()
-            ->paginate(10);
 
-        return view('website.program.program-list', ['programs' => $schoolLocationResult])->render();
+            ->when($relevance, function ($query, $relevance) {
+                // dd($relevance);
+                if ($relevance == 'tuition_l_h') {
+                    $query->orderBy('gross_tuition', 'asc');
+                } elseif ($relevance == 'tuition_h_l') {
+                    $query->orderBy('gross_tuition', 'desc');
+                } elseif ($relevance == 'application_fee_l_h') {
+                    $query->orderBy('application_fee', 'asc');
+                } elseif ($relevance == 'application_fee_h_l') {
+                    $query->orderBy('application_fee', 'desc');
+                } else {
+                }
+            })
+            ->latest()
+            ->take(80)
+            ->get();
+
+        $programLists = view('website.program.program-list', ['programs' => $schoolLocationResult])->render();
+
+        // return $country_school;
+
+        $schoolId = $schoolLocationResult->pluck('user_id');
+        $displaySchool = '';
+        if ($school_country == '') {
+
+            $schoolId  = collect($schoolId)->unique();
+            $displaySchool = $schoolId->count() > 0 ? $schoolId : null;
+        }
+        // return $school_country . ' - ' . $displaySchool . ' - ' . $school_type;
+        $schools = ProfileDetail::query()
+            // ->when($displaySchool, function ($query) use ($displaySchool) {
+            //     $query->whereIn('id', $displaySchool);
+            // })
+
+            ->when($school_country, function ($query) use ($school_country) {
+
+                $query->where('country', $school_country);
+            })
+
+            ->when($country_school, function ($query) use ($country_school) {
+                $query->where('id', $country_school);
+            })
+            // ->when($school_type, function ($query) use ($school_type) {
+            //     $query->whereIn('institution_type', $school_type);
+            // })
+            ->latest()
+            ->paginate(50);
+        $schoolLists = view('website.program.school-list', ['schoolLists' => $schools])->render();
+        return response()->json(['programLists' => $programLists, 'schoolLists' => $schoolLists]);
     }
 
     public function getCountry(Request $request)
     {
         $data['states'] = State::where("country_id", $request->id_country)
             ->get(["name", "id"]);
-        $data['currency'] =  get_currency($request->id_country);
+
+        // $data['currency'] =  get_currency($request->id_country);
+
+        $data['school'] =  ProfileDetail::select('id', 'university_name', 'country')->where('country', $request->id_country)->get();
         return response()->json($data);
     }
 

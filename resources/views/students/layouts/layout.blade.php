@@ -26,7 +26,9 @@
     </div>
     <!-- Application Process End -->
 
-
+    <!-- Loader -->
+    <div id="loader" class="lds-dual-ring hidden overlay"></div>
+    <!-- Loader End -->
     @include('students.layouts.script')
 
     @stack('js')

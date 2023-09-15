@@ -117,6 +117,8 @@ Route::controller(WebsiteController::class)
         Route::get('/au-resources', [WebsiteController::class, 'auResources'])->name('au.resources');
         Route::get('/uniwolc-fees', [WebsiteController::class, 'uniwolcFees'])->name('uniwolc.fees');
         Route::get('/programs', [WebsiteController::class, 'program'])->name('programs');
+        Route::get('/program-details/{id}/{slug}', [WebsiteController::class, 'programDetails'])->name('program.detail');
+        Route::get('/school-details/{id}/{slug}', [WebsiteController::class, 'schoolDetails'])->name('quick.school.detail');
         Route::get('/programs-study-search', [WebsiteController::class, 'studySearch'])->name('programs.study.search');
         Route::get('/programs-school-location', [WebsiteController::class, 'studySchoolLocation'])->name('programs.school.location');
         Route::get('/programs-school-location-study-search', [WebsiteController::class, 'studySchoolLocationStudySearch'])->name('programs.school.location.study.search');
@@ -226,6 +228,8 @@ Route::middleware([
                 });
 
             Route::resource('question', QuestionController::class);
+
+            Route::get('/quick-search', [StudentDetailController::class, 'quickSearch'])->name('quick.search');
 
             Route::get('/program', [StudentDetailController::class, 'program'])->name('programs');
 

@@ -31,7 +31,7 @@
                 </div>
                 <div class="applyStepSecinner">
                     <div class="form-group" id="accordion">
-                        @foreach ($item->category as $j => $value)
+                        @forelse ($item->category as $j => $value)
                             @if ($item->category->count() > 1)
                                 <div class="appStepAccordianArea">
 
@@ -70,6 +70,7 @@
                                                                 <div
                                                                     class="col-lg-12 col-md-12 col-sm-12 col-12 columnBox">
                                                                     <div class="mdradiobox mb-3">
+
                                                                         <input
                                                                             id="{{ $item->sequence_no }}{{ $k . '-' . $j }}"
                                                                             type="{{ $value->type }}"
@@ -245,12 +246,15 @@
                                     @endif
                                 </div>
                             @endif
-                        @endforeach
+                        @empty
+                            <h4 class="mb-4"> {{ $item->label . ' ' . auth()->user()->name }}! </h4>
+                            <p class="mb-4">{{ $item->description }}</p>
+                        @endforelse
                         <div class="applyStepBtnArea">
                             {{-- @if (3 == $item->sequence_no) --}}
                             @if ($finalStep == $item->sequence_no)
                                 <button type="button" wire:click="submit"
-                                    class="applyStepBtn applyStepBtnNxt">Submit
+                                    class="applyStepBtn applyStepBtnNxt">Explore Programs
                                 </button>
                             @else
                                 <button type="button" wire:click="nextStep"

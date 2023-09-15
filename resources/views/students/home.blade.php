@@ -7,8 +7,8 @@
                     <img src="{{ asset('/') }}assets/images/map.png" class="img-fluid" alt="">
                 </div>
                 <div class="content">
-                    <h3 class="title mb-0">{{ $studentDetails->full_name ?? '' }}</h3>
-                    <span class="text-danger">Uniwolc ID : {{ $studentDetails->student_id ?? '' }}</span>
+                    <h3 class="title mb-0">{{ @$studentDetails->full_name ?? '' }}</h3>
+                    <span class="text-danger">Uniwolc ID : {{ @$studentDetails->student_id ?? '' }}</span>
                     {{-- <h3 class="title mb-0">My Progress</h3> --}}
                 </div>
 
@@ -30,13 +30,14 @@
                         </li>
 
                         <li class="col-lg-4 col-md-4 col-sm-6 col-12 columnBox dashBeforeApplyBox complete">
-                            <a href="#" class="dashBeforeApplyLink">
+                            <a href="{{ @$eligibility ? route('student.quick.search') : 'javascript:;' }}"
+                                class="dashBeforeApplyLink">
                                 <span class="icon"><i class="fa-regular fa-arrow-right"></i></span>
                                 <span class="text">Choose a Program</span>
                             </a>
                         </li>
                         <li class="col-lg-4 col-md-4 col-sm-6 col-12 columnBox dashBeforeApplyBox">
-                            <a href="#" class="dashBeforeApplyLink ">
+                            <a href="{{ route('student.profile') }}" class="dashBeforeApplyLink ">
                                 <span class="icon"><i class="fa-regular fa-arrow-right"></i></span>
                                 <span class="text">Complete Profile</span>
                             </a>
@@ -231,58 +232,6 @@
             <div class="highlightbanneSec mb-5">
                 <img src="{{ asset('/') }}assets/images/addBanner.svg" class="img-fluid w-100" alt="">
             </div>
-
-            <div class="myAdviserArea">
-                <div class="headingSec mb-4">
-                    <h3 class="title mb-0">My Advisor</h3>
-                </div>
-                <div class="myAdviserAreainner">
-                    <div class="row rowBox">
-                        <div class="col-lg-4 col-md-4 col-sm-6 col-12 d-flex align-items-center columnBox myAdviserBox">
-                            <div class="myAdviserinner">
-                                <h5 class="d-flex align-items-center mb-0">
-                                    <i class="fa-regular fa-graduation-cap" style="font-size:40px;margin-right:10px"></i>
-                                    <span class="title">Juan Aguilera</span>
-                                </h5>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-4 col-md-4 col-sm-6 col-12 d-flex align-items-center columnBox myAdviserBox">
-                            <div class="myAdviserinner">
-                                <ul class="" style="padding:0;margin:0;">
-                                    <li class="d-flex jalign-items-center mb-0" style="list-style-type:none;">
-                                        <span class="icon mr-2"><i class="fa-regular fa-envelope"></i></span>
-                                        <span class="txt"><a href="#"
-                                                style="color:#000;word-break: break-all;">juan.aguilera@applyboard.com</a></span>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-4 col-md-4 col-sm-6 col-12 d-flex align-items-center columnBox myAdviserBox">
-                            <div class="myAdviserinner">
-                                <ul class="" style="padding:0;margin:0;">
-                                    <li class="d-flex align-items-center mb-2" style="list-style-type:none;">
-                                        <a href="#" style="">
-                                            <span class="icon mr-2"><i class="fa-regular fa-question"></i></span>
-                                            <span class="txt">Faq</span>
-                                        </a>
-                                    </li>
-                                    <li class="d-flex align-items-center mb-0" style="list-style-type:none;">
-                                        <a href="#" style="">
-                                            <span class="icon mr-2"><i class="fa-regular fa-newspaper"></i></span>
-                                            <span class="txt">Blog</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-
-
-                    </div>
-                </div>
-            </div>
-
 
         </div>
     </div>
