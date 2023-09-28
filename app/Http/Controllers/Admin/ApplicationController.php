@@ -35,8 +35,6 @@ class ApplicationController extends Controller
 
     public function show($id)
     {
-
-
         $data['program'] = ApplyProgram::findOrFail($id);
         $userId = $data['program']->user_id;
         $programId = $data['program']->id;

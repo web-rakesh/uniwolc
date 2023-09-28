@@ -8,8 +8,13 @@
                         <div class="dasboardLeftSideBarinner">
                             <div class="d-flex flex-column align-items-center text-center userProfileArea">
                                 <div class="userProfileThumnail">
-                                    <img class="rounded-circle" width=""
-                                        src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
+                                     @if (auth()->user()->profile_photo_path)
+                                        <img class="rounded-circle" width="150" height="150"
+                                            src="{{ asset('storage/') . '/' . auth()->user()->profile_photo_path }}">
+                                    @else
+                                        <img class="rounded-circle" width=""
+                                            src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
+                                    @endif
                                 </div>
                                 <div class="userProfileInfo">
                                     <p class="userName font-weight-bold mb-0">{{ auth()->user()->name }}</p>

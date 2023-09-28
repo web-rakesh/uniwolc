@@ -1,4 +1,4 @@
-@extends('students.layouts.layout')
+@extends("$layout.layouts.layout")
 @section('content')
     <div class="dashboardDtlsArea">
         <div class="dashboardDtlsAreainner">

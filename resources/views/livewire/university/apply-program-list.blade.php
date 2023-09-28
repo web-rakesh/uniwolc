@@ -1,7 +1,7 @@
 <div>
     <div class="dashboardInnerWrapperinner py-2">
         <div class="dashboardHeaderSec">
-            <h4 class="title">Programs</h4>
+            <h4 class="title">{{ $label }} Programs</h4>
         </div>
         <div class="dashboardPanel">
 
@@ -20,7 +20,9 @@
                                             wire:model="programSelectId">
                                             <option value="">Select Program</option>
                                             @foreach ($programList as $item)
-                                                <option value="{{ $item->id }}">{{ $item->program_title }}</option>
+                                                <option value="{{ $item->id }}">
+                                                    {{ strlen($item->program_title) > 60 ? substr($item->program_title, 0, 60) : $item->program_title }}
+                                                </option>
                                             @endforeach
                                         </select>
                                         Programs
@@ -53,7 +55,7 @@
                                 <button class="btn btn-danger" wire:click="clearDate" type="button">Clear</button>
                             </div>
                         </div>
-                        {{-- {{ $programs }} --}}
+
                         <div class="row">
                             <div class="col-sm-12">
                                 <table class="table table-bordered dataTable no-footer" style="width: 100%;"
@@ -72,7 +74,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @forelse ($applyPrograms ?? [] as $item)
+                                        @forelse ($applyProgramList ?? [] as $item)
 
                                             @if ($item->status == 2)
                                                 <tr class="tableRowItem odd">
@@ -144,7 +146,12 @@
                                                 </tr>
                                             @endif
                                         @empty
-                                            No programs are available
+
+                                            <tr class="tableRowItem odd">
+                                                <td colspan="8" class="text-center">
+                                                    No programs are available
+                                                </td>
+                                            </tr>
                                         @endforelse
 
                                     </tbody>
@@ -155,7 +162,7 @@
 
                             <div class="col-sm-12 col-md-7">
                                 <div class="dataTables_paginate paging_simple_numbers" id="applicationTable_paginate">
-                                    {{ $applyPrograms->links() }}
+                                    {{ $applyProgramList->links() }}
                                     {{-- <ul class="pagination">
                                         <li class="paginate_button page-item previous disabled"
                                             id="applicationTable_previous"><a aria-controls="applicationTable"

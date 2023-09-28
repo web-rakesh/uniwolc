@@ -15,7 +15,13 @@
               <li class="topNavUserItem">
                   <a href="{{ route('student.profile') }}" class="topNavUserLink">
                       <span class="avatarImage">
-                          <img src="{{ asset('/') }}assets/images/user.png" class="img-fluid" alt="">
+                          @if (auth()->user()->profile_photo_path)
+                              <img id="avatarImage" src="{{ asset('storage/') . '/' . auth()->user()->profile_photo_path }}"
+                                  class="img-fluid" alt="">
+                          @else
+                              <img id="avatarImage" src="{{ asset('/') }}assets/images/user.png" class="img-fluid"
+                                  alt="">
+                          @endif
                       </span>
                   </a>
               </li>

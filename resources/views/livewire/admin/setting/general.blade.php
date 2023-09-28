@@ -106,6 +106,14 @@
                         <input type="number" min="0" class="form-control" wire:model="processing_fees"
                             id="processing_fees" placeholder="Prossing Fees">
                     </div>
+                    <div class="form-group pt-3">
+                        <label>Preference</label>
+                    </div>
+                    <div class="form-group">
+                        <label>Yes, I want to receive all mail notification, alerts form uniwolc</label>
+                        <input type="checkbox"  wire:model="preference"
+                            id="preference" placeholder="Preference">
+                    </div>
                     <button type="submit"
                         class="btn btn-gradient-primary me-2">{{ $email == '' ? 'Submit' : 'Update' }}</button>
                 </form>

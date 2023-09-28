@@ -12,11 +12,11 @@ class General extends Component
 {
 
     public $name, $email, $phone_one, $phone_two, $whatsapp, $address_one, $address_two, $country_id, $state_id, $city, $pincode;
-    public $processing_fees;
+    public $processing_fees, $preference;
     public $setting;
     public function render()
     {
-        $countries = Country::all();
+        $countries = Country::where('block', '!=', 1)->get();
         $states = [];
         if ($this->country_id) {
             $states = State::where('country_id', $this->country_id)->get();
@@ -51,6 +51,7 @@ class General extends Component
             $this->city =  $this->setting->city;
             $this->pincode =  $this->setting->pincode;
             $this->processing_fees =  $this->setting->processing_fees;
+            $this->preference =  $this->setting->preference;
         }
     }
 
@@ -87,6 +88,7 @@ class General extends Component
                 'city' => $this->city,
                 'pincode' => $this->pincode,
                 'processing_fees' => $this->processing_fees,
+                'preference' => $this->preference
             ]);
             session()->flash('success', 'Form updated successfully!');
         } else {
@@ -103,6 +105,7 @@ class General extends Component
                 'city' => $this->city,
                 'pincode' => $this->pincode,
                 'processing_fees' => $this->processing_fees,
+                'preference' => $this->preference
             ]);
             session()->flash('success', 'Form submitted successfully!');
         }

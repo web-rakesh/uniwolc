@@ -9,11 +9,14 @@ use App\Models\State;
 use App\Models\Country;
 use Illuminate\Http\Request;
 use App\Models\EducationLevel;
+use App\Models\GeneralSetting;
 use App\Models\EducationPartner;
 use App\Models\Admin\Testimonial;
+use App\Models\secondaryCategory;
 use App\Models\University\Program;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Models\secondarySubCategory;
 use Illuminate\Support\Facades\Mail;
 use App\Models\CategoriesOfEducation;
 use App\Mail\EducationPartnerFormMail;
@@ -164,25 +167,32 @@ class WebsiteController extends Controller
 
     public function program()
     {
+        // return auth()->user()->type;
 
-        $countries = Country::all();
+        // return auth_layout();
+        $countries = Country::where('block', '!=', 1)->get();
+        $secondaryCategories = secondaryCategory::all();
         $educationLevels = CategoriesOfEducation::with('educationLevels')->get();
         $programs = Program::latest()->paginate(10);
         $programCount = Program::count();
         $schoolCount = ProfileDetail::count();
         $schools = ProfileDetail::select('id', 'university_name')->latest()->get();
-        $schoolLists = ProfileDetail::latest()->take(30)->get();
-        return view('website.program.program', compact('programs', 'programCount', 'schoolCount', 'countries', 'educationLevels', 'schools', 'schoolLists'));
+        $schoolLists = ProfileDetail::latest()->paginate(30);
+        $layout = auth_layout();
+        return view('website.program.program', compact('layout', 'programs', 'programCount', 'schoolCount', 'countries', 'educationLevels', 'schools', 'schoolLists', 'secondaryCategories'));
     }
 
     public function programDetails($id, $slug)
     {
-        $program = Program::with('intake')->where('id', $id)->where('slug', $slug)->first();
-        $intakes = $program->intake;
+        $programDetail = Program::with('intake')->where('id', $id)->where('slug', $slug)->first();
+        $intakes = $programDetail->intake;
         $recentPrograms = Program::latest()->whereNot('slug', $slug)->take(3)->get();
-        $university = ProfileDetail::where('user_id', $program->user_id)->first();
+        $university = ProfileDetail::where('user_id', $programDetail->user_id)->first();
         $universityImage = $university->getMedia('university-picture');
-        return view('website.program.program-details', compact('program', 'recentPrograms', 'universityImage', 'university', 'intakes'));
+
+        $layout = auth_layout();
+        return view('website.program.new-program-details', compact('programDetail', 'recentPrograms', 'universityImage', 'university', 'intakes', 'layout'));
+        return view('website.program.program-details', compact('programDetail', 'recentPrograms', 'universityImage', 'university', 'intakes'));
     }
 
     public function schoolDetails($id, $slug)
@@ -196,10 +206,168 @@ class WebsiteController extends Controller
         return view('website.program.school-details', compact('schoolDetails', 'universityImage'));
     }
 
-    public function programList()
+    public function programList(Request $request)
     {
-        $programs = Program::latest()->paginate(10);
+        $study = $request->study;
+        $schoolLocation = $request->location;
+
+        $education_country = $request->education_country;
+        $education_level = $request->education_level;
+        $permit_visa = $request->permit_visa;
+
+        $school_country = $request->school_country;
+        $provinces_state = $request->provinces_state;
+        $campus_city = $request->campus_city;
+        $school_type = $request->school_type;
+        $country_school = $request->country_school;
+        $program_education_level = $request->program_education_level;
+        $relevance = $request->relevance;
+        $intake = $request->intake;
+        $intake_status = $request->intake_status;
+        $post_secondary_category = $request->post_secondary_category;
+        $post_secondary_sub_category = $request->post_secondary_sub_category;
+        $rangeValueTuition = $request->tuition_fee;
+        $application_min_value = $request->application_min_value;
+        $application_max_value = $request->application_max_value;
+        $tuition_min_value = $request->tuition_min_value == '0' ? '100' : $request->tuition_min_value;
+        $tuition_max_value = $request->tuition_max_value == '100000' ? '50000' :  $request->tuition_max_value;
+
+        $programs = Program::query()
+            // ->where('gross_tuition', '>=', $tuition_min_value)
+            // ->where('gross_tuition', '<=', $tuition_max_value)
+
+            ->whereBetween('gross_tuition', [$tuition_min_value, $tuition_max_value])
+
+            ->when($application_min_value && $application_max_value, function ($query) use ($application_min_value, $application_max_value) {
+                $query->whereBetween('application_fee', [$application_min_value, $application_max_value]);
+            })
+            ->when($intake, function ($query) use ($intake) {
+                $query->whereHas('intake', function ($query) use ($intake) {
+                    $month = date('Y-m', strtotime($intake));
+                    $query->where('intake_date', 'LIKE', "%{$month}%");
+                });
+            })
+
+
+            // ->when($intake, function ($query) use ($intake) {
+            //     $month = date('Y-m', strtotime($intake));
+            //     $query->where('deadline', 'LIKE', "%{$month}%");
+            // })
+
+            ->when($intake_status, function ($query) use ($intake_status) {
+                $query->where('program_intake', $intake_status);
+            })
+
+            ->when($post_secondary_category, function ($query) use ($post_secondary_category) {
+                $query->where('post_secondary_category', $post_secondary_category);
+            })
+            ->when($post_secondary_sub_category, function ($query) use ($post_secondary_sub_category) {
+                $query->where('post_secondary_sub_category', $post_secondary_sub_category);
+            })
+            ->when($education_country, function ($query) use ($education_country) {
+                $query->whereHas('university', function ($query) use ($education_country) {
+                    $query->where('country', $education_country);
+                });
+            })
+            ->when($permit_visa, function ($query) use ($permit_visa) {
+                $query->whereHas('university', function ($query) use ($permit_visa) {
+                    $query->where('permit_visa', $permit_visa);
+                });
+            })
+
+            ->when($school_type, function ($query) use ($school_type) {
+                $query->whereHas('university', function ($query) use ($school_type) {
+                    $query->whereIn('institution_type', $school_type);
+                });
+            })
+            ->when($country_school, function ($query) use ($country_school) {
+                $query->whereHas('university', function ($query) use ($country_school) {
+                    $query->where('id', $country_school);
+                });
+            })
+            ->when($education_level, function ($query, $education_level) {
+                $query->where('program_level', 'LIKE', "%{$education_level}%");
+            })
+
+            ->when($school_country, function ($query) use ($school_country) {
+                $query->whereHas('university', function ($query) use ($school_country) {
+                    // dd($school_country);
+                    $query->whereIn('country', $school_country);
+                });
+            })
+            ->when($provinces_state, function ($query) use ($provinces_state) {
+                $query->whereHas('university', function ($query) use ($provinces_state) {
+                    $query->where('state', $provinces_state);
+                });
+            })
+            ->when($program_education_level, function ($query, $program_education_level) {
+                $query->where('program_level', 'LIKE', "%{$program_education_level}%");
+            })
+
+            ->when($relevance, function ($query, $relevance) {
+                // dd($relevance);
+                if ($relevance == 'tuition_l_h') {
+                    $query->orderBy('gross_tuition', 'asc');
+                } elseif ($relevance == 'tuition_h_l') {
+                    $query->orderBy('gross_tuition', 'desc');
+                } elseif ($relevance == 'application_fee_l_h') {
+                    $query->orderBy('application_fee', 'asc');
+                } elseif ($relevance == 'application_fee_h_l') {
+                    $query->orderBy('application_fee', 'desc');
+                } else {
+                }
+            })
+
+            ->when($schoolLocation, function ($query) use ($schoolLocation) {
+                $query->whereHas('university', function ($query) use ($schoolLocation) {
+
+                    $query->where('university_name', 'LIKE', "%{$schoolLocation}%");
+                    $query->orWhere('location', 'LIKE', "%{$schoolLocation}%");
+                });
+            })
+            ->when($study, function ($query, $study) {
+                $query->where('program_title', 'LIKE', "%{$study}%");
+                $query->orWhere('program_level', 'LIKE', "%{$study}%");
+                $query->orWhere('program_length', 'LIKE', "%{$study}%");
+            })
+            ->latest()
+            ->paginate(10);
+
         return view('website.program.program-list', compact('programs'))->render();
+    }
+    public function schoolList(Request $request)
+    {
+        $country_school = $request->country_school;
+        $school_country = $request->school_country;
+        $education_country = $request->education_country;
+        $school_type = $request->school_type;
+        $study = $request->study;
+        $schoolLocation = $request->location;
+        // $schoolLists = ProfileDetail::latest()->paginate(30);
+        $schoolLists = ProfileDetail::query()
+            // ->when($displaySchool, function ($query) use ($displaySchool) {
+            //     $query->whereIn('id', $displaySchool);
+            // })
+
+            ->when($schoolLocation, function ($query) use ($schoolLocation) {
+                $query->where('university_name', 'LIKE', "%{$schoolLocation}%");
+                $query->orWhere('location', 'LIKE', "%{$schoolLocation}%");
+            })
+
+            ->when($school_country, function ($query) use ($school_country) {
+
+                $query->whereIn('country', $school_country);
+            })
+
+            ->when($country_school, function ($query) use ($country_school) {
+                $query->where('id', $country_school);
+            })
+            ->when($school_type, function ($query) use ($school_type) {
+                $query->whereIn('institution_type', $school_type);
+            })
+            ->latest()
+            ->paginate(50);
+        return view('website.program.school-list', compact('schoolLists'))->render();
     }
 
     public function studySearch(Request $request)
@@ -249,6 +417,7 @@ class WebsiteController extends Controller
                 $query->orWhere('program_length', 'LIKE', "%{$study}%");
             })
             ->latest()
+            ->take(20)
             ->get();
 
         $programS = view('website.program.program-list', ['programs' => $schoolLocationResult])->render();
@@ -300,7 +469,7 @@ class WebsiteController extends Controller
                 $query->where('program_level', 'LIKE', "%{$education_level}%");
             })
             ->latest()
-            ->take(50)
+            ->take(10)
             ->get();
 
         $programShow = view('website.program.program-list', ['programs' => $programs])->render();
@@ -343,6 +512,8 @@ class WebsiteController extends Controller
         // return $request;
         $school_country = $request->school_country;
         $provinces_state = $request->provinces_state;
+        $post_secondary_category = $request->post_secondary_category;
+        $post_secondary_sub_category = $request->post_secondary_sub_category;
         $campus_city = $request->campus_city;
         $school_type = $request->school_type;
         $country_school = $request->country_school;
@@ -357,6 +528,8 @@ class WebsiteController extends Controller
         $tuition_max_value = $request->tuition_max_value == '100000' ? '50000' :  $request->tuition_max_value;
 
         $schoolLocationResult = Program::query()
+            // ->where('gross_tuition', '>=', $tuition_min_value)
+            // ->where('gross_tuition', '<=', $tuition_max_value)
 
             ->whereBetween('gross_tuition', [$tuition_min_value, $tuition_max_value])
 
@@ -369,6 +542,8 @@ class WebsiteController extends Controller
                     $query->where('intake_date', 'LIKE', "%{$month}%");
                 });
             })
+
+
             // ->when($intake, function ($query) use ($intake) {
             //     $month = date('Y-m', strtotime($intake));
             //     $query->where('deadline', 'LIKE', "%{$month}%");
@@ -378,6 +553,12 @@ class WebsiteController extends Controller
                 $query->where('program_intake', $intake_status);
             })
 
+            ->when($post_secondary_category, function ($query) use ($post_secondary_category) {
+                $query->where('post_secondary_category', $post_secondary_category);
+            })
+            ->when($post_secondary_sub_category, function ($query) use ($post_secondary_sub_category) {
+                $query->where('post_secondary_sub_category', $post_secondary_sub_category);
+            })
 
             ->when($school_type, function ($query) use ($school_type) {
                 $query->whereHas('university', function ($query) use ($school_type) {
@@ -392,7 +573,8 @@ class WebsiteController extends Controller
 
             ->when($school_country, function ($query) use ($school_country) {
                 $query->whereHas('university', function ($query) use ($school_country) {
-                    $query->where('country', $school_country);
+                    // dd($school_country);
+                    $query->whereIn('country', $school_country);
                 });
             })
             ->when($provinces_state, function ($query) use ($provinces_state) {
@@ -418,8 +600,10 @@ class WebsiteController extends Controller
                 }
             })
             ->latest()
-            ->take(80)
+            ->take(20)
             ->get();
+
+        // return $schoolLocationResult;
 
         $programLists = view('website.program.program-list', ['programs' => $schoolLocationResult])->render();
 
@@ -432,7 +616,7 @@ class WebsiteController extends Controller
             $schoolId  = collect($schoolId)->unique();
             $displaySchool = $schoolId->count() > 0 ? $schoolId : null;
         }
-        // return $school_country . ' - ' . $displaySchool . ' - ' . $school_type;
+        // return $school_country . ' - ' . $displaySchool;
         $schools = ProfileDetail::query()
             // ->when($displaySchool, function ($query) use ($displaySchool) {
             //     $query->whereIn('id', $displaySchool);
@@ -440,15 +624,15 @@ class WebsiteController extends Controller
 
             ->when($school_country, function ($query) use ($school_country) {
 
-                $query->where('country', $school_country);
+                $query->whereIn('country', $school_country);
             })
 
             ->when($country_school, function ($query) use ($country_school) {
                 $query->where('id', $country_school);
             })
-            // ->when($school_type, function ($query) use ($school_type) {
-            //     $query->whereIn('institution_type', $school_type);
-            // })
+            ->when($school_type, function ($query) use ($school_type) {
+                $query->whereIn('institution_type', $school_type);
+            })
             ->latest()
             ->paginate(50);
         $schoolLists = view('website.program.school-list', ['schoolLists' => $schools])->render();
@@ -457,12 +641,12 @@ class WebsiteController extends Controller
 
     public function getCountry(Request $request)
     {
-        $data['states'] = State::where("country_id", $request->id_country)
+        $data['states'] = State::whereIn("country_id", $request->id_country)
             ->get(["name", "id"]);
 
         // $data['currency'] =  get_currency($request->id_country);
 
-        $data['school'] =  ProfileDetail::select('id', 'university_name', 'country')->where('country', $request->id_country)->get();
+        $data['school'] =  ProfileDetail::select('id', 'university_name', 'country')->whereIn('country', $request->id_country)->get();
         return response()->json($data);
     }
 
@@ -472,5 +656,25 @@ class WebsiteController extends Controller
             ->get(["name", "id"]);
 
         return response()->json($data);
+    }
+
+    public function postSecondarySubCategory(Request $request)
+    {
+        $data['sub_category'] = secondarySubCategory::where("secondary_category_id", $request->category_id)
+            ->get(["name", "id"]);
+
+        return response()->json($data);
+    }
+
+    public function privacyPolicy()
+    {
+        $privacy_policy = GeneralSetting::select('privacy_policy')->first()->privacy_policy;
+        return view('website.privacy-policy', compact('privacy_policy'));
+    }
+
+    public function termAndCondition()
+    {
+        $terms_and_condition = GeneralSetting::select('terms_and_condition')->first()->terms_and_condition;
+        return view('website.term-conditions', compact('terms_and_condition'));
     }
 }

@@ -3,6 +3,12 @@
         <div class="dashboardHeaderSec">
             <h4 class="title">Programs</h4>
         </div>
+        <div class="dashboardInnerWrapper">
+            <div class="dashboardInnerWrapperinner">
+                <div class="dashboardHeaderSec">
+                    @include('flash-messages')
+                </div>
+            </div>
         <div class="dashboardPanel">
             <div class="dashboardPanelBody">
                 <div class="applicationSearchArea mt-2">
@@ -10,7 +16,7 @@
                         <div class="applicationSearchformArea">
                             <form>
                                 <div class="row rowBox">
-                                    <div class="col-lg-3 col-md-3 col-sm-6 col-12 columnBox">
+                                    {{-- <div class="col-lg-3 col-md-3 col-sm-6 col-12 columnBox">
                                         <div class="form-group mb-2">
                                             <input type="text" class="form-control" placeholder="Name">
                                         </div>
@@ -30,7 +36,7 @@
                                             <button type="button"
                                                 class="btn btn-primary applicationSearchformBtn">Search</button>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                     <div class="col-lg-2 col-md-2 col-sm-6 col-12 columnBox">
                                         <a href="{{ route('university.programs.add') }}" type="button"
                                             class="btn btn-primary">Add
@@ -82,7 +88,7 @@
                                             <th>Education Level</th>
                                             <th>Minimum GPA</th>
                                             <th>Program Level</th>
-                                            <th>Program End Date</th>
+                                            <th>Created At</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -94,7 +100,9 @@
                                                 </td>
                                                 <td>
                                                     <div class="tableContent">
-                                                        <a href="{{ route('university.program.details', ['id' => $program->id, 'slug' => $program->slug]) }}">{{ $program->program_title }}</a></div>
+                                                        <a
+                                                            href="{{ route('university.program.details', ['id' => $program->id, 'slug' => $program->slug]) }}">{{ $program->program_title }}</a>
+                                                    </div>
                                                 </td>
                                                 <td>
                                                     <div class="tableContent">
@@ -102,7 +110,7 @@
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <div class="tableContent">{{ $program->minimum_gpa }}</div>
+                                                    <div class="tableContent">{{ $program->minimum_gpa ?? '-' }}</div>
                                                 </td>
                                                 <td>
                                                     <div class="tableContent">{{ $program->programLevel->level_name }}
@@ -110,7 +118,7 @@
                                                 </td>
                                                 <td>
                                                     <div class="tableContent">
-                                                        {{ date('M d, Y', strtotime($program->deadline)) }}</div>
+                                                        {{ date('M d, Y', strtotime($program->created_at)) }}</div>
                                                 </td>
                                                 <td>
                                                     <div class="tableContent">

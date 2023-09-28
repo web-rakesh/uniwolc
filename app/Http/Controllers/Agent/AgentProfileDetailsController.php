@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Models\Agent\BankDetail;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Models\Admin\SchoolCommission;
 use App\Models\Agent\AgentGeneralDetail;
 
 class AgentProfileDetailsController extends Controller
@@ -16,7 +17,7 @@ class AgentProfileDetailsController extends Controller
     public function generalDetails()
     {
         $studentDetail = [];
-        $countries = Country::all();
+        $countries = Country::where('block', '!=', 1)->get();
         $agentDetail = AgentGeneralDetail::where('agent_id', auth()->user()->id)->first();
         return view('agent.profile.general-details', compact(
             'agentDetail',
@@ -139,7 +140,8 @@ class AgentProfileDetailsController extends Controller
 
     public function schoolCommission()
     {
-        return view('agent.profile.school-commission');
+        $commissions = SchoolCommission::latest()->get();
+        return view('agent.profile.school-commission', compact('commissions'));
     }
 
     public function commissionPolicy()

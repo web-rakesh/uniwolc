@@ -16,6 +16,7 @@ class StudentDetail extends Model
         'first_name',
         'middle_name',
         'last_name',
+        'student_id',
         'email',
         'country_code',
         'mobile_number',

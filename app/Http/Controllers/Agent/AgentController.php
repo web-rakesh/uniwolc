@@ -49,7 +49,7 @@ class AgentController extends Controller
     public function studentGeneralDetails($user_id = null)
     {
         // return $id;
-        $countries = Country::all();
+        $countries = Country::where('block', '!=', 1)->get();
         $studentDetail = [];
         if ($user_id !== null) {
 
@@ -64,7 +64,7 @@ class AgentController extends Controller
 
     public function studentEducationHistory($user_id = null)
     {
-        $countries = Country::all();
+        $countries = Country::where('block', '!=', 1)->get();
         $education_levels = EducationLevel::all();
         $gradingScheme = GradingScheme::all();
         $educationSummery = EducationSummary::whereUserId($user_id)->where('agent_id', Auth::user()->id)->first();

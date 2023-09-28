@@ -52,8 +52,9 @@
                                         <span>App #</span>
                                         <span>School</span>
                                         <span>Program</span>
-                                        {{-- <span>ESL Start Date</span> --}}
+                                        <span>ESL Start Date</span>
                                         <span>Start Date</span>
+                                        <span>Applied Date</span>
                                         <span>Fees</span>
                                     </div>
                                 </div>
@@ -93,10 +94,10 @@
                                                 <div class="appIdtxt">{{ $item->application_number }}</div>
                                             </div>
                                             <div class="thumanil" data-title="School">
-                                                <a href="#">
+                                                <a href="javascript:;">
                                                     <span class="thumanilinner">
-                                                        <img src="assets/images/University_of_Birmingham_Logo.png"
-                                                            class="img-fluid" alt="" style="height: 50px" />
+                                                        <img src="{{ $item->getUniversity->university_gallery_url }}"
+                                                            alt="no image" class="img-fluid" style="height: 50px" />
                                                     </span>
                                                 </a>
                                             </div>
@@ -104,27 +105,43 @@
                                                 <a
                                                     href="{{ route('student.program.detail', $item->getProgram->slug) }}">{{ $item->getProgram->program_title }}</a>
                                             </div>
-                                            {{-- <div class="eslStartDate" data-title="ESL Start Date">
+                                            <div class="eslStartDate" data-title="ESL Start Date">
                                                 <div class="hd">ESL</div>
                                                 <div class="txt"></div>
                                                 <div class="">
-                                                    <select class="form-control" aria-label="Disabled select example"
-                                                        disabled>
-                                                        <option>NA</option>
-                                                        <option>NA</option>
+                                                    <select class="form-control" id="els_intake"
+                                                        data-program="{{ $item->program_id }}">
+                                                        @foreach ($item->intake_date ? els_intake($item->intake_date->intake_date) : els_intake() ?? [] as $els_intake)
+                                                            @foreach ($els_intake as $i => $value)
+                                                                <option value="{{ $i }}"
+                                                                    {{ $i == date('Y-m-d', strtotime($item->esl_start_date)) ? 'selected' : '' }}>
+                                                                    {{ $value }}
+                                                                </option>
+                                                            @endforeach
+                                                        @endforeach
                                                     </select>
                                                 </div>
-                                            </div> --}}
+                                            </div>
                                             <div class="eslStartDate startDate" data-title="Start Date">
                                                 <div class="hd">Academic</div>
-                                                <div class="txt">Open Now</div>
+                                                <div class="txt">Likely Open</div>
                                                 <div class="">
-                                                    {{ @$item->start_date ? date('M d, Y', strtotime($item->start_date)) : '--' }}
-                                                    {{-- <select class="form-control">
-                                                        <option>2023-Sep</option>
-                                                        <option>2024-Sep</option>
-                                                    </select> --}}
+                                                    {{-- {{ @$item->start_date ? date('M d, Y', strtotime($item->start_date)) : '--' }} --}}
+                                                    <select class="form-control program_intake"
+                                                        data-program="{{ $item->program_id }}">
+                                                        @foreach ($item->getProgram->intake as $intake)
+                                                            <option value="{{ $intake->id }}"
+                                                                {{ $intake->id == $item->intake ? 'selected' : '' }}>
+                                                                {{ date('Y-M', strtotime($intake->intake_date)) }}</option>
+                                                        @endforeach
+                                                        {{-- <option>2024-Sep</option> --}}
+                                                    </select>
                                                 </div>
+                                            </div>
+                                            <div class="" data-title="Start Date">
+
+                                                <span
+                                                    class="appIdtxt">{{ date('M d, Y', strtotime($item->created_at)) }}</span>
                                             </div>
                                             <div class="appFees" data-title="Application Fees">
                                                 <div class="appFeesinner">
@@ -268,12 +285,15 @@
                                         <span>App #</span>
                                         <span>School</span>
                                         <span>Program</span>
-                                        {{-- <span>ESL Start Date</span> --}}
+                                        <span>ESL Start Date</span>
                                         <span>Start Date</span>
+                                        <span>Applied Date</span>
                                         <span>Fees</span>
                                     </div>
                                 </div>
-                                <div class="rightpart"></div>
+                                <div class="rightpart">
+                                    <span>Program Status</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -281,7 +301,7 @@
 
                 <div class="mt-3">
                     {{-- <p>You have no paid applications.</p> --}}
-                    @forelse ($applyProgramPaid as $key => $item)
+                    @forelse ($applyProgramPaid as $key => $paidItem)
                         <div class="dasboardAppHeader dasboardAppBody">
                             <div class="leftPart">
                                 <div class="dasboardAppHeaderInfo">
@@ -304,49 +324,51 @@
                                         </div>
                                     </div>
                                     <div class="appId" data-title="App #">
-                                        <div class="appIdtxt">{{ $item->application_number }}</div>
+                                        <div class="appIdtxt">{{ $paidItem->application_number }}</div>
                                     </div>
                                     <div class="thumanil" data-title="School">
                                         <a href="#">
                                             <span class="thumanilinner">
-                                                <img src="assets/images/University_of_Birmingham_Logo.png"
-                                                    class="img-fluid" alt="" style="height: 50px" />
+                                                <img src="{{ $paidItem->getUniversity->university_gallery_url }}"
+                                                    alt="no image" class="img-fluid" style="height: 50px" />
                                             </span>
                                         </a>
                                     </div>
                                     <div class="program" data-title="Program">
                                         <a
-                                            href="{{ route('student.program.detail', $item->getProgram->slug) }}">{{ $item->program_title }}</a>
+                                            href="{{ route('student.program.detail', $paidItem->getProgram->slug) }}">{{ $paidItem->program_title }}</a>
                                     </div>
-                                    {{-- <div class="eslStartDate" data-title="ESL Start Date">
+                                    <div class="eslStartDate" data-title="ESL Start Date">
                                         <div class="hd">ESL</div>
                                         <div class="txt"></div>
                                         <div class="">
-                                            <select class="form-control" aria-label="Disabled select example" disabled>
-                                                <option>NA</option>
-                                                <option>NA</option>
-                                            </select>
+                                            {{ date('M d, Y', strtotime($paidItem->esl_start_date)) }}
                                         </div>
-                                    </div> --}}
+                                    </div>
                                     <div class="eslStartDate startDate" data-title="Start Date">
                                         <div class="hd">Academic</div>
                                         <div class="txt">Open Now</div>
                                         <div class="">
-                                            {{ @$item->start_date ? date('M d, Y', strtotime($item->start_date)) : '--' }}
+                                            {{ @$paidItem->intake_date->intake_date ? date('M d, Y', strtotime($paidItem->intake_date->intake_date)) : '--' }}
                                             {{-- <select class="form-control">
                                                 <option>2023-Sep</option>
                                                 <option>2024-Sep</option>
                                             </select> --}}
                                         </div>
                                     </div>
+                                    <div class="" data-title="Start Date">
+                                        <span class="appIdtxt">{{ date('M d, Y', strtotime($item->created_at)) }}</span>
+                                    </div>
                                     <div class="appFees" data-title="Application Fees">
                                         <div class="appFeesinner">
                                             <div class="ttl">Application Fee</div>
 
-                                            @if ($item->fees == 0)
+                                            @if ($paidItem->fees == 0)
                                                 <div class="amt">Free</div>
                                             @else
-                                                <div class="amt">{{ number_format($item->fees, 2) }}</div>
+                                                <div class="amt">
+                                                    {{ get_currency($paidItem->getUniversity->country) . number_format($paidItem->fees, 2) }}
+                                                </div>
                                             @endif
                                         </div>
                                     </div>
@@ -355,7 +377,17 @@
                             <div class="rightpart">
                                 <div class="appNote">
                                     <div class="appNoteinner">
-                                        <a href="{{ route('student.program.print', $item->slug) }}">
+                                        @if ($paidItem->program_status == 1)
+                                            <span class="badge badge-success">Success</span>
+                                        @elseif($paidItem->program_status == 3)
+                                            <span data-program="{{ $paidItem->id }}"
+                                                class="badge badge-danger program-reject-modal">Reject</span>
+                                        @else
+                                            <span class="badge badge-default">pending</span>
+                                        @endif
+                                    </div>
+                                    <div class="appNoteinner">
+                                        <a href="{{ route('student.program.print', $paidItem->slug) }}">
                                             <div class="appNoteBox">
                                                 <div class="appNoteBoxinner">
                                                     <span class="fa-light fa-note-sticky icon"></span>
@@ -373,5 +405,105 @@
                 </div>
             </section>
         </div>
+        <!-- The Modal -->
+        <div class="modal" id="reject-modal">
+            <div class="modal-dialog appModalDiolog">
+                <div class="modal-content appModalContent">
+
+                    <!-- Modal Header -->
+                    <div class="modal-header appModalHeader">
+                        <h4 class="modal-title">Rejected Note</h4>
+                        <button type="button" class="close" data-dismiss="modal"><i
+                                class="fa-regular fa-xmark"></i></button>
+                    </div>
+
+                    <!-- Modal body -->
+                    <div class="modal-body appModalBody">
+
+                        <div class="form-group">
+                            <textarea type="text" readonly class="form-control" id="program-reject-note" placeholder=""></textarea>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 @endsection
+@push('js')
+    <script>
+        $(document).ready(function() {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+        })
+
+        $(".program_intake").on('change', function() {
+
+            $.ajax({
+                type: 'POST',
+                url: "{{ route('intake.program.update') }}",
+                data: {
+                    intake_id: $(this).val(),
+                    program_id: $(this).data('program')
+                },
+                success: function(response) {
+                    $("#els_intake").html(response.els_intake)
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success',
+                        text: response.success,
+                    });
+                },
+                error: function(xhr) {
+
+                }
+            });
+        })
+
+        $("#els_intake").on('change', function() {
+            // alert($(this).data('program'));
+            // return
+            $.ajax({
+                type: 'POST',
+                url: "{{ route('els_intake.program.update') }}",
+                data: {
+                    els_intake: $(this).val(),
+                    program_id: $(this).data('program')
+                },
+                success: function(response) {
+                    // $("#els_intake").html(response.els_intake)
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success',
+                        text: response.success,
+                    });
+                },
+                error: function(xhr) {
+
+                }
+            });
+        })
+
+        $(document).on('click', '.program-reject-modal', function() {
+
+            $.ajax({
+                type: 'POST',
+                url: "{{ route('program.reject') }}",
+                data: {
+                    program_id: $(this).data('program')
+                },
+                success: function(response) {
+                    $("#reject-modal").modal('show');
+                    $("#program-reject-note").val(response.rejectNote.remark);
+
+                },
+                error: function(xhr) {
+
+                }
+            });
+        })
+    </script>
+@endpush

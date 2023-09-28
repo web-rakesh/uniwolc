@@ -19,14 +19,32 @@
   <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap4.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
   {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script> --}}
+  {{-- <script src='https://cdn.jsdelivr.net/npm/semantic-ui@2.2.13/dist/semantic.min.js'></script> --}}
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="{{ asset('/') }}assets/js/our-partners.js"></script>
   <script src="{{ asset('/') }}assets/js/main.js"></script>
   <script src="{{ asset('/') }}assets/js/range-slider.js"></script>
   <!-- Header Menu -->
   <script>
+      //   $('.label.ui.dropdown')
+      //       .dropdown();
+
+      //   $('.no.label.ui.dropdown')
+      //       .dropdown({
+      //           useLabels: false
+      //       });
+
+      //   $('.ui.button').on('click', function() {
+      //       $('.ui.dropdown')
+      //           .dropdown('restore defaults')
+      //   })
+  </script>
+  <!-- Header Menu -->
+  <script>
       $(document).ready(function() {
           // executes when HTML-Document is loaded and DOM is ready
-
+          $(".dropdown").select2();
           // breakpoint and up
           $(window).resize(function() {
               if ($(window).width() >= 980) {

@@ -1,4 +1,4 @@
-@extends('students.layouts.layout')
+@extends("$layout.layouts.layout")
 @section('content')
     <section class="">
         <div class="dashboardCard">
@@ -39,7 +39,7 @@
                             </div>
                             <span class="form-step__step-name">Submission</span>
                             <span class="form-stepdaad-line">Deadline:
-                                {{ date('M d, Y', strtotime($applyProgram->getProgram->deadline)) }}</span>
+                                {{ @$intakeProgram->deadline ? date('M d, Y', strtotime($intakeProgram->deadline)) : '' }}</span>
                         </div>
                         <!-- Fourth Step -->
                         <div class="form-steps__step form-steps__step--incomplete">
@@ -89,9 +89,9 @@
                                     </button>
                                     <div class="dropdown-menu">
                                         <a class="dropdown-item"
-                                            href="#">{{ $applyProgram->getProgram->getUniversity[0]->university_name }}</a>
-                                        <a class="dropdown-item" href="#">Link 2</a>
-                                        <a class="dropdown-item" href="#">Link 3</a>
+                                            href="javascript:;">{{ $applyProgram->getProgram->getUniversity[0]->university_name }}</a>
+                                        {{-- <a class="dropdown-item" href="#">Link 2</a>
+                                        <a class="dropdown-item" href="#">Link 3</a> --}}
                                     </div>
                                 </div>
                             </div>
@@ -123,12 +123,12 @@
                                                 <p><strong>Delivery Method:</strong> <span
                                                         class="classStatus">In-class</span></p>
                                                 <p><strong>Level:</strong>
-                                                    {{ $applyProgram->getProgram->programLevel->level_name }}
+                                                    {{ @$applyProgram->getProgram->programLevel->level_name }}
                                                 </p>
                                                 <p><strong>Required Level:</strong>
-                                                    {{ $applyProgram->getProgram->minimumLevel->level_name }}</p>
+                                                    {{ @$applyProgram->getProgram->minimumLevel->level_name }}</p>
                                                 <p><strong>Application ID:</strong>
-                                                    {{ $applyProgram->application_number }}</p>
+                                                    {{ @$applyProgram->application_number }}</p>
                                             </div>
 
                                         </div>
@@ -146,30 +146,39 @@
                                             </div>
                                             <div class="col-lg-4 col-md-4 col-sm-12 col-12 columnBox2">
                                                 <label class="labelName">ESL</label>
-                                                <select class="form-control">
-                                                    <option>Select...</option>
-                                                    {{-- <option>2023 - Jun</option>
-                                                    <option>2023 - Jul</option> --}}
+                                                <select class="form-control" id="els_intake"
+                                                    data-program="{{ $applyProgram->program_id }}">
+                                                    @foreach ($applyProgram->intake_date ? els_intake($applyProgram->intake_date->intake_date) : els_intake() ?? [] as $els_intake)
+                                                        @foreach ($els_intake as $i => $value)
+                                                            <option value="{{ $i }}"
+                                                                {{ $i == date('Y-m-d', strtotime($applyProgram->esl_start_date)) ? 'selected' : '' }}>
+                                                                {{ $value }}
+                                                            </option>
+                                                        @endforeach
+                                                    @endforeach
                                                 </select>
                                             </div>
-                                            {{-- {{ json_decode($applyProgram->getProgram->program_till_date, true) }} --}}
-                                            @php
-                                                $data = explode(',', json_decode($applyProgram->getProgram->program_till_date));
-                                            @endphp
+
 
                                             <div class="col-lg-5 col-md-5 col-sm-12 col-12 columnBox2">
                                                 <label class="labelName">Academic : <span class="status">Open
-                                                        Now</span></label>
-                                                <select class="form-control" id="academic-session">
-                                                    <option>Select...</option>
-                                                    @foreach ($data as $item)
-                                                        @if (now()->format('Y-m-d') < date('Y-m-d', strtotime($item)))
-                                                            <option value="{{ $item }}"
-                                                                {{ date('Y-m-d', strtotime($applyProgram->start_date)) == date('Y-m-d', strtotime($item)) ? 'selected' : '' }}>
+                                                        Now</span>
 
-                                                                {{ date('Y - M', strtotime($item)) }}</option>
-                                                        @endif
+                                                    <div data-cy="sidebar-dates" class="css-srg8eq e1fgni7l10">
+                                                        <button class="css-hzmlgd e184lxht1" id="intake_change_button">
+                                                            <span aria-hidden="true" class="fa fa-check"></span>
+                                                        </button>
+                                                    </div>
+                                                </label>
+
+                                                <select class="form-control program_intake"
+                                                    data-program="{{ $applyProgram->program_id }}">
+                                                    @foreach ($applyProgram->getProgram->intake as $intake)
+                                                        <option value="{{ $intake->id }}"
+                                                            {{ $intake->id == $applyProgram->intake ? 'selected' : '' }}>
+                                                            {{ date('Y-M', strtotime($intake->intake_date)) }}</option>
                                                     @endforeach
+                                                    {{-- <option>2024-Sep</option> --}}
                                                 </select>
                                             </div>
                                         </div>
@@ -177,8 +186,10 @@
                                     <div class="studentSidebarAcademicSubmissionDeadline">
                                         <h4 class="title">Academic Submission Deadline:</h4>
                                         <div class="content">
+                                            {{-- {{ $intakeProgram }} --}}
                                             <span class="txt">
-                                                {{ date('M d, Y', strtotime($applyProgram->getProgram->deadline)) }}</span>
+                                                {{ date('M d, Y', strtotime(@$intakeProgram->deadline)) }}
+                                            </span>
                                             <span class="info"><i class="fa-regular fa-circle-info"></i></span>
                                         </div>
                                         <div></div>
@@ -311,10 +322,11 @@
                                                             <div class="contentBoxFld">
                                                                 <div class="mb-2">
                                                                     <p class="mb-2"><span class="d-block">City</span>
-                                                                        {{ $studentDetail->city }}</p>
+                                                                        {{ @$studentDetail->userCity->name }}</p>
                                                                     <p class="mb-0"><span
                                                                             class="d-block">Nationality</span>
-                                                                        {{ get_country($studentDetail->country) }}</p>
+                                                                        {{ get_country($studentDetail->country) }}
+                                                                    </p>
                                                                 </div>
                                                                 <div class="mb-0"></div>
                                                             </div>
@@ -513,7 +525,7 @@
                                                             <div class="sintentInfo">
                                                                 <div class="contentBoxFld">
                                                                     <p class="mb-0">
-                                                                        <strong>juan.aguilera@applyboard.com</strong>
+                                                                        <strong>{{ $studentDetail->email }}</strong>
                                                                     </p>
                                                                 </div>
                                                             </div>
@@ -605,7 +617,7 @@
                                             <div class="leftSide">
                                                 <h4 class="title">Pre-Payment</h4>
                                                 <p class="mb-0">Last requirement completed on
-                                                    {{ date('M d, Y', strtotime($applyProgram->getProgram->deadline)) }}
+                                                    {{ date('M d, Y', strtotime($applyProgram->created_at)) }}
                                                 </p>
                                             </div>
                                             <div class="rightSide">
@@ -655,96 +667,340 @@
                                                         <div class="appInfiDtlsAreainner">
                                                             <div class="appInfiDtls">
                                                                 <div class="logoThumnail">
-                                                                    @if (get_upload_document($applyProgram->id, $applyProgram->user_id, 'program-student-attachment'))
-                                                                        <div class="text-success text-center">
-                                                                            <i class="fa-regular fa-check"></i>
-                                                                            <p class="mb-0">
-                                                                                Completed
-                                                                            </p>
-                                                                        </div>
-                                                                    @else
-                                                                        <div class="missingBox text-center">
-                                                                            <i
-                                                                                class="fa-regular fa-triangle-exclamation"></i>
-                                                                            <p class="mb-0">
-                                                                                Missing
-                                                                            </p>
-                                                                        </div>
-                                                                    @endif
+                                                                    <div class="missingBox text-center">
+                                                                        <i class="fa-regular fa-triangle-exclamation"></i>
+                                                                        <p class="mb-0">Mossing</p>
+                                                                    </div>
                                                                 </div>
                                                                 <div class="appInfiDtlsContent">
                                                                     <div class="wrapped-content">
                                                                         <h4 class="title mb-2">
                                                                             Country Specific GPA
-                                                                            India <a href="javascript:;"><i
+                                                                            India <a href="copyLink"><i
                                                                                     class="fa-regular fa-link-simple"></i></a>
                                                                         </h4>
                                                                         <div class="wrappedContentinner">
                                                                             <div class="req-desc">
                                                                                 <div class="moretext">
-                                                                                    <p>{{ $applyProgram->getProgram->student_instruction }}
-                                                                                    </p>
+                                                                                    <p>Please be
+                                                                                        advised that
+                                                                                        the
+                                                                                        applicant is
+                                                                                        required to
+                                                                                        supply the
+                                                                                        contact
+                                                                                        details of
+                                                                                        two academic
+                                                                                        referees (or
+                                                                                        one academic
+                                                                                        reference
+                                                                                        if
+                                                                                        applicable
+                                                                                        to the
+                                                                                        course/program
+                                                                                        applied
+                                                                                        for).
+                                                                                        Employment
+                                                                                        references
+                                                                                        may be
+                                                                                        acceptable
+                                                                                        for specific
+                                                                                        courses
+                                                                                        which
+                                                                                        require
+                                                                                        them.
+                                                                                        Please note
+                                                                                        that the
+                                                                                        contact
+                                                                                        email
+                                                                                        address of
+                                                                                        the referee
+                                                                                        must be an
+                                                                                        official
+                                                                                        email
+                                                                                        address and
+                                                                                        not a
+                                                                                        personal one
+                                                                                        (for
+                                                                                        example,
+                                                                                        gmail).</p>
                                                                                     <p><br></p>
-
-                                                                                    @foreach ($applyProgram->getProgram->getMedia('program-student-attachment') ?? [] as $image)
-                                                                                        <div class="links-attachments"><a
-                                                                                                class="additional-attachment university-document"
-                                                                                                href=" {{ $image->getUrl() }}"
-                                                                                                target="_blank"><span
-                                                                                                    aria-hidden="true"
-                                                                                                    class="fa fa-file-pdf-o"></span>
-                                                                                                {{ substr(strrchr($image->getPath(), '/'), 1) }}
-
-                                                                                            </a></div>
-                                                                                    @endforeach
-
+                                                                                    <p>Please make
+                                                                                        sure the
+                                                                                        referee(s)
+                                                                                        is informed
+                                                                                        to expect an
+                                                                                        email from
+                                                                                        the
+                                                                                        University
+                                                                                        of
+                                                                                        Birmingham,
+                                                                                        requesting
+                                                                                        them to
+                                                                                        write a
+                                                                                        reference.
+                                                                                        We recommend
+                                                                                        that the
+                                                                                        referee
+                                                                                        sends back
+                                                                                        the
+                                                                                        reference in
+                                                                                        a PDF format
+                                                                                        as it is
+                                                                                        preferred
+                                                                                        that:</p>
+                                                                                    <ul>
+                                                                                        <li>The
+                                                                                            reference
+                                                                                            is on
+                                                                                            official
+                                                                                            headed
+                                                                                            paper
+                                                                                            with the
+                                                                                            organization
+                                                                                            or
+                                                                                            institution’s
+                                                                                            logo and
+                                                                                            address
+                                                                                        </li>
+                                                                                        <li>It
+                                                                                            includes
+                                                                                            the
+                                                                                            date,
+                                                                                            the
+                                                                                            applicant's
+                                                                                            details
+                                                                                            and the
+                                                                                            details
+                                                                                            of the
+                                                                                            referee
+                                                                                        </li>
+                                                                                        <li>A
+                                                                                            summary
+                                                                                            of how
+                                                                                            the
+                                                                                            referee
+                                                                                            knows
+                                                                                            the
+                                                                                            applicant
+                                                                                            and
+                                                                                            confirm
+                                                                                            the
+                                                                                            applicant's
+                                                                                            suitability
+                                                                                            for
+                                                                                            studying
+                                                                                            on the
+                                                                                            course
+                                                                                            applied
+                                                                                            for</li>
+                                                                                        <li>It
+                                                                                            should
+                                                                                            be
+                                                                                            signed
+                                                                                            by the
+                                                                                            referee
+                                                                                            with
+                                                                                            their
+                                                                                            official
+                                                                                            contact
+                                                                                            details.
+                                                                                        </li>
+                                                                                    </ul>
+                                                                                    <p>If the
+                                                                                        referee(s)
+                                                                                        send back
+                                                                                        references
+                                                                                        that are not
+                                                                                        on the
+                                                                                        official
+                                                                                        headed
+                                                                                        paper, the
+                                                                                        applicant
+                                                                                        may be asked
+                                                                                        to send in
+                                                                                        additional
+                                                                                        references.
+                                                                                    </p>
+                                                                                    <p>If the
+                                                                                        applicant
+                                                                                        already have
+                                                                                        a written
+                                                                                        reference(s)
+                                                                                        and wants to
+                                                                                        upload it on
+                                                                                        behalf of
+                                                                                        the
+                                                                                        referee(s),
+                                                                                        make sure
+                                                                                        the
+                                                                                        reference
+                                                                                        is a scanned
+                                                                                        copy of the
+                                                                                        original and
+                                                                                        that it is
+                                                                                        on official
+                                                                                        headed
+                                                                                        paper.</p>
                                                                                 </div>
                                                                             </div>
                                                                             <div class="readMoreLessArea">
                                                                                 <span class="readmore-link"></span>
                                                                             </div>
                                                                         </div>
-                                                                        <div class="row">
-
-                                                                            @forelse ($uploadedDocument as $document)
-                                                                                @if ($document->document_name == 'program-student-attachment')
-                                                                                    @foreach ($document->getMedia('program-student-attachment') ?? [] as $image)
-                                                                                        <div class="links-attachments"><a
-                                                                                                class="additional-attachment uploaded-document"
-                                                                                                href=" {{ $image->getUrl() }}"
-                                                                                                target="_blank"><span
-                                                                                                    aria-hidden="true"
-                                                                                                    class="fa fa-file-pdf-o"></span>
-                                                                                                {{ substr(strrchr($image->getPath(), '/'), 1) }}
-
-
-                                                                                            </a></div>
-                                                                                    @endforeach
-                                                                                    <a href="javascript:;"
-                                                                                        data-id="{{ $document->id }}"
-                                                                                        class="approveBtn  bg-danger remove-document">
-                                                                                        <span class="icon"><i
-                                                                                                class="fa-regular fa-xmark"></i></span>
-
-                                                                                    </a>
-                                                                                @endif
-                                                                            @empty
-                                                                            @endforelse
-
-                                                                        </div>
                                                                     </div>
 
                                                                 </div>
-
-                                                                <div class="uploadBtnArea">
-                                                                    <a href="javascript:;"
-                                                                        data-applicant="program-student-attachment"
-                                                                        class="uploadBtn application-file-upload"><i
-                                                                            class="fa-regular fa-upload"></i></a>
+                                                                <div class="editBtnArea">
+                                                                    <a href="#" class="editBtn" data-toggle="modal"
+                                                                        data-target="#myModal"><i
+                                                                            class="fa-regular fa-pen-to-square"></i></a>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
+
+                                                    <!-- The Modal -->
+                                                    <div class="modal appModal" id="myModal">
+                                                        <div class="modal-dialog appModalDiolog">
+                                                            <div class="modal-content appModalContent">
+
+                                                                <!-- Modal Header -->
+                                                                <div class="modal-header appModalHeader">
+                                                                    <h4 class="modal-title">
+                                                                        Immigration History
+                                                                        Questions</h4>
+                                                                    <button type="button" class="close"
+                                                                        data-dismiss="modal"><i
+                                                                            class="fa-regular fa-xmark"></i></button>
+                                                                </div>
+                                                                <form>
+                                                                    <!-- Modal body -->
+                                                                    <div class="modal-body appModalBody">
+                                                                        <div class="form-group">
+                                                                            <label class="labelName">1.
+                                                                                Has the applicant
+                                                                                ever studied in the
+                                                                                UK before? <sup
+                                                                                    style="color:#ff0000;">*</sup></label>
+                                                                            <select class="form-control">
+                                                                                <option>Select...
+                                                                                </option>
+                                                                                <option>Yes</option>
+                                                                                <option>No</option>
+                                                                            </select>
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label class="labelName">2.
+                                                                                Has the applicant
+                                                                                ever lived in the UK
+                                                                                before? <sup
+                                                                                    style="color:#ff0000;">*</sup></label>
+                                                                            <select class="form-control">
+                                                                                <option>Select...
+                                                                                </option>
+                                                                                <option>Yes</option>
+                                                                                <option>No</option>
+                                                                            </select>
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label class="labelName">3.
+                                                                                Please list ANY
+                                                                                previous visa the
+                                                                                applicant has been
+                                                                                granted (be sure to
+                                                                                include the relevant
+                                                                                country and type of
+                                                                                visa). <sup
+                                                                                    style="color:#ff0000;">*</sup></label>
+                                                                            <span class="mb-2"
+                                                                                style="color: rgb(194, 194, 194);">Maximum
+                                                                                4000
+                                                                                characters</span>
+                                                                            <textarea class="form-control" placeholder="" style="height:100px;"></textarea>
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label class="labelName">4.
+                                                                                If the applicant has
+                                                                                been refused a visa,
+                                                                                please provide
+                                                                                details of which
+                                                                                country, date of
+                                                                                refusal, and refusal
+                                                                                reason. <sup
+                                                                                    style="color:#ff0000;">*</sup></label>
+                                                                            <span class="mb-2"
+                                                                                style="color: rgb(194, 194, 194);">Maximum
+                                                                                4000
+                                                                                characters</span>
+                                                                            <textarea class="form-control" placeholder="" style="height:100px;"></textarea>
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label class="labelName">5.
+                                                                                Has the applicant
+                                                                                ever been refused a
+                                                                                visa from ANY
+                                                                                country? <sup
+                                                                                    style="color:#ff0000;">*</sup></label>
+                                                                            <select class="form-control">
+                                                                                <option>Select...
+                                                                                </option>
+                                                                                <option>Yes (Please
+                                                                                    specify in the
+                                                                                    next question)
+                                                                                </option>
+                                                                                <option>No (Write
+                                                                                    N/A in the next
+                                                                                    question)
+                                                                                </option>
+                                                                            </select>
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label class="labelName">6.
+                                                                                Does the applicant
+                                                                                have caring
+                                                                                responsibilities?
+                                                                                <sup style="color:#ff0000;">*</sup></label>
+                                                                            <select class="form-control">
+                                                                                <option>Select...
+                                                                                </option>
+                                                                                <option>Other young
+                                                                                    people/children
+                                                                                </option>
+                                                                                <option>Other
+                                                                                    relatives/friends/neighbour
+                                                                                </option>
+                                                                            </select>
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label class="labelName">7.
+                                                                                Where does the
+                                                                                applicant intend to
+                                                                                apply for the visa
+                                                                                to study in the UK?
+                                                                                <sup style="color:#ff0000;">*</sup></label>
+                                                                            <span class="mb-2"
+                                                                                style="color: rgb(194, 194, 194);">Maximum
+                                                                                500
+                                                                                characters</span>
+                                                                            <input type="text" class="form-control"
+                                                                                placeholder=""></textarea>
+                                                                        </div>
+
+
+                                                                    </div>
+                                                                    <div class="modal-footer appModalFooter">
+                                                                        <button type="button"
+                                                                            class="btn btn-primary disabled">Submit</button>
+                                                                    </div>
+                                                                </form>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+
                                                 </div>
 
                                                 <div class="appListItem">
@@ -757,104 +1013,371 @@
                                                         <div class="appInfiDtlsAreainner">
                                                             <div class="appInfiDtls">
                                                                 <div class="logoThumnail">
-
-                                                                    @if (get_upload_document($applyProgram->id, $applyProgram->user_id, 'program-passport-attachment'))
-                                                                        <div class="text-success text-center">
-                                                                            <i class="fa-regular fa-check"></i>
-                                                                            <p class="mb-0">
-                                                                                Completed
-                                                                            </p>
-                                                                        </div>
-                                                                    @else
-                                                                        <div class="missingBox text-center">
-                                                                            <i
-                                                                                class="fa-regular fa-triangle-exclamation"></i>
-                                                                            <p class="mb-0">
-                                                                                Missing
-                                                                            </p>
-                                                                        </div>
-                                                                    @endif
+                                                                    <div class="missingBox text-center">
+                                                                        <i class="fa-regular fa-triangle-exclamation"></i>
+                                                                        <p class="mb-0">Mossing</p>
+                                                                    </div>
                                                                 </div>
                                                                 <div class="appInfiDtlsContent">
                                                                     <div class="wrapped-content">
                                                                         <h4 class="title mb-2">
-                                                                            Copy of Passport <a href="javascript:;"><i
+                                                                            Country Specific GPA
+                                                                            India <a href="copyLink"><i
                                                                                     class="fa-regular fa-link-simple"></i></a>
                                                                         </h4>
                                                                         <div class="wrappedContentinner">
                                                                             <div class="req-desc">
                                                                                 <div class="moretext">
-                                                                                    <p>{{ $applyProgram->getProgram->copy_passport }}
-                                                                                    </p>
+                                                                                    <p>Please be
+                                                                                        advised that
+                                                                                        the
+                                                                                        applicant is
+                                                                                        required to
+                                                                                        supply the
+                                                                                        contact
+                                                                                        details of
+                                                                                        two academic
+                                                                                        referees (or
+                                                                                        one academic
+                                                                                        reference
+                                                                                        if
+                                                                                        applicable
+                                                                                        to the
+                                                                                        course/program
+                                                                                        applied
+                                                                                        for).
+                                                                                        Employment
+                                                                                        references
+                                                                                        may be
+                                                                                        acceptable
+                                                                                        for specific
+                                                                                        courses
+                                                                                        which
+                                                                                        require
+                                                                                        them.
+                                                                                        Please note
+                                                                                        that the
+                                                                                        contact
+                                                                                        email
+                                                                                        address of
+                                                                                        the referee
+                                                                                        must be an
+                                                                                        official
+                                                                                        email
+                                                                                        address and
+                                                                                        not a
+                                                                                        personal one
+                                                                                        (for
+                                                                                        example,
+                                                                                        gmail).</p>
                                                                                     <p><br></p>
-
-                                                                                    @foreach ($applyProgram->getProgram->getMedia('program-passport-attachment') ?? [] as $image)
-                                                                                        <div class="links-attachments">
-                                                                                            <a class="additional-attachment university-document"
-                                                                                                href=" {{ $image->getUrl() }}"
-                                                                                                target="_blank"><span
-                                                                                                    aria-hidden="true"
-                                                                                                    class="fa fa-file-pdf-o"></span>
-                                                                                                {{ substr(strrchr($image->getPath(), '/'), 1) }}
-
-                                                                                            </a>
-                                                                                        </div>
-                                                                                    @endforeach
-
+                                                                                    <p>Please make
+                                                                                        sure the
+                                                                                        referee(s)
+                                                                                        is informed
+                                                                                        to expect an
+                                                                                        email from
+                                                                                        the
+                                                                                        University
+                                                                                        of
+                                                                                        Birmingham,
+                                                                                        requesting
+                                                                                        them to
+                                                                                        write a
+                                                                                        reference.
+                                                                                        We recommend
+                                                                                        that the
+                                                                                        referee
+                                                                                        sends back
+                                                                                        the
+                                                                                        reference in
+                                                                                        a PDF format
+                                                                                        as it is
+                                                                                        preferred
+                                                                                        that:</p>
+                                                                                    <ul>
+                                                                                        <li>The
+                                                                                            reference
+                                                                                            is on
+                                                                                            official
+                                                                                            headed
+                                                                                            paper
+                                                                                            with the
+                                                                                            organization
+                                                                                            or
+                                                                                            institution’s
+                                                                                            logo and
+                                                                                            address
+                                                                                        </li>
+                                                                                        <li>It
+                                                                                            includes
+                                                                                            the
+                                                                                            date,
+                                                                                            the
+                                                                                            applicant's
+                                                                                            details
+                                                                                            and the
+                                                                                            details
+                                                                                            of the
+                                                                                            referee
+                                                                                        </li>
+                                                                                        <li>A
+                                                                                            summary
+                                                                                            of how
+                                                                                            the
+                                                                                            referee
+                                                                                            knows
+                                                                                            the
+                                                                                            applicant
+                                                                                            and
+                                                                                            confirm
+                                                                                            the
+                                                                                            applicant's
+                                                                                            suitability
+                                                                                            for
+                                                                                            studying
+                                                                                            on the
+                                                                                            course
+                                                                                            applied
+                                                                                            for</li>
+                                                                                        <li>It
+                                                                                            should
+                                                                                            be
+                                                                                            signed
+                                                                                            by the
+                                                                                            referee
+                                                                                            with
+                                                                                            their
+                                                                                            official
+                                                                                            contact
+                                                                                            details.
+                                                                                        </li>
+                                                                                    </ul>
+                                                                                    <p>If the
+                                                                                        referee(s)
+                                                                                        send back
+                                                                                        references
+                                                                                        that are not
+                                                                                        on the
+                                                                                        official
+                                                                                        headed
+                                                                                        paper, the
+                                                                                        applicant
+                                                                                        may be asked
+                                                                                        to send in
+                                                                                        additional
+                                                                                        references.
+                                                                                    </p>
+                                                                                    <p>If the
+                                                                                        applicant
+                                                                                        already have
+                                                                                        a written
+                                                                                        reference(s)
+                                                                                        and wants to
+                                                                                        upload it on
+                                                                                        behalf of
+                                                                                        the
+                                                                                        referee(s),
+                                                                                        make sure
+                                                                                        the
+                                                                                        reference
+                                                                                        is a scanned
+                                                                                        copy of the
+                                                                                        original and
+                                                                                        that it is
+                                                                                        on official
+                                                                                        headed
+                                                                                        paper.</p>
                                                                                 </div>
                                                                             </div>
                                                                             <div class="readMoreLessArea">
                                                                                 <span class="readmore-link"></span>
                                                                             </div>
                                                                         </div>
-                                                                        <div class="row">
-
-                                                                            @forelse ($uploadedDocument as $document)
-                                                                                @if ($document->document_name == 'program-passport-attachment')
-                                                                                    @foreach ($document->getMedia('program-passport-attachment') ?? [] as $image)
-                                                                                        <div class="links-attachments"><a
-                                                                                                class="additional-attachment uploaded-document"
-                                                                                                href=" {{ $image->getUrl() }}"
-                                                                                                target="_blank"><span
-                                                                                                    aria-hidden="true"
-                                                                                                    class="fa fa-file-pdf-o"></span>
-                                                                                                {{ substr(strrchr($image->getPath(), '/'), 1) }}
-
-                                                                                            </a></div>
-                                                                                    @endforeach
-
-                                                                                    <a href="javascript:;"
-                                                                                        data-id="{{ $document->id }}"
-                                                                                        class="approveBtn  bg-danger remove-document">
-                                                                                        <span class="icon"><i
-                                                                                                class="fa-regular fa-xmark"></i></span>
-
-                                                                                    </a>
-                                                                                @endif
-
-                                                                            @empty
-                                                                            @endforelse
-
-                                                                        </div>
                                                                     </div>
 
                                                                 </div>
-
-                                                                <div class="uploadBtnArea">
-                                                                    <a href="javascript:;"
-                                                                        data-applicant="program-passport-attachment"
-                                                                        class="uploadBtn application-file-upload"><i
-                                                                            class="fa-regular fa-upload"></i></a>
-                                                                </div>
-                                                                {{-- <div class="editBtnArea">
+                                                                <div class="editBtnArea">
                                                                     <a href="#" class="editBtn" data-toggle="modal"
                                                                         data-target="#myModal2"><i
                                                                             class="fa-regular fa-pen-to-square"></i></a>
-                                                                </div> --}}
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
 
+
+                                                    <!-- The Modal -->
+                                                    <div class="modal appModal" id="myModal2">
+                                                        <div class="modal-dialog appModalDiolog">
+                                                            <div class="modal-content appModalContent">
+
+                                                                <!-- Modal Header -->
+                                                                <div class="modal-header appModalHeader">
+                                                                    <h4 class="modal-title">List of
+                                                                        References Questions</h4>
+                                                                    <button type="button" class="close"
+                                                                        data-dismiss="modal"><i
+                                                                            class="fa-regular fa-xmark"></i></button>
+                                                                </div>
+                                                                <form>
+                                                                    <!-- Modal body -->
+                                                                    <div class="modal-body appModalBody">
+                                                                        <div class="form-group">
+                                                                            <label class="labelName">1.
+                                                                                Referee 1's First
+                                                                                Name <sup
+                                                                                    style="color:#ff0000;">*</sup></label>
+                                                                            <span class="mb-2"
+                                                                                style="color: rgb(194, 194, 194);">Maximum
+                                                                                500
+                                                                                characters</span>
+                                                                            <input type="text" class="form-control"
+                                                                                placeholder=""></textarea>
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label class="labelName">2.
+                                                                                Referee 1's Last
+                                                                                Name <sup
+                                                                                    style="color:#ff0000;">*</sup></label>
+                                                                            <span class="mb-2"
+                                                                                style="color: rgb(194, 194, 194);">Maximum
+                                                                                500
+                                                                                characters</span>
+                                                                            <input type="text" class="form-control"
+                                                                                placeholder=""></textarea>
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label class="labelName">3.
+                                                                                Referee 1's
+                                                                                Occupation <sup
+                                                                                    style="color:#ff0000;">*</sup></label>
+                                                                            <span class="mb-2"
+                                                                                style="color: rgb(194, 194, 194);">Maximum
+                                                                                500
+                                                                                characters</span>
+                                                                            <input type="text" class="form-control"
+                                                                                placeholder=""></textarea>
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label class="labelName">4.
+                                                                                Referee 1's Email
+                                                                                Address <sup
+                                                                                    style="color:#ff0000;">*</sup></label>
+                                                                            <span class="mb-2"
+                                                                                style="color: rgb(194, 194, 194);">Maximum
+                                                                                500
+                                                                                characters</span>
+                                                                            <input type="text" class="form-control"
+                                                                                placeholder=""></textarea>
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label class="labelName">5.
+                                                                                Referee 1's Country
+                                                                                <sup style="color:#ff0000;">*</sup></label>
+                                                                            <span class="mb-2"
+                                                                                style="color: rgb(194, 194, 194);">Maximum
+                                                                                500
+                                                                                characters</span>
+                                                                            <input type="text" class="form-control"
+                                                                                placeholder=""></textarea>
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label class="labelName">6.
+                                                                                Referee 1`s
+                                                                                Company/Institution
+                                                                                Name: <sup
+                                                                                    style="color:#ff0000;">*</sup></label>
+                                                                            <span class="mb-2"
+                                                                                style="color: rgb(194, 194, 194);">Maximum
+                                                                                500
+                                                                                characters</span>
+                                                                            <input type="text" class="form-control"
+                                                                                placeholder=""></textarea>
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label class="labelName">7.
+                                                                                Referee 2's First
+                                                                                Name <sup
+                                                                                    style="color:#ff0000;">*</sup></label>
+                                                                            <span class="mb-2"
+                                                                                style="color: rgb(194, 194, 194);">Maximum
+                                                                                500
+                                                                                characters</span>
+                                                                            <input type="text" class="form-control"
+                                                                                placeholder=""></textarea>
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label class="labelName">8.
+                                                                                Referee 2's Last
+                                                                                Name <sup
+                                                                                    style="color:#ff0000;">*</sup></label>
+                                                                            <span class="mb-2"
+                                                                                style="color: rgb(194, 194, 194);">Maximum
+                                                                                500
+                                                                                characters</span>
+                                                                            <input type="text" class="form-control"
+                                                                                placeholder=""></textarea>
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label class="labelName">9.
+                                                                                Referee 2's
+                                                                                Occupation <sup
+                                                                                    style="color:#ff0000;">*</sup></label>
+                                                                            <span class="mb-2"
+                                                                                style="color: rgb(194, 194, 194);">Maximum
+                                                                                500
+                                                                                characters</span>
+                                                                            <input type="text" class="form-control"
+                                                                                placeholder=""></textarea>
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label class="labelName">10.
+                                                                                Referee 2's Email
+                                                                                Address <sup
+                                                                                    style="color:#ff0000;">*</sup></label>
+                                                                            <span class="mb-2"
+                                                                                style="color: rgb(194, 194, 194);">Maximum
+                                                                                500
+                                                                                characters</span>
+                                                                            <input type="text" class="form-control"
+                                                                                placeholder=""></textarea>
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label class="labelName">11.
+                                                                                Referee 2's Country
+                                                                                <sup style="color:#ff0000;">*</sup></label>
+                                                                            <span class="mb-2"
+                                                                                style="color: rgb(194, 194, 194);">Maximum
+                                                                                500
+                                                                                characters</span>
+                                                                            <input type="text" class="form-control"
+                                                                                placeholder=""></textarea>
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label class="labelName">12.
+                                                                                Referee 2`s
+                                                                                Company/Institution
+                                                                                Name: <sup
+                                                                                    style="color:#ff0000;">*</sup></label>
+                                                                            <span class="mb-2"
+                                                                                style="color: rgb(194, 194, 194);">Maximum
+                                                                                500
+                                                                                characters</span>
+                                                                            <input type="text" class="form-control"
+                                                                                placeholder=""></textarea>
+                                                                        </div>
+
+                                                                    </div>
+                                                                    <div class="modal-footer appModalFooter">
+                                                                        <button type="button"
+                                                                            class="btn btn-primary disabled">Submit</button>
+                                                                    </div>
+                                                                </form>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
 
 
 
@@ -870,91 +1393,193 @@
                                                         <div class="appInfiDtlsAreainner">
                                                             <div class="appInfiDtls">
                                                                 <div class="logoThumnail">
-                                                                    @if (get_upload_document($applyProgram->id, $applyProgram->user_id, 'program-custodianship-declaration-attachment'))
-                                                                        <div class="text-success text-center">
-                                                                            <i class="fa-regular fa-check"></i>
-                                                                            <p class="mb-0">
-                                                                                Completed
-                                                                            </p>
-                                                                        </div>
-                                                                    @else
-                                                                        <div class="missingBox text-center">
-                                                                            <i
-                                                                                class="fa-regular fa-triangle-exclamation"></i>
-                                                                            <p class="mb-0">
-                                                                                Missing
-                                                                            </p>
-                                                                        </div>
-                                                                    @endif
-
+                                                                    <div class="missingBox text-center">
+                                                                        <i class="fa-regular fa-triangle-exclamation"></i>
+                                                                        <p class="mb-0">Mossing</p>
+                                                                    </div>
                                                                 </div>
                                                                 <div class="appInfiDtlsContent">
                                                                     <div class="wrapped-content">
                                                                         <h4 class="title mb-2">
-                                                                            Custodianship Declaration
-                                                                            <a href="javascript:;"><i
+                                                                            Country Specific GPA
+                                                                            India <a href="copyLink"><i
                                                                                     class="fa-regular fa-link-simple"></i></a>
                                                                         </h4>
                                                                         <div class="wrappedContentinner">
                                                                             <div class="req-desc">
                                                                                 <div class="moretext">
-                                                                                    <p>{{ $applyProgram->getProgram->custodianship_declaration }}
-                                                                                    </p>
+                                                                                    <p>Please be
+                                                                                        advised that
+                                                                                        the
+                                                                                        applicant is
+                                                                                        required to
+                                                                                        supply the
+                                                                                        contact
+                                                                                        details of
+                                                                                        two academic
+                                                                                        referees (or
+                                                                                        one academic
+                                                                                        reference
+                                                                                        if
+                                                                                        applicable
+                                                                                        to the
+                                                                                        course/program
+                                                                                        applied
+                                                                                        for).
+                                                                                        Employment
+                                                                                        references
+                                                                                        may be
+                                                                                        acceptable
+                                                                                        for specific
+                                                                                        courses
+                                                                                        which
+                                                                                        require
+                                                                                        them.
+                                                                                        Please note
+                                                                                        that the
+                                                                                        contact
+                                                                                        email
+                                                                                        address of
+                                                                                        the referee
+                                                                                        must be an
+                                                                                        official
+                                                                                        email
+                                                                                        address and
+                                                                                        not a
+                                                                                        personal one
+                                                                                        (for
+                                                                                        example,
+                                                                                        gmail).</p>
                                                                                     <p><br></p>
-
-                                                                                    @foreach ($applyProgram->getProgram->getMedia('program-custodianship-declaration-attachment') ?? [] as $image)
-                                                                                        <div class="links-attachments"><a
-                                                                                                class="additional-attachment university-document"
-                                                                                                href=" {{ $image->getUrl() }}"
-                                                                                                target="_blank"><span
-                                                                                                    aria-hidden="true"
-                                                                                                    class="fa fa-file-pdf-o"></span>
-                                                                                                {{ substr(strrchr($image->getPath(), '/'), 1) }}
-
-                                                                                            </a></div>
-                                                                                    @endforeach
-
+                                                                                    <p>Please make
+                                                                                        sure the
+                                                                                        referee(s)
+                                                                                        is informed
+                                                                                        to expect an
+                                                                                        email from
+                                                                                        the
+                                                                                        University
+                                                                                        of
+                                                                                        Birmingham,
+                                                                                        requesting
+                                                                                        them to
+                                                                                        write a
+                                                                                        reference.
+                                                                                        We recommend
+                                                                                        that the
+                                                                                        referee
+                                                                                        sends back
+                                                                                        the
+                                                                                        reference in
+                                                                                        a PDF format
+                                                                                        as it is
+                                                                                        preferred
+                                                                                        that:</p>
+                                                                                    <ul>
+                                                                                        <li>The
+                                                                                            reference
+                                                                                            is on
+                                                                                            official
+                                                                                            headed
+                                                                                            paper
+                                                                                            with the
+                                                                                            organization
+                                                                                            or
+                                                                                            institution’s
+                                                                                            logo and
+                                                                                            address
+                                                                                        </li>
+                                                                                        <li>It
+                                                                                            includes
+                                                                                            the
+                                                                                            date,
+                                                                                            the
+                                                                                            applicant's
+                                                                                            details
+                                                                                            and the
+                                                                                            details
+                                                                                            of the
+                                                                                            referee
+                                                                                        </li>
+                                                                                        <li>A
+                                                                                            summary
+                                                                                            of how
+                                                                                            the
+                                                                                            referee
+                                                                                            knows
+                                                                                            the
+                                                                                            applicant
+                                                                                            and
+                                                                                            confirm
+                                                                                            the
+                                                                                            applicant's
+                                                                                            suitability
+                                                                                            for
+                                                                                            studying
+                                                                                            on the
+                                                                                            course
+                                                                                            applied
+                                                                                            for</li>
+                                                                                        <li>It
+                                                                                            should
+                                                                                            be
+                                                                                            signed
+                                                                                            by the
+                                                                                            referee
+                                                                                            with
+                                                                                            their
+                                                                                            official
+                                                                                            contact
+                                                                                            details.
+                                                                                        </li>
+                                                                                    </ul>
+                                                                                    <p>If the
+                                                                                        referee(s)
+                                                                                        send back
+                                                                                        references
+                                                                                        that are not
+                                                                                        on the
+                                                                                        official
+                                                                                        headed
+                                                                                        paper, the
+                                                                                        applicant
+                                                                                        may be asked
+                                                                                        to send in
+                                                                                        additional
+                                                                                        references.
+                                                                                    </p>
+                                                                                    <p>If the
+                                                                                        applicant
+                                                                                        already have
+                                                                                        a written
+                                                                                        reference(s)
+                                                                                        and wants to
+                                                                                        upload it on
+                                                                                        behalf of
+                                                                                        the
+                                                                                        referee(s),
+                                                                                        make sure
+                                                                                        the
+                                                                                        reference
+                                                                                        is a scanned
+                                                                                        copy of the
+                                                                                        original and
+                                                                                        that it is
+                                                                                        on official
+                                                                                        headed
+                                                                                        paper.</p>
                                                                                 </div>
                                                                             </div>
                                                                             <div class="readMoreLessArea">
                                                                                 <span class="readmore-link"></span>
                                                                             </div>
                                                                         </div>
-                                                                        <div class="row">
-
-                                                                            @forelse ($uploadedDocument as $document)
-                                                                                @if ($document->document_name == 'program-custodianship-declaration-attachment')
-                                                                                    @foreach ($document->getMedia('program-custodianship-declaration-attachment') ?? [] as $image)
-                                                                                        <div class="links-attachments"><a
-                                                                                                class="additional-attachment uploaded-document"
-                                                                                                href=" {{ $image->getUrl() }}"
-                                                                                                target="_blank"><span
-                                                                                                    aria-hidden="true"
-                                                                                                    class="fa fa-file-pdf-o"></span>
-                                                                                                {{ substr(strrchr($image->getPath(), '/'), 1) }}
-                                                                                            </a></div>
-                                                                                    @endforeach
-                                                                                    <a href="javascript:;"
-                                                                                        data-id="{{ $document->id }}"
-                                                                                        class="approveBtn  bg-danger remove-document">
-                                                                                        <span class="icon"><i
-                                                                                                class="fa-regular fa-xmark"></i></span>
-
-                                                                                    </a>
-                                                                                @endif
-
-                                                                            @empty
-                                                                            @endforelse
-
-                                                                        </div>
                                                                     </div>
 
                                                                 </div>
-                                                                <div class="uploadBtnArea">
-                                                                    <a href="javascript:;"
-                                                                        data-applicant="program-custodianship-declaration-attachment"
-                                                                        class="uploadBtn application-file-upload"><i
-                                                                            class="fa-regular fa-upload"></i></a>
+                                                                <div class="editBtnArea">
+                                                                    <a href="#" class="editBtn"><i
+                                                                            class="fa-regular fa-pen-to-square"></i></a>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -970,306 +1595,912 @@
                                                         <div class="appInfiDtlsAreainner">
                                                             <div class="appInfiDtls">
                                                                 <div class="logoThumnail">
-                                                                    @if (get_upload_document($applyProgram->id, $applyProgram->user_id, 'program-proof-immunization-attachment'))
-                                                                        <div class="text-success text-center">
-                                                                            <i class="fa-regular fa-check"></i>
-                                                                            <p class="mb-0">
-                                                                                Completed
-                                                                            </p>
-                                                                        </div>
-                                                                    @else
-                                                                        <div class="missingBox text-center">
-                                                                            <i
-                                                                                class="fa-regular fa-triangle-exclamation"></i>
-                                                                            <p class="mb-0">
-                                                                                Missing
-                                                                            </p>
-                                                                        </div>
-                                                                    @endif
+                                                                    <div class="missingBox text-center">
+                                                                        <i class="fa-regular fa-triangle-exclamation"></i>
+                                                                        <p class="mb-0">Mossing</p>
+                                                                    </div>
                                                                 </div>
                                                                 <div class="appInfiDtlsContent">
                                                                     <div class="wrapped-content">
                                                                         <h4 class="title mb-2">
-                                                                            Proof of Immunization <a href="javascript:;"><i
+                                                                            Country Specific GPA
+                                                                            India <a href="copyLink"><i
                                                                                     class="fa-regular fa-link-simple"></i></a>
                                                                         </h4>
                                                                         <div class="wrappedContentinner">
                                                                             <div class="req-desc">
                                                                                 <div class="moretext">
-                                                                                    <p>{{ $applyProgram->getProgram->proof_immunization }}
-                                                                                    </p>
+                                                                                    <p>Please be
+                                                                                        advised that
+                                                                                        the
+                                                                                        applicant is
+                                                                                        required to
+                                                                                        supply the
+                                                                                        contact
+                                                                                        details of
+                                                                                        two academic
+                                                                                        referees (or
+                                                                                        one academic
+                                                                                        reference
+                                                                                        if
+                                                                                        applicable
+                                                                                        to the
+                                                                                        course/program
+                                                                                        applied
+                                                                                        for).
+                                                                                        Employment
+                                                                                        references
+                                                                                        may be
+                                                                                        acceptable
+                                                                                        for specific
+                                                                                        courses
+                                                                                        which
+                                                                                        require
+                                                                                        them.
+                                                                                        Please note
+                                                                                        that the
+                                                                                        contact
+                                                                                        email
+                                                                                        address of
+                                                                                        the referee
+                                                                                        must be an
+                                                                                        official
+                                                                                        email
+                                                                                        address and
+                                                                                        not a
+                                                                                        personal one
+                                                                                        (for
+                                                                                        example,
+                                                                                        gmail).</p>
                                                                                     <p><br></p>
-
-                                                                                    @foreach ($applyProgram->getProgram->getMedia('program-proof-immunization-attachment') ?? [] as $image)
-                                                                                        <div class="links-attachments"><a
-                                                                                                class="additional-attachment university-document"
-                                                                                                href=" {{ $image->getUrl() }}"
-                                                                                                target="_blank"><span
-                                                                                                    aria-hidden="true"
-                                                                                                    class="fa fa-file-pdf-o"></span>
-                                                                                                {{ substr(strrchr($image->getPath(), '/'), 1) }}
-
-                                                                                            </a></div>
-                                                                                    @endforeach
-
+                                                                                    <p>Please make
+                                                                                        sure the
+                                                                                        referee(s)
+                                                                                        is informed
+                                                                                        to expect an
+                                                                                        email from
+                                                                                        the
+                                                                                        University
+                                                                                        of
+                                                                                        Birmingham,
+                                                                                        requesting
+                                                                                        them to
+                                                                                        write a
+                                                                                        reference.
+                                                                                        We recommend
+                                                                                        that the
+                                                                                        referee
+                                                                                        sends back
+                                                                                        the
+                                                                                        reference in
+                                                                                        a PDF format
+                                                                                        as it is
+                                                                                        preferred
+                                                                                        that:</p>
+                                                                                    <ul>
+                                                                                        <li>The
+                                                                                            reference
+                                                                                            is on
+                                                                                            official
+                                                                                            headed
+                                                                                            paper
+                                                                                            with the
+                                                                                            organization
+                                                                                            or
+                                                                                            institution’s
+                                                                                            logo and
+                                                                                            address
+                                                                                        </li>
+                                                                                        <li>It
+                                                                                            includes
+                                                                                            the
+                                                                                            date,
+                                                                                            the
+                                                                                            applicant's
+                                                                                            details
+                                                                                            and the
+                                                                                            details
+                                                                                            of the
+                                                                                            referee
+                                                                                        </li>
+                                                                                        <li>A
+                                                                                            summary
+                                                                                            of how
+                                                                                            the
+                                                                                            referee
+                                                                                            knows
+                                                                                            the
+                                                                                            applicant
+                                                                                            and
+                                                                                            confirm
+                                                                                            the
+                                                                                            applicant's
+                                                                                            suitability
+                                                                                            for
+                                                                                            studying
+                                                                                            on the
+                                                                                            course
+                                                                                            applied
+                                                                                            for</li>
+                                                                                        <li>It
+                                                                                            should
+                                                                                            be
+                                                                                            signed
+                                                                                            by the
+                                                                                            referee
+                                                                                            with
+                                                                                            their
+                                                                                            official
+                                                                                            contact
+                                                                                            details.
+                                                                                        </li>
+                                                                                    </ul>
+                                                                                    <p>If the
+                                                                                        referee(s)
+                                                                                        send back
+                                                                                        references
+                                                                                        that are not
+                                                                                        on the
+                                                                                        official
+                                                                                        headed
+                                                                                        paper, the
+                                                                                        applicant
+                                                                                        may be asked
+                                                                                        to send in
+                                                                                        additional
+                                                                                        references.
+                                                                                    </p>
+                                                                                    <p>If the
+                                                                                        applicant
+                                                                                        already have
+                                                                                        a written
+                                                                                        reference(s)
+                                                                                        and wants to
+                                                                                        upload it on
+                                                                                        behalf of
+                                                                                        the
+                                                                                        referee(s),
+                                                                                        make sure
+                                                                                        the
+                                                                                        reference
+                                                                                        is a scanned
+                                                                                        copy of the
+                                                                                        original and
+                                                                                        that it is
+                                                                                        on official
+                                                                                        headed
+                                                                                        paper.</p>
                                                                                 </div>
                                                                             </div>
                                                                             <div class="readMoreLessArea">
                                                                                 <span class="readmore-link"></span>
                                                                             </div>
                                                                         </div>
-                                                                        <div class="row">
-
-                                                                            @forelse ($uploadedDocument as $document)
-                                                                                @if ($document->document_name == 'program-proof-immunization-attachment')
-                                                                                    @foreach ($document->getMedia('program-proof-immunization-attachment') ?? [] as $image)
-                                                                                        <div class="links-attachments"><a
-                                                                                                class="additional-attachment uploaded-document"
-                                                                                                href=" {{ $image->getUrl() }}"
-                                                                                                target="_blank"><span
-                                                                                                    aria-hidden="true"
-                                                                                                    class="fa fa-file-pdf-o"></span>
-                                                                                                {{ substr(strrchr($image->getPath(), '/'), 1) }}
-
-                                                                                            </a></div>
-                                                                                    @endforeach
-                                                                                    <a href="javascript:;"
-                                                                                        data-id="{{ $document->id }}"
-                                                                                        class="approveBtn  bg-danger remove-document">
-                                                                                        <span class="icon"><i
-                                                                                                class="fa-regular fa-xmark"></i></span>
-
-                                                                                    </a>
-                                                                                @endif
-
-                                                                            @empty
-                                                                            @endforelse
-
-                                                                        </div>
                                                                     </div>
 
                                                                 </div>
-                                                                <div class="uploadBtnArea">
-                                                                    <a href="javascript:;"
-                                                                        data-applicant="program-proof-immunization-attachment"
-                                                                        class="uploadBtn application-file-upload"><i
-                                                                            class="fa-regular fa-upload"></i></a>
+                                                                <div class="editBtnArea">
+                                                                    <a href="#" class="editBtn"><i
+                                                                            class="fa-regular fa-pen-to-square"></i></a>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
 
-                                                <div class="appListItem">
-                                                    <div class="reqiredBox">
-                                                        <div class="reqiredBoxinner">
-                                                            <span class="txt">Required</span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="appInfiDtlsArea">
-                                                        <div class="appInfiDtlsAreainner">
-                                                            <div class="appInfiDtls">
-                                                                <div class="logoThumnail">
-                                                                    @if (get_upload_document($applyProgram->id, $applyProgram->user_id, 'program-participation-agreement-attachment'))
-                                                                        <div class="text-success text-center">
-                                                                            <i class="fa-regular fa-check"></i>
-                                                                            <p class="mb-0">
-                                                                                Completed
-                                                                            </p>
-                                                                        </div>
-                                                                    @else
-                                                                        <div class="missingBox text-center">
-                                                                            <i
-                                                                                class="fa-regular fa-triangle-exclamation"></i>
-                                                                            <p class="mb-0">
-                                                                                Missing
-                                                                            </p>
-                                                                        </div>
-                                                                    @endif
-                                                                </div>
-                                                                <div class="appInfiDtlsContent">
-                                                                    <div class="wrapped-content">
-                                                                        <h4 class="title mb-2">
-                                                                            Student Participation Agreement (without
-                                                                            homestay)
-                                                                            <a href="javascript:;"><i
-                                                                                    class="fa-regular fa-link-simple"></i></a>
-                                                                        </h4>
-                                                                        <div class="wrappedContentinner">
-                                                                            <div class="req-desc">
-                                                                                <div class="moretext">
-                                                                                    <p>{{ $applyProgram->getProgram->participation_agreement }}
-                                                                                    </p>
-                                                                                    <p><br></p>
-
-                                                                                    @foreach ($applyProgram->getProgram->getMedia('program-participation-agreement-attachment') ?? [] as $image)
-                                                                                        <div class="links-attachments"><a
-                                                                                                class="additional-attachment university-document"
-                                                                                                href=" {{ $image->getUrl() }}"
-                                                                                                target="_blank"><span
-                                                                                                    aria-hidden="true"
-                                                                                                    class="fa fa-file-pdf-o"></span>
-                                                                                                {{ substr(strrchr($image->getPath(), '/'), 1) }}
-
-                                                                                            </a></div>
-                                                                                    @endforeach
-
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="readMoreLessArea">
-                                                                                <span class="readmore-link"></span>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="row">
-
-                                                                            @forelse ($uploadedDocument as $document)
-                                                                                @if ($document->document_name == 'program-participation-agreement-attachment')
-                                                                                    @foreach ($document->getMedia('program-participation-agreement-attachment') ?? [] as $image)
-                                                                                        <div class="links-attachments"><a
-                                                                                                class="additional-attachment uploaded-document"
-                                                                                                href=" {{ $image->getUrl() }}"
-                                                                                                target="_blank"><span
-                                                                                                    aria-hidden="true"
-                                                                                                    class="fa fa-file-pdf-o"></span>
-                                                                                                {{ substr(strrchr($image->getPath(), '/'), 1) }}
-                                                                                            </a></div>
-                                                                                    @endforeach
-                                                                                    <a href="javascript:;"
-                                                                                        data-id="{{ $document->id }}"
-                                                                                        class="approveBtn  bg-danger remove-document">
-                                                                                        <span class="icon"><i
-                                                                                                class="fa-regular fa-xmark"></i></span>
-
-                                                                                    </a>
-                                                                                @endif
-                                                                            @empty
-                                                                            @endforelse
-
-                                                                        </div>
-                                                                    </div>
-
-                                                                </div>
-                                                                <div class="uploadBtnArea">
-                                                                    <a href="javascript:;"
-                                                                        data-applicant="program-participation-agreement-attachment"
-                                                                        class="uploadBtn application-file-upload"><i
-                                                                            class="fa-regular fa-upload"></i></a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="appListItem">
-                                                    <div class="reqiredBox">
-                                                        <div class="reqiredBoxinner">
-                                                            <span class="txt">Required</span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="appInfiDtlsArea">
-                                                        <div class="appInfiDtlsAreainner">
-                                                            <div class="appInfiDtls">
-                                                                <div class="logoThumnail">
-                                                                    @if (get_upload_document($applyProgram->id, $applyProgram->user_id, 'program-self-introduction-attachment'))
-                                                                        <div class="text-success text-center">
-                                                                            <i class="fa-regular fa-check"></i>
-                                                                            <p class="mb-0">
-                                                                                Completed
-                                                                            </p>
-                                                                        </div>
-                                                                    @else
-                                                                        <div class="missingBox text-center">
-                                                                            <i
-                                                                                class="fa-regular fa-triangle-exclamation"></i>
-                                                                            <p class="mb-0">
-                                                                                Missing
-                                                                            </p>
-                                                                        </div>
-                                                                    @endif
-                                                                </div>
-                                                                <div class="appInfiDtlsContent">
-                                                                    <div class="wrapped-content">
-                                                                        <h4 class="title mb-2">
-                                                                            Student Self-Introduction Form
-                                                                            <a href="javascript:;"><i
-                                                                                    class="fa-regular fa-link-simple"></i></a>
-                                                                        </h4>
-                                                                        <div class="wrappedContentinner">
-                                                                            <div class="req-desc">
-                                                                                <div class="moretext">
-                                                                                    <p>{{ $applyProgram->getProgram->self_introduction }}
-                                                                                    </p>
-                                                                                    <p><br></p>
-
-                                                                                    @foreach ($applyProgram->getProgram->getMedia('program-self-introduction-attachment') ?? [] as $image)
-                                                                                        <div class="links-attachments"><a
-                                                                                                class="additional-attachment university-document"
-                                                                                                href=" {{ $image->getUrl() }}"
-                                                                                                target="_blank"><span
-                                                                                                    aria-hidden="true"
-                                                                                                    class="fa fa-file-pdf-o"></span>
-                                                                                                {{ substr(strrchr($image->getPath(), '/'), 1) }}
-
-                                                                                            </a></div>
-                                                                                    @endforeach
-
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="readMoreLessArea">
-                                                                                <span class="readmore-link"></span>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="row">
-
-                                                                            @forelse ($uploadedDocument as $document)
-                                                                                @if ($document->document_name == 'program-self-introduction-attachment')
-                                                                                    @foreach ($document->getMedia('program-self-introduction-attachment') ?? [] as $image)
-                                                                                        <div class="links-attachments"><a
-                                                                                                class="additional-attachment uploaded-document"
-                                                                                                href=" {{ $image->getUrl() }}"
-                                                                                                target="_blank"><span
-                                                                                                    aria-hidden="true"
-                                                                                                    class="fa fa-file-pdf-o"></span>
-                                                                                                {{ substr(strrchr($image->getPath(), '/'), 1) }}
-
-                                                                                            </a></div>
-                                                                                    @endforeach
-                                                                                    <a href="javascript:;"
-                                                                                        data-id="{{ $document->id }}"
-                                                                                        class="approveBtn  bg-danger remove-document">
-                                                                                        <span class="icon"><i
-                                                                                                class="fa-regular fa-xmark"></i></span>
-
-                                                                                    </a>
-                                                                                @endif
-                                                                            @empty
-                                                                            @endforelse
-
-                                                                        </div>
-                                                                    </div>
-
-                                                                </div>
-                                                                <div class="uploadBtnArea">
-                                                                    <a href="javascript:;"
-                                                                        data-applicant="program-self-introduction-attachment"
-                                                                        class="uploadBtn application-file-upload"><i
-                                                                            class="fa-regular fa-upload"></i></a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
 
                                             </div>
                                         </div>
                                     </div>
 
 
-                                    <div class="appDtlsAccordianBody">
-                                        <div class="appListItemArea">
+                                    <div class="appDtlsAccordianItem">
+                                        <div class="appDtlsAccordianHeader">
+                                            <div class="leftSide">
+                                                <h4 class="title">Pre-Submission</h4>
+                                                <p class="mb-0">5 requirements to be completed</p>
+                                            </div>
+                                            <div class="rightSide">
+                                                <ul class="rightSideList">
+                                                    <li>
+                                                        <a href="#" class="missingBtn">
+                                                            <span class="icon"><i
+                                                                    class="fa-sharp fa-solid fa-triangle"></i></span>
+                                                            <span class="txt">0</span>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#" class="reviewingBtn">
+                                                            <span class="icon"><i
+                                                                    class="fa-solid fa-hourglass"></i></span>
+                                                            <span class="txt">8</span>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#" class="approveBtn">
+                                                            <span class="icon"><i
+                                                                    class="fa-regular fa-xmark"></i></span>
+                                                            <span class="txt">0</span>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#" class="completedBtn">
+                                                            <span class="icon"><i
+                                                                    class="fa-regular fa-check"></i></span>
+                                                            <span class="txt">4</span>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                                <span class="toggleBtn"><i class="fa-solid fa-minus"></i></span>
+                                            </div>
+                                        </div>
+                                        <div class="appDtlsAccordianBody">
+                                            <div class="appListItemArea">
+
+                                                <div class="appListItem">
+                                                    <div class="reqiredBox">
+                                                        <div class="reqiredBoxinner">
+                                                            <span class="txt">Required</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="appInfiDtlsArea">
+                                                        <div class="appInfiDtlsAreainner">
+                                                            <div class="appInfiDtls">
+                                                                <div class="logoThumnail">
+                                                                    <div class="missingBox text-center">
+                                                                        <i class="fa-regular fa-triangle-exclamation"></i>
+                                                                        <p class="mb-0">Mossing</p>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="appInfiDtlsContent">
+                                                                    <div class="wrapped-content">
+                                                                        <h4 class="title mb-2">
+                                                                            Country Specific GPA
+                                                                            India <a href="copyLink"><i
+                                                                                    class="fa-regular fa-link-simple"></i></a>
+                                                                        </h4>
+                                                                        <div class="wrappedContentinner">
+                                                                            <div class="req-desc">
+                                                                                <div class="moretext">
+                                                                                    <p>Please be
+                                                                                        advised that
+                                                                                        the
+                                                                                        applicant is
+                                                                                        required to
+                                                                                        supply the
+                                                                                        contact
+                                                                                        details of
+                                                                                        two academic
+                                                                                        referees (or
+                                                                                        one academic
+                                                                                        reference
+                                                                                        if
+                                                                                        applicable
+                                                                                        to the
+                                                                                        course/program
+                                                                                        applied
+                                                                                        for).
+                                                                                        Employment
+                                                                                        references
+                                                                                        may be
+                                                                                        acceptable
+                                                                                        for specific
+                                                                                        courses
+                                                                                        which
+                                                                                        require
+                                                                                        them.
+                                                                                        Please note
+                                                                                        that the
+                                                                                        contact
+                                                                                        email
+                                                                                        address of
+                                                                                        the referee
+                                                                                        must be an
+                                                                                        official
+                                                                                        email
+                                                                                        address and
+                                                                                        not a
+                                                                                        personal one
+                                                                                        (for
+                                                                                        example,
+                                                                                        gmail).</p>
+                                                                                    <p><br></p>
+                                                                                    <p>Please make
+                                                                                        sure the
+                                                                                        referee(s)
+                                                                                        is informed
+                                                                                        to expect an
+                                                                                        email from
+                                                                                        the
+                                                                                        University
+                                                                                        of
+                                                                                        Birmingham,
+                                                                                        requesting
+                                                                                        them to
+                                                                                        write a
+                                                                                        reference.
+                                                                                        We recommend
+                                                                                        that the
+                                                                                        referee
+                                                                                        sends back
+                                                                                        the
+                                                                                        reference in
+                                                                                        a PDF format
+                                                                                        as it is
+                                                                                        preferred
+                                                                                        that:</p>
+                                                                                    <ul>
+                                                                                        <li>The
+                                                                                            reference
+                                                                                            is on
+                                                                                            official
+                                                                                            headed
+                                                                                            paper
+                                                                                            with the
+                                                                                            organization
+                                                                                            or
+                                                                                            institution’s
+                                                                                            logo and
+                                                                                            address
+                                                                                        </li>
+                                                                                        <li>It
+                                                                                            includes
+                                                                                            the
+                                                                                            date,
+                                                                                            the
+                                                                                            applicant's
+                                                                                            details
+                                                                                            and the
+                                                                                            details
+                                                                                            of the
+                                                                                            referee
+                                                                                        </li>
+                                                                                        <li>A
+                                                                                            summary
+                                                                                            of how
+                                                                                            the
+                                                                                            referee
+                                                                                            knows
+                                                                                            the
+                                                                                            applicant
+                                                                                            and
+                                                                                            confirm
+                                                                                            the
+                                                                                            applicant's
+                                                                                            suitability
+                                                                                            for
+                                                                                            studying
+                                                                                            on the
+                                                                                            course
+                                                                                            applied
+                                                                                            for</li>
+                                                                                        <li>It
+                                                                                            should
+                                                                                            be
+                                                                                            signed
+                                                                                            by the
+                                                                                            referee
+                                                                                            with
+                                                                                            their
+                                                                                            official
+                                                                                            contact
+                                                                                            details.
+                                                                                        </li>
+                                                                                    </ul>
+                                                                                    <p>If the
+                                                                                        referee(s)
+                                                                                        send back
+                                                                                        references
+                                                                                        that are not
+                                                                                        on the
+                                                                                        official
+                                                                                        headed
+                                                                                        paper, the
+                                                                                        applicant
+                                                                                        may be asked
+                                                                                        to send in
+                                                                                        additional
+                                                                                        references.
+                                                                                    </p>
+                                                                                    <p>If the
+                                                                                        applicant
+                                                                                        already have
+                                                                                        a written
+                                                                                        reference(s)
+                                                                                        and wants to
+                                                                                        upload it on
+                                                                                        behalf of
+                                                                                        the
+                                                                                        referee(s),
+                                                                                        make sure
+                                                                                        the
+                                                                                        reference
+                                                                                        is a scanned
+                                                                                        copy of the
+                                                                                        original and
+                                                                                        that it is
+                                                                                        on official
+                                                                                        headed
+                                                                                        paper.</p>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="readMoreLessArea">
+                                                                                <span class="readmore-link"></span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+                                                                <div class="uploadBtnArea">
+                                                                    <a href="#" class="uploadBtn"><i
+                                                                            class="fa-regular fa-upload"></i></a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="appListItem">
+                                                    <div class="reqiredBox">
+                                                        <div class="reqiredBoxinner">
+                                                            <span class="txt">Required</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="appInfiDtlsArea">
+                                                        <div class="appInfiDtlsAreainner">
+                                                            <div class="appInfiDtls">
+                                                                <div class="logoThumnail">
+                                                                    <div class="missingBox text-center">
+                                                                        <i class="fa-regular fa-triangle-exclamation"></i>
+                                                                        <p class="mb-0">Mossing</p>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="appInfiDtlsContent">
+                                                                    <div class="wrapped-content">
+                                                                        <h4 class="title mb-2">
+                                                                            Country Specific GPA
+                                                                            India <a href="copyLink"><i
+                                                                                    class="fa-regular fa-link-simple"></i></a>
+                                                                        </h4>
+                                                                        <div class="wrappedContentinner">
+                                                                            <div class="req-desc">
+                                                                                <div class="moretext">
+                                                                                    <p>Please be
+                                                                                        advised that
+                                                                                        the
+                                                                                        applicant is
+                                                                                        required to
+                                                                                        supply the
+                                                                                        contact
+                                                                                        details of
+                                                                                        two academic
+                                                                                        referees (or
+                                                                                        one academic
+                                                                                        reference
+                                                                                        if
+                                                                                        applicable
+                                                                                        to the
+                                                                                        course/program
+                                                                                        applied
+                                                                                        for).
+                                                                                        Employment
+                                                                                        references
+                                                                                        may be
+                                                                                        acceptable
+                                                                                        for specific
+                                                                                        courses
+                                                                                        which
+                                                                                        require
+                                                                                        them.
+                                                                                        Please note
+                                                                                        that the
+                                                                                        contact
+                                                                                        email
+                                                                                        address of
+                                                                                        the referee
+                                                                                        must be an
+                                                                                        official
+                                                                                        email
+                                                                                        address and
+                                                                                        not a
+                                                                                        personal one
+                                                                                        (for
+                                                                                        example,
+                                                                                        gmail).</p>
+                                                                                    <p><br></p>
+                                                                                    <p>Please make
+                                                                                        sure the
+                                                                                        referee(s)
+                                                                                        is informed
+                                                                                        to expect an
+                                                                                        email from
+                                                                                        the
+                                                                                        University
+                                                                                        of
+                                                                                        Birmingham,
+                                                                                        requesting
+                                                                                        them to
+                                                                                        write a
+                                                                                        reference.
+                                                                                        We recommend
+                                                                                        that the
+                                                                                        referee
+                                                                                        sends back
+                                                                                        the
+                                                                                        reference in
+                                                                                        a PDF format
+                                                                                        as it is
+                                                                                        preferred
+                                                                                        that:</p>
+                                                                                    <ul>
+                                                                                        <li>The
+                                                                                            reference
+                                                                                            is on
+                                                                                            official
+                                                                                            headed
+                                                                                            paper
+                                                                                            with the
+                                                                                            organization
+                                                                                            or
+                                                                                            institution’s
+                                                                                            logo and
+                                                                                            address
+                                                                                        </li>
+                                                                                        <li>It
+                                                                                            includes
+                                                                                            the
+                                                                                            date,
+                                                                                            the
+                                                                                            applicant's
+                                                                                            details
+                                                                                            and the
+                                                                                            details
+                                                                                            of the
+                                                                                            referee
+                                                                                        </li>
+                                                                                        <li>A
+                                                                                            summary
+                                                                                            of how
+                                                                                            the
+                                                                                            referee
+                                                                                            knows
+                                                                                            the
+                                                                                            applicant
+                                                                                            and
+                                                                                            confirm
+                                                                                            the
+                                                                                            applicant's
+                                                                                            suitability
+                                                                                            for
+                                                                                            studying
+                                                                                            on the
+                                                                                            course
+                                                                                            applied
+                                                                                            for</li>
+                                                                                        <li>It
+                                                                                            should
+                                                                                            be
+                                                                                            signed
+                                                                                            by the
+                                                                                            referee
+                                                                                            with
+                                                                                            their
+                                                                                            official
+                                                                                            contact
+                                                                                            details.
+                                                                                        </li>
+                                                                                    </ul>
+                                                                                    <p>If the
+                                                                                        referee(s)
+                                                                                        send back
+                                                                                        references
+                                                                                        that are not
+                                                                                        on the
+                                                                                        official
+                                                                                        headed
+                                                                                        paper, the
+                                                                                        applicant
+                                                                                        may be asked
+                                                                                        to send in
+                                                                                        additional
+                                                                                        references.
+                                                                                    </p>
+                                                                                    <p>If the
+                                                                                        applicant
+                                                                                        already have
+                                                                                        a written
+                                                                                        reference(s)
+                                                                                        and wants to
+                                                                                        upload it on
+                                                                                        behalf of
+                                                                                        the
+                                                                                        referee(s),
+                                                                                        make sure
+                                                                                        the
+                                                                                        reference
+                                                                                        is a scanned
+                                                                                        copy of the
+                                                                                        original and
+                                                                                        that it is
+                                                                                        on official
+                                                                                        headed
+                                                                                        paper.</p>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="readMoreLessArea">
+                                                                                <span class="readmore-link"></span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+                                                                <div class="uploadBtnArea">
+                                                                    <a href="#" class="uploadBtn"><i
+                                                                            class="fa-regular fa-upload"></i></a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="appListItem">
+                                                    <div class="reqiredBox">
+                                                        <div class="reqiredBoxinner">
+                                                            <span class="txt">Required</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="appInfiDtlsArea">
+                                                        <div class="appInfiDtlsAreainner">
+                                                            <div class="appInfiDtls">
+                                                                <div class="logoThumnail">
+                                                                    <div class="missingBox text-center">
+                                                                        <i class="fa-regular fa-triangle-exclamation"></i>
+                                                                        <p class="mb-0">Mossing</p>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="appInfiDtlsContent">
+                                                                    <div class="wrapped-content">
+                                                                        <h4 class="title mb-2">
+                                                                            Country Specific GPA
+                                                                            India <a href="copyLink"><i
+                                                                                    class="fa-regular fa-link-simple"></i></a>
+                                                                        </h4>
+                                                                        <div class="wrappedContentinner">
+                                                                            <div class="req-desc">
+                                                                                <div class="moretext">
+                                                                                    <p>Please be
+                                                                                        advised that
+                                                                                        the
+                                                                                        applicant is
+                                                                                        required to
+                                                                                        supply the
+                                                                                        contact
+                                                                                        details of
+                                                                                        two academic
+                                                                                        referees (or
+                                                                                        one academic
+                                                                                        reference
+                                                                                        if
+                                                                                        applicable
+                                                                                        to the
+                                                                                        course/program
+                                                                                        applied
+                                                                                        for).
+                                                                                        Employment
+                                                                                        references
+                                                                                        may be
+                                                                                        acceptable
+                                                                                        for specific
+                                                                                        courses
+                                                                                        which
+                                                                                        require
+                                                                                        them.
+                                                                                        Please note
+                                                                                        that the
+                                                                                        contact
+                                                                                        email
+                                                                                        address of
+                                                                                        the referee
+                                                                                        must be an
+                                                                                        official
+                                                                                        email
+                                                                                        address and
+                                                                                        not a
+                                                                                        personal one
+                                                                                        (for
+                                                                                        example,
+                                                                                        gmail).</p>
+                                                                                    <p><br></p>
+                                                                                    <p>Please make
+                                                                                        sure the
+                                                                                        referee(s)
+                                                                                        is informed
+                                                                                        to expect an
+                                                                                        email from
+                                                                                        the
+                                                                                        University
+                                                                                        of
+                                                                                        Birmingham,
+                                                                                        requesting
+                                                                                        them to
+                                                                                        write a
+                                                                                        reference.
+                                                                                        We recommend
+                                                                                        that the
+                                                                                        referee
+                                                                                        sends back
+                                                                                        the
+                                                                                        reference in
+                                                                                        a PDF format
+                                                                                        as it is
+                                                                                        preferred
+                                                                                        that:</p>
+                                                                                    <ul>
+                                                                                        <li>The
+                                                                                            reference
+                                                                                            is on
+                                                                                            official
+                                                                                            headed
+                                                                                            paper
+                                                                                            with the
+                                                                                            organization
+                                                                                            or
+                                                                                            institution’s
+                                                                                            logo and
+                                                                                            address
+                                                                                        </li>
+                                                                                        <li>It
+                                                                                            includes
+                                                                                            the
+                                                                                            date,
+                                                                                            the
+                                                                                            applicant's
+                                                                                            details
+                                                                                            and the
+                                                                                            details
+                                                                                            of the
+                                                                                            referee
+                                                                                        </li>
+                                                                                        <li>A
+                                                                                            summary
+                                                                                            of how
+                                                                                            the
+                                                                                            referee
+                                                                                            knows
+                                                                                            the
+                                                                                            applicant
+                                                                                            and
+                                                                                            confirm
+                                                                                            the
+                                                                                            applicant's
+                                                                                            suitability
+                                                                                            for
+                                                                                            studying
+                                                                                            on the
+                                                                                            course
+                                                                                            applied
+                                                                                            for</li>
+                                                                                        <li>It
+                                                                                            should
+                                                                                            be
+                                                                                            signed
+                                                                                            by the
+                                                                                            referee
+                                                                                            with
+                                                                                            their
+                                                                                            official
+                                                                                            contact
+                                                                                            details.
+                                                                                        </li>
+                                                                                    </ul>
+                                                                                    <p>If the
+                                                                                        referee(s)
+                                                                                        send back
+                                                                                        references
+                                                                                        that are not
+                                                                                        on the
+                                                                                        official
+                                                                                        headed
+                                                                                        paper, the
+                                                                                        applicant
+                                                                                        may be asked
+                                                                                        to send in
+                                                                                        additional
+                                                                                        references.
+                                                                                    </p>
+                                                                                    <p>If the
+                                                                                        applicant
+                                                                                        already have
+                                                                                        a written
+                                                                                        reference(s)
+                                                                                        and wants to
+                                                                                        upload it on
+                                                                                        behalf of
+                                                                                        the
+                                                                                        referee(s),
+                                                                                        make sure
+                                                                                        the
+                                                                                        reference
+                                                                                        is a scanned
+                                                                                        copy of the
+                                                                                        original and
+                                                                                        that it is
+                                                                                        on official
+                                                                                        headed
+                                                                                        paper.</p>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="readMoreLessArea">
+                                                                                <span class="readmore-link"></span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+                                                                <div class="uploadBtnArea">
+                                                                    <a href="#" class="uploadBtn"><i
+                                                                            class="fa-regular fa-upload"></i></a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="appListItem">
+                                                    <div class="reqiredBox">
+                                                        <div class="reqiredBoxinner">
+                                                            <span class="txt">Required</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="appInfiDtlsArea">
+                                                        <div class="appInfiDtlsAreainner">
+                                                            <div class="appInfiDtls">
+                                                                <div class="logoThumnail">
+                                                                    <div class="missingBox text-center">
+                                                                        <i class="fa-regular fa-triangle-exclamation"></i>
+                                                                        <p class="mb-0">Mossing</p>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="appInfiDtlsContent">
+                                                                    <div class="wrapped-content">
+                                                                        <h4 class="title mb-2">
+                                                                            Privacy Statement <a href="copyLink"><i
+                                                                                    class="fa-regular fa-link-simple"></i></a>
+                                                                        </h4>
+                                                                        <div class="wrappedContentinner">
+                                                                            <div class="req-desc">
+                                                                                <div class="moretext">
+                                                                                    <p>Please complete and upload the
+                                                                                        privacy statement form found here.
+                                                                                    </p>
+                                                                                    <p><br></p>
+                                                                                    <div class="links-attachments"><a
+                                                                                            class="additional-attachment"
+                                                                                            href="{{ route('student.privacy.statement', ['id' => $applyProgram->getUniversity->id, 'slug' => $applyProgram->getUniversity->slug]) }}"
+                                                                                            target="_blank"><span
+                                                                                                aria-hidden="true"
+                                                                                                class="fa fa-file-pdf-o"></span>Student_Applicant_Consent_for_Data_sharing_with_partner_organisations.pdf
+                                                                                            (113KB)</a></div>
+
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="readMoreLessArea">
+                                                                                <span class="readmore-link"></span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+                                                                <div class="uploadBtnArea">
+                                                                    <a href="#" class="uploadBtn"><i
+                                                                            class="fa-regular fa-upload"></i></a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
 
 
-
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -1602,6 +2833,90 @@
                     },
                     error: function(xhr) {
 
+                    }
+                });
+            })
+
+
+
+
+
+            $(".program_intake").on('change', function() {
+                $("#intake_change_button").show();
+
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ route('intake.program.update') }}",
+                    data: {
+                        mood: 'change_intake',
+                        intake_id: $(this).val(),
+                        program_id: $(this).data('program')
+                    },
+                    success: function(response) {
+                        $("#els_intake").html(response.els_intake)
+                        // Swal.fire({
+                        //     icon: 'success',
+                        //     title: 'Success',
+                        //     text: response.success,
+                        // });
+                    },
+                    error: function(xhr) {
+
+                    }
+                });
+
+
+            })
+
+            $("#els_intake").on('change', function() {
+                $("#intake_change_button").show();
+            })
+            $("#intake_change_button").hide();
+
+            $("#intake_change_button").click(function() {
+                setTimeout(() => {
+                    console.log('program_intake', $(".program_intake").val());
+                    console.log('program', $(".program_intake").data('program'));
+                    console.log('els_intake', $("#els_intake").val());
+                    // alert('You can change intake only once');
+                    $("#intake_change_button").hide();
+                }, 5000);
+
+
+                Swal.fire({
+
+                    text: 'Are you sure you want to update the start date(s)?',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#a7d5ea',
+                    cancelButtonColor: '#c8c8c8',
+                    confirmButtonText: 'Confirm'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // User clicked "Yes, delete it!"
+                        // Perform the AJAX call here
+                        $.ajax({
+                            type: 'POST',
+                            url: "{{ route('intake.program.update') }}",
+                            data: {
+                                intake_id: $(".program_intake").val(),
+                                program_id: $(".program_intake").data('program'),
+                                els_intake: $("#els_intake").val()
+                            },
+                            success: function(response) {
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Success',
+                                    text: response.success,
+                                });
+                                // setTimeout(() => {
+                                //     window.location.reload();
+                                // }, 2000);
+                            },
+                            error: function(xhr) {
+
+                            }
+                        });
                     }
                 });
             })

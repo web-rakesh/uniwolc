@@ -1,7 +1,5 @@
 @extends('admin.layouts.layout')
-@push('css')
-    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
-@endpush
+
 @section('content')
     <div class="content-wrapper">
         <div class="page-header">
@@ -303,7 +301,7 @@
 @endsection
 
 @push('js')
-    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+  
     <!-- Initialize Quill editor -->
     <script>
         // Initialize Quill editor

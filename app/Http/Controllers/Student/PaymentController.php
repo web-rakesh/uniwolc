@@ -30,7 +30,7 @@ class PaymentController extends Controller
             $studentId = $applyPg->user_id;
             $totalPayableAmount = ApplyProgram::whereUserId($studentId)->where('id', $id)->sum('fees');
 
-            return view('staff.payment-confirm', compact('totalPayableAmount', 'id', 'countryId'));
+            // return view('staff.payment-confirm', compact('totalPayableAmount', 'id', 'countryId'));
         } else {
             $totalPayableAmount = ApplyProgram::whereUserId(Auth::user()->id)->where('id', $id)->sum('fees');
 
@@ -39,7 +39,8 @@ class PaymentController extends Controller
 
         // return $id;
         // return $totalPayableAmount = ApplyProgram::whereUserId(Auth::user()->id)->whereIn('id', $id)->sum('fees');
-        return view('students.payment-confirm', compact('totalPayableAmount', 'id', 'countryId'));
+        $layout = auth_layout();
+        return view('students.payment-confirm', compact('totalPayableAmount', 'id', 'countryId', 'layout'));
     }
     public function payment(Request $request)
     {
@@ -59,15 +60,15 @@ class PaymentController extends Controller
             $studentId = $applyPg->user_id;
             $totalPayableAmount = ApplyProgram::whereUserId($studentId)->where('id', $id)->sum('fees');
             $id = implode(",", $request->id);
-            return view('staff.payment', compact('totalPayableAmount', 'id', 'countryId'));
+            // return view('staff.payment', compact('totalPayableAmount', 'id', 'countryId'));
         } else {
             $totalPayableAmount = ApplyProgram::whereUserId(Auth::user()->id)->where('id', $id)->sum('fees');
 
             $studentId = Auth::user()->id;
         }
-
+        $layout = auth_layout();
         // return $id;
-        return view('students.payment', compact('totalPayableAmount', 'id', 'countryId'));
+        return view('students.payment', compact('totalPayableAmount', 'id', 'countryId', 'layout'));
     }
 
     public function processPayment(Request $request)
@@ -143,8 +144,8 @@ class PaymentController extends Controller
             DB::commit();
             $amount =  $paymentStatus->amount / 100;
             // dd($paymentStatus);
+            return redirect()->route('payment.success', ['amount' => $amount])->withSuccess('Payment done.');
             if (Auth::user()->type == 'agent') {
-                return redirect()->route('agent.payment.success', ['amount' => $amount])->withSuccess('Payment done.');
             } elseif (Auth::user()->type == 'staff') {
                 return redirect()->route('staff.payment.success', ['amount' => $amount])->withSuccess('Payment done.');
             } else {
@@ -166,14 +167,16 @@ class PaymentController extends Controller
     {
         // return Auth::user()->type;
         $amount = $request->amount;
-        if (Auth::user()->type == 'agent') {
-            return view('agents.payment-success', compact('amount'));
-        } elseif (Auth::user()->type == 'staff') {
-            return view('staff.payment-success', compact('amount'));
-        } else {
-            return view('students.payment-success', compact('amount'));
-        }
-        return view('students.payment-success', compact('amount'));
+        $layout = auth_layout();
+
+        // return view('agents.payment-success', compact('amount', 'layout'));
+        // if (Auth::user()->type == 'agent') {
+        // } elseif (Auth::user()->type == 'staff') {
+        //     return view('staff.payment-success', compact('amount'));
+        // } else {
+        //     return view('students.payment-success', compact('amount'));
+        // }
+        return view('students.payment-success', compact('amount', 'layout'));
     }
 
     public function paymentHistory()

@@ -2,6 +2,7 @@
 
 namespace App\Models\Student;
 
+use App\Models\ProgramIntake;
 use App\Models\University\Program;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -19,6 +20,7 @@ class ApplyProgram extends Model
         'program_title',
         'esl_start_date',
         'start_date',
+        'intake',
         'fees',
         'status',
         'application_status',
@@ -54,6 +56,11 @@ class ApplyProgram extends Model
     public function getUniversity()
     {
         return $this->belongsTo(\App\Models\University\ProfileDetail::class, 'university_id', 'user_id');
+    }
+
+    public function intake_date()
+    {
+        return $this->belongsTo(ProgramIntake::class, 'intake');
     }
 
     // Add a method to calculate the average rating percentage

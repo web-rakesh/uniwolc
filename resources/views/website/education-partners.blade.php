@@ -430,13 +430,13 @@
                                         <a href="#UnitedKingdom" aria-controls="UnitedKingdom" role="tab"
                                             data-toggle="tab"><img class="univ-img-ct"
                                                 src="assets/images/university-logo/united-kingdom.png" alt="" />
-                                            United States</a>
+                                                United Kingdom</a>
                                     </li>
                                     <li role="presentation">
                                         <a href="#Australia" aria-controls="Australia" role="tab"
                                             data-toggle="tab"><img class="univ-img-ct"
-                                                src="assets/images/university-logo/australia.png" alt="" /> United
-                                            States</a>
+                                                src="assets/images/university-logo/australia.png" alt="" />
+                                                United Australia</a>
                                     </li>
                                 </ul>
                                 <!-- Tab panes -->

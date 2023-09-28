@@ -86,6 +86,13 @@ class AdminController extends Controller
         return view('admin.student-profile', compact('profile', 'allApplyProgram', 'blockProgram'));
     }
 
+    public function postSecondaryCategory()
+    {
+        return view('admin.post-secondary-category');
+    }
+
+
+
     public function universityList()
     {
         return view('admin.university.university');
@@ -98,7 +105,7 @@ class AdminController extends Controller
             $universityDetail = ProfileDetail::findOrFail($id);
         }
         $programLevels = EducationLevel::all();
-        $countries =  Country::all();
+        $countries =  Country::where('block', '!=', 1)->get();
         return view('admin.university.university-create', compact('countries', 'universityDetail', 'programLevels'));
     }
 
@@ -185,7 +192,7 @@ class AdminController extends Controller
         if ($request->id) {
             $agentDetail = AgentProfile::whereUserId($request->id)->first();
         }
-        $countries =  Country::all();
+        $countries =  Country::where('block', '!=', 1)->get();
         // return $agentDetail;
 
         return view('admin.agent.agent-create', compact('countries', 'agentDetail'));
@@ -319,4 +326,25 @@ class AdminController extends Controller
     {
         return view('admin.register.register-list', ['type' => 2]);
     }
+
+    public function studentCommission()
+    {
+        return view('admin.student-commission');
+    }
+
+    public function manageCourses()
+    {
+        return view('admin.manage-courses');
+    }
+
+    public function manageChapter()
+    {
+        return view('admin.manage-chapter');
+    }
+
+    public function manageLesson()
+    {
+        return view('admin.manage-lesson');
+    }
+
 }

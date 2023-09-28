@@ -40,7 +40,7 @@
                                 <div class="form-group">
                                     <label>Do you have a valid Study Permit / Visa?</label>
 
-                                    <select class="form-control" name="permit_visa">
+                                    <select class="form-control multiselectdropdown" name="permit_visa">
                                         <option value="">Select...</option>
                                         <option value=""
                                             {{ @$quick_data['visa'] == "don't have this" ? 'selected' : '' }}>I don't have
@@ -67,7 +67,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Nationality</label>
-                                    <select class="form-control" name="nationality">
+                                    <select class="form-control multiselectdropdown" name="nationality">
                                         <option selected="selected" value="">Select...</option>
                                         @foreach ($countries as $county)
                                             <option value="{{ $county->id }}"
@@ -78,7 +78,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Education Country</label>
-                                    <select class="form-control" name="education_country">
+                                    <select class="form-control multiselectdropdown" name="education_country">
                                         <option selected="selected" value="">Select...</option>
                                         @foreach ($countries as $county)
                                             <option value="{{ $county->id }}"
@@ -89,7 +89,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Education Level</label>
-                                    <select class="form-control" name="education_level">
+                                    <select class="form-control multiselectdropdown" name="education_level">
                                         <option value="">Select...</option>
                                         @foreach ($educationLevels as $item)
                                             <option disabled>{{ $item->name }}</option>
@@ -104,21 +104,20 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Grading Scheme</label>
-                                    <select class="form-control" name="grading_scheme" disabled>
+                                    <select class="form-control multiselectdropdown" name="grading_scheme"
+                                        disabled>
                                         <option value="">Select...</option>
                                         @foreach ($gradingSchemeAll ?? [] as $item)
                                             <option value="{{ $item->id }}"
                                                 {{ @$quick_data['gradingSchemes'] == $item->id ? 'selected' : '' }}>
                                                 {{ $item->scheme }}</option>
                                         @endforeach
-                                        <option>Secondary Level - Scale:0-100</option>
-                                        <option>Other</option>
                                     </select>
                                 </div>
 
                                 <div class="form-group">
                                     <label>English Exam Type</label>
-                                    <select class="form-control" name="english_exam_type">
+                                    <select class="form-control multiselectdropdown" name="english_exam_type">
                                         <option value="">Select...</option>
                                         <option {{ @$quick_data['englishTest'] == "I don't have this" ? 'selected' : '' }}>
                                             I don't have this</option>
@@ -153,10 +152,14 @@
 
                                 <div class="form-group">
                                     <label>Countries</label>
-                                    <select class="form-control" name="school_country" id="school_country">
+                                    <select class="form-control multiselectdropdown" multiple
+                                        name="school_country[]" id="school_country">
                                         <option value="">Select...</option>
-                                        @foreach ($countries as $county)
-                                            <option value="{{ $county->id }}">{{ $county->name }}</option>
+                                        @foreach ($countries as $country)
+                                            <option value="{{ $country->id }}"
+                                                {{ in_array($country->name, $quick_data['quick_education_country'] ?? []) ? 'selected' : '' }}>
+                                                {{ $country->name }}
+                                            </option>
                                         @endforeach
                                     </select>
                                     <div class="sub-school-border-none">
@@ -169,14 +172,16 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Provinces / States</label>
-                                    <select class="form-control" name="provinces_state" id="provinces_state">
+                                    <select class="form-control multiselectdropdown" name="provinces_state"
+                                        id="provinces_state">
                                         <option value="">Select...</option>
 
                                     </select>
                                 </div>
                                 <div class="form-group">
                                     <label>Campus City</label>
-                                    <select class="form-control" name="campus_city" id="city-dropdown">
+                                    <select class="form-control multiselectdropdown" name="campus_city"
+                                        id="city-dropdown">
                                         <option value="">Select...</option>
                                     </select>
                                 </div>
@@ -213,7 +218,8 @@
                                 </div>
                                 <div class="form-group sub-border-none">
                                     <label>Schools</label>
-                                    <select class="form-control" id="country_by_school" name="country_school">
+                                    <select class="form-control multiselectdropdown" id="country_by_school"
+                                        name="country_school">
                                         <option value="">Select...</option>
                                         @foreach ($schools as $item)
                                             <option value="{{ $item->id }}">{{ $item->university_name }}</option>
@@ -228,12 +234,18 @@
                             <div class="sub-courses-form-left-box">
                                 <div class="form-group">
                                     <label>Program Levels</label>
-                                    <select class="form-control" name="program_education_level">
+                                    <select class="form-control multiselectdropdown"
+                                        name="program_education_level">
                                         <option selected="selected" value="">Select...</option>
                                         @foreach ($educationLevels as $item)
                                             <option disabled>{{ $item->name }}</option>
                                             @foreach ($item->educationLevels as $level)
-                                                <option value="{{ $level->level_name }}">{{ $level->level_name }}
+                                                <option value="{{ $level->level_name }}"
+                                                    @foreach ($quick_data['apply_education_label'] ?? [] as $item)
+                                                       @if (strpos($item, $level->level_name) !== false)
+                                                       selected
+                                                       @endif @endforeach>
+                                                    {{ $level->level_name }}
                                                 </option>
                                             @endforeach
                                         @endforeach
@@ -242,25 +254,33 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Intakes </label>
-                                    <select class="form-control" id="intake" name="intake">
+                                    <select class="form-control multiselectdropdown" id="intake" multiple
+                                        name="intake ">
                                         <option value="">Select...</option>
                                         <optgroup label="Aug - Nov 2023">
-                                            <option value="{{ date('2023-09-01') }}">
+                                            <option value="{{ date('2023-09-01') }}"
+                                                {{ in_array(date('F Y', strtotime('2023-09-23')), $quick_data['apply_intake'] ?? []) ? 'selected' : '' }}>
                                                 {{ date('F Y', strtotime('2023-09-23')) }}</option>
-                                            <option value="{{ date('2023-10-10') }}">
+                                            <option value="{{ date('2023-10-10') }}"
+                                                {{ in_array(date('F Y', strtotime('2023-10-10')), $quick_data['apply_intake'] ?? []) ? 'selected' : '' }}>
                                                 {{ date('F Y', strtotime('2023-10-23')) }}</option>
-                                            <option value="{{ date('2023-11-10') }}">
+                                            <option value="{{ date('2023-11-10') }}"
+                                                {{ in_array(date('F Y', strtotime('2023-11-10')), $quick_data['apply_intake'] ?? []) ? 'selected' : '' }}>
                                                 {{ date('F Y', strtotime('2023-11-23')) }}</option>
 
                                         </optgroup>
                                         <optgroup label="Dec 2023 - Mar 2024">
-                                            <option value="{{ date('2023-12-01') }}">
+                                            <option value="{{ date('2023-12-01') }}"
+                                                {{ in_array(date('F Y', strtotime('2023-12-01')), $quick_data['apply_intake'] ?? []) ? 'selected' : '' }}>
                                                 {{ date('F Y', strtotime('2023-12-01')) }}</option>
-                                            <option value="{{ date('2024-01-01') }}">
+                                            <option value="{{ date('2024-01-01') }}"
+                                                {{ in_array(date('F Y', strtotime('2024-01-01')), $quick_data['apply_intake'] ?? []) ? 'selected' : '' }}>
                                                 {{ date('F Y', strtotime('2024-01-01')) }}</option>
-                                            <option value="{{ date('2024-02-01') }}">
+                                            <option value="{{ date('2024-02-01') }}"
+                                                {{ in_array(date('F Y', strtotime('2024-02-01')), $quick_data['apply_intake'] ?? []) ? 'selected' : '' }}>
                                                 {{ date('F Y', strtotime('2024-02-01')) }}</option>
-                                            <option value="{{ date('2024-03-01') }}">
+                                            <option value="{{ date('2024-03-01') }}"
+                                                {{ in_array(date('F Y', strtotime('2024-03-01')), $quick_data['apply_intake'] ?? []) ? 'selected' : '' }}>
                                                 {{ date('F Y', strtotime('2024-03-01')) }}</option>
                                         </optgroup>
                                         <optgroup label="Apr - Jul 2024">
@@ -298,32 +318,31 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Intakes Status</label>
-                                    <select class="form-control" name="intake_status" id="intake_status" disabled>
+                                    <select class="form-control multiselectdropdown" name="intake_status"
+                                        id="intake_status" disabled>
                                         <option value="">Select...</option>
                                         <option value="1">Open</option>
-                                        <option value="">Likely Open</option>
-                                        <option value="">Will Open</option>
-                                        <option value="">Waitlist</option>
+                                        <option value="2">Likely Open</option>
+                                        <option value="3">Will Open</option>
+                                        <option value="4">Waitlist</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
                                     <label>Post-Secondary Discipline</label>
-                                    <select class="form-control">
-                                        <option selected="selected">Select...</option>
-                                        <option>Aero space, Aviation and Pilot Technology</option>
-                                        <option>Agriculture</option>
-                                        <option>Architure</option>
-                                        <option>Biomedical Engineering</option>
+                                    <select class="form-control multiselectdropdown"
+                                        name="post_secondary_category" id="post-secondary-category">
+                                        <option value="">Select...</option>
+                                        <option value="">Select...</option>
+                                        @foreach ($secondaryCategories as $category)
+                                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                                 <div class="form-group sub-border-none">
                                     <label>Post-Secondary Sub-Categories</label>
-                                    <select class="form-control">
-                                        <option selected="selected">Select...</option>
-                                        <option>Aero space, Aviation and Pilot Technology</option>
-                                        <option>Agriculture</option>
-                                        <option>Architure</option>
-                                        <option>Biomedical Engineering</option>
+                                    <select class="form-control multiselectdropdown"
+                                        name="post_secondary_sub_category" id="post-secondary-sub-category">
+
                                     </select>
                                     <p>All amounts are listed in the currency charged by the school. For best results,
                                         please
@@ -430,7 +449,8 @@
                                 <div class="form-group sub-border-none">
                                     <div class="row sub-form-btn-appl-clear d-flex flex-wrap justify-content-between">
                                         <div class="col-lg-6">
-                                            <button type="submit" class="sub-program-det-border-btn mt-0">APPLY
+                                            <button type="submit" id="school_program_search"
+                                                class="sub-program-det-border-btn mt-0">APPLY
                                                 FILTERS</button>
                                             {{-- <a class="sub-program-det-border-btn mt-0"
                                                 href="javascript:;">APPLY FILTERS</a> --}}
@@ -485,83 +505,27 @@
 
                                     @include('website.program.program-list')
                                 </div>
-                                {{-- <div class="course-tab-content">
-                                    <div class="d-flex flex-wrap justify-content-between">
-                                        <div class="col-lg-9 p-0">
-                                            <div class="sub-course-tt-box">
-                                                <div class="sub-course-unt-title">
-                                                    <h6>1-Year Post-Secondary Certificate</h6>
-                                                    <h3>T-Level - Design, Surveying and Planning for Construction</h3>
-                                                    <p>Cheshire College South and West - Ellesmere Port</p>
-                                                </div>
-                                                <div class="sub-course-country">
-                                                    <i class="fa-sharp fa-solid fa-location-dot"></i> Ellesmere Port,
-                                                    North West, United Kingdom
-                                                </div>
-                                                <div class="sub-course-appl-bg">
-                                                    <div
-                                                        class="d-flex flex-wrap align-items-center justify-content-between">
-                                                        <div class="sub-tution-text">
-                                                            <h6>Tuition Fee</h6>
-                                                            <p>&#163;14,250.00 GBP</p>
-                                                        </div>
-                                                        <div class="sub-tution-text">
-                                                            <h6>Application Fee</h6>
-                                                            <p>&#163;0.00 GBP</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-3 p-0">
-                                            <div class="sub-course-btn-left">
-                                                <a class="sub-start-btn-applica" href="javascript:;">Start
-                                                    Application</a>
-                                                <a class="sub-program-det-border-btn" href="javascript:;">Program
-                                                    Details</a>
-                                            </div>
-                                        </div>
-                                    </div>
+
+
+                                <div class="text-center">
+                                    <button class="btn btn-info load-more-data"><i class="fa fa-refresh"></i> Load More
+                                        Data...</button>
                                 </div>
 
-                                <div class="course-tab-content">
-                                    <div class="d-flex flex-wrap justify-content-between">
-                                        <div class="col-lg-9 p-0">
-                                            <div class="sub-course-tt-box">
-                                                <div class="sub-course-unt-title">
-                                                    <h6>1-Year Post-Secondary Certificate</h6>
-                                                    <h3>T-Level - Design, Surveying and Planning for Construction</h3>
-                                                    <p>Cheshire College South and West - Ellesmere Port</p>
-                                                </div>
-                                                <div class="sub-course-country">
-                                                    <i class="fa-sharp fa-solid fa-location-dot"></i> Ellesmere Port,
-                                                    North West, United Kingdom
-                                                </div>
-                                                <div class="sub-course-appl-bg">
-                                                    <div
-                                                        class="d-flex flex-wrap align-items-center justify-content-between">
-                                                        <div class="sub-tution-text">
-                                                            <h6>Tuition Fee</h6>
-                                                            <p>&#163;14,250.00 GBP</p>
-                                                        </div>
-                                                        <div class="sub-tution-text">
-                                                            <h6>Application Fee</h6>
-                                                            <p>&#163;0.00 GBP</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-3 p-0">
-                                            <div class="sub-course-btn-left">
-                                                <a class="sub-start-btn-applica" href="javascript:;">Start
-                                                    Application</a>
-                                                <a class="sub-program-det-border-btn" href="javascript:;">Program
-                                                    Details</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div> --}}
+                                <!-- Data Loader -->
+                                <div class="auto-load text-center" style="display: none;">
+                                    <svg version="1.1" id="L9" xmlns="http://www.w3.org/2000/svg"
+                                        xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                        height="60" viewBox="0 0 100 100" enable-background="new 0 0 0 0"
+                                        xml:space="preserve">
+                                        <path fill="#000"
+                                            d="M73,50c0-12.7-10.3-23-23-23S27,37.3,27,50 M30.9,50c0-10.5,8.5-19.1,19.1-19.1S69.1,39.5,69.1,50">
+                                            <animateTransform attributeName="transform" attributeType="XML"
+                                                type="rotate" dur="1s" from="0 50 50" to="360 50 50"
+                                                repeatCount="indefinite" />
+                                        </path>
+                                    </svg>
+                                </div>
 
 
                             </div>
@@ -569,27 +533,33 @@
 
                             <!-- course-details-2 -->
                             <div class="tab-pane" id="course-details-2">
-                                <div class="d-flex flex-wrap align-items-center justify-content-center" id="school_list">
-                                    @include('website.program.school-list')
-                                    {{-- <div class="col-lg-6">
-                                        <div class="sub-agent-content">
-                                            <div>
-                                                <div class="sub-agent-icon">
-                                                    <img src="assets/images/courses/Cambridge_ Education.png"
-                                                        alt="" />
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <div class="sub-agent-text">
-                                                    <a href="javascript:;">University of Greenwich (Medway Campus) Chattam
-                                                        , South East</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div> --}}
+                                <div class="d-flex flex-wrap align-items-center justify-content-center">
+                                    <div class="row" id="school_list">
+                                        @include('website.program.school-list')
+                                    </div>
+                                    <div class="text-center">
+                                        <button class="btn btn-info school-list-load-more-data"><i
+                                                class="fa fa-refresh"></i> Load More Data...</button>
+                                    </div>
+
+                                    <!-- Data Loader -->
+                                    <div class="school-list text-center" style="display: none;">
+                                        <svg version="1.1" id="L9" xmlns="http://www.w3.org/2000/svg"
+                                            xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                            height="60" viewBox="0 0 100 100" enable-background="new 0 0 0 0"
+                                            xml:space="preserve">
+                                            <path fill="#000"
+                                                d="M73,50c0-12.7-10.3-23-23-23S27,37.3,27,50 M30.9,50c0-10.5,8.5-19.1,19.1-19.1S69.1,39.5,69.1,50">
+                                                <animateTransform attributeName="transform" attributeType="XML"
+                                                    type="rotate" dur="1s" from="0 50 50" to="360 50 50"
+                                                    repeatCount="indefinite" />
+                                            </path>
+                                        </svg>
+                                    </div>
 
 
                                 </div>
+
                             </div>
                             <!-- course-details-2 End -->
                         </div>
@@ -604,7 +574,12 @@
 
 @push('js')
     <script>
+        var PGLISTENDPOINT = "{{ route('programs.list') }}";
+        var SCHLISTENDPOINT = "{{ route('school.list') }}";
+        var pgpage = 1;
+        var schlpage = 1;
         $(document).ready(function() {
+            $(".multiselectdropdown").select2();
             $('body').click(function() {
                 $('#studySearchResults').fadeOut();
                 $('#schoolLocationSearchResults').fadeOut();
@@ -706,7 +681,7 @@
                 });
             });
             if ("{{ @$quick_data['quick_search'] }}" == '') {
-                $("#eligibility_submit_button").click()
+                $("#school_program_search").click()
             }
         });
 
@@ -773,6 +748,10 @@
             var id_country = $(this).val();
             getCountry(id_country)
         });
+
+        if ("{{ @$quick_data['quick_search'] }}" == '') {
+            getCountry($("#school_country").val())
+        }
 
         function getCountry(id_country) {
 
@@ -860,6 +839,101 @@
                     $('#program-list').html('There was an error'); // Handle errors
                 }
             });
+        })
+
+        $(".load-more-data").click(function() {
+            pgpage++;
+            // alert(page)
+            infinteLoadMore(pgpage);
+        });
+
+
+        function infinteLoadMore(pgpage) {
+            var formData = $('#eligibility').serialize();
+            var schoolFormData = $('#school_program_filter').serialize();
+
+            $.ajax({
+                    url: PGLISTENDPOINT + "?page=" + pgpage + '&' + formData + '&' + schoolFormData,
+                    datatype: "html",
+                    type: "get",
+                    beforeSend: function() {
+                        $('.auto-load').show();
+                    }
+                })
+                .done(function(response) {
+                    // console.log(response);
+                    if (response == '') {
+                        $('.auto-load').html("We don't have more data to display :(");
+                        $('.load-more-data').hide();
+                        return;
+                    }
+                    $('.auto-load').hide();
+                    $('#program-list').append(response);
+                })
+                .fail(function(jqXHR, ajaxOptions, thrownError) {
+                    console.log('Server error occured');
+                });
+        }
+
+        $(".school-list-load-more-data").click(function() {
+            schlpage++;
+            infinteSchoolListLoadMore(schlpage);
+        });
+
+        function infinteSchoolListLoadMore(schlpage) {
+            var formData = '';
+            if ($('#eligibility').serialize()) {
+                formData = $('#eligibility').serialize();
+            }
+            if ($('#school_program_filter').serialize()) {
+                formData = $('#school_program_filter').serialize();
+            }
+            $.ajax({
+                    url: SCHLISTENDPOINT + "?page=" + schlpage + '&' + formData,
+                    datatype: "html",
+                    type: "get",
+                    beforeSend: function() {
+                        $('.school-list').show();
+                    }
+                })
+                .done(function(response) {
+                    // console.log(response);
+                    if (response == '') {
+                        $('.school-list').html("We don't have more data to display :(");
+                        return;
+                    }
+                    $('.school-list').hide();
+                    $('#school_list').append(response);
+                })
+                .fail(function(jqXHR, ajaxOptions, thrownError) {
+                    console.log('Server error occured');
+                });
+        }
+
+
+
+        $("#post-secondary-category").on('change', function() {
+            // alert($(this).val())
+            $.ajax({
+                    url: "{{ route('post.secondary.sub.category') }}",
+                    type: "get",
+                    data: {
+                        category_id: $(this).val()
+                    }
+                })
+                .done(function(response) {
+                    console.log(response);
+                    $('#post-secondary-sub-category').html('<option value="">Select...</option>');
+                    $.each(response.sub_category, function(key, value) {
+
+                        $("#post-secondary-sub-category").append('<option value="' + value
+                            .id + '">' + value.name + '</option>');
+                    });
+
+                })
+                .fail(function(jqXHR, ajaxOptions, thrownError) {
+                    console.log('Server error occured');
+                });
         })
     </script>
 @endpush

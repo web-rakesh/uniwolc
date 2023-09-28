@@ -8,6 +8,7 @@ use Illuminate\Support\Str;
 use App\Models\AgentProfile;
 use App\Models\GeneralSetting;
 use App\Models\ManageSubAdmin;
+use Illuminate\Support\Carbon;
 use App\Models\University\Program;
 use Illuminate\Support\Facades\DB;
 use App\Models\Student\ApplyProgram;
@@ -217,7 +218,13 @@ if (!function_exists('get_student_id')) {
     {
         $student = StudentDetail::whereUserId($id)->latest()->first();
         if ($student) {
-            return $student->student_id;
+            // return $student->student_id;
+            if ($student->student_id == null) {
+                $student = StudentDetail::latest()->first();
+                return $student->student_id + 1;
+            } else {
+                return $student->student_id;
+            }
         } else {
             $student = StudentDetail::latest()->first();
             if (!empty($student)) {
@@ -271,5 +278,70 @@ if (!function_exists('get_education_level')) {
             return $education->level_name;
         }
         return null;
+    }
+}
+
+if (!function_exists('auth_layout')) {
+    function auth_layout()
+    {
+        if (auth()->check()) {
+            if (auth()->user()->type == 'student') {
+                return 'students';
+            } elseif (auth()->user()->type == 'agent') {
+                return 'agent';
+            } elseif (auth()->user()->type == 'staff') {
+                return 'staff';
+            } elseif (auth()->user()->type == 'university') {
+                return 'university';
+            } else {
+                return 'website';
+            }
+            return 'students';
+        } else {
+            return 'website';
+        }
+    }
+}
+
+if (!function_exists('els_intake')) {
+    function els_intake($date = null)
+    {
+        // return $date;
+        $startDate = Carbon::now();
+        $endDate = Carbon::now()->addYear(+2);
+
+        // Initialize an array to store the months
+        $months = [];
+
+        // Loop through each month in the range
+        while ($startDate->lte($endDate)) {
+            if ($startDate->month == 1 || $startDate->month == 9 || $startDate->month == 10) {
+                $months[] = [$startDate->format('Y-m-d') => $startDate->format('Y-M')];
+            }
+            $startDate->addMonth();
+        }
+        $matches = [];
+        if ($date == null) {
+            return $months;
+        }
+        $date = Carbon::parse($date)->format('Y-m');
+        foreach ($months as  $item) {
+
+            foreach ($item as $key => $value) {
+                $key_date = Carbon::parse($key)->format('Y-m');
+                if ($date > $key_date) {
+                    $matches[] = $item;
+                    // return $value;
+                }
+            }
+        }
+        return $matches;
+    }
+
+    if (!function_exists('get_admin_student')) {
+        function get_admin_student()
+        {
+            return StudentDetail::select('id', 'user_id', 'first_name', 'last_name')->latest()->get();
+        }
     }
 }

@@ -1,4 +1,4 @@
-@extends('students.layouts.layout')
+@extends("$layout.layouts.layout")
 @section('content')
     <div class="dashboardDtlsArea">
         <div class="dashboardDtlsAreainner">
@@ -24,12 +24,12 @@
                                         <p class="">{{ '$' . number_format($amount, 2) }}</p>
                                         <p class="mb-3">11 Clasess</p>
                                         <h6 class="">Payment Link</h6>
-                                        <p class=""><span id="">https://kidzz.in/projects/SiteFinal</span>
+                                        {{-- <p class=""><span id="">https://kidzz.in/projects/SiteFinal</span>
                                             <span class="copyBtn">Copy</span>
-                                        </p>
+                                        </p> --}}
                                     </div>
                                     <div class="backBtnArea">
-                                        <a href="#" class="backBtn">Okay</a>
+                                        <a href="javascript:;" class="backBtn">Okay</a>
                                     </div>
                                 </div>
                             </div>

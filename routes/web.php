@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Agent\AgentController;
 use App\Http\Controllers\Staff\StaffController;
 use App\Http\Controllers\Admin\SettingController;
+use App\Http\Controllers\ChangePasswordController;
 use App\Http\Controllers\Student\PaymentController;
 use App\Http\Controllers\Website\WebsiteController;
 use App\Http\Controllers\Student\QuestionController;
@@ -117,6 +118,8 @@ Route::controller(WebsiteController::class)
         Route::get('/au-resources', [WebsiteController::class, 'auResources'])->name('au.resources');
         Route::get('/uniwolc-fees', [WebsiteController::class, 'uniwolcFees'])->name('uniwolc.fees');
         Route::get('/programs', [WebsiteController::class, 'program'])->name('programs');
+        Route::get('/programs-list', [WebsiteController::class, 'programList'])->name('programs.list');
+        Route::get('/school-list', [WebsiteController::class, 'schoolList'])->name('school.list');
         Route::get('/program-details/{id}/{slug}', [WebsiteController::class, 'programDetails'])->name('program.detail');
         Route::get('/school-details/{id}/{slug}', [WebsiteController::class, 'schoolDetails'])->name('quick.school.detail');
         Route::get('/programs-study-search', [WebsiteController::class, 'studySearch'])->name('programs.study.search');
@@ -128,6 +131,8 @@ Route::controller(WebsiteController::class)
 
         Route::get('/programs-country', [WebsiteController::class, 'getCountry'])->name('country');
         Route::get('/programs-city', [WebsiteController::class, 'getCity'])->name('city');
+        Route::get('/term-conditions', [WebsiteController::class, 'termAndCondition'])->name('term.conditions');
+        Route::get('/privacy-policy', [WebsiteController::class, 'privacyPolicy'])->name('privacy.policy');
     });
 // --- login with facebook
 
@@ -137,12 +142,6 @@ Route::get('auth/google', [SocialController::class, 'signInwithGoogle']);
 Route::get('callback/google', [SocialController::class, 'callbackToGoogle']);
 
 
-Route::get('/term-conditions', function () {
-    return view('website.term-conditions');
-})->name('term.conditions');
-Route::get('/privacy-policy', function () {
-    return view('website.privacy-policy');
-})->name('privacy.policy');
 Route::get('/dashboard', function () {
 
     // dd(auth()->user()->type);
@@ -191,15 +190,32 @@ Route::middleware([
 
     Route::get('/school-detail/{id}/{slug}', [ApplyProgramController::class, 'schoolDetails'])->name('school.detail');
     Route::post('/application/academic-session', [ApplyProgramController::class, 'applicationAcademicSession'])->name('application.academic.session');
+    Route::Post('/program-reject', [ApplyProgramController::class, 'programReject'])->name('program.reject');
 
     Route::post('/application/record-note', [ApplyProgramController::class, 'applicationRecordNote'])->name('application.record.note');
     Route::post('/application/program-backup', [ApplyProgramController::class, 'applicationProgramBackup'])->name('application.program.backup');
 
     Route::post('/application/program-backup-store', [ApplyProgramController::class, 'applicationProgramBackupStore'])->name('application.program.backup.store');
 
+    // agent and staff for route
+    Route::post('/student-program-eligibility', [StudentDetailController::class, 'studentProgramEligibility'])->name('student.program.check-eligibility');
+    Route::get('/program-eligibility', [StudentDetailController::class, 'programEligibility'])->name('program.check-eligibility');
+
     // fetch country state and city
     Route::get('/currency/get', [AdminController::class, 'getCurrency'])->name('currency');
     Route::post('/fetch-cities', [AdminController::class, 'getCity'])->name('cities');
+    Route::post('/intake-program-update', [ApplyProgramController::class, 'intakeProgramUpdate'])->name('intake.program.update');
+    Route::post('/els-intake-program-update', [ApplyProgramController::class, 'elsIntakeProgramUpdate'])->name('els_intake.program.update');
+    Route::get('/student-privacy-statement/{id}/{slug}', [StudentDetailController::class, 'studentPrivacyStatement'])->name('student.privacy.statement');
+
+    // Payment Routes Student, Agent and Staff
+    Route::post('/payment-process', [PaymentController::class, 'processPayment'])->name('payment.process');
+    Route::get('/payment-success', [PaymentController::class, 'paymentSuccess'])->name('payment.success');
+
+    // Change Password
+    Route::get('/change-password', [ChangePasswordController::class, 'showChangePasswordForm'])->name('change.password');
+    Route::post('/change-password', [ChangePasswordController::class, 'changePassword']);
+    Route::post('/update-profile-image', [ChangePasswordController::class, 'updateProfileImage'])->name('update.profile.image');
 
 
     // student routes
@@ -216,10 +232,6 @@ Route::middleware([
         Route::resource('visa-and-permit', VisaPermitController::class);
 
         Route::middleware(['auth', 'profile.updated'])->group(function () {
-
-            // Route::get('/dashboard', function () {
-            //     return view('students.home');
-            // })->name('dashboard');
 
             Route::controller(StudentDashboardController::class)
                 ->prefix('dashboard')
@@ -261,8 +273,7 @@ Route::middleware([
 
             Route::get('/payment', [PaymentController::class, 'payment'])->name('payment');
 
-            Route::post('/payment-process', [PaymentController::class, 'processPayment'])->name('payment.process');
-            Route::get('/payment-success', [PaymentController::class, 'paymentSuccess'])->name('payment.success');
+
             Route::get('/payment-history', [PaymentController::class, 'paymentHistory'])->name('payment.history');
             Route::get('/invoice/{id}', [PaymentController::class, 'Invoice'])->name('invoice');
 
@@ -294,9 +305,11 @@ Route::middleware([
             Route::get('/dashboard', [AgentController::class, 'index'])->name('dashboard');
             Route::get('/staff', [AgentController::class, 'staff'])->name('staff');
             Route::get('/student', [AgentController::class, 'student'])->name('student');
-            Route::get('/program', [AgentController::class, 'program'])->name('program');
+            Route::get('/program', [WebsiteController::class, 'program'])->name('program');
+
+            // Route::get('/program', [AgentController::class, 'program'])->name('program');
             Route::get('/program-detail/{program}', [StudentDetailController::class, 'programDetail'])->name('program.detail');
-            Route::post('/program-apply/{program}', [StudentDetailController::class, 'agentProgramApply'])->name('program.apply');
+            Route::post('/program-apply', [StudentDetailController::class, 'agentProgramApply'])->name('program.apply');
             Route::get('/student/general-print/{user_id?}', [StudentDetailController::class, 'studentProgramPrint'])->name('program.print');
             Route::get('/student/general-details/{user_id?}', [AgentController::class, 'studentGeneralDetails'])->name('student.general.detail');
             Route::resource('student-general-detail', StudentDetailController::class);
@@ -377,7 +390,8 @@ Route::middleware([
         Route::get('/student/visa-permit/{user_id?}', [StaffController::class, 'studentVisaPermit'])->name('student.visa.permit');
         Route::resource('visa-and-permit', VisaPermitController::class);
 
-        Route::get('/program', [StaffController::class, 'program'])->name('program');
+        Route::get('/program', [WebsiteController::class, 'program'])->name('program');
+        // Route::get('/program', [StaffController::class, 'program'])->name('program');
         Route::get('/program-detail/{program}', [StudentDetailController::class, 'programDetail'])->name('program.detail');
         Route::post('/program-apply/{program}', [StudentDetailController::class, 'agentProgramApply'])->name('program.apply');
         Route::get('/general-print/{user_id?}', [StudentDetailController::class, 'studentProgramPrint'])->name('program.print');
@@ -396,7 +410,15 @@ Route::middleware([
         Route::get('/payment/list', [StaffController::class, 'paymentList'])->name('payment.list');
     });
     //  staff application
+
+    //  agent and staff access routes
+    // Route::group(['middleware' => ['auth', 'user-access:agent', 'user-access:staff']], function () {
+
+    // });
 });
+
+
+Route::get('/post-sub-secondary', [WebsiteController::class, 'postSecondarySubCategory'])->name('post.secondary.sub.category');
 
 // Admin Routes
 Route::post('admin/login', [AdminAuthController::class, 'login'])->name('adminLogin');
@@ -405,9 +427,6 @@ Route::get('admin/login', [AdminAuthController::class, 'index'])->name('admin.lo
 Route::group(
     ['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth:admin']],
     function () {
-
-
-
         Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
 
         // admin can see all the register list
@@ -418,6 +437,10 @@ Route::group(
         // admin view all student
         Route::get('/student/list', [AdminController::class, 'studentList'])->name('student');
         Route::get('/student/profile/{id}', [AdminController::class, 'student_single_profile'])->name('student.profile');
+
+        //  Post Secondary Discipline
+        Route::get('/post-secondary', [AdminController::class, 'postSecondaryCategory'])->name('post.secondary.category');
+
 
         // admin can create university
         Route::get('/university/list', [AdminController::class, 'universityList'])->name('university');
@@ -476,8 +499,18 @@ Route::group(
                 Route::get('/level-of-education', 'levelOfEducation')->name('level-of-education');
                 Route::get('/grading-scheme', 'gradingScheme')->name('grading-scheme');
                 Route::get('/country', 'country')->name('country');
+                Route::get('/terms-and-condition', 'termsAndCondition')->name('terms.and.condition');
+                Route::post('/terms-and-condition', 'termsAndConditionStore')->name('terms.and.condition.store');
+                Route::get('/privacy-policy', 'privacyPolicy')->name('privacy.policy');
+                Route::post('/privacy-policy', 'privacyPolicyStore')->name('privacy.policy.store');
             });
 
+        Route::get('/school-commission', [AdminController::class, 'studentCommission'])->name('student.commission');
+
+        // Manage courses
+        Route::get('/manage-courses', [AdminController::class, 'manageCourses'])->name('manage.courses');
+        Route::get('/manage-chapter', [AdminController::class, 'manageChapter'])->name('manage.chapter');
+        Route::get('/manage-lesson', [AdminController::class, 'manageLesson'])->name('manage.lesson');
         // Blog
         Route::controller(BlogController::class)
             ->prefix('blog')
@@ -521,6 +554,34 @@ Route::group(
         // Manage Testimonial Routes
         Route::resource('testimonial', TestimonialController::class);
 
+
+
+
+        // Change Password
+        Route::get('/change-password', [ChangePasswordController::class, 'showChangePasswordFormAdmin'])->name('change.password');
+        Route::post('/change-password', [ChangePasswordController::class, 'changePasswordAdmin'])->name('change.password.update');
+
         Route::post('/logout', [AdminAuthController::class, 'logout'])->name('logout');
     }
 );
+
+// Route::get('/test', function () {
+//     $asp = \DB::table('programs')->select('id', 'gross_tuition', 'application_fee')->get();
+//     $amount = [];
+//     foreach($asp as $as){
+//         $string = $as->application_fee;
+
+//         // Use regex to extract the numeric value
+//         preg_match('/[\d,]+(\.\d{2})?/', $string, $matches);
+
+//         if (isset($matches[0])) {
+//             $numericValue = (float) str_replace(',', '', $matches[0]);
+//             $amount[] = $numericValue;
+//             \DB::table('programs')->select('id', 'gross_tuition', 'application_fee')
+//             ->where('id',$as->id)->update([
+//                 'application_fee' => $numericValue,
+//                 ]);
+//         }
+//     }
+//     return $amount;
+// });

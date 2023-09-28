@@ -6,8 +6,23 @@
 {{-- <script src="{{ asset('/') }}assets/js/our-partners.js"></script> --}}
 <script src="{{ asset('/') }}assets/js/range-slider.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+{{-- <script src='https://cdn.jsdelivr.net/npm/semantic-ui@2.2.13/dist/semantic.min.js'></script> --}}
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <!-- Header Menu -->
+<script>
+    //     $('.label.ui.dropdown')
+    //     .dropdown();
 
+    //   $('.no.label.ui.dropdown')
+    //     .dropdown({
+    //     useLabels: false
+    //   });
+
+    //   $('.ui.button').on('click', function () {
+    //     $('.ui.dropdown')
+    //       .dropdown('restore defaults')
+    //   })
+</script>
 <script>
     $(document).ready(function() {
         // executes when HTML-Document is loaded and DOM is ready

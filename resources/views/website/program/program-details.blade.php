@@ -6,11 +6,12 @@
 
                 <ul class="topNavMenuList">
 
-                    <li><span>{{ $program->program_title }}</span></li>
+                    <li><span>{{ $programDetail->program_title }}</span></li>
                 </ul>
             </div>
 
         </div>
+
         <div class="singleProgramsSec">
 
 
@@ -91,8 +92,8 @@
                         <div class="leftSingleProgramsArea">
                             <div class="singleProgramsDtlsItem">
                                 <div class="singleProgramsDtls">
-                                    <div class="programsCardIntroType">Nesciunt quae delen </div>
-                                    <div class="programsCardIntroTitle">{{ $program->program_title }}</div>
+                                    <div class="programsCardIntroType"> </div>
+                                    <div class="programsCardIntroTitle">{{ $programDetail->program_title }}</div>
                                     <div class="singleProgramsAmenities">
                                         <div class="row rowBox2">
                                             <div
@@ -101,7 +102,8 @@
                                                     <div class="title"><i class="fa-regular fa-address-book"></i>
                                                         <span class="txt"></span>Address:
                                                     </div>
-                                                    <div class="content">{{ $program->getUniversity[0]['location'] }}</div>
+                                                    <div class="content">{{ $programDetail->getUniversity[0]['location'] }}
+                                                    </div>
 
                                                 </div>
                                             </div>
@@ -200,7 +202,7 @@
                                         <div class="programAminitiesAreainner">
                                             <div class="row rowBox2">
 
-                                                {{ $program->program_summary ?? '' }}
+                                                {{ $programDetail->program_summary ?? '' }}
 
                                             </div>
                                         </div>
@@ -214,14 +216,14 @@
                                                 class="fa-regular fa-clipboard-list-check"></i></span> <span
                                             class="txt">Admission Requirements</span></h4>
                                     <div class="singleProgramsDtlsContentArea">
-                                        {{ $program->minimumLevel->level_name ?? '' }}
+                                        {{ $programDetail->minimumLevel->level_name ?? '' }}
                                     </div>
                                 </div>
                                 <hr class="borderHr">
 
 
                                 <div class="applyNowBtnArea text-center mt-4 mb-2">
-                                    <a href="{{ route('student.program.apply', $program->id) }}"
+                                    <a href="{{ route('student.program.apply', $programDetail->id) }}"
                                         class="btn btn-primary applyNowBtn"><span class="txt">Apply
                                             Now</span></a>
                                 </div>
@@ -232,9 +234,9 @@
                                                 class="fa-regular fa-building-columns"></i></span> <span
                                             class="txt">Description</span></h4>
                                     <div class="singleProgramsDtlsContentArea">
-                                        <p>{{ $program->commission_breakdown }}</p>
+                                        <p>{{ $programDetail->commission_breakdown }}</p>
 
-                                        <p> {{ $program->disclaimer }}</p>
+                                        <p> {{ $programDetail->disclaimer }}</p>
                                     </div>
                                 </div>
                                 <hr class="borderHr">
@@ -244,21 +246,21 @@
                                             class="txt">Similar
                                             Programs </span>({{ count($recentPrograms) }})</h4>
                                     <div class="singleProgramsDtlsContentArea">
-                                        @forelse ($recentPrograms as $program)
+                                        @forelse ($recentPrograms as $item)
                                             <div class="course-tab-content">
                                                 <div class="d-flex flex-wrap justify-content-between">
                                                     <div class="col-lg-9 p-0">
                                                         <div class="sub-course-tt-box">
                                                             <div class="sub-course-unt-title">
-                                                                <h6>{{ $program->program_level }}</h6>
-                                                                <h3>{{ $program->program_length }}</h3>
-                                                                <p>{{ $program->program_title }}</p>
+                                                                <h6>{{ $item->program_level }}</h6>
+                                                                <h3>{{ $item->program_length }}</h3>
+                                                                <p>{{ $item->program_title }}</p>
                                                             </div>
                                                             <div class="sub-course-country">
                                                                 <i class="fa-sharp fa-solid fa-location-dot"></i>
-                                                                {{ $program->university->location }}
+                                                                {{ $item->university->location }}
                                                                 {{-- <i class="fa-sharp fa-solid fa-location-dot"></i>
-                                                                {{ $program->university->university_name }} --}}
+                                                                {{ $programDetail->university->university_name }} --}}
                                                             </div>
                                                             <div class="sub-course-appl-bg">
                                                                 <div
@@ -266,17 +268,17 @@
                                                                     <div class="sub-tution-text">
                                                                         <h6>Tuition Fee</h6>
                                                                         <p>
-                                                                            {{ get_currency($program->university->country) }}
-                                                                            {{ number_format($program->gross_tuition, 2) }}
-                                                                            {{ get_payment_currency($program->university->country) }}
+                                                                            {{ get_currency($item->university->country) }}
+                                                                            {{ $item->gross_tuition }}
+                                                                            {{ get_payment_currency($item->university->country) }}
                                                                         </p>
                                                                     </div>
                                                                     <div class="sub-tution-text">
                                                                         <h6>Application Fee</h6>
                                                                         <p>
-                                                                            {{ get_currency($program->university->country) }}
-                                                                            {{ number_format($program->application_fee, 2) }}
-                                                                            {{ get_payment_currency($program->university->country) }}
+                                                                            {{ get_currency($item->university->country) }}
+                                                                            {{ $item->gross_tuition }}
+                                                                            {{ get_payment_currency($item->university->country) }}
                                                                         </p>
                                                                     </div>
                                                                 </div>
@@ -287,7 +289,7 @@
                                                         <div class="sub-course-btn-left">
 
                                                             <a class="sub-program-det-border-btn"
-                                                                href="{{ route('program.detail', ['id' => $program->id, 'slug' => $program->slug]) }}">Program
+                                                                href="{{ route('program.detail', ['id' => $item->id, 'slug' => $item->slug]) }}">Program
                                                                 Details</a>
                                                         </div>
                                                     </div>
@@ -298,11 +300,6 @@
                                         @endforelse
                                     </div>
                                 </div>
-
-
-
-
-
 
                             </div>
 
@@ -349,7 +346,7 @@
                                         {{-- <h4 class="mb-0">$ 47</h4> --}}
                                     </div>
                                     <div class="applyNowBtnArea">
-                                        <a href="{{ route('student.program.apply', $program->id) }}"
+                                        <a href="{{ route('student.program.apply', $programDetail->id) }}"
                                             class="btn btn-primary w-100 applyNowBtn"><span class="txt">Apply
                                                 Now</span></a>
                                     </div>
@@ -379,9 +376,10 @@
                                             </div>
                                             <div class="sidebarContent">
                                                 <div class="sidebarTitle">
-                                                    {{ get_currency($program->university->country) }}
-                                                    {{ number_format($program->application_fee, 2) }}
-                                                    {{ get_payment_currency($program->university->country) }} / Year </div>
+                                                    {{ get_currency($programDetail->university->country) }}
+                                                    {{ number_format($programDetail->application_fee, 2) }}
+                                                    {{ get_payment_currency($programDetail->university->country) }} / Year
+                                                </div>
                                                 <div class="sidebarText">Application Fees</div>
                                             </div>
                                         </li>
@@ -398,9 +396,10 @@
                                             </div>
                                             <div class="sidebarContent">
                                                 <div class="sidebarTitle">
-                                                    {{ get_currency($program->university->country) }}
-                                                    {{ number_format($program->gross_tuition, 2) }}
-                                                    {{ get_payment_currency($program->university->country) }} / Year </div>
+                                                    {{ get_currency($programDetail->university->country) }}
+                                                    {{ $programDetail->gross_tuition }}
+                                                    {{ get_payment_currency($programDetail->university->country) }} / Year
+                                                </div>
                                                 <div class="sidebarText">Total Fees</div>
                                             </div>
                                         </li>
@@ -420,8 +419,9 @@
                                             </div>
                                             <div class="sidebarContent">
                                                 <div class="sidebarTitle">
-                                                    {{ get_currency($program->university->country) . ' ' . number_format($program->cost_of_living, 2) }}
-                                                    {{ get_payment_currency($program->university->country) }} / Year </div>
+                                                    {{ get_currency($programDetail->university->country) . ' ' . $programDetail->cost_of_living }}
+                                                    {{ get_payment_currency($programDetail->university->country) }} / Year
+                                                </div>
                                                 <div class="sidebarText">Cost of Living</div>
                                             </div>
                                         </li>
@@ -442,8 +442,23 @@
                                                 </svg>
                                             </div>
                                             <div class="sidebarContent">
-                                                <div class="sidebarTitle"> {{ $program->program_length }} </div>
+                                                <div class="sidebarTitle"> {{ $programDetail->program_length }} </div>
                                                 <div class="sidebarText">Program Length</div>
+                                            </div>
+                                        </li>
+                                        <li class="d-flex sidebarListItem">
+                                            <div class="icon">
+                                                <svg aria-hidden="true" color="primary" role="img"
+                                                    viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"
+                                                    class="css-1ucx5lj">
+                                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                                        d="M3 9C3 7.34315 4.34315 6 6 6H42C43.6569 6 45 7.34315 45 9V23.5H43V9C43 8.44772 42.5523 8 42 8H6C5.44772 8 5 8.44772 5 9V36C5 36.5523 5.44771 37 6 37H30.2632V39H6C4.34314 39 3 37.6569 3 36V9ZM17 13H31V15H17V13ZM34 18H14V20H34V18ZM16 23H31V25H16V23ZM20 30H9V32H20V30ZM35.5512 38.0929L35.153 42.3942L38.5943 40.8668C38.8526 40.7522 39.1474 40.7522 39.4057 40.8668L42.847 42.3942L42.4488 38.0929C41.4308 38.6703 40.2539 39 39 39C37.7461 39 36.5692 38.6703 35.5512 38.0929ZM33.685 36.5555L33.1615 42.2098C33.0206 43.7309 34.5681 44.8419 35.9643 44.2222L39 42.8749L42.0357 44.2222C43.4319 44.8419 44.9794 43.7309 44.8385 42.2098L44.315 36.5555C45.3654 35.3312 46 33.7397 46 32C46 28.134 42.866 25 39 25C35.134 25 32 28.134 32 32C32 33.7397 32.6346 35.3312 33.685 36.5555ZM34 32C34 29.2386 36.2386 27 39 27C41.7614 27 44 29.2386 44 32C44 34.7614 41.7614 37 39 37C36.2386 37 34 34.7614 34 32Z">
+                                                    </path>
+                                                </svg>
+                                            </div>
+                                            <div class="sidebarContent">
+                                                <div class="sidebarTitle"> {{ $programDetail->program_level }} </div>
+                                                <div class="sidebarText">Program level</div>
                                             </div>
                                         </li>
 
@@ -511,133 +526,9 @@
                                                 </div>
                                             </div>
                                         @endforeach
-                                        {{-- <div class="card">
-                                            <div class="card-header" data-toggle="collapse" data-target="#collapseOne"
-                                                aria-expanded="true">
-                                                <span class="title">Collapsible Group Item #1 </span>
-                                                <span class="accicon"><i class="fas fa-angle-down rotate-icon"></i></span>
-                                            </div>
-                                            <div id="collapseOne" class="collapse show" data-parent="#accordionExample">
-                                                <div class="card-body">
-                                                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus
-                                                    terry richardson ad squid.
-                                                    3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food
-                                                    truck quinoa nesciunt
-                                                    laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it
-                                                    squid single-origin
-                                                    coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica,
-                                                    craft beer labore wes
-                                                    anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher
-                                                    vice lomo. Leggings
-                                                    occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt
-                                                    you probably haven't heard
-                                                    of them accusamus labore sustainable VHS.
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="card">
-                                            <div class="card-header collapsed" data-toggle="collapse"
-                                                data-target="#collapseTwo" aria-expanded="false"
-                                                aria-controls="collapseTwo">
-                                                <span class="title">Collapsible Group Item #2</span>
-                                                <span class="accicon"><i class="fas fa-angle-down rotate-icon"></i></span>
-                                            </div>
-                                            <div id="collapseTwo" class="collapse" data-parent="#accordionExample">
-                                                <div class="card-body">
-                                                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus
-                                                    terry richardson ad squid.
-                                                    3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food
-                                                    truck quinoa nesciunt
-                                                    laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it
-                                                    squid single-origin
-                                                    coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica,
-                                                    craft beer labore wes
-                                                    anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher
-                                                    vice lomo. Leggings
-                                                    occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt
-                                                    you probably haven't heard
-                                                    of them accusamus labore sustainable VHS.
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="card">
-                                            <div class="card-header collapsed" data-toggle="collapse"
-                                                data-target="#collapseThree" aria-expanded="false">
-                                                <span class="title">Collapsible Group Item #3</span>
-                                                <span class="accicon"><i class="fas fa-angle-down rotate-icon"></i></span>
-                                            </div>
-                                            <div id="collapseThree" class="collapse" data-parent="#accordionExample">
-                                                <div class="card-body">
-                                                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus
-                                                    terry richardson ad squid.
-                                                    3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food
-                                                    truck quinoa nesciunt
-                                                    laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it
-                                                    squid single-origin
-                                                    coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica,
-                                                    craft beer labore wes
-                                                    anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher
-                                                    vice lomo. Leggings
-                                                    occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt
-                                                    you probably haven't heard
-                                                    of them accusamus labore sustainable VHS.
-                                                </div>
-                                            </div>
-                                        </div> --}}
                                     </div>
                                 </div>
                             </div>
-                            {{-- <div class="singleProgramsSideBarWidget">
-                                <div class="singleProgramsSideBarWidgetBody">
-                                    <ul class="sidebarList">
-
-                                        <li class="sidebarListItem">
-                                            <div class="sidebarContent">
-                                                <div class="sidebarTitle">{{ $program->programLevel->level_name ?? '' }}
-                                                </div>
-                                                <div class="sidebarText">Program Level</div>
-                                            </div>
-                                        </li>
-
-                                        <li class="sidebarListItem">
-                                            <div class="sidebarContent">
-                                                <div class="sidebarTitle">{{ $program->program_length }}</div>
-                                                <div class="sidebarText">Program Length</div>
-                                            </div>
-                                        </li>
-
-                                        <li class="sidebarListItem">
-                                            <div class="sidebarContent">
-                                                <div class="sidebarTitle">
-                                                    {{ get_currency($program->university->country) }}{{ number_format($program->cost_of_living, 2) }}
-
-                                                </div>
-                                                <div class="sidebarText">Cost of Living</div>
-                                            </div>
-                                        </li>
-
-                                        <li class="sidebarListItem">
-                                            <div class="sidebarContent">
-                                                <div class="sidebarTitle">
-                                                    {{ get_currency($program->university->country) }}{{ number_format($program->gross_tuition, 2) }}
-                                                </div>
-                                                <div class="sidebarText">Tuition</div>
-                                            </div>
-                                        </li>
-
-                                        <li class="sidebarListItem">
-                                            <div class="sidebarContent">
-                                                <div class="sidebarTitle">
-                                                    {{ get_currency($program->university->country) }}{{ number_format($program->application_fee, 2) }}
-                                                </div>
-                                                <div class="sidebarText">Application Fee</div>
-                                            </div>
-                                        </li>
-
-
-                                    </ul>
-                                </div>
-                            </div> --}}
 
                             <div class="singleProgramsSideBarWidget">
                                 <div class="singleProgramsSideBarWidgetHeader">
@@ -648,24 +539,29 @@
 
                                         <li class="d-flex justify-content-between sidebarListItem">
                                             <span class="ttl">Founded</span>
-                                            <span class="txt">{{ $program->university->founded }}</span>
+                                            <span class="txt">{{ $programDetail->university->founded }}</span>
                                         </li>
                                         <li class="d-flex justify-content-between sidebarListItem">
                                             <span class="ttl">School ID</span>
-                                            <span class="txt">{{ $program->university->school_id }}</span>
+                                            <span class="txt">{{ $programDetail->university->school_id }}</span>
                                         </li>
                                         <li class="d-flex justify-content-between sidebarListItem">
                                             <span class="ttl">DLI number</span>
-                                            <span class="txt">{{ $program->university->provider_id_number }}</span>
+                                            <span
+                                                class="txt">{{ $programDetail->university->provider_id_number }}</span>
                                         </li>
                                         <li class="d-flex justify-content-between sidebarListItem">
                                             <span class="ttl">Institution type</span>
-                                            <span class="txt">{{ $program->university->institution_type }}</span>
+                                            <span class="txt">{{ $programDetail->university->institution_type }}</span>
                                         </li>
 
                                     </ul>
                                 </div>
                             </div>
+
+
+
+
 
 
                         </div>

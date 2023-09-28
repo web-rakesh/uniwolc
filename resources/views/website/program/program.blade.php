@@ -1,4 +1,4 @@
-@extends('website.layouts.layout')
+@extends("$layout.layouts.layout")
 @section('content')
     <section class="sub-new-awolc-bg">
         <div class="container">
@@ -41,7 +41,7 @@
                                     <label>Do you have a valid Study Permit / Visa?</label>
 
 
-                                    <select class="form-control" name="permit_visa">
+                                    <select class="form-control multiselectdropdown" name="permit_visa">
                                         <option value="">I don't have this</option>
                                         <option value="usa_f1">
                                             USA F1 Visa
@@ -62,7 +62,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Nationality</label>
-                                    <select class="form-control" name="nationality">
+                                    <select class="form-control multiselectdropdown" name="nationality">
                                         <option selected="selected" value="">Select...</option>
                                         @foreach ($countries as $county)
                                             <option value="{{ $county->id }}">{{ $county->name }}</option>
@@ -71,7 +71,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Education Country</label>
-                                    <select class="form-control" name="education_country">
+                                    <select class="form-control multiselectdropdown" name="education_country">
                                         <option selected="selected" value="">Select...</option>
                                         @foreach ($countries as $county)
                                             <option value="{{ $county->id }}">{{ $county->name }}</option>
@@ -80,7 +80,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Education Level</label>
-                                    <select class="form-control" name="education_level">
+                                    <select class="form-control multiselectdropdown" name="education_level">
                                         <option selected="selected" value="">Select...</option>
                                         @foreach ($educationLevels as $item)
                                             <option disabled>{{ $item->name }}</option>
@@ -93,7 +93,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Grading Scheme</label>
-                                    <select class="form-control" name="grading_scheme" disabled>
+                                    <select class="form-control multiselectdropdown" name="grading_scheme" disabled>
                                         <option>Secondary Level - Scale:0-100</option>
                                         <option>Other</option>
                                     </select>
@@ -101,7 +101,7 @@
 
                                 <div class="form-group">
                                     <label>English Exam Type</label>
-                                    <select class="form-control" name="english_exam_type">
+                                    <select class="form-control multiselectdropdown" name="english_exam_type">
                                         <option value="">Select...</option>
                                         <option value="I don't have this">I don't have this</option>
                                         <option value="I will provide this later">I will provide this later</option>
@@ -128,7 +128,8 @@
 
                                 <div class="form-group">
                                     <label>Countries</label>
-                                    <select class="form-control" name="school_country" id="school_country">
+                                    <select class="form-control multiselectdropdown" multiple name="school_country[]"
+                                        id="school_country">
                                         <option value="">Select...</option>
                                         @foreach ($countries as $county)
                                             <option value="{{ $county->id }}">{{ $county->name }}</option>
@@ -144,14 +145,15 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Provinces / States</label>
-                                    <select class="form-control" name="provinces_state" id="provinces_state">
+                                    <select class="form-control multiselectdropdown" name="provinces_state"
+                                        id="provinces_state">
                                         <option value="">Select...</option>
 
                                     </select>
                                 </div>
                                 <div class="form-group">
                                     <label>Campus City</label>
-                                    <select class="form-control" name="campus_city" id="city-dropdown">
+                                    <select class="form-control multiselectdropdown" name="campus_city" id="city-dropdown">
                                         <option value="">Select...</option>
                                     </select>
                                 </div>
@@ -188,7 +190,8 @@
                                 </div>
                                 <div class="form-group sub-border-none">
                                     <label>Schools</label>
-                                    <select class="form-control" id="country_by_school" name="country_school">
+                                    <select class="form-control multiselectdropdown" id="country_by_school"
+                                        name="country_school">
                                         <option value="">Select...</option>
                                         @foreach ($schools as $item)
                                             <option value="{{ $item->id }}">{{ $item->university_name }}</option>
@@ -203,7 +206,7 @@
                             <div class="sub-courses-form-left-box">
                                 <div class="form-group">
                                     <label>Program Levels</label>
-                                    <select class="form-control" name="program_education_level">
+                                    <select class="form-control multiselectdropdown" name="program_education_level">
                                         <option selected="selected" value="">Select...</option>
                                         @foreach ($educationLevels as $item)
                                             <option disabled>{{ $item->name }}</option>
@@ -217,7 +220,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Intakes </label>
-                                    <select class="form-control" id="intake" name="intake">
+                                    <select class="form-control multiselectdropdown" id="intake" name="intake">
                                         <option value="">Select...</option>
                                         <optgroup label="Aug - Nov 2023">
                                             <option value="{{ date('2023-09-01') }}">
@@ -273,7 +276,8 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Intakes Status</label>
-                                    <select class="form-control" name="intake_status" id="intake_status" disabled>
+                                    <select class="form-control multiselectdropdown" name="intake_status"
+                                        id="intake_status" disabled>
                                         <option value="">Select...</option>
                                         <option value="1">Open</option>
                                         <option value="">Likely Open</option>
@@ -283,22 +287,20 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Post-Secondary Discipline</label>
-                                    <select class="form-control">
-                                        <option selected="selected">Select...</option>
-                                        <option>Aero space, Aviation and Pilot Technology</option>
-                                        <option>Agriculture</option>
-                                        <option>Architure</option>
-                                        <option>Biomedical Engineering</option>
+                                    <select class="form-control multiselectdropdown" name="post_secondary_category"
+                                        id="post-secondary-category">
+                                        <option value="">Select...</option>
+                                        <option value="">Select...</option>
+                                        @foreach ($secondaryCategories as $category)
+                                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                                 <div class="form-group sub-border-none">
                                     <label>Post-Secondary Sub-Categories</label>
-                                    <select class="form-control">
-                                        <option selected="selected">Select...</option>
-                                        <option>Aero space, Aviation and Pilot Technology</option>
-                                        <option>Agriculture</option>
-                                        <option>Architure</option>
-                                        <option>Biomedical Engineering</option>
+                                    <select class="form-control multiselectdropdown" name="post_secondary_sub_category"
+                                        id="post-secondary-sub-category">
+
                                     </select>
                                     <p>All amounts are listed in the currency charged by the school. For best results,
                                         please
@@ -460,83 +462,29 @@
 
                                     @include('website.program.program-list')
                                 </div>
-                                {{-- <div class="course-tab-content">
-                                    <div class="d-flex flex-wrap justify-content-between">
-                                        <div class="col-lg-9 p-0">
-                                            <div class="sub-course-tt-box">
-                                                <div class="sub-course-unt-title">
-                                                    <h6>1-Year Post-Secondary Certificate</h6>
-                                                    <h3>T-Level - Design, Surveying and Planning for Construction</h3>
-                                                    <p>Cheshire College South and West - Ellesmere Port</p>
-                                                </div>
-                                                <div class="sub-course-country">
-                                                    <i class="fa-sharp fa-solid fa-location-dot"></i> Ellesmere Port,
-                                                    North West, United Kingdom
-                                                </div>
-                                                <div class="sub-course-appl-bg">
-                                                    <div
-                                                        class="d-flex flex-wrap align-items-center justify-content-between">
-                                                        <div class="sub-tution-text">
-                                                            <h6>Tuition Fee</h6>
-                                                            <p>&#163;14,250.00 GBP</p>
-                                                        </div>
-                                                        <div class="sub-tution-text">
-                                                            <h6>Application Fee</h6>
-                                                            <p>&#163;0.00 GBP</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-3 p-0">
-                                            <div class="sub-course-btn-left">
-                                                <a class="sub-start-btn-applica" href="javascript:;">Start
-                                                    Application</a>
-                                                <a class="sub-program-det-border-btn" href="javascript:;">Program
-                                                    Details</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
 
-                                <div class="course-tab-content">
-                                    <div class="d-flex flex-wrap justify-content-between">
-                                        <div class="col-lg-9 p-0">
-                                            <div class="sub-course-tt-box">
-                                                <div class="sub-course-unt-title">
-                                                    <h6>1-Year Post-Secondary Certificate</h6>
-                                                    <h3>T-Level - Design, Surveying and Planning for Construction</h3>
-                                                    <p>Cheshire College South and West - Ellesmere Port</p>
-                                                </div>
-                                                <div class="sub-course-country">
-                                                    <i class="fa-sharp fa-solid fa-location-dot"></i> Ellesmere Port,
-                                                    North West, United Kingdom
-                                                </div>
-                                                <div class="sub-course-appl-bg">
-                                                    <div
-                                                        class="d-flex flex-wrap align-items-center justify-content-between">
-                                                        <div class="sub-tution-text">
-                                                            <h6>Tuition Fee</h6>
-                                                            <p>&#163;14,250.00 GBP</p>
-                                                        </div>
-                                                        <div class="sub-tution-text">
-                                                            <h6>Application Fee</h6>
-                                                            <p>&#163;0.00 GBP</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-3 p-0">
-                                            <div class="sub-course-btn-left">
-                                                <a class="sub-start-btn-applica" href="javascript:;">Start
-                                                    Application</a>
-                                                <a class="sub-program-det-border-btn" href="javascript:;">Program
-                                                    Details</a>
-                                            </div>
-                                        </div>
+                                @if ($programs->hasMorePages())
+                                    <div class="text-center">
+                                        <button class="btn btn-info load-more-data"><i class="fa fa-refresh"></i> Load
+                                            More Data...</button>
                                     </div>
-                                </div> --}}
+
+                                    <!-- Data Loader -->
+                                    <div class="auto-load text-center" style="display: none;">
+                                        <svg version="1.1" id="L9" xmlns="http://www.w3.org/2000/svg"
+                                            xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                            height="60" viewBox="0 0 100 100" enable-background="new 0 0 0 0"
+                                            xml:space="preserve">
+                                            <path fill="#000"
+                                                d="M73,50c0-12.7-10.3-23-23-23S27,37.3,27,50 M30.9,50c0-10.5,8.5-19.1,19.1-19.1S69.1,39.5,69.1,50">
+                                                <animateTransform attributeName="transform" attributeType="XML"
+                                                    type="rotate" dur="1s" from="0 50 50" to="360 50 50"
+                                                    repeatCount="indefinite" />
+                                            </path>
+                                        </svg>
+                                    </div>
+                                @endif
+
 
 
                             </div>
@@ -544,27 +492,34 @@
 
                             <!-- course-details-2 -->
                             <div class="tab-pane" id="course-details-2">
-                                <div class="d-flex flex-wrap align-items-center justify-content-center" id="school_list">
-                                    @include('website.program.school-list')
-                                    {{-- <div class="col-lg-6">
-                                        <div class="sub-agent-content">
-                                            <div>
-                                                <div class="sub-agent-icon">
-                                                    <img src="assets/images/courses/Cambridge_ Education.png"
-                                                        alt="" />
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <div class="sub-agent-text">
-                                                    <a href="javascript:;">University of Greenwich (Medway Campus) Chattam
-                                                        , South East</a>
-                                                </div>
-                                            </div>
+                                <div class="d-flex flex-wrap align-items-center justify-content-center">
+                                    <div class="row" id="school_list">
+                                        @include('website.program.school-list')
+                                    </div>
+                                    <div class="row">
+                                        <div class="text-center">
+                                            <button class="btn btn-info school-list-load-more-data"><i
+                                                    class="fa fa-refresh"></i> Load More Data...</button>
                                         </div>
-                                    </div> --}}
 
+                                        <!-- Data Loader -->
+                                        <div class="school-list text-center" style="display: none;">
+                                            <svg version="1.1" id="L9" xmlns="http://www.w3.org/2000/svg"
+                                                xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                                height="60" viewBox="0 0 100 100" enable-background="new 0 0 0 0"
+                                                xml:space="preserve">
+                                                <path fill="#000"
+                                                    d="M73,50c0-12.7-10.3-23-23-23S27,37.3,27,50 M30.9,50c0-10.5,8.5-19.1,19.1-19.1S69.1,39.5,69.1,50">
+                                                    <animateTransform attributeName="transform" attributeType="XML"
+                                                        type="rotate" dur="1s" from="0 50 50" to="360 50 50"
+                                                        repeatCount="indefinite" />
+                                                </path>
+                                            </svg>
+                                        </div>
+                                    </div>
 
                                 </div>
+
                             </div>
                             <!-- course-details-2 End -->
                         </div>
@@ -574,12 +529,28 @@
 
             </div>
         </div>
+
+
+        <!-- Modal -->
+        @include('modal-program-list')
     </section>
 @endsection
 
 @push('js')
     <script>
+        var url = "{{ route('student.program.check-eligibility') }}";
+        var url_eligibility = "{{ route('program.check-eligibility') }}";
+
+        var csrf_token = "{{ csrf_token() }}";
+    </script>
+    <script src="{{ asset('/') }}assets/js/program-eligibility.js"></script>
+    <script>
+        var PGLISTENDPOINT = "{{ route('programs.list') }}";
+        var SCHLISTENDPOINT = "{{ route('school.list') }}";
+        var pgpage = 1;
+        var schlpage = 1;
         $(document).ready(function() {
+            $(".multiselectdropdown").select2();
             $('body').click(function() {
                 $('#studySearchResults').fadeOut();
                 $('#schoolLocationSearchResults').fadeOut();
@@ -643,6 +614,9 @@
                         $('#program-list').html(response
                             .programS); // Display the response from the server
                         $('#school_list').html(response.schoolLists);
+
+                        $('.school-list').hide();
+                        $('.school-list-load-more-data').show();
                     },
                     complete: function() {
                         $('#loader').addClass('hidden')
@@ -702,6 +676,7 @@
 
         $('#eligibility').submit(function(e) {
             e.preventDefault();
+            $("#school_location_study").trigger("reset");
             $("#school_program_filter").trigger("reset");
             var query = $(this).val();
             var formData = $(this).serialize();
@@ -715,6 +690,14 @@
                     $('#loader').removeClass('hidden')
                 },
                 success: function(response) {
+                    // console.log(response.programLists.length);
+                    pgpage = 1;
+                    $('.load-more-data').show();
+                    if (response.programLists.length < 30) {
+                        // $('.auto-load').html("We don't have more data to display :(");
+                        $('.load-more-data').hide();
+                        // return;
+                    }
                     // console.log('data', response);
                     $('#program-list').html(response
                         .programLists); // Display the response from the server
@@ -725,25 +708,6 @@
                 },
             });
         });
-
-        // $('#load_more_button').click(function() {
-        //     var start = 5;
-        //     $.ajax({
-        //         url: "{{ route('programs.eligibility') }}",
-        //         type: 'GET',
-        //         data: formData,
-        //         beforeSend: function() {
-        //             $('#load_more_button').html('Loading...');
-        //             $('#load_more_button').attr('disabled', true);
-        //         },
-        //         success: function(data) {
-        //             console.log('data', data);
-        //             $('#program-list').html(data);
-        //             $('#load_more_button').html('Load More');
-        //             $('#load_more_button').attr('disabled', false);
-        //         }
-        //     });
-        // });
 
         $("#school_country").change(function() {
             var id_country = $(this).val();
@@ -844,5 +808,125 @@
                 }
             });
         })
+
+        $(".load-more-data").click(function() {
+            pgpage++;
+            // alert(page)
+            infinteLoadMore(pgpage);
+        });
+
+
+        function infinteLoadMore(pgpage) {
+            var formData = '';
+            if ($('#eligibility').serialize()) {
+                formData = $('#eligibility').serialize();
+            }
+            if ($('#school_program_filter').serialize()) {
+                formData = $('#school_program_filter').serialize();
+            }
+            var locationSchool = $('#school_location_study').serialize();
+            $.ajax({
+                    url: PGLISTENDPOINT + "?page=" + pgpage + '&' + formData + '&' +
+                        locationSchool,
+                    datatype: "html",
+                    type: "get",
+                    beforeSend: function() {
+                        $('.auto-load').show();
+                    }
+                })
+                .done(function(response) {
+                    $('.auto-load').hide();
+                    if (response.length < 30) {
+                        $('.auto-load').show();
+                        $('.auto-load').html("We don't have more data to display :(");
+                        $('.load-more-data').hide();
+                        return;
+                    }
+                    if (response == '') {
+                        $('.auto-load').html("We don't have more data to display :(");
+                        $('.load-more-data').hide();
+                        return;
+                    }
+                    $('.auto-load').hide();
+                    $('#program-list').append(response);
+                })
+                .fail(function(jqXHR, ajaxOptions, thrownError) {
+                    console.log('Server error occured');
+                });
+        }
+
+        $(".school-list-load-more-data").click(function() {
+            schlpage++;
+            infinteSchoolListLoadMore(schlpage);
+        });
+
+        function infinteSchoolListLoadMore(schlpage) {
+            var formData = '';
+            if ($('#eligibility').serialize()) {
+                formData = $('#eligibility').serialize();
+            }
+            if ($('#school_program_filter').serialize()) {
+                formData = $('#school_program_filter').serialize();
+            }
+
+            var locationSchool = $('#school_location_study').serialize();
+            $.ajax({
+                    url: SCHLISTENDPOINT + "?page=" + schlpage + '&' + formData + '&' +
+                        locationSchool,
+                    datatype: "html",
+                    type: "get",
+                    beforeSend: function() {
+                        $('.school-list').show();
+                    }
+                })
+                .done(function(response) {
+                    // console.log(response);
+                    $('.school-list').hide();
+
+                    if (response == '') {
+                        $('.school-list').show();
+                        $('.school-list-load-more-data').hide();
+                        $('.school-list').html("We don't have more data to display :(");
+                        return;
+                    }
+                    $('.school-list').hide();
+                    $('#school_list').append(response);
+                })
+                .fail(function(jqXHR, ajaxOptions, thrownError) {
+                    console.log('Server error occured');
+                });
+        }
+
+
+
+        $("#post-secondary-category").on('change', function() {
+            // alert($(this).val())
+            $.ajax({
+                    url: "{{ route('post.secondary.sub.category') }}",
+                    type: "get",
+                    data: {
+                        category_id: $(this).val()
+                    }
+                })
+                .done(function(response) {
+                    console.log(response);
+                    $('#post-secondary-sub-category').html('<option value="">Select...</option>');
+                    $.each(response.sub_category, function(key, value) {
+
+                        $("#post-secondary-sub-category").append('<option value="' + value
+                            .id + '">' + value.name + '</option>');
+                    });
+
+                })
+                .fail(function(jqXHR, ajaxOptions, thrownError) {
+                    console.log('Server error occured');
+                });
+        })
+
+
+        /*$(document).on('click', '.agent-student-apply-eligibility', function() {
+
+            $("#myModal").modal('show');
+        })*/
     </script>
 @endpush

@@ -53,6 +53,12 @@
                                       <span class="title">Payments</span>
                                   </a>
                               </li>
+                              <li class="{{ request()->is('change-password') ? 'active' : '' }}">
+                                  <a href="{{ route('change.password') }}">
+                                      <span class="icon"><i class="fa-light fa-key"></i></span>
+                                      <span class="title">Change Password</span>
+                                  </a>
+                              </li>
 
                               <li>
                                   <a href="{{ route('logout') }}"

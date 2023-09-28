@@ -124,7 +124,11 @@
                                                     {{ old('policy_check') ? 'checked' : '' }} name="policy_check"
                                                     id="exampleCheck1">
                                                 <label class="form-check-label" for="exampleCheck1">I have read and agree to
-                                                    the Terms and Conditions and the Privacy and Cookies Policy*.</label>
+                                                    the <a href="{{ route('term.conditions') }}" target="_blank"
+                                                        style="display: inline; margin:0px">Terms and Conditions</a> and <a
+                                                        href="{{ route('privacy.policy') }}" target="_blank"
+                                                        style="display: inline; margin:0px">the Privacy and Cookies
+                                                        Policy*.</a></label>
                                             </div>
                                             @error('policy_check')
                                                 <span class="alert alert-danger" role="alert">

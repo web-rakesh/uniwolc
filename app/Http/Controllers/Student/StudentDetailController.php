@@ -8,7 +8,9 @@ use App\Models\Staff;
 use App\Models\Country;
 use Illuminate\Http\Request;
 use App\Models\GradingScheme;
+use App\Models\ProgramIntake;
 use App\Models\AgentCommission;
+use App\Models\secondaryCategory;
 use App\Models\Student\TestScore;
 use App\Models\Student\VisaPermit;
 use App\Models\University\Program;
@@ -34,7 +36,7 @@ class StudentDetailController extends Controller
     public function index()
     {
         $studentDetail = StudentDetail::whereUserId(Auth::user()->id)->first() ?? null;
-        $countries = Country::all();
+        $countries = Country::where('block', '!=', 1)->get();
         return view('students.profile-edit', compact('studentDetail', 'countries'));
     }
 
@@ -46,7 +48,8 @@ class StudentDetailController extends Controller
 
     public function program()
     {
-        $countries = Country::all();
+        $countries = Country::where('block', '!=', 1)->get();
+        $secondaryCategories = secondaryCategory::all();
         $educationLevels = CategoriesOfEducation::with('educationLevels')->get();
         $programs = Program::latest()->paginate(10);
         $programCount = Program::count();
@@ -72,6 +75,7 @@ class StudentDetailController extends Controller
                 'programs',
                 'programCount',
                 'schoolCount',
+                'secondaryCategories',
                 'countries',
                 'educationLevels',
                 'schools',
@@ -85,14 +89,22 @@ class StudentDetailController extends Controller
     {
 
 
-        $countries = Country::all();
+        $countries = Country::where('block', '!=', 1)->get();
         $gradingSchemeAll = GradingScheme::all();
+        $secondaryCategories = secondaryCategory::all();
         $educationLevels = CategoriesOfEducation::with('educationLevels')->get();
         $programs = Program::latest()->paginate(10);
         $programCount = Program::count();
         $schoolCount = ProfileDetail::count();
         $schools = ProfileDetail::select('id', 'university_name')->latest()->get();
         $schoolLists = ProfileDetail::latest()->take(30)->get();
+
+        $quick_education_country =  WizardQuestionAnswer::where('screen_id', 1)
+            ->where('student_id', Auth::user()->id)->pluck('answer_value')->toArray();
+        $apply_education_label =  WizardQuestionAnswer::where('screen_id', 2)
+            ->where('student_id', Auth::user()->id)->pluck('answer_value');
+        $apply_intake =  WizardQuestionAnswer::where('screen_id', 4)
+            ->where('student_id', Auth::user()->id)->pluck('answer_value')->toArray();
 
         $nationality =   WizardQuestionAnswer::select('answer_from_category', 'answer_from_subcategory', 'answer_from_table', 'answer_value_from_table')
             ->where('screen_id', 7)
@@ -128,6 +140,9 @@ class StudentDetailController extends Controller
 
 
         $quick_data = [
+            'quick_education_country' => @$quick_education_country,
+            'apply_education_label' => @$apply_education_label,
+            'apply_intake' => @$apply_intake,
             'nationality' => @$nationality,
             'residence' => @$residence,
             'state' => @$state,
@@ -147,6 +162,7 @@ class StudentDetailController extends Controller
                 'schoolCount',
                 'countries',
                 'educationLevels',
+                'secondaryCategories',
                 'gradingSchemeAll',
                 'schools',
                 'schoolLists',
@@ -177,8 +193,15 @@ class StudentDetailController extends Controller
     public function programApply(Program $program)
     {
         // return now();
-        // return $program;
+        // return $program->intake;
 
+        $currentDateValue = now()->toDateString(); // Get the current date
+
+        $pgIntake = ProgramIntake::where('program_id', $program->id)->whereDate('intake_date', '>', $currentDateValue)->first();
+        if (empty($pgIntake)) {
+            return redirect()->back()->with('error', 'Intake date is not available.');
+        }
+        // return $pgIntake;
         if (ApplyProgram::where('slug', $program->slug)->where('user_id', Auth::user()->id)->exists()) {
             return redirect()->route('student.application.index')->with('message', 'You have already applied for this program.');
         } else {
@@ -191,7 +214,8 @@ class StudentDetailController extends Controller
                 'application_number' => 'UW' . rand(100000, 999999),
                 'program_title' => $program->program_title,
                 'fees' => $program->application_fee,
-                // 'esl_start_date' => now(),
+                'intake' => $pgIntake->id,
+                'esl_start_date' => array_keys(els_intake($pgIntake->intake_date)[0])[0],
                 // 'start_date' => now(),
 
             ]);
@@ -208,13 +232,21 @@ class StudentDetailController extends Controller
     /**
      * Store a newly apply program agent and staff.
      */
-    public function agentProgramApply(Request $request, Program $program)
+    public function agentProgramApply(Request $request)
     {
-        // return $program;
 
+        // return $request;
+        $program = Program::find($request->program_id);
         if ($request->user_id == null) {
             return redirect()->back()->with('error', 'Please select student.');
         }
+        $currentDateValue = now()->toDateString(); // Get the current date
+
+        $pgIntake = ProgramIntake::where('program_id', $program->id)->whereDate('intake_date', '>', $currentDateValue)->first();
+        if (empty($pgIntake)) {
+            return redirect()->back()->with('error', 'Intake date is not available.');
+        }
+
         $studentDetail = StudentDetail::select('id', 'user_id')->whereUserId($request->user_id)->first();
 
         // return ApplyProgram::where('id', $program->id)->whereUserId($studentDetail->user_id)->count();
@@ -248,7 +280,8 @@ class StudentDetailController extends Controller
                     'application_number' => 'UW' . rand(100000, 999999),
                     'program_title' => $program->program_title,
                     'fees' => $program->application_fee,
-                    // 'esl_start_date' => now(),
+                    'intake' => $pgIntake->id,
+                    'esl_start_date' => array_keys(els_intake($pgIntake->intake_date)[0])[0],
                     // 'start_date' => now(),
                     'agent_id' => $agentId,
                     'staff_id' => $staffId,
@@ -385,7 +418,8 @@ class StudentDetailController extends Controller
             }
             // return $request->all();
             // exit;
-            $request['get_student_id'] = get_student_id($userId);
+            $request['student_id'] = "100000$userId";
+            // $request['student_id'] = get_student_id($userId);
             StudentDetail::updateOrCreate(
                 [
                     'user_id' => $userId,
@@ -432,5 +466,61 @@ class StudentDetailController extends Controller
     public function destroy(StudentDetail $studentDetail)
     {
         //
+    }
+
+    public function studentPrivacyStatement($id, $slug)
+    {
+        // return $id.' '.$slug;
+        $studentPrivacy = ProfileDetail::select('id', 'university_name')->whereId($id)->whereSlug($slug)->first();
+        $image = $studentPrivacy->university_gallery_url;
+        $base_url = url('/');
+        $imageFile = str_replace($base_url, '', $image);
+        $pdf = PDF::loadView('myPDF', [
+            'title' => $studentPrivacy->university_name,
+            'profile_image' => $imageFile
+        ]);
+
+        return $pdf->stream();
+        // return $pdf->download('sample-with-image.pdf');
+    }
+
+    public function studentProgramEligibility(Request $request)
+    {
+        $isProfile = User::select('id', 'profile_is_updated', 'name')->where('id', $request->student_id)->first();
+        if ($isProfile->profile_is_updated == 0) {
+            return response()->json([
+                'student_name' => "[$isProfile->id] $isProfile->name",
+                'profile_url' => route('agent.student.general.detail', $isProfile->id),
+                'error_profile' => "We are unable to determine the student's eligibility for this program. Please update the student's profile data in order to apply.",
+                'status' => false
+            ]);
+        }
+
+        $applyProgram = ApplyProgram::where('program_id', $request->program_id)->where('user_id', $request->student_id)->first();
+        if ($applyProgram) {
+            return response()->json([
+                'student_name' => "[$isProfile->id] $isProfile->name",
+                'error' => "Student has already applied for this program.",
+                'status' => false
+            ]);
+        }
+
+        return response()->json([
+            'student_name' => "[$isProfile->id] $isProfile->name",
+            'success' => "Student is eligible for this program.",
+            'status' => true
+        ]);
+    }
+
+    public function programEligibility(Request $request)
+    {
+        // return $request;
+
+        $program = Program::select('id', 'program_title')->where('id', $request->programId)->first();
+        return response()->json([
+            'program_id' => $program->id,
+            'program_title' => $program->program_title,
+            'status' => true
+        ]);
     }
 }

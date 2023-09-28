@@ -17,7 +17,8 @@
                               </li>
 
 
-                              <li class="{{ request()->is('student/program') || request()->is('student/program-detail/*') ? 'active' : '' }}">
+                              <li
+                                  class="{{ request()->is('student/program') || request()->is('student/program-detail/*') ? 'active' : '' }}">
                                   <a href="{{ route('student.programs') }}">
                                       <span class="icon"><i class="fa-regular fa-magnifying-glass"></i></span>
                                       <span class="title">Programs &amp; Schools</span>
@@ -32,7 +33,8 @@
                                   </a>
                               </li>
 
-                              <li class="{{ request()->is('student/application') ||  request()->is('student/application-fillup/*') ? 'active' : '' }}">
+                              <li
+                                  class="{{ request()->is('student/application') || request()->is('student/application-fillup/*') ? 'active' : '' }}">
                                   <a href="{{ route('student.application.index') }}">
                                       <span class="icon"><i class="fa-regular fa-file-text"></i></span>
                                       <span class="title">My Applications</span>
@@ -46,6 +48,13 @@
                                   <a href="{{ route('student.payment.history') }}">
                                       <span class="icon"><i class="fa-regular fa-circle-dollar"></i></span>
                                       <span class="title">Payments</span>
+                                  </a>
+                              </li>
+
+                              <li class="{{ request()->is('change-password') ? 'active' : '' }}">
+                                  <a href="{{ route('change.password') }}">
+                                      <span class="icon"><i class="fa-light fa-key"></i></span>
+                                      <span class="title">Change Password</span>
                                   </a>
                               </li>
 

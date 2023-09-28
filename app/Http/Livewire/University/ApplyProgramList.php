@@ -12,16 +12,17 @@ use App\Models\Student\ApplyProgram;
 class ApplyProgramList extends Component
 {
     use WithPagination;
-
+    protected $paginationTheme = 'bootstrap';
     public $programSelectId, $programList, $confirming, $backupPrograms, $backup_program_id, $reject_id;
     public $searchItem, $textareaValue = '';
-    public $showModal = false, $mood = false, $program_status;
+    public $showModal = false, $mood = false, $program_status, $label ;
     public $student_id, $program_name, $startDate, $endDate;
     // public $paginationCount = 15;
     public function render()
     {
         $applyProgram = ApplyProgram::query()
             ->where('university_id', auth()->user()->id)
+            ->where('status', 2)
             ->when($this->program_status, function ($query, $program_status) {
                 if ($program_status == 4) {
                     // dd($program_status);
@@ -46,7 +47,7 @@ class ApplyProgramList extends Component
         $this->programList = Program::select('id', 'program_title')->where('user_id', auth()->user()->id)->get();
 
 
-        return view('livewire.university.apply-program-list', ['applyPrograms' => $applyProgram]);
+        return view('livewire.university.apply-program-list', ['applyProgramList' => $applyProgram]);
     }
 
     public function clearDate()

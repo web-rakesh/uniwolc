@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Student;
 
 use Illuminate\Http\Request;
+use App\Models\ProgramIntake;
+use Illuminate\Support\Carbon;
 use App\Models\University\Program;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
@@ -21,7 +23,10 @@ class ApplyProgramController extends Controller
      */
     public function index()
     {
+        // return els_intake("2023-10-8");
+        // return "hello";
         $applyPrograms = ApplyProgram::whereUserId(Auth::user()->id)->where('status', 1)->latest()->get();
+        // return $applyPrograms[0]->getUniversity->university_gallery_url;
         $applyProgramPaid = ApplyProgram::whereUserId(Auth::user()->id)->where('status', 2)->latest()->get();
         return view('students.application', compact('applyPrograms', 'applyProgramPaid'));
 
@@ -33,7 +38,9 @@ class ApplyProgramController extends Controller
         $applyProgram = ApplyProgram::whereUserId(Auth::user()->id)->where('slug', $slug)->first();
         $studentDetail = StudentDetail::whereUserId(Auth::user()->id)->first();
         $uploadedDocument = ApplicantUploadDocument::whereUserId(Auth::user()->id)->whereApplyProgramId($applyProgram->id)->get();
-        return view('students.application-fillup', compact('applyProgram', 'studentDetail', 'uploadedDocument'));
+        $intakeProgram = ProgramIntake::whereProgramId($applyProgram->program_id)->whereId($applyProgram->intake)->first();
+        $layout = auth_layout();
+        return view('students.application-fillup', compact('layout', 'applyProgram', 'studentDetail', 'uploadedDocument', 'intakeProgram'));
     }
 
     public function applicationProgramBackup(Request $request)
@@ -69,6 +76,15 @@ class ApplyProgramController extends Controller
         $applyProgram = ApplyProgram::whereAgentId(Auth::user()->id)->where('slug', $slug)->first();
         $studentDetail = StudentDetail::whereUserId($applyProgram->user_id)->first();
         $uploadedDocument = ApplicantUploadDocument::whereUserId($applyProgram->user_id)->whereApplyProgramId($applyProgram->id)->get();
+        $intakeProgram = ProgramIntake::whereProgramId($applyProgram->program_id)->whereId($applyProgram->intake)->first();
+        $layout = auth_layout();
+        return view('students.application-fillup', compact('layout', 'applyProgram', 'studentDetail', 'uploadedDocument', 'intakeProgram'));
+
+
+
+        $applyProgram = ApplyProgram::whereAgentId(Auth::user()->id)->where('slug', $slug)->first();
+        $studentDetail = StudentDetail::whereUserId($applyProgram->user_id)->first();
+        $uploadedDocument = ApplicantUploadDocument::whereUserId($applyProgram->user_id)->whereApplyProgramId($applyProgram->id)->get();
         return view('agent.application.application-fillup', compact('applyProgram', 'studentDetail', 'uploadedDocument'));
     }
 
@@ -77,6 +93,13 @@ class ApplyProgramController extends Controller
         $applyProgram = ApplyProgram::whereAgentId(Auth::user()->id)->where('slug', $slug)->first();
         $studentDetail = StudentDetail::whereUserId($applyProgram->user_id)->first();
         $uploadedDocument = ApplicantUploadDocument::whereUserId($applyProgram->user_id)->whereApplyProgramId($applyProgram->id)->get();
+        $intakeProgram = ProgramIntake::whereProgramId($applyProgram->program_id)->whereId($applyProgram->intake)->first();
+        $layout = auth_layout();
+        return view('students.application-fillup', compact('layout', 'applyProgram', 'studentDetail', 'uploadedDocument', 'intakeProgram'));
+
+
+
+
         return view('agent.application.application-fillup', compact('applyProgram', 'studentDetail', 'uploadedDocument'));
     }
 
@@ -127,7 +150,7 @@ class ApplyProgramController extends Controller
         // return $applyPrograms[0]->getProgram;
         if (Auth::user()->type == 'agent') {
             $applyProgramPaid = ApplyProgram::whereAgentId(Auth::user()->id)->where('status', 2)->get();
-            return view('agent.application.paid-application', ['applications' => 2]);
+            return view('agent.application.paid-application', ['applications' => 2, 'applyProgramPaid' => $applyProgramPaid]);
         } elseif (Auth::user()->type == 'staff') {
             return view('staff.application.application', ['applications' => 2]);
             $applyProgramPaid = ApplyProgram::whereStaffId(Auth::user()->id)->where('status', 2)->get();
@@ -302,5 +325,72 @@ class ApplyProgramController extends Controller
             //throw $th;
             return $th->getMessage();
         }
+    }
+
+
+    public function intakeProgramUpdate(Request $request)
+    {
+        // return $request;
+
+        // return $request->all();
+        try {
+            //code...
+            $intake_date = ProgramIntake::where('program_id', $request->program_id)->where('id', $request->intake_id)->first();
+            // return $intake_date->intake_date;
+            $els_intake = els_intake($intake_date->intake_date) ?? null;
+            $els_intake_option = '';
+            $els_intake_start_date = null;
+            $c = 0;
+            foreach ($els_intake as $key => $value) {
+                foreach ($value as $key1 => $value1) {
+                    if ($c == 0) {
+                        $els_intake_start_date = $key1;
+                    }
+                    $c++;
+                    $els_intake_option .= '<option value="' . $key1 . '">' . $value1 . '</option>';
+                }
+            }
+            // return $els_intake_start_date;
+            if ($request->els_intake) {
+                $els_intake_start_date = $request->els_intake;
+            }
+            if ($request->mood != 'change_intake') {
+                ApplyProgram::whereUserId(Auth::user()->id)->where('program_id', $request->program_id)->first()->update([
+                    'intake' => $request->intake_id,
+                    'esl_start_date' => $els_intake_start_date,
+                ]);
+            }
+            return response()->json([
+                'success' => 'Intake Updated Successfully',
+                'els_intake' => $els_intake_option,
+            ]);
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
+    }
+
+    public function elsIntakeProgramUpdate(Request $request)
+    {
+        try {
+            //code...
+            ApplyProgram::whereUserId(Auth::user()->id)->where('program_id', $request->program_id)->first()->update([
+                'esl_start_date' => $request->els_intake,
+            ]);
+            return response()->json([
+                'success' => 'Intake Updated Successfully',
+            ]);
+        } catch (\Throwable $th) {
+            //throw $th;
+            return response()->json([
+                'error' => 'Something went wrong',
+            ]);
+        }
+    }
+
+    public function programReject(Request $request)
+    {
+        // return $request;
+        $rejectNote = ApplyProgram::select('id','remark')->where('id', $request->program_id)->first();
+        return response()->json(['rejectNote' => $rejectNote]);
     }
 }

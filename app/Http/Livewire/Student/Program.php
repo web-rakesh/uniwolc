@@ -23,7 +23,7 @@ class Program extends Component
 
     public function render()
     {
-        $this->countries = Country::all();
+        $this->countries = Country::where('block', '!=', 1)->get();
         $this->educationLevels = EducationLevel::all();
         $this->gradingSchemes = GradingScheme::all();
         if ($this->searchStatus == false) {
@@ -97,7 +97,7 @@ class Program extends Component
                         }
                     });
                 })
-                   ->latest()
+                ->latest()
                 ->take(25)
                 ->get();
         }

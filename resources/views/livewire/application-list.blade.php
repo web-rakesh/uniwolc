@@ -55,7 +55,7 @@
                                             <input type="text" wire:model="programName" class="form-control"
                                                 placeholder="Search" />
                                         </span>
-                                        <span>Start Date
+                                        <span>Applied Date
                                             <input type="date" wire:model="startDate" class="form-control"
                                                 placeholder="Search" />
                                         </span>
@@ -99,10 +99,11 @@
                                             </div>
                                             <div class="thumanil" data-title="School">
 
-                                                <a href="{{ route('school.detail', ['id' => $item->getUniversity->id, 'slug' => $item->getUniversity->slug]) }}">
+                                                <a
+                                                    href="{{ route('school.detail', ['id' => $item->getUniversity->id, 'slug' => $item->getUniversity->slug]) }}">
                                                     <span class="thumanilinner">
                                                         <img src="{{ $item->getUniversity->university_gallery_url }}"
-                                                            class="img-fluid" alt="" style="height: 50px" />
+                                                            class="img-fluid" alt="no image" style="height: 50px" />
                                                     </span>
                                                     <p>{{ $item->getUniversity->university_name }}</p>
                                                 </a>
@@ -121,10 +122,10 @@
                                             </div>
 
                                             <div class="eslStartDate startDate" data-title="Start Date">
-                                                <div class="hd">Academic</div>
-                                                <div class="txt">Open Now</div>
+                                                {{-- <div class="hd">Academic</div>
+                                                <div class="txt">Open Now</div> --}}
                                                 <div class="">
-                                                    {{ @$tiem->start_date ? date('M d, Y', strtotime($item->start_date)) : '--' }}
+                                                    {{  date('M d, Y', strtotime($item->created_at)) }}
 
                                                 </div>
                                             </div>
@@ -200,7 +201,7 @@
                                         </div>
                                         @if ($item->status != 2)
                                             <div class="ml-3 viewBtnDiv">
-                                                <a href="{{ route('staff.payment.confirm', ['ids' => $item->id]) }}"
+                                                <a href="{{ route('agent.payment.confirm', ['ids' => $item->id]) }}"
                                                     class="btn viewBtn">
                                                     <span class="icon"><i
                                                             class="fa-regular fa-up-right-from-square"></i></span>
@@ -269,6 +270,11 @@
                                 </div>
 
                             @empty
+                                <div class="dasboardAppHeader dasboardAppBody">
+                                    <div class="leftPart">
+                                        No Program Found
+                                    </div>
+                                </div>
                             @endforelse
                         </div>
                     </div>

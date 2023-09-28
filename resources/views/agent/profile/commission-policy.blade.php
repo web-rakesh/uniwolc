@@ -20,7 +20,7 @@
                                 <ul class="nav">
                                     <li class="nav-item ">
                                         <a class="nav-link"
-                                            href="{{ route('agent.general.details', auth()->user()->id ) }}"><span
+                                            href="{{ route('agent.general.details', auth()->user()->id) }}"><span
                                                 class="icon"><i class="fa-regular fa-address-card"></i></span> <span
                                                 class="txt">General Info</span></a>
                                     </li>
@@ -57,9 +57,24 @@
 
                             <h4 class="card-title text-center1 mb-0"> Commission Policy</h4>
                             <hr>
-                            <div>
-                                <span> School Commission : </span>
+                            <div class="row p-5">
+                                <div class="col-md-12">
+
+                                    <h3 class="text-center">Commission Policy</h3>
+                                </div>
+                                <div class="col-md-6">
+                                    <h3> SUCCESSFUL RECRUITS </h3>
+                                    <p class="h3">0 </p>
+
+                                </div>
+                                <div class="col-md-6">
+                                    <h3> COMMISSION RATE </h3>
+                                    <p class="h3">75 </p>
+                                </div>
+
+
                             </div>
+
 
                         </div>
                     </div>

@@ -7,6 +7,12 @@
                   <i class="mdi mdi-home menu-icon"></i>
               </a>
           </li>
+          <li class="nav-item {{ Request::is('admin/post-secondary') ? 'active' : '' }}">
+              <a class="nav-link " href="{{ route('admin.post.secondary.category') }}">
+                  <span class="menu-title">Post Secondary Catagory</span>
+                  <i class="mdi mdi-category menu-icon"></i>
+              </a>
+          </li>
           <li class="nav-item {{ Request::is('admin/student/*') ? 'active' : '' }}">
               <a class="nav-link" data-bs-toggle="collapse" href="#register-page" aria-expanded="false"
                   aria-controls="register-page">
@@ -35,6 +41,8 @@
                   </ul>
               </div>
           </li>
+
+
           @if (menu_permission('student'))
               <li class="nav-item {{ Request::is('admin/student/*') ? 'active' : '' }}">
                   <a class="nav-link" data-bs-toggle="collapse" href="#question-pages" aria-expanded="false"
@@ -248,33 +256,76 @@
                                   Country
                               </a>
                           </li>
+                          <li class="nav-item">
+                              <a class="nav-link {{ Request::is('admin/setting/terms-and-condition') ? 'active' : '' }}"
+                                  href="{{ route('admin.setting.terms.and.condition') }}">
+                                  Terms and Condition
+                              </a>
+                          </li>
+                          <li class="nav-item">
+                              <a class="nav-link {{ Request::is('admin/setting/privacy-policy') ? 'active' : '' }}"
+                                  href="{{ route('admin.setting.privacy.policy') }}">
+                                  Privacy Policy
+                              </a>
+                          </li>
                           {{-- <li class="nav-item"> <a class="nav-link" href="javascript:;"> Change Password </a></li> --}}
 
                       </ul>
                   </div>
               </li>
           @endif
-          {{-- @if (menu_permission('university'))
-              <li class="nav-item">
-                  <a class="nav-link" data-bs-toggle="collapse" href="#reports-pages" aria-expanded="false"
-                      aria-controls="general-pages">
-                      <span class="menu-title">Reports</span>
-                      <i class="menu-arrow"></i>
-                      <i class="mdi mdi-chart-line-stacked menu-icon"></i>
-                  </a>
-                  <div class="collapse" id="reports-pages">
-                      <ul class="nav flex-column sub-menu">
-                          <li class="nav-item"> <a class="nav-link" href="javascript:;">
-                                  Students </a></li>
-                          <li class="nav-item"> <a class="nav-link" href="javascript:;"> Agenrt </a></li>
-                          <li class="nav-item"> <a class="nav-link" href="javascript:;"> Staff </a></li>
-                          <li class="nav-item"> <a class="nav-link" href="javascript:;"> Payments </a></li>
-                          <li class="nav-item"> <a class="nav-link" href="javascript:;"> Applications </a></li>
 
-                      </ul>
-                  </div>
-              </li>
-          @endif --}}
+          <li class="nav-item {{ Request::is('admin/school-commission') ? 'active' : '' }}">
+              <a class="nav-link" data-bs-toggle="collapse" href="#commission-pages" aria-expanded="false"
+                  aria-controls="general-pages">
+                  <span class="menu-title">Commissions</span>
+                  <i class="menu-arrow"></i>
+                  <i class="mdi mdi-chart-line-stacked menu-icon"></i>
+              </a>
+              <div class="collapse {{ Request::is('admin/school-commission') ? 'show' : '' }}" id="commission-pages">
+                  <ul class="nav flex-column sub-menu">
+                      <li class="nav-item">
+                          <a class="nav-link {{ Request::is('admin/school-commission') ? 'active' : '' }}"
+                              href="{{ route('admin.student.commission') }}">
+                              School Commissions </a>
+                      </li>
+                      {{-- <li class="nav-item"> <a class="nav-link" href="javascript:;"> Commission Policy </a></li> --}}
+
+                  </ul>
+              </div>
+          </li>
+
+          <li
+              class="nav-item {{ Request::is('admin/manage-courses') || Request::is('admin/manage-chapter') || Request::is('admin/manage-lesson') ? 'active' : '' }}">
+              <a class="nav-link" data-bs-toggle="collapse" href="#manage-courses-pages" aria-expanded="false"
+                  aria-controls="general-pages">
+                  <span class="menu-title"> Video Courses</span>
+                  <i class="menu-arrow"></i>
+                  <i class="mdi mdi-chart-line-stacked menu-icon"></i>
+              </a>
+              <div class="collapse {{ Request::is('admin/manage-courses') || Request::is('admin/manage-chapter') ? 'show' : '' }}"
+                  id="manage-courses-pages">
+                  <ul class="nav flex-column sub-menu">
+                      <li class="nav-item">
+                          <a class="nav-link {{ Request::is('admin/manage-courses') ? 'active' : '' }}"
+                              href="{{ route('admin.manage.courses') }}">
+                              Manage Courses </a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link {{ Request::is('admin/manage-chapter') ? 'active' : '' }}"
+                              href="{{ route('admin.manage.chapter') }}"> Manage
+                              Chapter </a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link {{ Request::is('admin/manage-lesson') ? 'active' : '' }}"
+                              href="{{ route('admin.manage.lesson') }}"> Manage
+                              Lesson</a>
+                      </li>
+
+                  </ul>
+              </div>
+          </li>
+
           @if (auth()->guard('admin')->user()->is_admin == 1)
               <li class="nav-item {{ Request::is('admin/manage-sub-admin/*') ? 'active' : '' }}">
                   <a class="nav-link" href="{{ route('admin.manage-sub-admin.index') }}">

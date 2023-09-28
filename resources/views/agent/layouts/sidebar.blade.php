@@ -30,14 +30,16 @@
                                   </a>
                               </li>
 
-                              <li class="{{ request()->is('agent/program') ? 'active' : '' }}">
-                                  <a href="{{ route('agent.program') }}">
+                              <li
+                                  class="{{ request()->is('programs') || request()->is('program-details/*') ? 'active' : '' }}">
+                                  <a href="{{ route('programs') }}">
                                       <span class="icon"><i class="fa-regular fa-magnifying-glass"></i></span>
                                       <span class="title">Programs & School</span>
                                   </a>
                               </li>
 
-                              <li class="{{ request()->is('agent/application') ? 'active' : '' }}">
+                              <li
+                                  class="{{ request()->is('agent/application') || request()->is('agent/application-fillup/*') ? 'active' : '' }}">
                                   <a href="{{ route('agent.application') }}">
                                       <span class="icon"><i class="fa-regular fa-file-text"></i></span>
                                       <span class="title">All Applications</span>
@@ -72,6 +74,12 @@
                                   <a href="{{ route('agent.wallet.history') }}">
                                       <span class="icon"><i class="fa-regular fa-circle-dollar"></i></span>
                                       <span class="title">Wallet Request</span>
+                                  </a>
+                              </li>
+                              <li class="{{ request()->is('change-password') ? 'active' : '' }}">
+                                  <a href="{{ route('change.password') }}">
+                                      <span class="icon"><i class="fa-light fa-key"></i></span>
+                                      <span class="title">Change Password</span>
                                   </a>
                               </li>
 

@@ -8,6 +8,7 @@ use App\Models\Staff;
 use App\Models\State;
 use App\Models\Country;
 use Livewire\Component;
+use Illuminate\Support\Str;
 use Livewire\WithPagination;
 use App\Mail\StaffInviteMail;
 use Illuminate\Support\Facades\DB;
@@ -20,6 +21,7 @@ class StaffList extends Component
 {
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
+    public $loading = false;
     public $isOpen = 0;
     public  $staff_id, $name, $email,  $country_code, $phone_number, $address, $cities = [], $city, $state_id, $country_id, $location;
     public $searchItem, $paginationCount = 10;
@@ -27,7 +29,7 @@ class StaffList extends Component
     public function render()
     {
 
-        $countries = Country::all();
+        $countries = Country::where('block', '!=', 1)->get();
         $states = [];
         if ($this->country_id) {
             $states = State::where('country_id', $this->country_id)->get();
@@ -106,12 +108,14 @@ class StaffList extends Component
         ]);
         DB::beginTransaction();
         try {
+            $this->loading = true;
             //code...
+            $password =  Str::random(16);
 
             $staff = User::create([
                 'name' => $this->name,
                 'email' => $this->email,
-                'password' => Hash::make('password'),
+                'password' => Hash::make($password),
             ]);
             $staff->type = 3;
             $staff->save();
@@ -133,16 +137,16 @@ class StaffList extends Component
             $partnerData = [
                 'name' => $this->name,
                 'email' => $this->email,
-                'password' => $staff->password,
+                'password' => $password,
             ];
 
             Mail::to($this->email)->send(new StaffInviteMail($partnerData));
-
+            sleep(2);
             session()->flash(
                 'message',
                 'Agent Created Successfully.'
             );
-
+            $this->loading = false;
             $this->closeModal();
             $this->resetInputFields();
             DB::commit();

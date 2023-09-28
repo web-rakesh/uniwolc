@@ -21,6 +21,9 @@ class GeneralSetting extends Model
         'state_id',
         'city',
         'pincode',
-        'processing_fees'
+        'processing_fees',
+        'preference',
+        'terms_and_condition',
+        'privacy_policy'
     ];
 }

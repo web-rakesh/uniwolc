@@ -38,7 +38,7 @@ class StaffController extends Controller
 
     public function studentGeneralDetails($user_id = null)
     {
-        $countries = Country::all();
+        $countries = Country::where('block', '!=', 1)->get();
         $studentDetail = [];
         if ($user_id !== null) {
             $staff = Staff::whereUserId(Auth::user()->id)->first();
@@ -56,7 +56,7 @@ class StaffController extends Controller
 
     public function studentEducationHistory($user_id = null)
     {
-        $countries = Country::all();
+        $countries = Country::where('block', '!=', 1)->get();
         $education_levels = EducationLevel::all();
         $gradingScheme = GradingScheme::all();
         if ($user_id !== null) {
@@ -93,7 +93,7 @@ class StaffController extends Controller
 
     public function profile()
     {
-        $countries = Country::all();
+        $countries = Country::where('block', '!=', 1)->get();
         $profileDetail = Staff::whereUserId(Auth::user()->id)->first();
         return view('staff.profile', compact('countries', 'profileDetail'));
     }

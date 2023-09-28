@@ -30,7 +30,7 @@ class ApplicationList extends Component
         $universityState = $this->state_id;
         $universityCity = $this->city_id;
 
-        $this->countries = Country::all();
+        $this->countries = Country::where('block', '!=', 1)->get();
         if (!is_null($this->country_id)) {
             $this->states = State::where('country_id', $this->country_id)->get();
         }
@@ -75,7 +75,7 @@ class ApplicationList extends Component
                     return $query->where('city', $universityCity);
                 });
             })
-
+            ->latest()
             ->paginate(10);
         return view('livewire.admin.application.application-list', ['programs' => $programs]);
     }

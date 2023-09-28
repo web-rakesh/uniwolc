@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\ProgramIntake;
 use App\Models\EducationLevel;
+use App\Models\secondaryCategory;
 use App\Models\University\Program;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
@@ -19,19 +21,40 @@ class UniversityCourseController extends Controller
     }
     public function universityCourseCreate()
     {
+
+        $currentDate = Carbon::now();
+        $endDate = $currentDate->copy()->addYears(3);
+
+        $months = [];
+        while ($currentDate->lt($endDate)) {
+            $months[$currentDate->format('Y-m-d')] = $currentDate->format('F Y');
+            $currentDate->addMonth();
+        }
+
         $universities = ProfileDetail::all();
         $educationLevels = EducationLevel::all();
-        return view('admin.university.course-create', compact('educationLevels', 'universities'));
+        $postCategories = secondaryCategory::all(); 
+        return view('admin.university.course-create', compact('educationLevels', 'universities', 'months', 'postCategories'));
     }
     public function universityCourseStore(Request $request)
     {
         // return $request;
+            $egTest = [];
+        foreach ($request->english_test ?? [] as $key => $value) {
+            # code...
+            if($value != null){
+
+                $egTest[] = [$value => $request->total_score[$key]];
+            }
+        }
+        // return $egTest ?  json_encode($egTest) : "";
 
         try {
             //code...
             $request['user_id'] = $request->university_id;
             $request['slug'] = Str::slug($request->program_title);
             // $request['program_till_date'] = json_encode($request->program_till_date);
+            $request['english_test'] = $egTest ?  json_encode($egTest) : null;
             // return $request->all();
             DB::beginTransaction();
 
@@ -94,10 +117,20 @@ class UniversityCourseController extends Controller
      */
     public function universityCourseEdit($id)
     {
+        $currentDate = Carbon::now();
+        $endDate = $currentDate->copy()->addYears(4);
+
+        $months = [];
+        while ($currentDate->lt($endDate)) {
+            $months[$currentDate->format('Y-m-d')] = $currentDate->format('F Y');
+            $currentDate->addMonth();
+        }
         $program = Program::find($id);
         $universities = ProfileDetail::all();
         $educationLevels = EducationLevel::all();
-        return view('admin.university.course-edit', compact('program', 'educationLevels', 'universities'));
+        $postCategories = secondaryCategory::all(); 
+        // return $program->intake;
+        return view('admin.university.course-edit', compact('program', 'educationLevels', 'universities', 'months','postCategories'));
     }
 
     /**
@@ -108,15 +141,35 @@ class UniversityCourseController extends Controller
     {
         // return $request;
         try {
+
+            $egTest = [];
+            foreach ($request->english_test ?? [] as $key => $value) {
+                # code...
+                if($value != null){
+    
+                    $egTest[] = [$value => $request->total_score[$key]];
+                }
+            }
             //code...
             $request['user_id'] = $request->university_id;
-            $request['program_till_date'] = json_encode($request->program_till_date);
+            // $request['program_till_date'] = json_encode($request->program_till_date);
+            $request['english_test'] = $egTest ?  json_encode($egTest) : null;
             // return $request->all();
             DB::beginTransaction();
             $program = Program::find($id);
 
             // Update the task with the validated data
             $program->update($request->all());
+            ProgramIntake::where('program_id',$program->id)->delete();
+            foreach ($request->intake_status as $key => $value) {
+                ProgramIntake::create([
+                    'program_id' => $program->id,
+                    'intake_status' => $value,
+                    'deadline' => $request->intake_deadline[$key],
+                    'open_date' => $request->open_date[$key],
+                    'intake_date' => $request->intake_date[$key],
+                ]);
+            }
 
             if ($request->has('student_attachment')) {
                 $program->clearMediaCollection('program-student-attachment');
@@ -155,10 +208,11 @@ class UniversityCourseController extends Controller
                 }
             }
             DB::commit();
-            return redirect()->route('admin.university.course.view');
+            return redirect()->route('admin.university.course.view')->with('success', 'Program Updated Successfully');
         } catch (\Throwable $th) {
             //throw $th;
             DB::rollback();
+            return redirect()->back()->with('error', $th->getMessage());
             return $th->getMessage();
         }
     }

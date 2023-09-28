@@ -276,7 +276,14 @@
                     <button wire:click="closeModal" type="button" class="btn btn-secondary"
                         data-dismiss="modal">Close</button>
                     <button wire:click="{{ $staff_id ? 'update' : 'store' }}" type="button"
-                        class="btn btn-primary">{{ $staff_id ? 'Update' : 'Save' }}</button>
+                        wire:loading.attr="disabled" class="btn btn-primary">
+                        @if ($loading)
+                            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                            Loading...
+                        @else
+                            {{ $staff_id ? 'Update' : 'Save' }}
+                        @endif
+                    </button>
                 </div>
             </div>
         </div>

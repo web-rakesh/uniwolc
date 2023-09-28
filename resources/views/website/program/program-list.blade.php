@@ -39,9 +39,12 @@
             <div class="col-lg-3 p-0">
                 <div class="sub-course-btn-left">
                     @auth
-                        <a class="sub-start-btn-applica" target="_blank"
-                            href="{{ route('program.detail', ['id' => $program->id, 'slug' => $program->slug]) }}">Start
+                        <a class="sub-start-btn-applica agent-student-apply-eligibility"
+                          data-program="{{ $program->id }}"  href="javascript:;">Start
                             Application</a>
+                        {{-- <a class="sub-start-btn-applica agent-student-apply-eligibility"
+                            href="{{ route('student.program.apply', $program->id) }}">Start
+                            Application</a> --}}
                     @else
                         <a class="sub-start-btn-applica" href="{{ route('login') }}">Start
                             Application</a>
@@ -60,3 +63,4 @@
     <button id="load_more_button" data-page="{{ $programs->currentPage() + 1 }}" class="btn btn-primary">Load
         More</button>
 </div> --}}
+

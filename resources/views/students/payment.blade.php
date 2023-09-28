@@ -1,4 +1,4 @@
-@extends('students.layouts.layout')
+@extends("$layout.layouts.layout")
 @section('content')
     <div class="dashboardDtlsArea">
         <div class="dashboardDtlsAreainner">
@@ -8,14 +8,16 @@
                         <div class="panel-body formPanelBodyArea">
                             <h1
                                 class="text-3xl md:text-5xl font-extrabold text-center uppercase mb-12 bg-gradient-to-r from-indigo-400 via-purple-500 to-indigo-600 bg-clip-text text-transparent transform -rotate-2">
-                                Make A Payment {{ get_currency($countryId). number_format(total_payable_amount($totalPayableAmount), 2) }}</h1>
+                                Make A Payment
+                                {{ get_currency($countryId) . number_format(total_payable_amount($totalPayableAmount), 2) }}
+                            </h1>
                             @if (session()->has('success'))
                                 <div class="alert alert-success">
                                     {{ session()->get('success') }}
                                 </div>
                             @endif
 
-                            <form action="{{ route('student.payment.process') }}" method="POST" id="card-form">
+                            <form action="{{ route('payment.process') }}" method="POST" id="card-form">
                                 @csrf
                                 <div class="form-group mb-3">
                                     <label for="card-name"

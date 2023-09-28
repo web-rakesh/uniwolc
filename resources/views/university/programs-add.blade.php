@@ -1,7 +1,5 @@
 @extends('university.layouts.layout')
-@push('css')
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-@endpush
+
 @section('content')
     <section class="dashboardPgaesSec bg-white">
         <div class="container rounded">
@@ -28,13 +26,87 @@
                                             <textarea class="form-control" name="program_summary" rows="3"></textarea>
                                         </div>
 
+
                                         <div class="col-md-12 mb-3 columnBox2">
-                                            <label class="labels"><b>Admission Requirements</b></label>
+                                            <label class="labels">Intakes</label>
+                                        </div>
+
+                                        <div class="col-md-12 mb-3 columnBox2">
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <label class="labels">Program Intakes </label>
+                                                    <select class="form-select program-intakes" id="program-intakes"
+                                                        required="" name="intake_date[]">
+                                                        <option value="">Select Month</option>
+                                                        @foreach ($months as $key => $item)
+                                                            <option value="{{ $key }}"> {{ $item }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <label class="labels">Program Intakes Status</label>
+                                                    <select class="form-select program-intake-status" id="select-option"
+                                                        required="" name="intake_status[]">
+                                                        <option value="1">Open</option>
+                                                        <option value="2">Likely Open</option>
+                                                        <option value="2">Will Open</option>
+                                                        <option value="2">Wait List</option>
+                                                    </select>
+                                                </div>
+
+                                                <div class="col-md-2">
+                                                    <label class="labels">Deadline</label>
+                                                    <input type="date" class="form-control deadline"
+                                                        name="intake_deadline[]">
+                                                </div>
+
+                                                <div class="col-md-2">
+                                                    <label class="labels">Open Date</label>
+                                                    <input type="date" class="form-control" id="date-field"
+                                                        name="open_date[]" required="">
+                                                </div>
+
+                                                <div class="col-md-2">
+                                                    <label class="labels"></label>
+                                                    <button type="button" id="intakeMoreAdd"
+                                                        class="btn btn-primary me-2">Add</button>
+                                                </div>
+                                            </div>
+                                            <div id="intakeAddMoreField">
+
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12 mb-3 columnBox2">
+                                            <label class="">Post-Secondary Discipline Category</label>
+                                            <select class="form-control post_secondary_category"
+                                                name="post_secondary_category" id="post-secondary-category">
+                                                <option value="">Select...</option>
+                                                @forelse ($postCategories as $item)
+                                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                                @empty
+                                                @endforelse
+                                            </select>
+
+                                        </div>
+                                        <div class="col-md-12 mb-3 columnBox2">
+                                            <label class="">Post-Secondary Discipline Sub Category</label>
+                                            <select class="form-control post_secondary_sub_category"
+                                                name="post_secondary_sub_category" id="post-secondary-sub-category">
+
+                                            </select>
+
+                                        </div>
+
+                                        <div class="col-md-12 mb-3 columnBox2">
+                                            <label class="labels">Admission Requirements</label>
                                         </div>
 
                                         <div class="col-md-6 mb-3 columnBox2">
                                             <label class="labels">Minimum Level of Education Completed</label>
-                                            <select class="form-control" name="minimum_level_education">
+                                            <select class="form-control minimum_level_education"
+                                                name="minimum_level_education">
                                                 @foreach ($educationLevels as $item)
                                                     <option value="{{ $item->id }}">{{ $item->level_name }}</option>
                                                 @endforeach
@@ -46,25 +118,40 @@
                                         </div>
 
                                         <div class="col-md-12 mb-3 columnBox2">
-                                            <label class="labels"><b>Minimum Language Test Scores</b></label>
+                                            <label class="labels">Minimum Language Test Scores</label>
                                         </div>
 
-                                        <div class="col-md-6 mb-3 columnBox2">
-                                            <label class="labels">IELTS</label>
-                                            <input type="text" class="form-control" name="ielt" value=""
-                                                required="">
+                                        <div class="col-md-12 mb-3 columnBox2">
+                                            <div class="row">
+                                                <div class="col-md-7">
+                                                    <label class="labels">English Test Score </label>
+                                                    <select class="form-select program-intakes" name="english_test[]">
+                                                        <option value="">Select...</option>
+                                                        <option value="toefl">TOEFL</option>
+                                                        <option value="ielt">IELTS</option>
+                                                        <option value="pte">PTE</option>
+                                                        <option value="toefl">TOEFL</option>
+                                                        <option value="duolingo">Duolingo</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <label class="labels">Total Score </label>
+                                                    <input type="input" class="form-control" name="total_score[]">
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <label class="labels"> </label>
+                                                    <button type="button" id="englishTestMoreAdd"
+                                                        class="btn btn-primary me-2">Add</button>
+                                                </div>
+                                            </div>
+                                            <div id="englishTestAddMoreField">
+                                            </div>
                                         </div>
 
-                                        <div class="col-md-6 mb-3 columnBox2">
-                                            &nbsp;
-                                            {{-- <label class="labels">IELTS</label>
-                                            <input type="number" class="form-control" placeholder="IELTS" name="ielt"
-                                                value="" required=""> --}}
-                                        </div>
 
                                         <div class="col-md-6 mb-3 columnBox2">
                                             <label class="labels">Program Level</label>
-                                            <select class="form-control" name="program_level">
+                                            <select class="form-control program_level" name="program_level">
                                                 @foreach ($educationLevels as $item)
                                                     <option value="{{ $item->id }}">{{ $item->level_name }}</option>
                                                 @endforeach
@@ -73,59 +160,34 @@
                                         </div>
                                         <div class="col-md-6 mb-3 columnBox2">
                                             <label class="labels">Program Length</label>
-                                            <input type="text" class="form-control" name="program_length" value=""
-                                                required="">
+                                            <input type="text" class="form-control" name="program_length"
+                                                value="" required="">
                                         </div>
                                         <div class="col-md-6 columnBox2">
                                             <label class="labels">Cost of Living</label>
-                                            <input type="text" class="form-control" name="cost_of_living" value=""
-                                                required="">
+                                            <input type="text" class="form-control decimal" name="cost_of_living"
+                                                value="" required="">
                                         </div>
                                         <div class="col-md-6 columnBox2">
                                             <label class="labels">Gross Tuition</label>
-                                            <input type="text" class="form-control" name="gross_tuition" value=""
-                                                required="">
+                                            <input type="text" class="form-control decimal" name="gross_tuition"
+                                                value="" required="">
                                         </div>
 
                                         <div class="col-md-6 mb-3 columnBox2">
                                             <label class="labels">Application Fee</label>
-                                            <input type="text" class="form-control" name="application_fee" value=""
-                                                required="">
+                                            <input type="text" class="form-control decimal" name="application_fee"
+                                                value="" required="">
                                         </div>
 
                                         <div class="col-md-6 mb-3 columnBox2">
                                             <label class="labels">Agent Comission</label>
-                                            <input type="text" class="form-control" name="agent_commission"
-                                                value="" required="">
-                                        </div>
-                                        <div class="col-md-3 mb-3 columnBox2">
-                                            <label class="labels">Deadline</label>
-                                            <input type="date" class="form-control" id="deadline" name="deadline"
+                                            <input type="text" class="form-control decimal" name="agent_commission"
                                                 value="">
                                         </div>
 
-                                        <div class="col-md-3 mb-3 columnBox2">
-                                            <label class="labels">Program Intakes</label>
-                                            <select class="form-control" id="select-option" name="program_intake">
-                                                <option value="1">Open</option>
-                                                <option value="2">Closed</option>
-                                            </select>
-                                        </div>
-
-
-                                        <div class="col-md-3 mb-3 columnBox2">
-                                            <label class="labels">Open Till</label>
-                                            <input type="date" class="form-control" id="date-field"
-                                                name="program_till_date" value="">
-                                        </div>
-
                                         <div class="col-md-12 mb-3 columnBox2">
-                                            <label class="labels">This program requires valid language test results</label>
-                                            <textarea class="form-control" name="program_language_test" rows="3"></textarea>
-                                        </div>
-
-                                        <div class="col-md-12 mb-3 columnBox2">
-                                            <label class="labels"><b>Commissions</b></label>
+                                            <label class="labels">Commissions</label>
                                         </div>
                                         <div class="col-md-12 mb-3 columnBox2">
                                             <label class="labels">Commission Breakdown</label>
@@ -137,7 +199,7 @@
                                         </div>
 
                                         <div class="col-md-12 mb-3 columnBox2">
-                                            <label class="labels"><b>Application Form</b></label>
+                                            <label class="labels">Application Form</label>
                                         </div>
                                         <div class="col-md-12 mb-3 columnBox2">
                                             <label class="labels">Student Instruction</label>
@@ -150,7 +212,7 @@
                                         </div>
 
                                         <div class="col-md-12 mb-3 columnBox2">
-                                            <label class="labels"><b>Copy of Passport</b></label>
+                                            <label class="labels">Copy of Passport</label>
                                         </div>
                                         <div class="col-md-12 mb-3 columnBox2">
                                             <label class="labels">Student Instruction</label>
@@ -163,7 +225,7 @@
                                         </div>
 
                                         <div class="col-md-12 mb-3 columnBox2">
-                                            <label class="labels"><b>Custodianship Declaration</b></label>
+                                            <label class="labels">Custodianship Declaration</label>
                                         </div>
                                         <div class="col-md-12 mb-3 columnBox2">
                                             <label class="labels">Student Instruction</label>
@@ -176,7 +238,7 @@
                                         </div>
 
                                         <div class="col-md-12 mb-3 columnBox2">
-                                            <label class="labels"><b>Proof of Immunization</b></label>
+                                            <label class="labels">Proof of Immunization</label>
                                         </div>
                                         <div class="col-md-12 mb-3 columnBox2">
                                             <label class="labels">Student Instruction</label>
@@ -189,8 +251,8 @@
                                         </div>
 
                                         <div class="col-md-12 mb-3 columnBox2">
-                                            <label class="labels"><b>Student Participation Agreement (without
-                                                    homestay)</b></label>
+                                            <label class="labels">Student Participation Agreement (without
+                                                homestay)</label>
                                         </div>
                                         <div class="col-md-12 mb-3 columnBox2">
                                             <label class="labels">Student Instruction</label>
@@ -203,7 +265,7 @@
                                         </div>
 
                                         <div class="col-md-12 mb-3 columnBox2">
-                                            <label class="labels"><b>Student Self-Introduction Form</b></label>
+                                            <label class="labels">Student Self-Introduction Form</label>
                                         </div>
                                         <div class="col-md-12 mb-3 columnBox2">
                                             <label class="labels">Student Instruction</label>
@@ -218,7 +280,7 @@
                                     </div>
                                     <div class="mt-3 text-end">
                                         <button class="btn btn-primary profile-button" type="submit">
-                                            Save & Update Profile
+                                            Save
                                         </button>
                                     </div>
                                 </form>
@@ -231,38 +293,172 @@
     </section>
 @endsection
 @push('js')
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script>
         $(document).ready(function() {
-            var selectedDates = [];
 
-            flatpickr("#date-field", {
+            $('#universityList, .minimum-level-education, .program-intake-status, .program-intakes, .post_secondary_category, .post_secondary_sub_category')
+                .select2({
+                    placeholder: 'Select ...',
+                    allowClear: true
+                });
+
+            $(".minimum_level_education, .program_level").select2({
+                placeholder: 'Select...',
+                allowClear: true
+            });
+
+            flatpickr("#date-field, .deadline", {
                 mode: "multiple",
-                onChange: function(selectedDates) {
-                    selectedDates.forEach(function(date) {
-                        selectedDates.push(date);
-                    });
-                }
+                dateFormat: "Y-m-d"
             });
 
             flatpickr("#deadline", {
-                enableTime: true,
                 dateFormat: "Y-m-d",
                 minDate: "today"
             })
-            // Get the select option and the date field
-            var selectOption = $("#select-option");
-            var dateField = $("#date-field");
 
-            // When the select option changes, disable the date field if the value is 2
-            selectOption.change(function() {
-                var value = $(this).val();
-                if (value === "2") {
-                    dateField.attr("disabled", true);
-                } else {
-                    dateField.removeAttr("disabled");
+
+            $("#post-secondary-category").on('change', function() {
+
+                $.ajax({
+                        url: "{{ route('post.secondary.sub.category') }}",
+                        type: "get",
+                        data: {
+                            category_id: $(this).val()
+                        }
+                    })
+                    .done(function(response) {
+                        // console.log(response);
+                        $('#post-secondary-sub-category').html('<option value="">Select...</option>');
+                        $.each(response.sub_category, function(key, value) {
+
+                            $("#post-secondary-sub-category").append('<option value="' + value
+                                .id + '">' + value.name + '</option>');
+                        });
+
+                    })
+                    .fail(function(jqXHR, ajaxOptions, thrownError) {
+                        console.log('Server error occured');
+                    });
+            })
+
+
+            $("#intakeMoreAdd").on('click', function() {
+                var html = `<div class="row">
+                                    <div class="col-md-3">
+                                    <label class="labels">Program Intakes </label>
+                                        <select class="form-select program-intakes"  required=""
+                                            name="intake_date[]">
+                                            <option value="">Select Month</option>
+                                            @foreach ($months as $key => $item)
+                                                <option value="{{ $key }}"> {{ $item }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <label class="labels">Program Intake Status </label>
+                                        <select class="form-select program-intake-status" id="program-intake-status"  required="" name="intake_status[]">
+                                            <option value="1">Open</option>
+                                            <option value="2">Likely Open</option>
+                                            <option value="3">Will Open</option>
+                                            <option value="4">Wait List</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="labels">Deadline </label>
+                                        <input type="date" class="form-control deadline" name="intake_deadline[]">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="labels">Open Date </label>
+                                        <input type="date" class="form-control intakeTillDate"
+                                            name="open_date[]" required="">
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <button type="button"
+                                            class="btn btn-danger reomveIntakeMoreField me-2">Removw</button>
+                                    </div>
+                                </div>`;
+                $("#intakeAddMoreField").append(html);
+                flatpickr(".deadline, .intakeTillDate", {
+                    dateFormat: "Y-m-d"
+                });
+                $(' .program-intake-status, .program-intakes ').select2({
+                    placeholder: 'Select an option',
+                    allowClear: true
+                });
+
+            });
+
+            $(document).on('click', '.reomveIntakeMoreField', function() {
+                $(this).closest('.row').remove();
+            });
+
+            $("#englishTestMoreAdd").on('click', function() {
+                var html = `
+                            <div class="row">
+                                <div class="col-md-7">
+                                    <label class="labels">English Test Score </label>
+                                    <select class="form-select program-intakes" required=""
+                                        name="english_test[]">
+                                        <option value="">Select...</option>
+                                        <option value="toefl">TOEFL</option>
+                                        <option value="ielt">IELTS</option>
+                                        <option value="pte">PTE</option>
+                                        <option value="toefl">TOEFL</option>
+                                        <option value="duolingo">Duolingo</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="labels">Total Score </label>
+                                    <input type="input" class="form-control" name="total_score[]">
+                                </div>
+
+
+
+                                <div class="col-md-2">
+                                    <label class="labels"> </label>
+                                    <button type="button" id="reomveEnglishTestMoreField"
+                                        class="btn btn-danger me-2 reomveEnglishTestMoreField">Remove</button>
+                                </div>
+                            </div>
+                            `;
+                $("#englishTestAddMoreField").append(html);
+
+                $('.program-intakes').select2({
+                    placeholder: 'Select...',
+                    allowClear: true
+                });
+
+            });
+
+            $(document).on('click', '.reomveEnglishTestMoreField', function() {
+                $(this).closest('.row').remove();
+            });
+
+
+
+            $("input.decimal").bind("change keyup input", function() {
+                var position = this.selectionStart - 1;
+                //remove all but number and .
+                var fixed = this.value.replace(/[^0-9\.]/g, "");
+                if (fixed.charAt(0) === ".")
+                    //can't start with .
+                    fixed = fixed.slice(1);
+
+                var pos = fixed.indexOf(".") + 1;
+                if (pos >= 0)
+                    //avoid more than one .
+                    fixed = fixed.substr(0, pos) + fixed.slice(pos).replace(".", "");
+
+                if (this.value !== fixed) {
+                    this.value = fixed;
+                    this.selectionStart = position;
+                    this.selectionEnd = position;
                 }
             });
+
 
         });
     </script>
