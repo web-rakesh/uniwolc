@@ -313,7 +313,7 @@
                                                 <div class="ttl">Country of Education <sup class="text-danger">*</sup>
                                                 </div>
                                                 <div class="txt">
-                                                    {{ $data['education_summary']->education_country ?? '' }}
+                                                    {{ @$data['education_summary']->education_country ? get_country($data['education_summary']->education_country) : '' }}
                                                 </div>
                                             </div>
                                         </div>
@@ -324,7 +324,7 @@
                                                         class="text-danger">*</sup>
                                                 </div>
                                                 <div class="txt">
-                                                    {{ $data['education_summary']->education_level ?? '' }}
+                                                    {{ @$data['education_summary']->education_level ? get_education_level($data['education_summary']->education_level) : '' }}
                                                 </div>
                                             </div>
                                         </div>
@@ -334,7 +334,7 @@
                                                 <div class="ttl">Grading Scheme <sup class="text-danger">*</sup>
                                                 </div>
                                                 <div class="txt">
-                                                    {{ $data['education_summary']->education_scheme_grade ?? '' }}</div>
+                                                    {{ @$data['education_summary']->education_scheme_grade ? get_education_scheme_grade($data['education_summary']->education_scheme_grade) : '' }}</div>
                                             </div>
                                         </div>
 

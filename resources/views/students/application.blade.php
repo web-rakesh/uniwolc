@@ -172,31 +172,25 @@
                                             </div>
                                         </div> --}}
                                         <div class="ml-3 viewBtnDiv">
-                                            @if ($item->application_status == 2)
-                                                <a href="{{ route('student.application.fillup', $item->id) }}"
-                                                    class="btn viewBtn">
-                                                    <span class="icon"><i
-                                                            class="fa-regular fa-up-right-from-square"></i></span>
-                                                    <span class="txt">View</span>
-                                                </a>
-                                            @else
-                                                @if ($item->program_status !== 3)
-                                                    <a href="{{ route('student.application.fillup', $item->slug) }}"
+                                            @if ($item->application_status == 1)
+                                                <div class="ml-3 viewBtnDiv">
+                                                    <a href="{{ route('student.payment.confirm', ['ids' => $item->id]) }}"
                                                         class="btn viewBtn">
+                                                        <span class="icon"><i
+                                                                class="fa-regular fa-up-right-from-square"></i></span>
+                                                        <span class="txt">pay</span>
+                                                    </a>
+                                                </div>
+                                            @else
+                                                @if ($item->program_status != 1)
+                                                    <a href="{{ route('student.application.fillup', $item->slug) }}"
+                                                        target="_blank" class="btn viewBtn">
                                                         <span class="icon"><i
                                                                 class="fa-regular fa-up-right-from-square"></i></span>
                                                         <span class="txt">FillUp</span>
                                                     </a>
                                                 @endif
                                             @endif
-                                        </div>
-                                        <div class="ml-3 viewBtnDiv">
-                                            <a href="{{ route('student.payment.confirm', ['ids' => $item->id]) }}"
-                                                class="btn viewBtn">
-                                                <span class="icon"><i
-                                                        class="fa-regular fa-up-right-from-square"></i></span>
-                                                <span class="txt">pay</span>
-                                            </a>
                                         </div>
                                         <div class="ml-3 deleteBtnDiv">
                                             {{-- <a href="{{ route('student.application.destroy', $item->id) }}"
@@ -357,7 +351,8 @@
                                         </div>
                                     </div>
                                     <div class="" data-title="Start Date">
-                                        <span class="appIdtxt">{{ date('M d, Y', strtotime($item->created_at)) }}</span>
+                                        <span
+                                            class="appIdtxt">{{ date('M d, Y', strtotime($paidItem->created_at)) }}</span>
                                     </div>
                                     <div class="appFees" data-title="Application Fees">
                                         <div class="appFeesinner">

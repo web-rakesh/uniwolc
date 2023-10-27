@@ -49,7 +49,7 @@ class ApplyProgram extends Model
 
     public function getAgent()
     {
-        return $this->belongsTo(\App\Models\Agent\AgentDetail::class, 'agent_id', 'user_id');
+        return $this->belongsTo(\App\Models\Agent\AgentGeneralDetail::class, 'agent_id', 'agent_id');
     }
 
 

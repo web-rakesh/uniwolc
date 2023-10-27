@@ -23,6 +23,9 @@
 
     @yield('content')
 
+    {{-- <div class="loader">
+        <div class="loader-icon"></div>
+    </div> --}}
     @include('website.layouts.footer')
 
     @include('website.layouts.script')

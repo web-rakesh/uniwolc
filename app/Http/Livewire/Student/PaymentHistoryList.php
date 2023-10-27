@@ -14,7 +14,7 @@ class PaymentHistoryList extends Component
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
 
-    public $isOpen = 0, $searchItem, $startDate, $endDate;
+    public $isOpen = 0, $searchItem, $startDate, $endDate, $minAmount, $maxAmount;
     public $transactionId, $programId, $paymentMethod, $amount, $currency,  $paymentDate, $status;
 
     public function render()
@@ -30,11 +30,19 @@ class PaymentHistoryList extends Component
             ->when($this->searchItem, function ($query, $search) {
                 $query->where('transaction_id', 'LIKE', "%{$search}%");
             })
-            ->orderBy('created_at', 'desc')
+            ->when($this->minAmount && $this->maxAmount, function ($query) {
+                $query->whereBetween('amount', [$this->minAmount, $this->maxAmount]);
+            })
+
+            ->latest()
             ->paginate(10);
         return view('livewire.student.payment-history-list', ['transactions' => $transactions]);
     }
 
+    public function resetDate(){
+        $this->startDate = null;
+        $this->endDate = null;
+    }
     public function openModal()
     {
         $this->isOpen = true;
@@ -61,6 +69,6 @@ class PaymentHistoryList extends Component
 
     public function invoice($id)
     {
-       
+
     }
 }

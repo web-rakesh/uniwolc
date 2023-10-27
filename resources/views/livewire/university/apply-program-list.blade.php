@@ -70,6 +70,7 @@
                                             <th>Created At</th>
                                             <th>Payment</th>
                                             <th>Student</th>
+                                            <th>Agent</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -83,10 +84,12 @@
                                                     </td>
                                                     <td>
                                                         <div class="tableContent">
-                                                            <a
+                                                            <a target="_blank"
+                                                                href="{{ route('program.detail', ['id' => $item->getProgram->id, 'slug' => $item->getProgram->slug]) }}">{{ $item->program_title }}</a>
+                                                            {{-- <a
                                                                 href="{{ route('university.program.details', ['id' => $item->id, 'slug' => $item->slug]) }}">
                                                                 {{ $item->program_title }}
-                                                            </a>
+                                                            </a> --}}
                                                         </div>
                                                     </td>
                                                     {{--  <td>
@@ -100,23 +103,28 @@
                                                     </td>
                                                     <td>
                                                         <div class="tableContent">
-                                                            {{ $item->application_status == 1 ? 'Done' : 'Pending' }}
+                                                            {{ @$item->application_status == 1 ? 'Done' : 'Pending' }}
                                                         </div>
                                                     </td>
                                                     <td>
                                                         <div class="tableContent">
-                                                            {{ $item->created_at->format('M d, Y') }}</div>
+                                                            {{ @$item->created_at->format('M d, Y') }}</div>
                                                     </td>
                                                     <td>
                                                         <div class="tableContent">
-                                                            {{ $item->status == 2 ? 'Paid' : 'Due' }}</div>
+                                                            {{ @$item->status == 2 ? 'Paid' : 'Due' }}</div>
                                                     </td>
                                                     <td>
                                                         <div class="tableContent">
-                                                            {{ $item->getStudent->full_name ?? '' }}
+                                                            {{ @$item->getStudent->full_name ?? '' }}
                                                         </div>
+                                                    </td>
                                                     <td>
-
+                                                        <div class="tableContent">
+                                                            {{ @$item->getAgent->company_name ?? '--' }}
+                                                        </div>
+                                                    </td>
+                                                    <td>
                                                         @if ($item->program_status == 0)
                                                             <div class="tableContent">
                                                                 @if ($confirming === $item->id)

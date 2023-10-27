@@ -104,8 +104,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Grading Scheme</label>
-                                    <select class="form-control multiselectdropdown" name="grading_scheme"
-                                        disabled>
+                                    <select class="form-control multiselectdropdown" name="grading_scheme" disabled>
                                         <option value="">Select...</option>
                                         @foreach ($gradingSchemeAll ?? [] as $item)
                                             <option value="{{ $item->id }}"
@@ -152,8 +151,8 @@
 
                                 <div class="form-group">
                                     <label>Countries</label>
-                                    <select class="form-control multiselectdropdown" multiple
-                                        name="school_country[]" id="school_country">
+                                    <select class="form-control multiselectdropdown" multiple name="school_country[]"
+                                        id="school_country">
                                         <option value="">Select...</option>
                                         @foreach ($countries as $country)
                                             <option value="{{ $country->id }}"
@@ -180,8 +179,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Campus City</label>
-                                    <select class="form-control multiselectdropdown" name="campus_city"
-                                        id="city-dropdown">
+                                    <select class="form-control multiselectdropdown" name="campus_city" id="city-dropdown">
                                         <option value="">Select...</option>
                                     </select>
                                 </div>
@@ -234,8 +232,7 @@
                             <div class="sub-courses-form-left-box">
                                 <div class="form-group">
                                     <label>Program Levels</label>
-                                    <select class="form-control multiselectdropdown"
-                                        name="program_education_level">
+                                    <select class="form-control multiselectdropdown" name="program_education_level">
                                         <option selected="selected" value="">Select...</option>
                                         @foreach ($educationLevels as $item)
                                             <option disabled>{{ $item->name }}</option>
@@ -255,15 +252,12 @@
                                 <div class="form-group">
                                     <label>Intakes </label>
                                     <select class="form-control multiselectdropdown" id="intake" multiple
-                                        name="intake ">
+                                        name="intake">
                                         <option value="">Select...</option>
                                         <optgroup label="Aug - Nov 2023">
-                                            <option value="{{ date('2023-09-01') }}"
-                                                {{ in_array(date('F Y', strtotime('2023-09-23')), $quick_data['apply_intake'] ?? []) ? 'selected' : '' }}>
-                                                {{ date('F Y', strtotime('2023-09-23')) }}</option>
-                                            <option value="{{ date('2023-10-10') }}"
+                                            {{-- <option value="{{ date('2023-10-10') }}"
                                                 {{ in_array(date('F Y', strtotime('2023-10-10')), $quick_data['apply_intake'] ?? []) ? 'selected' : '' }}>
-                                                {{ date('F Y', strtotime('2023-10-23')) }}</option>
+                                                {{ date('F Y', strtotime('2023-10-23')) }}</option> --}}
                                             <option value="{{ date('2023-11-10') }}"
                                                 {{ in_array(date('F Y', strtotime('2023-11-10')), $quick_data['apply_intake'] ?? []) ? 'selected' : '' }}>
                                                 {{ date('F Y', strtotime('2023-11-23')) }}</option>
@@ -329,8 +323,8 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Post-Secondary Discipline</label>
-                                    <select class="form-control multiselectdropdown"
-                                        name="post_secondary_category" id="post-secondary-category">
+                                    <select class="form-control multiselectdropdown" name="post_secondary_category"
+                                        id="post-secondary-category">
                                         <option value="">Select...</option>
                                         <option value="">Select...</option>
                                         @foreach ($secondaryCategories as $category)
@@ -340,8 +334,8 @@
                                 </div>
                                 <div class="form-group sub-border-none">
                                     <label>Post-Secondary Sub-Categories</label>
-                                    <select class="form-control multiselectdropdown"
-                                        name="post_secondary_sub_category" id="post-secondary-sub-category">
+                                    <select class="form-control multiselectdropdown" name="post_secondary_sub_category"
+                                        id="post-secondary-sub-category">
 
                                     </select>
                                     <p>All amounts are listed in the currency charged by the school. For best results,
@@ -515,9 +509,8 @@
                                 <!-- Data Loader -->
                                 <div class="auto-load text-center" style="display: none;">
                                     <svg version="1.1" id="L9" xmlns="http://www.w3.org/2000/svg"
-                                        xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                                        height="60" viewBox="0 0 100 100" enable-background="new 0 0 0 0"
-                                        xml:space="preserve">
+                                        xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" height="60"
+                                        viewBox="0 0 100 100" enable-background="new 0 0 0 0" xml:space="preserve">
                                         <path fill="#000"
                                             d="M73,50c0-12.7-10.3-23-23-23S27,37.3,27,50 M30.9,50c0-10.5,8.5-19.1,19.1-19.1S69.1,39.5,69.1,50">
                                             <animateTransform attributeName="transform" attributeType="XML"
@@ -545,9 +538,8 @@
                                     <!-- Data Loader -->
                                     <div class="school-list text-center" style="display: none;">
                                         <svg version="1.1" id="L9" xmlns="http://www.w3.org/2000/svg"
-                                            xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                                            height="60" viewBox="0 0 100 100" enable-background="new 0 0 0 0"
-                                            xml:space="preserve">
+                                            xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" height="60"
+                                            viewBox="0 0 100 100" enable-background="new 0 0 0 0" xml:space="preserve">
                                             <path fill="#000"
                                                 d="M73,50c0-12.7-10.3-23-23-23S27,37.3,27,50 M30.9,50c0-10.5,8.5-19.1,19.1-19.1S69.1,39.5,69.1,50">
                                                 <animateTransform attributeName="transform" attributeType="XML"
@@ -686,7 +678,10 @@
         });
 
         $(document).on('click', '#reset_btn', function() {
-            location.reload(true);
+            // alert("{{route('student.programs')}}")
+             window.location.href = "{{route('student.programs')}}"
+             return
+            // location.reload(true);
             $("#school_location_study").trigger("reset");
             $("#eligibility").trigger("reset");
             $("#school_program_filter").trigger("reset");

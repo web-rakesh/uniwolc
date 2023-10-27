@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\University;
 
 use App\Models\User;
+use App\Models\Amenity;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
@@ -38,6 +39,7 @@ class ProfileDetailController extends Controller
     {
         // return $request->all();
 
+
         try {
             //code...
             $request['user_id'] = Auth::user()->id;
@@ -59,6 +61,17 @@ class ProfileDetailController extends Controller
                     $universityProfile->addMedia($image)->toMediaCollection('university-picture');
                 }
             }
+            Amenity::where('university_id', Auth::user()->id)->delete();
+            foreach ($request->label_name as $key => $value) {
+                Amenity::create([
+                    'university_id' => Auth::user()->id,
+                    'label_name' => $value,
+                    'label_value' => $request->label_value[$key],
+                    'icon' => $request->icon[$key],
+                ]);
+            }
+
+
             if (!auth()->user()->profile_is_updated) {
                 User::where('id', auth()->user()->id)->update([
                     'profile_is_updated' => 1

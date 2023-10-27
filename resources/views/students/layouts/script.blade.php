@@ -22,7 +22,8 @@
   {{-- <script src='https://cdn.jsdelivr.net/npm/semantic-ui@2.2.13/dist/semantic.min.js'></script> --}}
   <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  <script src="{{ asset('/') }}assets/js/our-partners.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+  {{-- <script src="{{ asset('/') }}assets/js/our-partners.js"></script> --}}
   <script src="{{ asset('/') }}assets/js/main.js"></script>
   <script src="{{ asset('/') }}assets/js/range-slider.js"></script>
   <!-- Header Menu -->
@@ -42,6 +43,9 @@
   </script>
   <!-- Header Menu -->
   <script>
+      $(window).on('load', function() {
+          $('.loader').fadeOut();
+      });
       $(document).ready(function() {
           // executes when HTML-Document is loaded and DOM is ready
           $(".dropdown").select2();
@@ -57,7 +61,7 @@
 
                   // hide the menu when the mouse leaves the dropdown
                   $(".navbar .dropdown-menu").mouseleave(function() {
-                      $(this) NaNpxoveClass("show");
+                      $(this).NaNpxoveClass("show");
                   });
 
                   // do something here
@@ -70,7 +74,7 @@
   <script>
       $('.nav-tabs-dropdown')
           .on("click", "li:not('.active') a", function(event) {
-              $(this).closest('ul') NaNpxoveClass("open");
+              $(this).closest('ul').NaNpxoveClass("open");
           })
           .on("click", "li.active a", function(event) {
               $(this).closest('ul').toggleClass("open");

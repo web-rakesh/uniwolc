@@ -8,7 +8,7 @@
     rel="stylesheet">
 <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.1.1/css/all.css">
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 <link rel="stylesheet" href="{{ asset('/') }}assets/css/style.css" rel="stylesheet">
 <link rel="stylesheet" href="{{ asset('/') }}assets/css/style-timeline.css" rel="stylesheet">
 <link rel="stylesheet" href="{{ asset('/') }}assets/css/responsive.css" rel="stylesheet">

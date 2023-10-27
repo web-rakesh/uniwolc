@@ -220,7 +220,7 @@
                             </div>
 
                             <div class="form-group col-6">
-                                <label for="state">State</label>
+                                <label for="state">Country</label>
                                 <select class="form-control" wire:model="country_id" id="country">
                                     <option> Select Country</option>
                                     @foreach ($countries as $item)

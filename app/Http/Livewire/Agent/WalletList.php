@@ -9,6 +9,7 @@ use Illuminate\Support\Carbon;
 use App\Models\AgentWalletHistory;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Agent\AgentGeneralDetail;
 
 class WalletList extends Component
 {
@@ -20,7 +21,7 @@ class WalletList extends Component
 
     public function render()
     {
-        $this->totalAmount = AgentProfile::where('user_id', Auth::user()->id)->first()->wallet ?? 0;
+        $this->totalAmount = AgentGeneralDetail::where('agent_id', Auth::user()->id)->first()->wallet ?? 0;
         // dd($this->totalAmount);
         $transactions = AgentWalletHistory::query()
             ->where('agent_id', Auth::user()->id)
@@ -82,7 +83,7 @@ class WalletList extends Component
 
             ]);
 
-            AgentProfile::where('user_id', Auth::user()->id)->update([
+            AgentGeneralDetail::where('agent_id', Auth::user()->id)->update([
                 'wallet' => $this->totalAmount - $this->amount,
             ]);
 

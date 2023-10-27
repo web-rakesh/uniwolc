@@ -58,7 +58,7 @@ class UniversityCourseList extends Component
                     return $query->where('city', $city_id);
                 });
             })
-
+            ->latest()
             ->paginate(10);
         return view('livewire.admin.university-course-list', ['allCourses' => $allCourses]);
     }

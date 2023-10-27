@@ -6,13 +6,14 @@ use App\Models\City;
 use App\Models\User;
 use App\Models\Staff;
 use App\Models\State;
+use App\Models\Amenity;
 use App\Models\Country;
 use Illuminate\Support\Str;
 use App\Models\AgentProfile;
 use Illuminate\Http\Request;
 use App\Models\EducationLevel;
-use App\Models\PaymentHistory;
 
+use App\Models\PaymentHistory;
 use Illuminate\Support\Carbon;
 use App\Models\AgentCommission;
 use App\Models\EducationPartner;
@@ -165,7 +166,15 @@ class AdminController extends Controller
                     $universityProfile->addMedia($image)->toMediaCollection('university-picture');
                 }
             }
-
+            Amenity::where('university_id', $universityId)->delete();
+            foreach ($request->label_name as $key => $value) {
+                Amenity::create([
+                    'university_id' => $universityId,
+                    'label_name' => $value,
+                    'label_value' => $request->label_value[$key],
+                    'icon' => $request->icon[$key],
+                ]);
+            }
 
             DB::commit();
 
@@ -347,4 +356,19 @@ class AdminController extends Controller
         return view('admin.manage-lesson');
     }
 
+    /**
+     * Manage Pre Submission Model
+     */
+    public function managePreSubmissionModel()
+    {
+        return view('admin.manage-pre-submission-model');
+    }
+
+    /**
+     * Manage Pre Submission Model
+     */
+    public function managePreSubmissionModelQuestion()
+    {
+        return view('admin.manage-pre-submission-model-question');
+    }
 }

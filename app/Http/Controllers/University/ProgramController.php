@@ -6,10 +6,13 @@ use Illuminate\Support\Str;
 use App\Models\ProgramIntake;
 use App\Models\EducationLevel;
 use Illuminate\Support\Carbon;
+use App\Models\PreModelQuestion;
+use App\Models\ProgramPrePayment;
 use App\Models\secondaryCategory;
 use App\Models\University\Program;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Models\ProgramPreSubmission;
 use Illuminate\Support\Facades\Auth;
 use App\Models\University\ProfileDetail;
 use App\Http\Requests\StoreProgramRequest;
@@ -44,7 +47,8 @@ class ProgramController extends Controller
         $universities = ProfileDetail::all();
         $educationLevels = EducationLevel::all();
         $postCategories = secondaryCategory::all();
-        return view('university.programs-add', compact('educationLevels', 'months', 'universities', 'postCategories'));
+        $preSubmissionModels = PreModelQuestion::all();
+        return view('university.programs-add', compact('educationLevels', 'months', 'universities', 'postCategories', 'preSubmissionModels'));
     }
 
     /**
@@ -81,36 +85,35 @@ class ProgramController extends Controller
                 ]);
             }
 
-            if ($request->has('student_attachment')) {
-                foreach ($request->student_attachment as $image) {
-                    $program->addMedia($image)->toMediaCollection('program-student-attachment');
+            foreach ($request->payment_label ?? [] as $key => $value) {
+                # code...
+                if ($value != null) {
+
+                    ProgramPrePayment::create([
+                        'program_id' => $program->id,
+                        'label' => $value,
+                        'description' => $request->payment_description[$key],
+                        'file' => $request->payment_file[$key] == 'file' ? 'file' : null,
+                    ]);
                 }
             }
-            if ($request->has('copy_passport_attachment')) {
-                foreach ($request->copy_passport_attachment as $image) {
-                    $program->addMedia($image)->toMediaCollection('program-passport-attachment');
+
+            foreach ($request->submission_label ?? [] as $key => $value) {
+                # code...
+                if ($value != null) {
+
+                    ProgramPreSubmission::create([
+                        'program_id' => $program->id,
+                        'label' => $value,
+                        'description' => $request->submission_description[$key] ?? null,
+                        'file' => $request->submission_file[$key] == 'file' ? 'file' : null,
+                        'program_submission_model_id' => $request->submission_model[$key] ?? null,
+                    ]);
                 }
             }
-            if ($request->has('custodianship_declaration_attachment')) {
-                foreach ($request->custodianship_declaration_attachment as $image) {
-                    $program->addMedia($image)->toMediaCollection('program-custodianship-declaration-attachment');
-                }
-            }
-            if ($request->has('proof_immunization_attachment')) {
-                foreach ($request->proof_immunization_attachment as $image) {
-                    $program->addMedia($image)->toMediaCollection('program-proof-immunization-attachment');
-                }
-            }
-            if ($request->has('participation_agreement_attachment')) {
-                foreach ($request->participation_agreement_attachment as $image) {
-                    $program->addMedia($image)->toMediaCollection('program-participation-agreement-attachment');
-                }
-            }
-            if ($request->has('self_introduction_attachment')) {
-                foreach ($request->self_introduction_attachment as $image) {
-                    $program->addMedia($image)->toMediaCollection('program-self-introduction-attachment');
-                }
-            }
+
+
+
             DB::commit();
 
             return redirect()->route('university.program.index')->with('success', 'Program Added Successfully');
@@ -153,8 +156,8 @@ class ProgramController extends Controller
         $universities = ProfileDetail::all();
         $educationLevels = EducationLevel::all();
         $postCategories = secondaryCategory::all();
-
-        return view('university.program-edit', compact('program', 'educationLevels', 'postCategories', 'universities', 'months'));
+        $preSubmissionModels = PreModelQuestion::all();
+        return view('university.program-edit', compact('program', 'educationLevels', 'postCategories', 'universities', 'months', 'preSubmissionModels'));
     }
 
     /**
@@ -193,42 +196,34 @@ class ProgramController extends Controller
                 ]);
             }
 
-            if ($request->has('student_attachment')) {
-                $program->clearMediaCollection('program-student-attachment');
-                foreach ($request->student_attachment as $image) {
-                    $program->addMedia($image)->toMediaCollection('program-student-attachment');
+            ProgramPrePayment::where('program_id', $program->id)->delete();
+            foreach ($request->payment_label ?? [] as $key => $value) {
+                # code...
+                if ($value != null) {
+
+                    ProgramPrePayment::create([
+                        'program_id' => $program->id,
+                        'label' => $value,
+                        'description' => $request->payment_description[$key],
+                        'file' => $request->payment_file[$key] == 'file' ? 'file' : null,
+                    ]);
                 }
             }
-            if ($request->has('copy_passport_attachment')) {
-                $program->clearMediaCollection('program-passport-attachment');
-                foreach ($request->copy_passport_attachment as $image) {
-                    $program->addMedia($image)->toMediaCollection('program-passport-attachment');
+            ProgramPreSubmission::where('program_id', $program->id)->delete();
+            foreach ($request->submission_label ?? [] as $key => $value) {
+                # code...
+                if ($value != null) {
+
+                    ProgramPreSubmission::create([
+                        'program_id' => $program->id,
+                        'label' => $value,
+                        'description' => $request->submission_description[$key] ?? null,
+                        'file' => $request->submission_file[$key] == 'file' ? 'file' : null,
+                        'program_submission_model_id' => $request->submission_model[$key] ?? null,
+                    ]);
                 }
             }
-            if ($request->has('custodianship_declaration_attachment')) {
-                $program->clearMediaCollection('program-custodianship-declaration-attachment');
-                foreach ($request->custodianship_declaration_attachment as $image) {
-                    $program->addMedia($image)->toMediaCollection('program-custodianship-declaration-attachment');
-                }
-            }
-            if ($request->has('proof_immunization_attachment')) {
-                $program->clearMediaCollection('program-proof-immunization-attachment');
-                foreach ($request->proof_immunization_attachment as $image) {
-                    $program->addMedia($image)->toMediaCollection('program-proof-immunization-attachment');
-                }
-            }
-            if ($request->has('participation_agreement_attachment')) {
-                $program->clearMediaCollection('program-participation-agreement-attachmentprogram-participation-agreement-attachment');
-                foreach ($request->participation_agreement_attachment as $image) {
-                    $program->addMedia($image)->toMediaCollection('program-participation-agreement-attachment');
-                }
-            }
-            if ($request->has('self_introduction_attachment')) {
-                $program->clearMediaCollection('program-self-introduction-attachment');
-                foreach ($request->self_introduction_attachment as $image) {
-                    $program->addMedia($image)->toMediaCollection('program-self-introduction-attachment');
-                }
-            }
+
             DB::commit();
 
             return redirect()->route('university.program.index')->with('success', 'Program Updated Successfully');

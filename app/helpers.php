@@ -9,10 +9,14 @@ use App\Models\AgentProfile;
 use App\Models\GeneralSetting;
 use App\Models\ManageSubAdmin;
 use Illuminate\Support\Carbon;
+use App\Models\ProgramPreUpload;
+use App\Models\ProgramPrePayment;
 use App\Models\University\Program;
 use Illuminate\Support\Facades\DB;
+use App\Models\ProgramPreSubmission;
 use App\Models\Student\ApplyProgram;
 use App\Models\Student\StudentDetail;
+use App\Models\ProgramPreModelQuestionAnswer;
 use App\Models\Student\ApplicantUploadDocument;
 
 if (!function_exists('show_route')) {
@@ -341,7 +345,72 @@ if (!function_exists('els_intake')) {
     if (!function_exists('get_admin_student')) {
         function get_admin_student()
         {
-            return StudentDetail::select('id', 'user_id', 'first_name', 'last_name')->latest()->get();
+
+            if(@auth()->user()->type == 'agent'){
+                return StudentDetail::select('id', 'user_id', 'first_name', 'last_name')->where('agent_id', auth()->user()->id)->latest()->get();
+            }elseif(@auth()->user()->type == 'staff'){
+                return StudentDetail::select('id', 'user_id', 'first_name', 'last_name')->where('staff_id', auth()->user()->id)->latest()->get();
+            }else{
+                return StudentDetail::select('id', 'user_id', 'first_name', 'last_name')->latest()->get();
+            }
+        }
+    }
+
+    if (!function_exists('pre_payment_check')) {
+        function pre_payment_check($pre_pay_id, $applyPgId)
+        {
+            $applyPg = ApplyProgram::select('id', 'program_id')->where('id', $applyPgId)->first();
+            $preSub = ProgramPrePayment::where('program_id', $applyPg->program_id)->where('id', $pre_pay_id)->first();
+
+            if ($preSub) {
+                $preSubAns = ProgramPreUpload::where('program_pre_id', $pre_pay_id)->where('apply_program_id',$applyPgId)->exists();
+                if ($preSubAns) {
+                    return true;
+                }
+            }
+            return false;
+        }
+    }
+    if (!function_exists('pre_submission_check')) {
+        function pre_submission_check($pre_sub_id, $applyPgId)
+        {
+            $applyPg = ApplyProgram::select('id', 'program_id')->where('id', $applyPgId)->first();
+            $preSub = ProgramPreSubmission::where('program_id', $applyPg->program_id)->where('id', $pre_sub_id)->first();
+
+            if ($preSub->program_submission_model_id != null && $preSub->file == null) {
+                $preSubAns = ProgramPreModelQuestionAnswer::where('pre_submission_qus_id', $pre_sub_id)->exists();
+                if ($preSubAns) {
+                    return true;
+                }
+            }
+            if ($preSub->program_submission_model_id == null && $preSub->file != null) {
+                $preSubAns = ProgramPreUpload::where('program_pre_id', $pre_sub_id)->where('apply_program_id',$applyPgId)->exists();
+                if ($preSubAns) {
+                    return true;
+                }
+            }
+            return false;
+        }
+    }
+
+    if(!function_exists('pre_submission_privacy')){
+        function pre_submission_privacy( $applyPgId)
+        {
+            // return $applyPgId;
+            $applyPg = ApplyProgram::select('id', 'program_id')->where('id', $applyPgId)->first();
+            $preSub = ProgramPreUpload::where('apply_program_id', $applyPgId)->where('type', 'privacy')->first();
+            if ($preSub) {
+                return true;
+            }
+            return false;
+        }
+    }
+    if (!function_exists('pre_submission_count')) {
+        function pre_submission_count($pre_sub_id, $applyPgId)
+        {
+            $applyPg = ApplyProgram::select('id', 'program_id')->where('id', $applyPgId)->first();
+          return  $preSub = ProgramPreSubmission::where('program_id', $applyPg->program_id)->where('id', $pre_sub_id)->first();
+
         }
     }
 }

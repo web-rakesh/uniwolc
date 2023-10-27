@@ -8,6 +8,9 @@ use Illuminate\Support\Carbon;
 use App\Models\University\Program;
 use Illuminate\Support\Facades\DB;
 use App\Models\Student\ApplyProgram;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Agent\AgentGeneralDetail;
+use App\Models\AgentCommission;
 
 class ApplyProgramList extends Component
 {
@@ -15,7 +18,7 @@ class ApplyProgramList extends Component
     protected $paginationTheme = 'bootstrap';
     public $programSelectId, $programList, $confirming, $backupPrograms, $backup_program_id, $reject_id;
     public $searchItem, $textareaValue = '';
-    public $showModal = false, $mood = false, $program_status, $label ;
+    public $showModal = false, $mood = false, $program_status, $label;
     public $student_id, $program_name, $startDate, $endDate;
     // public $paginationCount = 15;
     public function render()
@@ -43,7 +46,7 @@ class ApplyProgramList extends Component
 
 
 
-        // dd($this->program_status);
+        // dd($this->progrcam_status);
         $this->programList = Program::select('id', 'program_title')->where('user_id', auth()->user()->id)->get();
 
 
@@ -70,6 +73,17 @@ class ApplyProgramList extends Component
             ApplyProgram::find($id)->update([
                 'program_status' => 1
             ]);
+            $applyAgentId = ApplyProgram::find($id)->agent_id;
+            $agentWallet = AgentCommission::whereAgentId($applyAgentId)->where('apply_program_id', $id)->first();
+            // dd($agentWallet);
+            if ($agentWallet) {
+                AgentGeneralDetail::whereAgentId($applyAgentId)->increment('wallet', $agentWallet->amount);
+                AgentCommission::whereAgentId($applyAgentId)->where('apply_program_id', $id)->first()->update([
+
+                    'status' => 1
+                ]);
+            }
+
             session()->flash('message', 'Program accept Successfully.');
             DB::commit();
         } catch (\Throwable $th) {

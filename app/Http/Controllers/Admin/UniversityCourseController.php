@@ -7,10 +7,13 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\ProgramIntake;
 use App\Models\EducationLevel;
+use App\Models\PreModelQuestion;
+use App\Models\ProgramPrePayment;
 use App\Models\secondaryCategory;
 use App\Models\University\Program;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Models\ProgramPreSubmission;
 use App\Models\University\ProfileDetail;
 
 class UniversityCourseController extends Controller
@@ -30,19 +33,19 @@ class UniversityCourseController extends Controller
             $months[$currentDate->format('Y-m-d')] = $currentDate->format('F Y');
             $currentDate->addMonth();
         }
-
+        $preSubmissionModels = PreModelQuestion::all();
         $universities = ProfileDetail::all();
         $educationLevels = EducationLevel::all();
-        $postCategories = secondaryCategory::all(); 
-        return view('admin.university.course-create', compact('educationLevels', 'universities', 'months', 'postCategories'));
+        $postCategories = secondaryCategory::all();
+        return view('admin.university.course-create', compact('educationLevels', 'universities', 'months', 'postCategories', 'preSubmissionModels'));
     }
     public function universityCourseStore(Request $request)
     {
         // return $request;
-            $egTest = [];
+        $egTest = [];
         foreach ($request->english_test ?? [] as $key => $value) {
             # code...
-            if($value != null){
+            if ($value != null) {
 
                 $egTest[] = [$value => $request->total_score[$key]];
             }
@@ -70,34 +73,31 @@ class UniversityCourseController extends Controller
                 ]);
             }
 
-            if ($request->has('student_attachment')) {
-                foreach ($request->student_attachment as $image) {
-                    $program->addMedia($image)->toMediaCollection('program-student-attachment');
+
+            foreach ($request->payment_label ?? [] as $key => $value) {
+                # code...
+                if ($value != null) {
+
+                    ProgramPrePayment::create([
+                        'program_id' => $program->id,
+                        'label' => $value,
+                        'description' => $request->payment_description[$key],
+                        'file' => $request->payment_file[$key] == 'file' ? 'file' : null,
+                    ]);
                 }
             }
-            if ($request->has('copy_passport_attachment')) {
-                foreach ($request->copy_passport_attachment as $image) {
-                    $program->addMedia($image)->toMediaCollection('program-passport-attachment');
-                }
-            }
-            if ($request->has('custodianship_declaration_attachment')) {
-                foreach ($request->custodianship_declaration_attachment as $image) {
-                    $program->addMedia($image)->toMediaCollection('program-custodianship-declaration-attachment');
-                }
-            }
-            if ($request->has('proof_immunization_attachment')) {
-                foreach ($request->proof_immunization_attachment as $image) {
-                    $program->addMedia($image)->toMediaCollection('program-proof-immunization-attachment');
-                }
-            }
-            if ($request->has('participation_agreement_attachment')) {
-                foreach ($request->participation_agreement_attachment as $image) {
-                    $program->addMedia($image)->toMediaCollection('program-participation-agreement-attachment');
-                }
-            }
-            if ($request->has('self_introduction_attachment')) {
-                foreach ($request->self_introduction_attachment as $image) {
-                    $program->addMedia($image)->toMediaCollection('program-self-introduction-attachment');
+
+            foreach ($request->submission_label ?? [] as $key => $value) {
+                # code...
+                if ($value != null) {
+
+                    ProgramPreSubmission::create([
+                        'program_id' => $program->id,
+                        'label' => $value,
+                        'description' => $request->submission_description[$key] ?? null,
+                        'file' => $request->submission_file[$key] == 'file' ? 'file' : null,
+                        'program_submission_model_id' => $request->submission_model[$key] ?? null,
+                    ]);
                 }
             }
 
@@ -128,9 +128,10 @@ class UniversityCourseController extends Controller
         $program = Program::find($id);
         $universities = ProfileDetail::all();
         $educationLevels = EducationLevel::all();
-        $postCategories = secondaryCategory::all(); 
+        $postCategories = secondaryCategory::all();
+        $preSubmissionModels = PreModelQuestion::all();
         // return $program->intake;
-        return view('admin.university.course-edit', compact('program', 'educationLevels', 'universities', 'months','postCategories'));
+        return view('admin.university.course-edit', compact('program', 'educationLevels', 'universities', 'months', 'postCategories', 'preSubmissionModels'));
     }
 
     /**
@@ -145,8 +146,8 @@ class UniversityCourseController extends Controller
             $egTest = [];
             foreach ($request->english_test ?? [] as $key => $value) {
                 # code...
-                if($value != null){
-    
+                if ($value != null) {
+
                     $egTest[] = [$value => $request->total_score[$key]];
                 }
             }
@@ -160,7 +161,7 @@ class UniversityCourseController extends Controller
 
             // Update the task with the validated data
             $program->update($request->all());
-            ProgramIntake::where('program_id',$program->id)->delete();
+            ProgramIntake::where('program_id', $program->id)->delete();
             foreach ($request->intake_status as $key => $value) {
                 ProgramIntake::create([
                     'program_id' => $program->id,
@@ -171,42 +172,34 @@ class UniversityCourseController extends Controller
                 ]);
             }
 
-            if ($request->has('student_attachment')) {
-                $program->clearMediaCollection('program-student-attachment');
-                foreach ($request->student_attachment as $image) {
-                    $program->addMedia($image)->toMediaCollection('program-student-attachment');
+            ProgramPrePayment::where('program_id', $program->id)->delete();
+            foreach ($request->payment_label ?? [] as $key => $value) {
+                # code...
+                if ($value != null) {
+
+                    ProgramPrePayment::create([
+                        'program_id' => $program->id,
+                        'label' => $value,
+                        'description' => $request->payment_description[$key],
+                        'file' => $request->payment_file[$key] == 'file' ? 'file' : null,
+                    ]);
                 }
             }
-            if ($request->has('copy_passport_attachment')) {
-                $program->clearMediaCollection('program-passport-attachment');
-                foreach ($request->copy_passport_attachment as $image) {
-                    $program->addMedia($image)->toMediaCollection('program-passport-attachment');
+            ProgramPreSubmission::where('program_id', $program->id)->delete();
+            foreach ($request->submission_label ?? [] as $key => $value) {
+                # code...
+                if ($value != null) {
+
+                    ProgramPreSubmission::create([
+                        'program_id' => $program->id,
+                        'label' => $value,
+                        'description' => $request->submission_description[$key] ?? null,
+                        'file' => $request->submission_file[$key] == 'file' ? 'file' : null,
+                        'program_submission_model_id' => $request->submission_model[$key] ?? null,
+                    ]);
                 }
             }
-            if ($request->has('custodianship_declaration_attachment')) {
-                $program->clearMediaCollection('program-custodianship-declaration-attachment');
-                foreach ($request->custodianship_declaration_attachment as $image) {
-                    $program->addMedia($image)->toMediaCollection('program-custodianship-declaration-attachment');
-                }
-            }
-            if ($request->has('proof_immunization_attachment')) {
-                $program->clearMediaCollection('program-proof-immunization-attachment');
-                foreach ($request->proof_immunization_attachment as $image) {
-                    $program->addMedia($image)->toMediaCollection('program-proof-immunization-attachment');
-                }
-            }
-            if ($request->has('participation_agreement_attachment')) {
-                $program->clearMediaCollection('program-participation-agreement-attachmentprogram-participation-agreement-attachment');
-                foreach ($request->participation_agreement_attachment as $image) {
-                    $program->addMedia($image)->toMediaCollection('program-participation-agreement-attachment');
-                }
-            }
-            if ($request->has('self_introduction_attachment')) {
-                $program->clearMediaCollection('program-self-introduction-attachment');
-                foreach ($request->self_introduction_attachment as $image) {
-                    $program->addMedia($image)->toMediaCollection('program-self-introduction-attachment');
-                }
-            }
+
             DB::commit();
             return redirect()->route('admin.university.course.view')->with('success', 'Program Updated Successfully');
         } catch (\Throwable $th) {

@@ -283,11 +283,73 @@
                             @foreach (isset($universityDetail) ? $universityDetail->getMedia('university-picture') : [] as $image)
                                 <div class="row">
                                     <div class="col-md-3">
-                                        <img src="{{ $image->getUrl() }}" alt="{{ $image->getUrl() }}" height="100"
-                                            width="100" class="w-20 h-20 shadow">
+                                        <img src="{{ $image->getUrl() }}" height="150" width="150"
+                                            alt="{{ $image->getUrl() }}" height="100" width="100"
+                                            class="w-20 h-20 shadow">
                                     </div>
                                 </div>
                             @endforeach
+
+                            <div class="form-group">
+                                <label class="labels">Amenities
+                                    <small><a target="_blank" href="https://fontawesome.com/icons">visit
+                                            icon</a></small>
+                                </label>
+                            </div>
+                            <div class="form-group">
+
+                                @forelse ($universityDetail->amenities ?? [] as $key => $amenity)
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <label class="labels">Label Name</label>
+                                            <input type="input" class="form-control"
+                                                value="{{ $amenity->label_name }}" name="label_name[]" required>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label class="labels">Label Value</label>
+                                            <input type="input" class="form-control"
+                                                value="{{ $amenity->label_value }}" required name="label_value[]">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label class="labels">icon </label>
+                                            <input type="input" class="form-control" value="{{ $amenity->icon }}"
+                                                required name="icon[]">
+                                        </div>
+                                        <div class="col-md-2">
+                                            <label class="labels"> </label>
+                                            @if ($key == 0)
+                                                <button type="button" id="amenitiesAddMore"
+                                                    class="btn btn-primary me-2">Add</button>
+                                            @else
+                                                <button type="button"
+                                                    class="btn btn-danger me-2 reomveAmenitieMoreField">Remove</button>
+                                            @endif
+                                        </div>
+                                    </div>
+                                @empty
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <label class="labels">Label Name</label>
+                                            <input type="input" class="form-control" required name="label_name[]">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label class="labels">Label Value</label>
+                                            <input type="input" class="form-control" required name="label_value[]">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label class="labels">icon </label>
+                                            <input type="input" class="form-control" required name="icon[]">
+                                        </div>
+                                        <div class="col-md-2">
+                                            <label class="labels"> </label>
+                                            <button type="button" id="amenitiesAddMore"
+                                                class="btn btn-primary me-2">Add</button>
+                                        </div>
+                                    </div>
+                                @endforelse
+                                <div id="amenitiesAddMoreField">
+                                </div>
+                            </div>
 
                             <button type="submit"
                                 class="btn btn-gradient-primary me-2">{{ @$universityDetail ? 'Update' : 'Submit' }}</button>
@@ -301,7 +363,6 @@
 @endsection
 
 @push('js')
-  
     <!-- Initialize Quill editor -->
     <script>
         // Initialize Quill editor
@@ -455,6 +516,38 @@
                     }
                 });
             }
+
+
+
+            $("#amenitiesAddMore").on('click', function() {
+                var html = `
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label class="labels">Label Name</label>
+                                <input type="input" class="form-control" required name="label_name[]">
+                            </div>
+                            <div class="col-md-3">
+                                <label class="labels">Label Value</label>
+                                <input type="input" class="form-control" required name="label_value[]">
+                            </div>
+                            <div class="col-md-3">
+                                <label class="labels">icon </label>
+                                <input type="input" class="form-control" required name="icon[]">
+                            </div>
+                            <div class="col-md-2">
+                                <label class="labels"> </label>
+                                <button type="button"
+                                    class="btn btn-danger me-2 reomveAmenitieMoreField">Remove</button>
+                            </div>
+                        </div>
+                        `;
+                $("#amenitiesAddMoreField").append(html);
+            });
+
+
+            $(document).on('click', '.reomveAmenitieMoreField', function() {
+                $(this).closest('.row').remove();
+            });
 
         });
     </script>

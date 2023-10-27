@@ -223,10 +223,9 @@
                                     <select class="form-control multiselectdropdown" id="intake" name="intake">
                                         <option value="">Select...</option>
                                         <optgroup label="Aug - Nov 2023">
-                                            <option value="{{ date('2023-09-01') }}">
-                                                {{ date('F Y', strtotime('2023-09-23')) }}</option>
+{{--                                      
                                             <option value="{{ date('2023-10-10') }}">
-                                                {{ date('F Y', strtotime('2023-10-23')) }}</option>
+                                                {{ date('F Y', strtotime('2023-10-23')) }}</option> --}}
                                             <option value="{{ date('2023-11-10') }}">
                                                 {{ date('F Y', strtotime('2023-11-23')) }}</option>
 

@@ -198,84 +198,89 @@
                                             <textarea class="form-control" name="disclaimer" rows="3"></textarea>
                                         </div>
 
+
+
                                         <div class="col-md-12 mb-3 columnBox2">
-                                            <label class="labels">Application Form</label>
-                                        </div>
-                                        <div class="col-md-12 mb-3 columnBox2">
-                                            <label class="labels">Student Instruction</label>
-                                            <textarea class="form-control" name="student_instruction" rows="3"></textarea>
-                                        </div>
-                                        <div class="col-md-12 mb-3 columnBox2">
-                                            <label class="labels">Attachment</label>
-                                            <input type="file" class="form-control" name="student_attachment[]"
-                                                multiple>
+                                            <label class="labels">Pre-Payment</label>
                                         </div>
 
                                         <div class="col-md-12 mb-3 columnBox2">
-                                            <label class="labels">Copy of Passport</label>
+                                            <div class="row">
+                                                <div class="col-md-8">
+                                                    <label class="labels">Label</label>
+                                                    <input type="text" class="form-control" name="payment_label[]"
+                                                        required>
+                                                </div>
+
+                                                <div class="col-md-4">
+                                                    <label class="labels">File</label>
+                                                    <input type="checkbox" class="payment_file"
+                                                        name="payment_file_check[]">
+                                                    <input type="hidden" class="payment_file_check" value="No"
+                                                        name="payment_file[]">
+                                                </div>
+                                                <div class="col-md-10">
+                                                    <label class="labels">Descriptions</label>
+                                                    <input type="input" class="form-control"
+                                                        name="payment_description[]" required>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <label class="labels"></label>
+                                                    <button type="button"
+                                                        class="btn btn-primary me-2 pre-payment">Add</button>
+                                                </div>
+                                            </div>
+                                            <div id="prePaymentAddMoreField">
+                                            </div>
                                         </div>
-                                        <div class="col-md-12 mb-3 columnBox2">
-                                            <label class="labels">Student Instruction</label>
-                                            <textarea class="form-control" name="copy_passport" rows="3"></textarea>
-                                        </div>
-                                        <div class="col-md-12 mb-3 columnBox2">
-                                            <label class="labels">Attachment</label>
-                                            <input type="file" class="form-control" name="copy_passport_attachment[]"
-                                                multiple>
+
+                                        <div class="col-md-12 mb-3 columnBox2 ">
+                                            <label class="labels">Pre-Submission</label>
                                         </div>
 
                                         <div class="col-md-12 mb-3 columnBox2">
-                                            <label class="labels">Custodianship Declaration</label>
-                                        </div>
-                                        <div class="col-md-12 mb-3 columnBox2">
-                                            <label class="labels">Student Instruction</label>
-                                            <textarea class="form-control" name="custodianship_declaration" rows="3"></textarea>
-                                        </div>
-                                        <div class="col-md-12 mb-3 columnBox2">
-                                            <label class="labels">Attachment</label>
-                                            <input type="file" class="form-control"
-                                                name="custodianship_declaration_attachment[]" multiple>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label class="labels">Label </label>
+                                                    <input type="text" class="form-control" name="submission_label[]"
+                                                        required>
+                                                </div>
+
+                                                <div class="col-md-4">
+                                                    <label class="labels">Model Form </label>
+                                                    <select name="submission_model[]" class="form-control">
+                                                        <option value="">Select...</option>
+                                                        @foreach ($preSubmissionModels as $preModel)
+                                                            <option value="{{ $preModel->id }}">
+                                                                {{ $preModel->title }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+
+                                                <div class="col-md-2">
+                                                    <label class="labels">File </label>
+                                                    <input type="checkbox" class="submission_file" value="file"
+                                                        name="submission_file_check[]">
+                                                    <input type="hidden" class="submission_file_check"
+                                                        name="submission_file[]" value="No">
+                                                </div>
+
+                                                <div class="col-md-10">
+                                                    <label class="labels">Descriptions </label>
+                                                    <input type="input" class="form-control"
+                                                        name="submission_description[]" required>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <label class="labels"> </label>
+                                                    <button type="button"
+                                                        class="btn btn-primary me-2 pre-submission">Add</button>
+                                                </div>
+                                            </div>
+                                            <div id="preSubmissionAddMoreField">
+                                            </div>
                                         </div>
 
-                                        <div class="col-md-12 mb-3 columnBox2">
-                                            <label class="labels">Proof of Immunization</label>
-                                        </div>
-                                        <div class="col-md-12 mb-3 columnBox2">
-                                            <label class="labels">Student Instruction</label>
-                                            <textarea class="form-control" name="proof_immunization" rows="3"></textarea>
-                                        </div>
-                                        <div class="col-md-12 mb-3 columnBox2">
-                                            <label class="labels">Attachment</label>
-                                            <input type="file" class="form-control"
-                                                name="proof_immunization_attachment[]" multiple>
-                                        </div>
 
-                                        <div class="col-md-12 mb-3 columnBox2">
-                                            <label class="labels">Student Participation Agreement (without
-                                                homestay)</label>
-                                        </div>
-                                        <div class="col-md-12 mb-3 columnBox2">
-                                            <label class="labels">Student Instruction</label>
-                                            <textarea class="form-control" name="participation_agreement" rows="3"></textarea>
-                                        </div>
-                                        <div class="col-md-12 mb-3 columnBox2">
-                                            <label class="labels">Attachment</label>
-                                            <input type="file" class="form-control"
-                                                name="participation_agreement_attachment[]" multiple>
-                                        </div>
-
-                                        <div class="col-md-12 mb-3 columnBox2">
-                                            <label class="labels">Student Self-Introduction Form</label>
-                                        </div>
-                                        <div class="col-md-12 mb-3 columnBox2">
-                                            <label class="labels">Student Instruction</label>
-                                            <textarea class="form-control" name="self_introduction" rows="3"></textarea>
-                                        </div>
-                                        <div class="col-md-12 mb-3 columnBox2">
-                                            <label class="labels">Attachment</label>
-                                            <input type="file" class="form-control"
-                                                name="self_introduction_attachment[]" multiple>
-                                        </div>
 
                                     </div>
                                     <div class="mt-3 text-end">
@@ -458,6 +463,104 @@
                     this.selectionEnd = position;
                 }
             });
+
+            $(".pre-payment").on('click', function() {
+                var html = `
+                            <div class="row">
+                                    <hr>
+                                    <div class="col-md-8">
+                                    <label class="labels">Label </label>
+                                    <input type="text" class="form-control" name="payment_label[]">
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label class="labels">File </label>
+                                    <input type="checkbox" class="payment_file" value="file" name="payment_file_check[]">
+                                        <input type="hidden" class="payment_file_check" value="No"
+                                            name="payment_file[]">
+                                </div>
+                                <div class="col-md-10">
+                                    <label class="labels">Descriptions </label>
+                                    <input type="input" class="form-control" name="payment_description[]">
+                                </div>
+                                    <div class="col-md-2">
+                                <label class="labels"> </label>
+                                <button type="button" id="reomveEnglishTestMoreField"
+                                    class="btn btn-danger me-2 reomvePrePaymentMoreField">Remove</button>
+                            </div>
+                        </div>
+                        `;
+                $("#prePaymentAddMoreField").append(html);
+
+            });
+
+            $(document).on('change', '.payment_file', function() {
+                if ($(this).is(":checked")) {
+                    $(this).closest('.row').find('.payment_file_check').val('file')
+                } else {
+                    $(this).closest('.row').find('.payment_file_check').val('No')
+                }
+            });
+
+            $(document).on('click', '.reomvePrePaymentMoreField', function() {
+                $(this).closest('.row').remove();
+            });
+
+            $(".pre-submission").on('click', function() {
+                var html = `
+                                <div class="row">
+                                    <hr>
+                                    <div class="col-md-6">
+                                        <label class="labels">Label </label>
+                                        <input type="text" class="form-control" name="submission_label[]">
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <label class="labels">Model Form </label>
+                                        <select name="submission_model[]" class="form-control">
+                                            <option value="">Select...</option>
+                                           @foreach ($preSubmissionModels as $preModel)
+                                                <option value="{{ $preModel->id }}">
+                                                    {{ $preModel->title }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <label class="labels">File </label>
+                                        <input type="checkbox" class="submission_file" value="file"
+                                            name="submission_file_check[]">
+                                        <input type="hidden" class="submission_file_check" name="submission_file[]"
+                                            value="No">
+                                    </div>
+
+                                    <div class="col-md-10">
+                                        <label class="labels">Descriptions </label>
+                                        <input type="input" class="form-control" name="submission_description[]">
+                                    </div>
+                                     <div class="col-md-2">
+                                        <label class="labels"> </label>
+                                        <button type="button" id="reomveEnglishTestMoreField"
+                                            class="btn btn-danger me-2 reomvePreSubmissionMoreField">Remove</button>
+                                    </div>
+                            </div>
+                            `;
+                $("#preSubmissionAddMoreField").append(html);
+
+            });
+
+            $(document).on('change', '.submission_file', function() {
+                if ($(this).is(":checked")) {
+                    $(this).closest('.row').find('.submission_file_check').val('file')
+                } else {
+                    $(this).closest('.row').find('.submission_file_check').val('No')
+                }
+            });
+
+            $(document).on('click', '.reomvePreSubmissionMoreField', function() {
+                $(this).closest('.row').remove();
+            });
+
 
 
         });

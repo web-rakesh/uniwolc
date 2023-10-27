@@ -72,10 +72,10 @@
                                     </td>
                                     <td data-title="Name">
                                         @if (action_permission('university', 'view') == true)
-                                            <a
-                                                href="{{ route('admin.university.create', $item->id) }}">{{ $item->university_name }}</a>
+                                            <a  data-toggle="tooltip" title="{{ $item->university_name }}"
+                                                href="{{ route('admin.university.create', $item->id) }}">{{ Str::limit($item->university_name, $limit = 30, '...') }}</a>
                                         @else
-                                            {{ $item->university_name }}
+                                            {{ Str::limit($item->university_name, $limit = 30, '...') }}
                                         @endif
 
                                     </td>

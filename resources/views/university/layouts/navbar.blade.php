@@ -9,8 +9,7 @@
       </div>
       <div class="rightTopNavbar">
           <ul class="rightSideMenuList">
-              <li class="topNavNotificationItem"><a href="#" class="notificationLink"><i
-                          class="fa-regular fa-bell"></i></a></li>
+              <li class="topNavNotificationItem">{{ auth()->user()->name }}</li>
               <li class="topNavUserItem">
                   <a href="{{ route('university.profile.index') }}" class="topNavUserLink">
                       <span class="avatarImage">

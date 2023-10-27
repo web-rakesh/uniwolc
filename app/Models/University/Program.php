@@ -5,7 +5,9 @@ namespace App\Models\University;
 use Illuminate\Support\Str;
 use App\Models\ProgramIntake;
 use App\Models\EducationLevel;
+use App\Models\ProgramPrePayment;
 use Spatie\MediaLibrary\HasMedia;
+use App\Models\ProgramPreSubmission;
 use App\Models\Student\ApplyProgram;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\InteractsWithMedia;
@@ -81,5 +83,13 @@ class Program extends Model implements HasMedia
     public function intake()
     {
         return $this->hasMany(ProgramIntake::class, 'program_id');
+    }
+
+    public function pre_payment(){
+        return $this->hasMany(ProgramPrePayment::class, 'program_id');
+    }
+
+    public function pre_submission(){
+        return $this->hasMany(ProgramPreSubmission::class, 'program_id');
     }
 }

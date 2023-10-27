@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\University\Program;
 use App\Models\Student\StudentDetail;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Agent\AgentGeneralDetail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class AgentCommission extends Model
@@ -29,7 +30,7 @@ class AgentCommission extends Model
 
     public function agent()
     {
-        return $this->belongsTo(AgentProfile::class, 'agent_id', 'user_id');
+        return $this->belongsTo(AgentGeneralDetail::class, 'agent_id', 'agent_id');
     }
 
     public function Program()

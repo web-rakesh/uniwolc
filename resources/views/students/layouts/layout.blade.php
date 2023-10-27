@@ -27,6 +27,9 @@
     <!-- Application Process End -->
 
     <!-- Loader -->
+    {{-- <div class="loader">
+        <div class="loader-icon"></div>
+    </div> --}}
     <div id="loader" class="lds-dual-ring hidden overlay"></div>
     <!-- Loader End -->
     @include('students.layouts.script')

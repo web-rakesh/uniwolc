@@ -2,16 +2,21 @@
 
 namespace App\Http\Controllers\Student;
 
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\ProgramIntake;
+use GuzzleHttp\Psr7\Response;
 use Illuminate\Support\Carbon;
+use App\Models\ProgramPreUpload;
 use App\Models\University\Program;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Models\Student\ApplyProgram;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Student\StudentDetail;
+use App\Models\ProgramPreModelQuestion;
 use App\Models\University\ProfileDetail;
+use App\Models\ProgramPreModelQuestionAnswer;
 use App\Http\Requests\StoreApplyProgramRequest;
 use App\Models\Student\ApplicantUploadDocument;
 use App\Http\Requests\UpdateApplyProgramRequest;
@@ -194,7 +199,8 @@ class ApplyProgramController extends Controller
     public function applicantStatusUpdate(Request $request)
     {
         // return $request->all();
-        return $applyProgram = ApplyProgram::whereId($request->apply_program_id)->update(['application_status' => 1]);
+        $applyProgram = ApplyProgram::whereId($request->apply_program_id)->update(['application_status' => 1]);
+        return response()->json(['success' => 'Application Status Updated Successfully']);
     }
     /**
      * Remove the specified resource from storage.
@@ -390,7 +396,134 @@ class ApplyProgramController extends Controller
     public function programReject(Request $request)
     {
         // return $request;
-        $rejectNote = ApplyProgram::select('id','remark')->where('id', $request->program_id)->first();
+        $rejectNote = ApplyProgram::select('id', 'remark')->where('id', $request->program_id)->first();
         return response()->json(['rejectNote' => $rejectNote]);
+    }
+
+
+    public function studentPreSubmission(Request $request)
+    {
+        // return $request;
+
+        $request->validate([
+            'program_id' => 'required',
+            'pre_submission' => 'nullable',
+            'mode' => 'required',
+            'pre_file' => 'required|max:2048|mimes:png,jpg,jpeg,pdf',
+        ]);
+
+        // DB::beginTransaction();
+        // try {
+        //code...
+        $programPreUpd = ProgramPreUpload::create([
+            'program_id' => $request->program_id,
+            'apply_program_id' => $request->apply_program_id,
+            'program_pre_id' => $request->pre_submission,
+            'student_id' => Auth::user()->id,
+            'type' => $request->mode,
+        ]);
+
+        if ($request->has('pre_file')) {
+            $programPreUpd->addMedia($request->pre_file)->toMediaCollection('program-pre-document');
+        }
+        return response()->json(['success' => 'Document Uploaded Successfully']);
+        //     DB::commit();
+        // } catch (\Throwable $th) {
+        //     //throw $th;
+        //     DB::rollBack();
+        //     return response()->json(['error' => $th->getMessage()]);
+        // }
+    }
+
+    public function studentPreModelFormGenerate(Request $request)
+    {
+        // return $request;
+
+        $preModelQuestion = ProgramPreModelQuestion::where('pre_model_question_id', $request->pre_model_id)->get();
+        $generateHtml = '';
+        $c = 1;
+
+        $generateHtml .= '<input type="hidden" name="apply_program_id" value="' . $request->apply_program_id . '">';
+        $generateHtml .= '<input type="hidden" name="program_id" value="' . $request->program_id . '">';
+        $generateHtml .= '<input type="hidden" name="pre_model_id" value="' . $request->pre_model_id . '">';
+        $generateHtml .= '<input type="hidden" name="pre_submission_id" value="' . $request->pre_submission_id . '">';
+        foreach ($preModelQuestion as $key => $value) {
+            $generateHtml .= '<div class="form-group">
+                        <label class="labelName">' . $c . '. ' . $value->label .  ($value->required == 1 ? '<sup style="color:#ff0000;">*</sup></label>' : '');
+
+            if ($value->type == 'select') {
+                $option = json_decode($value->options, true);
+                $generateHtml .= '<select class="form-control" name="' . Str::replace('-', '_', Str::slug($value->label)) . '" ' . ($value->required == 1 ? 'required' : '') . '>
+                            <option value="">Select...</option>';
+                foreach ($option as $key1 => $value1) {
+                    $generateHtml .= '<option value="' . $value1 . '">' . $value1 . '</option>';
+                }
+                $generateHtml .= '</select>';
+            }
+            if ($value->type == 'textarea') {
+                $generateHtml .= '<textarea class="form-control" name="' . Str::replace('-', '_', Str::slug($value->label)) . '" rows="3" placeholder="' . $value->placeholder . '"></textarea>';
+            }
+
+            $generateHtml .= '</div>';
+            $c++;
+        }
+
+        return $generateHtml;
+
+
+        //
+
+    }
+
+    public function studentPreSubmitForm(Request $request)
+    {
+        // return $request->all();
+        $preModelQuestion = ProgramPreModelQuestion::where('pre_model_question_id', $request->pre_model_id)->get();
+        $validationCheck = [];
+        foreach ($preModelQuestion as $key => $value) {
+            if ($value->required == 1) {
+                $validationCheck[Str::replace('-', '_', Str::slug($value->label))] = 'required';
+            }
+        }
+
+        $request->validate($validationCheck);
+        unset($request['_token']);
+        $programId = $request->program_id;
+        $applyProgramId = $request->apply_program_id;
+        $studentId = Auth::user()->id;
+        $preModelId = $request->pre_model_id;
+        $preSubmissionId = $request->pre_submission_id;
+        unset($request['pre_submission_id']);
+        unset($request['program_id']);
+        unset($request['apply_program_id']);
+        unset($request['pre_model_id']);
+
+        // return $request->all();
+
+
+
+        DB::beginTransaction();
+
+        try {
+            //code...
+            foreach ($request->all() as $key => $value) {
+                # code...
+                ProgramPreModelQuestionAnswer::create([
+                    'program_id' => $programId,
+                    'apply_program_id' => $applyProgramId,
+                    'student_id' => $studentId,
+                    'pre_model_question_id' => $preModelId,
+                    'pre_submission_qus_id' => $preSubmissionId,
+                    'question' => Str::replace('_', ' ', $key),
+                    'answer' => $value,
+                ]);
+            }
+            DB::commit();
+            return response()->json(['success' => 'Form Submitted Successfully']);
+        } catch (\Throwable $th) {
+            //throw $th;
+            DB::rollBack();
+            return response()->json(['error' => $th->getMessage()]);
+        }
     }
 }

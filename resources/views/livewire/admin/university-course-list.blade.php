@@ -14,7 +14,8 @@
                         <select name="" id="" class="form-select" wire:model="select_university">
                             <option value="">Select University</option>
                             @foreach ($universities as $item)
-                                <option value="{{ $item->user_id }}"> {{ $item->university_name }}
+                                <option value="{{ $item->user_id }}">
+                                    {{ Str::limit($item->university_name, $limit = 38, '...') }}
                                 </option>
                             @endforeach
                         </select>
@@ -69,7 +70,7 @@
                                 <th> # </th>
                                 <th> Program Name </th>
                                 <th> University </th>
-                                <th> Deadline </th>
+                                <th> Application Fees </th>
                                 <th> Created_at </th>
                                 <th> Action </th>
                             </tr>
@@ -91,7 +92,7 @@
                                     <td data-title="University">
                                         {{ \Str::limit($course->getUniversity[0]->university_name, '35', '...') }}
                                     </td>
-                                    <td data-title="Deadline"> {{ date('M d, Y', strtotime($course->deadline)) }}
+                                    <td data-title="Deadline"> {{ $course->application_fee == 0 ? 'Free' : get_currency($course->university->country).$course->application_fee }}
                                     </td>
                                     <td data-title="Created_at"> {{ date('M d, Y', strtotime($course->created_at)) }}
                                     </td>

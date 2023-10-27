@@ -339,120 +339,185 @@
                                         </div>
 
                                         <div class="col-md-12 mb-3 columnBox2">
-                                            <label class="labels">Application Form</label>
-                                        </div>
-                                        <div class="col-md-12 mb-3 columnBox2">
-                                            <label class="labels">Student Instruction</label>
-                                            <textarea class="form-control" name="student_instruction" rows="3">{{ $program->student_instruction ?? '' }}</textarea>
-                                        </div>
-                                        <div class="col-md-12 mb-3 columnBox2">
-                                            <label class="labels">Attachment</label>
-                                            <input type="file" class="form-control" name="student_attachment[]"
-                                                multiple>
+                                            <label class="labels">Pre-Payment</label>
                                         </div>
 
-                                        @foreach ($program->getMedia('program-student-attachment') ?? [] as $image)
-                                            <div class="col-md-9 mb-3 columnBox2">
-                                                {{ $image->getUrl() }}<br>
+                                        <div class="col-md-12 mb-3 columnBox2">
+
+                                            @forelse ($program->pre_payment as $pre_payment)
+                                                <div class="row">
+                                                    @if ($loop->first)
+                                                    @else
+                                                        <hr>
+                                                    @endif
+
+                                                    <div class="col-md-8">
+                                                        <label class="labels">Label</label>
+                                                        <input type="text" class="form-control" name="payment_label[]"
+                                                            value="{{ $pre_payment->label }}" required>
+                                                    </div>
+
+                                                    <div class="col-md-4">
+                                                        <label class="labels">File</label>
+                                                        <input type="checkbox" class="payment_file"
+                                                            {{ $pre_payment->file == 'file' ? 'checked' : '' }}
+                                                            value="{{ $pre_payment->file }}" name="payment_file_check[]">
+                                                        <input type="hidden" class="payment_file_check"
+                                                            value="{{ $pre_payment->file }}" name="payment_file[]">
+                                                    </div>
+                                                    <div class="col-md-10">
+                                                        <label class="labels">Descriptions</label>
+                                                        <input type="input" class="form-control"
+                                                            value="{{ $pre_payment->description }}"
+                                                            name="payment_description[]" required>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <label class="labels"></label>
+                                                        @if ($loop->first)
+                                                            <button type="button"
+                                                                class="btn btn-gradient-primary me-2 pre-payment">Add</button>
+                                                        @else
+                                                            <button type="button"
+                                                                class="btn btn-danger me-2 reomvePrePaymentMoreField">Remove</button>
+                                                        @endif
+                                                    </div>
+                                                </div>
+                                            @empty
+                                                <div class="row">
+                                                    <div class="col-md-8">
+                                                        <label class="labels">Label</label>
+                                                        <input type="text" class="form-control" name="payment_label[]"
+                                                            required>
+                                                    </div>
+
+                                                    <div class="col-md-4">
+                                                        <label class="labels">File</label>
+                                                        <input type="checkbox" class="payment_file"
+                                                            name="payment_file_check[]">
+                                                        <input type="hidden" class="payment_file_check" value="No"
+                                                            name="payment_file[]">
+                                                    </div>
+                                                    <div class="col-md-10">
+                                                        <label class="labels">Descriptions</label>
+                                                        <input type="input" class="form-control"
+                                                            name="payment_description[]" required>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <label class="labels"></label>
+                                                        <button type="button"
+                                                            class="btn btn-primary me-2 pre-payment">Add</button>
+                                                    </div>
+                                                </div>
+                                            @endforelse
+                                            <div id="prePaymentAddMoreField">
                                             </div>
-                                        @endforeach
+                                        </div>
+
+                                        <div class="col-md-12 mb-3 columnBox2 ">
+                                            <label class="labels">Pre-Submission</label>
+                                        </div>
 
                                         <div class="col-md-12 mb-3 columnBox2">
-                                            <label class="labels">Copy of Passport</label>
-                                        </div>
-                                        <div class="col-md-12 mb-3 columnBox2">
-                                            <label class="labels">Student Instruction</label>
-                                            <textarea class="form-control" name="copy_passport" rows="3">{{ $program->copy_passport ?? '' }}</textarea>
-                                        </div>
-                                        <div class="col-md-12 mb-3 columnBox2">
-                                            <label class="labels">Attachment</label>
-                                            <input type="file" class="form-control" name="copy_passport_attachment[]"
-                                                multiple>
-                                        </div>
-                                        @foreach ($program->getMedia('program-passport-attachment') ?? [] as $image)
-                                            <div class="col-md-9 mb-3 columnBox2">
-                                                {{ $image->getUrl() }}<br>
+
+                                            @forelse ($program->pre_submission as $pre_submission)
+                                                <div class="row">
+                                                    @if ($loop->first)
+                                                    @else
+                                                        <hr>
+                                                    @endif
+                                                    <div class="col-md-6">
+                                                        <label class="labels">Label </label>
+                                                        <input type="text" class="form-control"
+                                                            name="submission_label[]"
+                                                            value="{{ $pre_submission->label }}" required>
+                                                    </div>
+
+                                                    <div class="col-md-4">
+                                                        <label class="labels">Model Form </label>
+                                                        <select name="submission_model[]" class="form-control">
+                                                            <option value="">Select...</option>
+                                                            @foreach ($preSubmissionModels as $preModel)
+                                                                <option value="{{ $preModel->id }}">
+                                                                    {{ $preModel->title }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+
+                                                    <div class="col-md-2">
+                                                        <label class="labels">File </label>
+                                                        <input type="checkbox" class="submission_file" value="file"
+                                                            {{ $pre_submission->file == 'file' ? 'checked' : '' }}
+                                                            name="submission_file_check[]">
+                                                        <input type="hidden" class="submission_file_check"
+                                                            name="submission_file[]" value="{{ $pre_submission->file }}">
+                                                    </div>
+
+                                                    <div class="col-md-10">
+                                                        <label class="labels">Descriptions </label>
+                                                        <input type="input" class="form-control"
+                                                            value="{{ $pre_submission->description }}"
+                                                            name="submission_description[]" required>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <label class="labels"> </label>
+                                                        @if ($loop->first)
+                                                            <button type="button"
+                                                                class="btn btn-primary me-2 pre-submission">Add</button>
+                                                        @else
+                                                            <button type="button"
+                                                                class="btn btn-danger me-2 reomvePreSubmissionMoreField">Remove</button>
+                                                        @endif
+
+                                                    </div>
+                                                </div>
+                                            @empty
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <label class="labels">Label </label>
+                                                        <input type="text" class="form-control"
+                                                            name="submission_label[]" required>
+                                                    </div>
+
+                                                    <div class="col-md-4">
+                                                        <label class="labels">Model Form </label>
+                                                        <select name="submission_model[]" class="form-control">
+                                                            <option value="">Select...</option>
+                                                            @foreach (range(1, 5) as $range)
+                                                                <option value="{{ $range }}">
+                                                                    Model Form {{ $range }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+
+                                                    <div class="col-md-2">
+                                                        <label class="labels">File </label>
+                                                        <input type="checkbox" class="submission_file" value="file"
+                                                            name="submission_file_check[]">
+                                                        <input type="hidden" class="submission_file_check"
+                                                            name="submission_file[]" value="No">
+                                                    </div>
+
+                                                    <div class="col-md-10">
+                                                        <label class="labels">Descriptions </label>
+                                                        <input type="input" class="form-control"
+                                                            name="submission_description[]" required>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <label class="labels"> </label>
+                                                        <button type="button"
+                                                            class="btn btn-primary me-2 pre-submission">Add</button>
+                                                    </div>
+                                                </div>
+                                            @endforelse
+
+                                            <div id="preSubmissionAddMoreField">
                                             </div>
-                                        @endforeach
-
-                                        <div class="col-md-12 mb-3 columnBox2">
-                                            <label class="labels">Custodianship Declaration</label>
                                         </div>
-                                        <div class="col-md-12 mb-3 columnBox2">
-                                            <label class="labels">Student Instruction</label>
-                                            <textarea class="form-control" name="custodianship_declaration" rows="3">{{ $program->custodianship_declaration ?? '' }}</textarea>
-                                        </div>
-                                        <div class="col-md-12 mb-3 columnBox2">
-                                            <label class="labels">Attachment</label>
-                                            <input type="file" class="form-control"
-                                                name="custodianship_declaration_attachment[]" multiple>
-                                        </div>
-                                        @foreach ($program->getMedia('program-custodianship-declaration-attachment') ?? [] as $image)
-                                            <div class="col-md-9 mb-3 columnBox2">
-                                                {{ $image->getUrl() }}<br>
-                                            </div>
-                                        @endforeach
-
-                                        <div class="col-md-12 mb-3 columnBox2">
-                                            <label class="labels">Proof of Immunization</label>
-                                        </div>
-                                        <div class="col-md-12 mb-3 columnBox2">
-                                            <label class="labels">Student Instruction</label>
-                                            <textarea class="form-control" name="proof_immunization" rows="3">{{ $program->proof_immunization ?? '' }}</textarea>
-                                        </div>
-                                        <div class="col-md-12 mb-3 columnBox2">
-                                            <label class="labels">Attachment</label>
-                                            <input type="file" class="form-control"
-                                                name="proof_immunization_attachment[]" multiple>
-                                        </div>
-                                        @foreach ($program->getMedia('program-proof-immunization-attachment') ?? [] as $image)
-                                            <div class="col-md-9 mb-3 columnBox2">
-                                                {{ $image->getUrl() }}<br>
-                                            </div>
-                                        @endforeach
-
-                                        <div class="col-md-12 mb-3 columnBox2">
-                                            <label class="labels">Student Participation Agreement (without
-                                                homestay)</label>
-                                        </div>
-                                        <div class="col-md-12 mb-3 columnBox2">
-                                            <label class="labels">Student Instruction</label>
-                                            <textarea class="form-control" name="participation_agreement" rows="3">{{ $program->participation_agreement ?? '' }}</textarea>
-                                        </div>
-                                        <div class="col-md-12 mb-3 columnBox2">
-                                            <label class="labels">Attachment</label>
-                                            <input type="file" class="form-control"
-                                                name="participation_agreement_attachment[]" multiple>
-                                        </div>
-                                        @foreach ($program->getMedia('program-participation-agreement-attachment') ?? [] as $image)
-                                            <div class="col-md-9 mb-3 columnBox2">
-                                                {{ $image->getUrl() }}<br>
-                                            </div>
-                                        @endforeach
-
-
-                                        <div class="col-md-12 mb-3 columnBox2">
-                                            <label class="labels">Student Self-Introduction Form</label>
-                                        </div>
-                                        <div class="col-md-12 mb-3 columnBox2">
-                                            <label class="labels">Student Instruction</label>
-                                            <textarea class="form-control" name="self_introduction" rows="3">{{ $program->self_introduction ?? '' }}</textarea>
-                                        </div>
-                                        <div class="col-md-12 mb-3 columnBox2">
-                                            <label class="labels">Attachment</label>
-                                            <input type="file" class="form-control"
-                                                name="self_introduction_attachment[]" multiple>
-                                        </div>
-                                        @foreach ($program->getMedia('program-self-introduction-attachment') ?? [] as $image)
-                                            <div class="col-md-9 mb-3 columnBox2">
-                                                {{ $image->getUrl() }}<br>
-                                            </div>
-                                        @endforeach
 
                                     </div>
                                     <div class="mt-3 text-end">
                                         <button class="btn btn-primary profile-button" type="submit">
-                                             Update 
+                                            Update
                                         </button>
                                     </div>
                                 </form>
@@ -642,6 +707,104 @@
                     this.selectionEnd = position;
                 }
             });
+
+            $(".pre-payment").on('click', function() {
+                var html = `
+                            <div class="row">
+                                    <hr>
+                                    <div class="col-md-8">
+                                    <label class="labels">Label </label>
+                                    <input type="text" class="form-control" name="payment_label[]">
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label class="labels">File </label>
+                                    <input type="checkbox" class="payment_file" value="file" name="payment_file_check[]">
+                                        <input type="hidden" class="payment_file_check" value="No"
+                                            name="payment_file[]">
+                                </div>
+                                <div class="col-md-10">
+                                    <label class="labels">Descriptions </label>
+                                    <input type="input" class="form-control" name="payment_description[]">
+                                </div>
+                                    <div class="col-md-2">
+                                <label class="labels"> </label>
+                                <button type="button" id="reomveEnglishTestMoreField"
+                                    class="btn btn-danger me-2 reomvePrePaymentMoreField">Remove</button>
+                            </div>
+                        </div>
+                        `;
+                $("#prePaymentAddMoreField").append(html);
+
+            });
+
+            $(document).on('change', '.payment_file', function() {
+                if ($(this).is(":checked")) {
+                    $(this).closest('.row').find('.payment_file_check').val('file')
+                } else {
+                    $(this).closest('.row').find('.payment_file_check').val('No')
+                }
+            });
+
+            $(document).on('click', '.reomvePrePaymentMoreField', function() {
+                $(this).closest('.row').remove();
+            });
+
+            $(".pre-submission").on('click', function() {
+                var html = `
+                                <div class="row">
+                                    <hr>
+                                    <div class="col-md-6">
+                                        <label class="labels">Label </label>
+                                        <input type="text" class="form-control" name="submission_label[]">
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <label class="labels">Model Form </label>
+                                        <select name="submission_model[]" class="form-control">
+                                            <option value="">Select...</option>
+                                            @foreach ($preSubmissionModels as $preModel)
+                                                <option value="{{ $preModel->id }}">
+                                                    {{ $preModel->title }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <label class="labels">File </label>
+                                        <input type="checkbox" class="submission_file" value="file"
+                                            name="submission_file_check[]">
+                                        <input type="hidden" class="submission_file_check" name="submission_file[]"
+                                            value="No">
+                                    </div>
+
+                                    <div class="col-md-10">
+                                        <label class="labels">Descriptions </label>
+                                        <input type="input" class="form-control" name="submission_description[]">
+                                    </div>
+                                     <div class="col-md-2">
+                                        <label class="labels"> </label>
+                                        <button type="button" id="reomveEnglishTestMoreField"
+                                            class="btn btn-danger me-2 reomvePreSubmissionMoreField">Remove</button>
+                                    </div>
+                            </div>
+                            `;
+                $("#preSubmissionAddMoreField").append(html);
+
+            });
+
+            $(document).on('change', '.submission_file', function() {
+                if ($(this).is(":checked")) {
+                    $(this).closest('.row').find('.submission_file_check').val('file')
+                } else {
+                    $(this).closest('.row').find('.submission_file_check').val('No')
+                }
+            });
+
+            $(document).on('click', '.reomvePreSubmissionMoreField', function() {
+                $(this).closest('.row').remove();
+            });
+
         });
     </script>
 @endpush

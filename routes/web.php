@@ -196,6 +196,9 @@ Route::middleware([
     Route::post('/application/program-backup', [ApplyProgramController::class, 'applicationProgramBackup'])->name('application.program.backup');
 
     Route::post('/application/program-backup-store', [ApplyProgramController::class, 'applicationProgramBackupStore'])->name('application.program.backup.store');
+    Route::post('/student-pre-submission', [ApplyProgramController::class, 'studentPreSubmission'])->name('student.pre.submission');
+    Route::post('/student-pre-model-form-generate', [ApplyProgramController::class, 'studentPreModelFormGenerate'])->name('student.pre.model.form.generate');
+    Route::post('/student-pre-form-submit', [ApplyProgramController::class, 'studentPreSubmitForm'])->name('student.pre.model.form.submit');
 
     // agent and staff for route
     Route::post('/student-program-eligibility', [StudentDetailController::class, 'studentProgramEligibility'])->name('student.program.check-eligibility');
@@ -216,6 +219,7 @@ Route::middleware([
     Route::get('/change-password', [ChangePasswordController::class, 'showChangePasswordForm'])->name('change.password');
     Route::post('/change-password', [ChangePasswordController::class, 'changePassword']);
     Route::post('/update-profile-image', [ChangePasswordController::class, 'updateProfileImage'])->name('update.profile.image');
+
 
 
     // student routes
@@ -511,6 +515,11 @@ Route::group(
         Route::get('/manage-courses', [AdminController::class, 'manageCourses'])->name('manage.courses');
         Route::get('/manage-chapter', [AdminController::class, 'manageChapter'])->name('manage.chapter');
         Route::get('/manage-lesson', [AdminController::class, 'manageLesson'])->name('manage.lesson');
+
+        // Manage Pre Submission
+        Route::get('/manage-pre-submission-model', [AdminController::class, 'managePreSubmissionModel'])->name('manage.pre.submission.model');
+        Route::get('/manage-pre-submission-model-question', [AdminController::class, 'managePreSubmissionModelQuestion'])->name('manage.pre.submission.model.question');
+
         // Blog
         Route::controller(BlogController::class)
             ->prefix('blog')

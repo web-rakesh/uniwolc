@@ -53,9 +53,10 @@
                                     <td data-title="#" class="py-1">
                                         {{ $loop->iteration }}
                                     </td>
-                                    <td data-title="Agent Name"> {{ $transaction->agent->name ?? '' }} </td>
+                                    <td data-title="Agent Name"> {{ $transaction->agent->company_name ?? '' }} </td>
                                     <td data-title="Student Name"> {{ $transaction->student->FullName ?? '' }} </td>
-                                    <td data-title="Program Title"> {{ $transaction->program->program_title ?? '' }}
+                                    <td data-title="Program Title">
+                                        {{ @$transaction->program->program_title ? Str::limit($transaction->program->program_title, 25) : '' }}
                                     </td>
                                     <td data-title="Amount">
                                         {{ get_currency($transaction->country_id) . number_format($transaction->amount, 2) ?? '' }}

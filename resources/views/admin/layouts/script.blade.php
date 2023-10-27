@@ -14,5 +14,8 @@
      setTimeout(function() {
          $('.alert').fadeOut('slow');
      }, 4000);
+     $(function() {
+         $('[data-toggle="tooltip"]').tooltip()
+     })
  </script>
  <!-- endinject -->

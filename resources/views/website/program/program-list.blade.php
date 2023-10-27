@@ -39,8 +39,8 @@
             <div class="col-lg-3 p-0">
                 <div class="sub-course-btn-left">
                     @auth
-                        <a class="sub-start-btn-applica agent-student-apply-eligibility"
-                          data-program="{{ $program->id }}"  href="javascript:;">Start
+                        <a href="{{ route('program.detail', ['id' => $program->id, 'slug' => $program->slug]) }}" class="sub-start-btn-applica agent-student-apply-eligibility"
+                          data-program="{{ $program->id }}" >Start
                             Application</a>
                         {{-- <a class="sub-start-btn-applica agent-student-apply-eligibility"
                             href="{{ route('student.program.apply', $program->id) }}">Start

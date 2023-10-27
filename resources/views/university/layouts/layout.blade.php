@@ -25,7 +25,10 @@
         </div>
     </div>
     <!-- Application Process End -->
-
+    {{-- <div class="loader">
+        <div class="loader-icon"></div>
+    </div> --}}
+    <div id="loader" class="lds-dual-ring hidden overlay"></div>
 
     @include('university.layouts.script')
 

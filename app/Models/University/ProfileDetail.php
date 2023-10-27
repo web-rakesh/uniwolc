@@ -71,4 +71,9 @@ class ProfileDetail extends Model implements HasMedia
     {
         return $this->belongsTo(\App\Models\City::class, 'city', 'id');
     }
+
+    public function amenities()
+    {
+        return $this->hasMany(\App\Models\Amenity::class, 'university_id', 'user_id');
+    }
 }

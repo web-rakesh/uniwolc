@@ -24,7 +24,8 @@ class AgentGeneralDetail extends Model implements HasMedia
         'company_address',
         'company_state',
         'company_city',
-        'company_postcode'
+        'company_postcode',
+        'wallet'
 
 
     ];

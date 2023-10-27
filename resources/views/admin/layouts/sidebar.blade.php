@@ -268,7 +268,7 @@
                                   Privacy Policy
                               </a>
                           </li>
-                          {{-- <li class="nav-item"> <a class="nav-link" href="javascript:;"> Change Password </a></li> --}}
+
 
                       </ul>
                   </div>
@@ -326,6 +326,31 @@
               </div>
           </li>
 
+
+          <li
+              class="nav-item {{ Request::is('admin/manage-pre-submission-model') || Request::is('admin/manage-pre-submission-model-question') ? 'active' : '' }}">
+              <a class="nav-link" data-bs-toggle="collapse" href="#manage-pre-submission" aria-expanded="false"
+                  aria-controls="general-pages">
+                  <span class="menu-title"> Manage Pre Model</span>
+                  <i class="menu-arrow"></i>
+                  <i class="mdi mdi-chart-line-stacked menu-icon"></i>
+              </a>
+              <div class="collapse {{ Request::is('admin/manage-pre-submission-model') || Request::is('admin/manage-pre-submission-model-question') ? 'show' : '' }}"
+                  id="manage-pre-submission">
+                  <ul class="nav flex-column sub-menu">
+                      <li class="nav-item">
+                          <a class="nav-link {{ Request::is('admin/manage-pre-submission-model') ? 'active' : '' }}" href="{{ route('admin.manage.pre.submission.model') }}"> Pre
+                              Submission Model </a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link {{ Request::is('admin/manage-pre-submission-model-question') ? 'active' : '' }}" href="{{ route('admin.manage.pre.submission.model.question') }}"> Pre
+                             Model Question </a>
+                      </li>
+
+                  </ul>
+              </div>
+          </li>
+
           @if (auth()->guard('admin')->user()->is_admin == 1)
               <li class="nav-item {{ Request::is('admin/manage-sub-admin/*') ? 'active' : '' }}">
                   <a class="nav-link" href="{{ route('admin.manage-sub-admin.index') }}">
@@ -347,6 +372,13 @@
               class="nav-item {{ Request::is('admin/testimonial') || Request::is('admin/testimonial/*') ? 'active' : '' }}">
               <a class="nav-link" href="{{ route('admin.testimonial.index') }}">
                   <span class="menu-title">Testimonial</span>
+                  <i class="mdi mdi-alpha-t-box menu-icon"></i>
+              </a>
+          </li>
+          <li
+              class="nav-item {{ Request::is('admin/testimonial') || Request::is('admin/testimonial/*') ? 'active' : '' }}">
+              <a class="nav-link" href="{{ route('admin.letter.request') }}">
+                  <span class="menu-title">Letter Request</span>
                   <i class="mdi mdi-alpha-t-box menu-icon"></i>
               </a>
           </li>

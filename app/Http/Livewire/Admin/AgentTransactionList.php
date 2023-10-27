@@ -10,6 +10,7 @@ use App\Models\AgentCommission;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\AgentProgramTransaction;
+use App\Models\Agent\AgentGeneralDetail;
 use App\Exports\AgentCommissionTransaction;
 
 class AgentTransactionList extends Component
@@ -69,7 +70,7 @@ class AgentTransactionList extends Component
             AgentCommission::find($id)->update([
                 'payment_status' => 1
             ]);
-            AgentProfile::whereUserId($agent->agent_id)->increment('wallet', $amount);
+            AgentGeneralDetail::whereAgentId($agent->agent_id)->increment('wallet', $amount);
             DB::commit();
             session()->flash('message', 'Agent Commission Released Successfully.');
         } catch (\Throwable $th) {

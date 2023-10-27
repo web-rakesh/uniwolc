@@ -23,6 +23,9 @@
   <script src="{{ asset('/') }}assets/js/main.js"></script>
   <!-- Header Menu -->
   <script>
+      $(window).on('load', function() {
+          $('.loader').fadeOut();
+      });
       $(document).ready(function() {
           // executes when HTML-Document is loaded and DOM is ready
 

@@ -16,7 +16,7 @@
                         <select class="form-select" wire:model="universityId" id="">
                             <option value="">Select University</option>
                             @foreach ($universities as $item)
-                                <option value="{{ $item->id }}">{{ $item->university_name }}</option>
+                                <option value="{{ $item->id }}">{{ Str::limit($item->university_name, 30) }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -88,7 +88,9 @@
                                     <td data-title="#" class="py-1">
                                         {{ $loop->iteration }}
                                     </td>
-                                    <td data-title="Program Title"> {{ $program->program_title }} </td>
+                                    <td data-toggle="tooltip" title="{{ $program->program_title }}"
+                                        data-title="Program Title">
+                                        {{ Str::limit($program->program_title, $limit = 25, '...') }} </td>
                                     <td data-title="Fees">
                                         {{ $program->fees == '0' ? 'Free' : '$' . number_format($program->fees, 2) }}
                                     </td>

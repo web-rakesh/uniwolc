@@ -10,7 +10,9 @@ class Amenity extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name',
+        'university_id',
+        'label_name',
+        'label_value',
         'description',
         'icon',
         'status',

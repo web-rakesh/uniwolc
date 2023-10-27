@@ -1,4 +1,19 @@
 @extends("$layout.layouts.layout")
+@push('css')
+    <style>
+        .pri_submission_file_input,
+        .pri_payment_file_input,
+        .pri_submission_file_input_privacy {
+            position: absolute;
+            top: 0;
+            left: 0;
+            /* width: 100%;
+                                                                                                                                                                                                                                                                                                                                                                height: 100%; */
+            opacity: 0;
+            cursor: pointer;
+        }
+    </style>
+@endpush
 @section('content')
     <section class="">
         <div class="dashboardCard">
@@ -619,6 +634,7 @@
                                                 <p class="mb-0">Last requirement completed on
                                                     {{ date('M d, Y', strtotime($applyProgram->created_at)) }}
                                                 </p>
+
                                             </div>
                                             <div class="rightSide">
                                                 <ul class="rightSideList">
@@ -626,14 +642,14 @@
                                                         <a href="#" class="missingBtn">
                                                             <span class="icon"><i
                                                                     class="fa-sharp fa-solid fa-triangle"></i></span>
-                                                            <span class="txt">0</span>
+                                                            <span class="txt" id="pre_payment_due">0</span>
                                                         </a>
                                                     </li>
                                                     <li>
                                                         <a href="#" class="reviewingBtn">
                                                             <span class="icon"><i
                                                                     class="fa-solid fa-hourglass"></i></span>
-                                                            <span class="txt" id="total-document">8</span>
+                                                            <span class="txt" id="total-document">0</span>
                                                         </a>
                                                     </li>
                                                     <li>
@@ -647,7 +663,7 @@
                                                         <a href="#" class="completedBtn">
                                                             <span class="icon"><i
                                                                     class="fa-regular fa-check"></i></span>
-                                                            <span class="txt" id="upload-document">4</span>
+                                                            <span class="txt" id="pre_payment_complete">4</span>
                                                         </a>
                                                     </li>
                                                 </ul>
@@ -655,1139 +671,83 @@
                                             </div>
                                         </div>
                                         <div class="appDtlsAccordianBody">
-                                            <div class="appListItemArea">
-
-                                                <div class="appListItem">
-                                                    <div class="reqiredBox">
-                                                        <div class="reqiredBoxinner">
-                                                            <span class="txt">Required</span>
+                                            <div class="appListItemArea" id="pre_payment">
+                                                @foreach (@$applyProgram->getProgram->pre_payment ?? [] as $pre_payment)
+                                                    <div class="appListItem">
+                                                        <div class="reqiredBox">
+                                                            <div class="reqiredBoxinner">
+                                                                <span class="txt">Required</span>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="appInfiDtlsArea">
-                                                        <div class="appInfiDtlsAreainner">
-                                                            <div class="appInfiDtls">
-                                                                <div class="logoThumnail">
-                                                                    <div class="missingBox text-center">
-                                                                        <i class="fa-regular fa-triangle-exclamation"></i>
-                                                                        <p class="mb-0">Mossing</p>
+                                                        <div class="appInfiDtlsArea">
+                                                            <div class="appInfiDtlsAreainner">
+                                                                <div class="appInfiDtls">
+                                                                    <div class="logoThumnail">
+                                                                        @if ($pre_payment->file != null)
+                                                                            @if (pre_payment_check($pre_payment->id, $applyProgram->id) == false)
+                                                                                <div class="missingBox text-center">
+                                                                                    <i
+                                                                                        class="fa-regular fa-triangle-exclamation"></i>
+                                                                                    <p class="mb-0">Missing</p>
+                                                                                </div>
+                                                                            @else
+                                                                                <div
+                                                                                    class="missingBox text-success text-center">
+                                                                                    <div><span aria-hidden="true"
+                                                                                            class="fa fa-check fa-lg"></span>
+                                                                                    </div>
+                                                                                    <div class="mb-0">Completed</div>
+                                                                                </div>
+                                                                            @endif
+                                                                        @else
+                                                                            <div
+                                                                                class="missingBox text-success text-center">
+                                                                                <div><span aria-hidden="true"
+                                                                                        class="fa fa-check fa-lg"></span>
+                                                                                </div>
+                                                                                <div class="mb-0">Completed</div>
+                                                                            </div>
+                                                                        @endif
                                                                     </div>
-                                                                </div>
-                                                                <div class="appInfiDtlsContent">
-                                                                    <div class="wrapped-content">
-                                                                        <h4 class="title mb-2">
-                                                                            Country Specific GPA
-                                                                            India <a href="copyLink"><i
-                                                                                    class="fa-regular fa-link-simple"></i></a>
-                                                                        </h4>
-                                                                        <div class="wrappedContentinner">
-                                                                            <div class="req-desc">
-                                                                                <div class="moretext">
-                                                                                    <p>Please be
-                                                                                        advised that
-                                                                                        the
-                                                                                        applicant is
-                                                                                        required to
-                                                                                        supply the
-                                                                                        contact
-                                                                                        details of
-                                                                                        two academic
-                                                                                        referees (or
-                                                                                        one academic
-                                                                                        reference
-                                                                                        if
-                                                                                        applicable
-                                                                                        to the
-                                                                                        course/program
-                                                                                        applied
-                                                                                        for).
-                                                                                        Employment
-                                                                                        references
-                                                                                        may be
-                                                                                        acceptable
-                                                                                        for specific
-                                                                                        courses
-                                                                                        which
-                                                                                        require
-                                                                                        them.
-                                                                                        Please note
-                                                                                        that the
-                                                                                        contact
-                                                                                        email
-                                                                                        address of
-                                                                                        the referee
-                                                                                        must be an
-                                                                                        official
-                                                                                        email
-                                                                                        address and
-                                                                                        not a
-                                                                                        personal one
-                                                                                        (for
-                                                                                        example,
-                                                                                        gmail).</p>
-                                                                                    <p><br></p>
-                                                                                    <p>Please make
-                                                                                        sure the
-                                                                                        referee(s)
-                                                                                        is informed
-                                                                                        to expect an
-                                                                                        email from
-                                                                                        the
-                                                                                        University
-                                                                                        of
-                                                                                        Birmingham,
-                                                                                        requesting
-                                                                                        them to
-                                                                                        write a
-                                                                                        reference.
-                                                                                        We recommend
-                                                                                        that the
-                                                                                        referee
-                                                                                        sends back
-                                                                                        the
-                                                                                        reference in
-                                                                                        a PDF format
-                                                                                        as it is
-                                                                                        preferred
-                                                                                        that:</p>
-                                                                                    <ul>
-                                                                                        <li>The
-                                                                                            reference
-                                                                                            is on
-                                                                                            official
-                                                                                            headed
-                                                                                            paper
-                                                                                            with the
-                                                                                            organization
-                                                                                            or
-                                                                                            institution’s
-                                                                                            logo and
-                                                                                            address
-                                                                                        </li>
-                                                                                        <li>It
-                                                                                            includes
-                                                                                            the
-                                                                                            date,
-                                                                                            the
-                                                                                            applicant's
-                                                                                            details
-                                                                                            and the
-                                                                                            details
-                                                                                            of the
-                                                                                            referee
-                                                                                        </li>
-                                                                                        <li>A
-                                                                                            summary
-                                                                                            of how
-                                                                                            the
-                                                                                            referee
-                                                                                            knows
-                                                                                            the
-                                                                                            applicant
-                                                                                            and
-                                                                                            confirm
-                                                                                            the
-                                                                                            applicant's
-                                                                                            suitability
-                                                                                            for
-                                                                                            studying
-                                                                                            on the
-                                                                                            course
-                                                                                            applied
-                                                                                            for</li>
-                                                                                        <li>It
-                                                                                            should
-                                                                                            be
-                                                                                            signed
-                                                                                            by the
-                                                                                            referee
-                                                                                            with
-                                                                                            their
-                                                                                            official
-                                                                                            contact
-                                                                                            details.
-                                                                                        </li>
-                                                                                    </ul>
-                                                                                    <p>If the
-                                                                                        referee(s)
-                                                                                        send back
-                                                                                        references
-                                                                                        that are not
-                                                                                        on the
-                                                                                        official
-                                                                                        headed
-                                                                                        paper, the
-                                                                                        applicant
-                                                                                        may be asked
-                                                                                        to send in
-                                                                                        additional
-                                                                                        references.
-                                                                                    </p>
-                                                                                    <p>If the
-                                                                                        applicant
-                                                                                        already have
-                                                                                        a written
-                                                                                        reference(s)
-                                                                                        and wants to
-                                                                                        upload it on
-                                                                                        behalf of
-                                                                                        the
-                                                                                        referee(s),
-                                                                                        make sure
-                                                                                        the
-                                                                                        reference
-                                                                                        is a scanned
-                                                                                        copy of the
-                                                                                        original and
-                                                                                        that it is
-                                                                                        on official
-                                                                                        headed
-                                                                                        paper.</p>
+                                                                    <div class="appInfiDtlsContent">
+                                                                        <div class="wrapped-content">
+                                                                            <h4 class="title mb-2">
+                                                                                {{ $pre_payment->label }} <a
+                                                                                    href="javascript:;"><i
+                                                                                        class="fa-regular fa-link-simple"></i></a>
+                                                                            </h4>
+                                                                            <div class="wrappedContentinner">
+                                                                                <div class="req-desc">
+                                                                                    <div class="moretext">
+                                                                                        {{ $pre_payment->description }}
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="readMoreLessArea">
+                                                                                    <span class="readmore-link"></span>
                                                                                 </div>
                                                                             </div>
-                                                                            <div class="readMoreLessArea">
-                                                                                <span class="readmore-link"></span>
-                                                                            </div>
                                                                         </div>
-                                                                    </div>
 
-                                                                </div>
-                                                                <div class="editBtnArea">
-                                                                    <a href="#" class="editBtn" data-toggle="modal"
-                                                                        data-target="#myModal"><i
-                                                                            class="fa-regular fa-pen-to-square"></i></a>
+                                                                    </div>
+                                                                    @if ($pre_payment->file != null)
+                                                                        <div class="uploadBtnArea">
+                                                                            <input type="file" id="file-input-payment"
+                                                                                accept="application/pdf"
+                                                                                class="file-input pri_payment_file_input">
+                                                                            <a href="javascript:;"
+                                                                                data-pre_submission="{{ $pre_payment->id }}"
+                                                                                data-mode="payment"
+                                                                                class="uploadBtn pri-payment-file-upload"><i
+                                                                                    class="fa-regular fa-upload"></i></a>
+                                                                        </div>
+                                                                    @endif
+
                                                                 </div>
                                                             </div>
                                                         </div>
+
                                                     </div>
-
-                                                    <!-- The Modal -->
-                                                    <div class="modal appModal" id="myModal">
-                                                        <div class="modal-dialog appModalDiolog">
-                                                            <div class="modal-content appModalContent">
-
-                                                                <!-- Modal Header -->
-                                                                <div class="modal-header appModalHeader">
-                                                                    <h4 class="modal-title">
-                                                                        Immigration History
-                                                                        Questions</h4>
-                                                                    <button type="button" class="close"
-                                                                        data-dismiss="modal"><i
-                                                                            class="fa-regular fa-xmark"></i></button>
-                                                                </div>
-                                                                <form>
-                                                                    <!-- Modal body -->
-                                                                    <div class="modal-body appModalBody">
-                                                                        <div class="form-group">
-                                                                            <label class="labelName">1.
-                                                                                Has the applicant
-                                                                                ever studied in the
-                                                                                UK before? <sup
-                                                                                    style="color:#ff0000;">*</sup></label>
-                                                                            <select class="form-control">
-                                                                                <option>Select...
-                                                                                </option>
-                                                                                <option>Yes</option>
-                                                                                <option>No</option>
-                                                                            </select>
-                                                                        </div>
-                                                                        <div class="form-group">
-                                                                            <label class="labelName">2.
-                                                                                Has the applicant
-                                                                                ever lived in the UK
-                                                                                before? <sup
-                                                                                    style="color:#ff0000;">*</sup></label>
-                                                                            <select class="form-control">
-                                                                                <option>Select...
-                                                                                </option>
-                                                                                <option>Yes</option>
-                                                                                <option>No</option>
-                                                                            </select>
-                                                                        </div>
-                                                                        <div class="form-group">
-                                                                            <label class="labelName">3.
-                                                                                Please list ANY
-                                                                                previous visa the
-                                                                                applicant has been
-                                                                                granted (be sure to
-                                                                                include the relevant
-                                                                                country and type of
-                                                                                visa). <sup
-                                                                                    style="color:#ff0000;">*</sup></label>
-                                                                            <span class="mb-2"
-                                                                                style="color: rgb(194, 194, 194);">Maximum
-                                                                                4000
-                                                                                characters</span>
-                                                                            <textarea class="form-control" placeholder="" style="height:100px;"></textarea>
-                                                                        </div>
-                                                                        <div class="form-group">
-                                                                            <label class="labelName">4.
-                                                                                If the applicant has
-                                                                                been refused a visa,
-                                                                                please provide
-                                                                                details of which
-                                                                                country, date of
-                                                                                refusal, and refusal
-                                                                                reason. <sup
-                                                                                    style="color:#ff0000;">*</sup></label>
-                                                                            <span class="mb-2"
-                                                                                style="color: rgb(194, 194, 194);">Maximum
-                                                                                4000
-                                                                                characters</span>
-                                                                            <textarea class="form-control" placeholder="" style="height:100px;"></textarea>
-                                                                        </div>
-                                                                        <div class="form-group">
-                                                                            <label class="labelName">5.
-                                                                                Has the applicant
-                                                                                ever been refused a
-                                                                                visa from ANY
-                                                                                country? <sup
-                                                                                    style="color:#ff0000;">*</sup></label>
-                                                                            <select class="form-control">
-                                                                                <option>Select...
-                                                                                </option>
-                                                                                <option>Yes (Please
-                                                                                    specify in the
-                                                                                    next question)
-                                                                                </option>
-                                                                                <option>No (Write
-                                                                                    N/A in the next
-                                                                                    question)
-                                                                                </option>
-                                                                            </select>
-                                                                        </div>
-                                                                        <div class="form-group">
-                                                                            <label class="labelName">6.
-                                                                                Does the applicant
-                                                                                have caring
-                                                                                responsibilities?
-                                                                                <sup style="color:#ff0000;">*</sup></label>
-                                                                            <select class="form-control">
-                                                                                <option>Select...
-                                                                                </option>
-                                                                                <option>Other young
-                                                                                    people/children
-                                                                                </option>
-                                                                                <option>Other
-                                                                                    relatives/friends/neighbour
-                                                                                </option>
-                                                                            </select>
-                                                                        </div>
-                                                                        <div class="form-group">
-                                                                            <label class="labelName">7.
-                                                                                Where does the
-                                                                                applicant intend to
-                                                                                apply for the visa
-                                                                                to study in the UK?
-                                                                                <sup style="color:#ff0000;">*</sup></label>
-                                                                            <span class="mb-2"
-                                                                                style="color: rgb(194, 194, 194);">Maximum
-                                                                                500
-                                                                                characters</span>
-                                                                            <input type="text" class="form-control"
-                                                                                placeholder=""></textarea>
-                                                                        </div>
-
-
-                                                                    </div>
-                                                                    <div class="modal-footer appModalFooter">
-                                                                        <button type="button"
-                                                                            class="btn btn-primary disabled">Submit</button>
-                                                                    </div>
-                                                                </form>
-
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-
-
-                                                </div>
-
-                                                <div class="appListItem">
-                                                    <div class="reqiredBox">
-                                                        <div class="reqiredBoxinner">
-                                                            <span class="txt">Required</span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="appInfiDtlsArea">
-                                                        <div class="appInfiDtlsAreainner">
-                                                            <div class="appInfiDtls">
-                                                                <div class="logoThumnail">
-                                                                    <div class="missingBox text-center">
-                                                                        <i class="fa-regular fa-triangle-exclamation"></i>
-                                                                        <p class="mb-0">Mossing</p>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="appInfiDtlsContent">
-                                                                    <div class="wrapped-content">
-                                                                        <h4 class="title mb-2">
-                                                                            Country Specific GPA
-                                                                            India <a href="copyLink"><i
-                                                                                    class="fa-regular fa-link-simple"></i></a>
-                                                                        </h4>
-                                                                        <div class="wrappedContentinner">
-                                                                            <div class="req-desc">
-                                                                                <div class="moretext">
-                                                                                    <p>Please be
-                                                                                        advised that
-                                                                                        the
-                                                                                        applicant is
-                                                                                        required to
-                                                                                        supply the
-                                                                                        contact
-                                                                                        details of
-                                                                                        two academic
-                                                                                        referees (or
-                                                                                        one academic
-                                                                                        reference
-                                                                                        if
-                                                                                        applicable
-                                                                                        to the
-                                                                                        course/program
-                                                                                        applied
-                                                                                        for).
-                                                                                        Employment
-                                                                                        references
-                                                                                        may be
-                                                                                        acceptable
-                                                                                        for specific
-                                                                                        courses
-                                                                                        which
-                                                                                        require
-                                                                                        them.
-                                                                                        Please note
-                                                                                        that the
-                                                                                        contact
-                                                                                        email
-                                                                                        address of
-                                                                                        the referee
-                                                                                        must be an
-                                                                                        official
-                                                                                        email
-                                                                                        address and
-                                                                                        not a
-                                                                                        personal one
-                                                                                        (for
-                                                                                        example,
-                                                                                        gmail).</p>
-                                                                                    <p><br></p>
-                                                                                    <p>Please make
-                                                                                        sure the
-                                                                                        referee(s)
-                                                                                        is informed
-                                                                                        to expect an
-                                                                                        email from
-                                                                                        the
-                                                                                        University
-                                                                                        of
-                                                                                        Birmingham,
-                                                                                        requesting
-                                                                                        them to
-                                                                                        write a
-                                                                                        reference.
-                                                                                        We recommend
-                                                                                        that the
-                                                                                        referee
-                                                                                        sends back
-                                                                                        the
-                                                                                        reference in
-                                                                                        a PDF format
-                                                                                        as it is
-                                                                                        preferred
-                                                                                        that:</p>
-                                                                                    <ul>
-                                                                                        <li>The
-                                                                                            reference
-                                                                                            is on
-                                                                                            official
-                                                                                            headed
-                                                                                            paper
-                                                                                            with the
-                                                                                            organization
-                                                                                            or
-                                                                                            institution’s
-                                                                                            logo and
-                                                                                            address
-                                                                                        </li>
-                                                                                        <li>It
-                                                                                            includes
-                                                                                            the
-                                                                                            date,
-                                                                                            the
-                                                                                            applicant's
-                                                                                            details
-                                                                                            and the
-                                                                                            details
-                                                                                            of the
-                                                                                            referee
-                                                                                        </li>
-                                                                                        <li>A
-                                                                                            summary
-                                                                                            of how
-                                                                                            the
-                                                                                            referee
-                                                                                            knows
-                                                                                            the
-                                                                                            applicant
-                                                                                            and
-                                                                                            confirm
-                                                                                            the
-                                                                                            applicant's
-                                                                                            suitability
-                                                                                            for
-                                                                                            studying
-                                                                                            on the
-                                                                                            course
-                                                                                            applied
-                                                                                            for</li>
-                                                                                        <li>It
-                                                                                            should
-                                                                                            be
-                                                                                            signed
-                                                                                            by the
-                                                                                            referee
-                                                                                            with
-                                                                                            their
-                                                                                            official
-                                                                                            contact
-                                                                                            details.
-                                                                                        </li>
-                                                                                    </ul>
-                                                                                    <p>If the
-                                                                                        referee(s)
-                                                                                        send back
-                                                                                        references
-                                                                                        that are not
-                                                                                        on the
-                                                                                        official
-                                                                                        headed
-                                                                                        paper, the
-                                                                                        applicant
-                                                                                        may be asked
-                                                                                        to send in
-                                                                                        additional
-                                                                                        references.
-                                                                                    </p>
-                                                                                    <p>If the
-                                                                                        applicant
-                                                                                        already have
-                                                                                        a written
-                                                                                        reference(s)
-                                                                                        and wants to
-                                                                                        upload it on
-                                                                                        behalf of
-                                                                                        the
-                                                                                        referee(s),
-                                                                                        make sure
-                                                                                        the
-                                                                                        reference
-                                                                                        is a scanned
-                                                                                        copy of the
-                                                                                        original and
-                                                                                        that it is
-                                                                                        on official
-                                                                                        headed
-                                                                                        paper.</p>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="readMoreLessArea">
-                                                                                <span class="readmore-link"></span>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-
-                                                                </div>
-                                                                <div class="editBtnArea">
-                                                                    <a href="#" class="editBtn" data-toggle="modal"
-                                                                        data-target="#myModal2"><i
-                                                                            class="fa-regular fa-pen-to-square"></i></a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-
-                                                    <!-- The Modal -->
-                                                    <div class="modal appModal" id="myModal2">
-                                                        <div class="modal-dialog appModalDiolog">
-                                                            <div class="modal-content appModalContent">
-
-                                                                <!-- Modal Header -->
-                                                                <div class="modal-header appModalHeader">
-                                                                    <h4 class="modal-title">List of
-                                                                        References Questions</h4>
-                                                                    <button type="button" class="close"
-                                                                        data-dismiss="modal"><i
-                                                                            class="fa-regular fa-xmark"></i></button>
-                                                                </div>
-                                                                <form>
-                                                                    <!-- Modal body -->
-                                                                    <div class="modal-body appModalBody">
-                                                                        <div class="form-group">
-                                                                            <label class="labelName">1.
-                                                                                Referee 1's First
-                                                                                Name <sup
-                                                                                    style="color:#ff0000;">*</sup></label>
-                                                                            <span class="mb-2"
-                                                                                style="color: rgb(194, 194, 194);">Maximum
-                                                                                500
-                                                                                characters</span>
-                                                                            <input type="text" class="form-control"
-                                                                                placeholder=""></textarea>
-                                                                        </div>
-                                                                        <div class="form-group">
-                                                                            <label class="labelName">2.
-                                                                                Referee 1's Last
-                                                                                Name <sup
-                                                                                    style="color:#ff0000;">*</sup></label>
-                                                                            <span class="mb-2"
-                                                                                style="color: rgb(194, 194, 194);">Maximum
-                                                                                500
-                                                                                characters</span>
-                                                                            <input type="text" class="form-control"
-                                                                                placeholder=""></textarea>
-                                                                        </div>
-                                                                        <div class="form-group">
-                                                                            <label class="labelName">3.
-                                                                                Referee 1's
-                                                                                Occupation <sup
-                                                                                    style="color:#ff0000;">*</sup></label>
-                                                                            <span class="mb-2"
-                                                                                style="color: rgb(194, 194, 194);">Maximum
-                                                                                500
-                                                                                characters</span>
-                                                                            <input type="text" class="form-control"
-                                                                                placeholder=""></textarea>
-                                                                        </div>
-                                                                        <div class="form-group">
-                                                                            <label class="labelName">4.
-                                                                                Referee 1's Email
-                                                                                Address <sup
-                                                                                    style="color:#ff0000;">*</sup></label>
-                                                                            <span class="mb-2"
-                                                                                style="color: rgb(194, 194, 194);">Maximum
-                                                                                500
-                                                                                characters</span>
-                                                                            <input type="text" class="form-control"
-                                                                                placeholder=""></textarea>
-                                                                        </div>
-                                                                        <div class="form-group">
-                                                                            <label class="labelName">5.
-                                                                                Referee 1's Country
-                                                                                <sup style="color:#ff0000;">*</sup></label>
-                                                                            <span class="mb-2"
-                                                                                style="color: rgb(194, 194, 194);">Maximum
-                                                                                500
-                                                                                characters</span>
-                                                                            <input type="text" class="form-control"
-                                                                                placeholder=""></textarea>
-                                                                        </div>
-                                                                        <div class="form-group">
-                                                                            <label class="labelName">6.
-                                                                                Referee 1`s
-                                                                                Company/Institution
-                                                                                Name: <sup
-                                                                                    style="color:#ff0000;">*</sup></label>
-                                                                            <span class="mb-2"
-                                                                                style="color: rgb(194, 194, 194);">Maximum
-                                                                                500
-                                                                                characters</span>
-                                                                            <input type="text" class="form-control"
-                                                                                placeholder=""></textarea>
-                                                                        </div>
-                                                                        <div class="form-group">
-                                                                            <label class="labelName">7.
-                                                                                Referee 2's First
-                                                                                Name <sup
-                                                                                    style="color:#ff0000;">*</sup></label>
-                                                                            <span class="mb-2"
-                                                                                style="color: rgb(194, 194, 194);">Maximum
-                                                                                500
-                                                                                characters</span>
-                                                                            <input type="text" class="form-control"
-                                                                                placeholder=""></textarea>
-                                                                        </div>
-                                                                        <div class="form-group">
-                                                                            <label class="labelName">8.
-                                                                                Referee 2's Last
-                                                                                Name <sup
-                                                                                    style="color:#ff0000;">*</sup></label>
-                                                                            <span class="mb-2"
-                                                                                style="color: rgb(194, 194, 194);">Maximum
-                                                                                500
-                                                                                characters</span>
-                                                                            <input type="text" class="form-control"
-                                                                                placeholder=""></textarea>
-                                                                        </div>
-                                                                        <div class="form-group">
-                                                                            <label class="labelName">9.
-                                                                                Referee 2's
-                                                                                Occupation <sup
-                                                                                    style="color:#ff0000;">*</sup></label>
-                                                                            <span class="mb-2"
-                                                                                style="color: rgb(194, 194, 194);">Maximum
-                                                                                500
-                                                                                characters</span>
-                                                                            <input type="text" class="form-control"
-                                                                                placeholder=""></textarea>
-                                                                        </div>
-                                                                        <div class="form-group">
-                                                                            <label class="labelName">10.
-                                                                                Referee 2's Email
-                                                                                Address <sup
-                                                                                    style="color:#ff0000;">*</sup></label>
-                                                                            <span class="mb-2"
-                                                                                style="color: rgb(194, 194, 194);">Maximum
-                                                                                500
-                                                                                characters</span>
-                                                                            <input type="text" class="form-control"
-                                                                                placeholder=""></textarea>
-                                                                        </div>
-                                                                        <div class="form-group">
-                                                                            <label class="labelName">11.
-                                                                                Referee 2's Country
-                                                                                <sup style="color:#ff0000;">*</sup></label>
-                                                                            <span class="mb-2"
-                                                                                style="color: rgb(194, 194, 194);">Maximum
-                                                                                500
-                                                                                characters</span>
-                                                                            <input type="text" class="form-control"
-                                                                                placeholder=""></textarea>
-                                                                        </div>
-                                                                        <div class="form-group">
-                                                                            <label class="labelName">12.
-                                                                                Referee 2`s
-                                                                                Company/Institution
-                                                                                Name: <sup
-                                                                                    style="color:#ff0000;">*</sup></label>
-                                                                            <span class="mb-2"
-                                                                                style="color: rgb(194, 194, 194);">Maximum
-                                                                                500
-                                                                                characters</span>
-                                                                            <input type="text" class="form-control"
-                                                                                placeholder=""></textarea>
-                                                                        </div>
-
-                                                                    </div>
-                                                                    <div class="modal-footer appModalFooter">
-                                                                        <button type="button"
-                                                                            class="btn btn-primary disabled">Submit</button>
-                                                                    </div>
-                                                                </form>
-
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-
-
-                                                </div>
-
-                                                <div class="appListItem">
-                                                    <div class="reqiredBox">
-                                                        <div class="reqiredBoxinner">
-                                                            <span class="txt">Required</span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="appInfiDtlsArea">
-                                                        <div class="appInfiDtlsAreainner">
-                                                            <div class="appInfiDtls">
-                                                                <div class="logoThumnail">
-                                                                    <div class="missingBox text-center">
-                                                                        <i class="fa-regular fa-triangle-exclamation"></i>
-                                                                        <p class="mb-0">Mossing</p>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="appInfiDtlsContent">
-                                                                    <div class="wrapped-content">
-                                                                        <h4 class="title mb-2">
-                                                                            Country Specific GPA
-                                                                            India <a href="copyLink"><i
-                                                                                    class="fa-regular fa-link-simple"></i></a>
-                                                                        </h4>
-                                                                        <div class="wrappedContentinner">
-                                                                            <div class="req-desc">
-                                                                                <div class="moretext">
-                                                                                    <p>Please be
-                                                                                        advised that
-                                                                                        the
-                                                                                        applicant is
-                                                                                        required to
-                                                                                        supply the
-                                                                                        contact
-                                                                                        details of
-                                                                                        two academic
-                                                                                        referees (or
-                                                                                        one academic
-                                                                                        reference
-                                                                                        if
-                                                                                        applicable
-                                                                                        to the
-                                                                                        course/program
-                                                                                        applied
-                                                                                        for).
-                                                                                        Employment
-                                                                                        references
-                                                                                        may be
-                                                                                        acceptable
-                                                                                        for specific
-                                                                                        courses
-                                                                                        which
-                                                                                        require
-                                                                                        them.
-                                                                                        Please note
-                                                                                        that the
-                                                                                        contact
-                                                                                        email
-                                                                                        address of
-                                                                                        the referee
-                                                                                        must be an
-                                                                                        official
-                                                                                        email
-                                                                                        address and
-                                                                                        not a
-                                                                                        personal one
-                                                                                        (for
-                                                                                        example,
-                                                                                        gmail).</p>
-                                                                                    <p><br></p>
-                                                                                    <p>Please make
-                                                                                        sure the
-                                                                                        referee(s)
-                                                                                        is informed
-                                                                                        to expect an
-                                                                                        email from
-                                                                                        the
-                                                                                        University
-                                                                                        of
-                                                                                        Birmingham,
-                                                                                        requesting
-                                                                                        them to
-                                                                                        write a
-                                                                                        reference.
-                                                                                        We recommend
-                                                                                        that the
-                                                                                        referee
-                                                                                        sends back
-                                                                                        the
-                                                                                        reference in
-                                                                                        a PDF format
-                                                                                        as it is
-                                                                                        preferred
-                                                                                        that:</p>
-                                                                                    <ul>
-                                                                                        <li>The
-                                                                                            reference
-                                                                                            is on
-                                                                                            official
-                                                                                            headed
-                                                                                            paper
-                                                                                            with the
-                                                                                            organization
-                                                                                            or
-                                                                                            institution’s
-                                                                                            logo and
-                                                                                            address
-                                                                                        </li>
-                                                                                        <li>It
-                                                                                            includes
-                                                                                            the
-                                                                                            date,
-                                                                                            the
-                                                                                            applicant's
-                                                                                            details
-                                                                                            and the
-                                                                                            details
-                                                                                            of the
-                                                                                            referee
-                                                                                        </li>
-                                                                                        <li>A
-                                                                                            summary
-                                                                                            of how
-                                                                                            the
-                                                                                            referee
-                                                                                            knows
-                                                                                            the
-                                                                                            applicant
-                                                                                            and
-                                                                                            confirm
-                                                                                            the
-                                                                                            applicant's
-                                                                                            suitability
-                                                                                            for
-                                                                                            studying
-                                                                                            on the
-                                                                                            course
-                                                                                            applied
-                                                                                            for</li>
-                                                                                        <li>It
-                                                                                            should
-                                                                                            be
-                                                                                            signed
-                                                                                            by the
-                                                                                            referee
-                                                                                            with
-                                                                                            their
-                                                                                            official
-                                                                                            contact
-                                                                                            details.
-                                                                                        </li>
-                                                                                    </ul>
-                                                                                    <p>If the
-                                                                                        referee(s)
-                                                                                        send back
-                                                                                        references
-                                                                                        that are not
-                                                                                        on the
-                                                                                        official
-                                                                                        headed
-                                                                                        paper, the
-                                                                                        applicant
-                                                                                        may be asked
-                                                                                        to send in
-                                                                                        additional
-                                                                                        references.
-                                                                                    </p>
-                                                                                    <p>If the
-                                                                                        applicant
-                                                                                        already have
-                                                                                        a written
-                                                                                        reference(s)
-                                                                                        and wants to
-                                                                                        upload it on
-                                                                                        behalf of
-                                                                                        the
-                                                                                        referee(s),
-                                                                                        make sure
-                                                                                        the
-                                                                                        reference
-                                                                                        is a scanned
-                                                                                        copy of the
-                                                                                        original and
-                                                                                        that it is
-                                                                                        on official
-                                                                                        headed
-                                                                                        paper.</p>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="readMoreLessArea">
-                                                                                <span class="readmore-link"></span>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-
-                                                                </div>
-                                                                <div class="editBtnArea">
-                                                                    <a href="#" class="editBtn"><i
-                                                                            class="fa-regular fa-pen-to-square"></i></a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="appListItem">
-                                                    <div class="reqiredBox">
-                                                        <div class="reqiredBoxinner">
-                                                            <span class="txt">Required</span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="appInfiDtlsArea">
-                                                        <div class="appInfiDtlsAreainner">
-                                                            <div class="appInfiDtls">
-                                                                <div class="logoThumnail">
-                                                                    <div class="missingBox text-center">
-                                                                        <i class="fa-regular fa-triangle-exclamation"></i>
-                                                                        <p class="mb-0">Mossing</p>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="appInfiDtlsContent">
-                                                                    <div class="wrapped-content">
-                                                                        <h4 class="title mb-2">
-                                                                            Country Specific GPA
-                                                                            India <a href="copyLink"><i
-                                                                                    class="fa-regular fa-link-simple"></i></a>
-                                                                        </h4>
-                                                                        <div class="wrappedContentinner">
-                                                                            <div class="req-desc">
-                                                                                <div class="moretext">
-                                                                                    <p>Please be
-                                                                                        advised that
-                                                                                        the
-                                                                                        applicant is
-                                                                                        required to
-                                                                                        supply the
-                                                                                        contact
-                                                                                        details of
-                                                                                        two academic
-                                                                                        referees (or
-                                                                                        one academic
-                                                                                        reference
-                                                                                        if
-                                                                                        applicable
-                                                                                        to the
-                                                                                        course/program
-                                                                                        applied
-                                                                                        for).
-                                                                                        Employment
-                                                                                        references
-                                                                                        may be
-                                                                                        acceptable
-                                                                                        for specific
-                                                                                        courses
-                                                                                        which
-                                                                                        require
-                                                                                        them.
-                                                                                        Please note
-                                                                                        that the
-                                                                                        contact
-                                                                                        email
-                                                                                        address of
-                                                                                        the referee
-                                                                                        must be an
-                                                                                        official
-                                                                                        email
-                                                                                        address and
-                                                                                        not a
-                                                                                        personal one
-                                                                                        (for
-                                                                                        example,
-                                                                                        gmail).</p>
-                                                                                    <p><br></p>
-                                                                                    <p>Please make
-                                                                                        sure the
-                                                                                        referee(s)
-                                                                                        is informed
-                                                                                        to expect an
-                                                                                        email from
-                                                                                        the
-                                                                                        University
-                                                                                        of
-                                                                                        Birmingham,
-                                                                                        requesting
-                                                                                        them to
-                                                                                        write a
-                                                                                        reference.
-                                                                                        We recommend
-                                                                                        that the
-                                                                                        referee
-                                                                                        sends back
-                                                                                        the
-                                                                                        reference in
-                                                                                        a PDF format
-                                                                                        as it is
-                                                                                        preferred
-                                                                                        that:</p>
-                                                                                    <ul>
-                                                                                        <li>The
-                                                                                            reference
-                                                                                            is on
-                                                                                            official
-                                                                                            headed
-                                                                                            paper
-                                                                                            with the
-                                                                                            organization
-                                                                                            or
-                                                                                            institution’s
-                                                                                            logo and
-                                                                                            address
-                                                                                        </li>
-                                                                                        <li>It
-                                                                                            includes
-                                                                                            the
-                                                                                            date,
-                                                                                            the
-                                                                                            applicant's
-                                                                                            details
-                                                                                            and the
-                                                                                            details
-                                                                                            of the
-                                                                                            referee
-                                                                                        </li>
-                                                                                        <li>A
-                                                                                            summary
-                                                                                            of how
-                                                                                            the
-                                                                                            referee
-                                                                                            knows
-                                                                                            the
-                                                                                            applicant
-                                                                                            and
-                                                                                            confirm
-                                                                                            the
-                                                                                            applicant's
-                                                                                            suitability
-                                                                                            for
-                                                                                            studying
-                                                                                            on the
-                                                                                            course
-                                                                                            applied
-                                                                                            for</li>
-                                                                                        <li>It
-                                                                                            should
-                                                                                            be
-                                                                                            signed
-                                                                                            by the
-                                                                                            referee
-                                                                                            with
-                                                                                            their
-                                                                                            official
-                                                                                            contact
-                                                                                            details.
-                                                                                        </li>
-                                                                                    </ul>
-                                                                                    <p>If the
-                                                                                        referee(s)
-                                                                                        send back
-                                                                                        references
-                                                                                        that are not
-                                                                                        on the
-                                                                                        official
-                                                                                        headed
-                                                                                        paper, the
-                                                                                        applicant
-                                                                                        may be asked
-                                                                                        to send in
-                                                                                        additional
-                                                                                        references.
-                                                                                    </p>
-                                                                                    <p>If the
-                                                                                        applicant
-                                                                                        already have
-                                                                                        a written
-                                                                                        reference(s)
-                                                                                        and wants to
-                                                                                        upload it on
-                                                                                        behalf of
-                                                                                        the
-                                                                                        referee(s),
-                                                                                        make sure
-                                                                                        the
-                                                                                        reference
-                                                                                        is a scanned
-                                                                                        copy of the
-                                                                                        original and
-                                                                                        that it is
-                                                                                        on official
-                                                                                        headed
-                                                                                        paper.</p>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="readMoreLessArea">
-                                                                                <span class="readmore-link"></span>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-
-                                                                </div>
-                                                                <div class="editBtnArea">
-                                                                    <a href="#" class="editBtn"><i
-                                                                            class="fa-regular fa-pen-to-square"></i></a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
+                                                @endforeach
 
                                             </div>
                                         </div>
@@ -1798,36 +758,38 @@
                                         <div class="appDtlsAccordianHeader">
                                             <div class="leftSide">
                                                 <h4 class="title">Pre-Submission</h4>
-                                                <p class="mb-0">5 requirements to be completed</p>
+                                                <p class="mb-0">
+                                                    {{ count(@$applyProgram->getProgram->pre_submission) + 1 }}
+                                                    requirements to be completed</p>
                                             </div>
                                             <div class="rightSide">
                                                 <ul class="rightSideList">
                                                     <li>
-                                                        <a href="#" class="missingBtn">
+                                                        <a href="javascript:;" class="missingBtn">
                                                             <span class="icon"><i
                                                                     class="fa-sharp fa-solid fa-triangle"></i></span>
-                                                            <span class="txt">0</span>
+                                                            <span class="txt" id="pre_submission_due">0</span>
                                                         </a>
                                                     </li>
                                                     <li>
-                                                        <a href="#" class="reviewingBtn">
+                                                        <a href="javascript:;" class="reviewingBtn">
                                                             <span class="icon"><i
                                                                     class="fa-solid fa-hourglass"></i></span>
-                                                            <span class="txt">8</span>
+                                                            <span class="txt" id="pre_submission">0</span>
                                                         </a>
                                                     </li>
                                                     <li>
-                                                        <a href="#" class="approveBtn">
+                                                        <a href="javascript:;" class="approveBtn">
                                                             <span class="icon"><i
                                                                     class="fa-regular fa-xmark"></i></span>
-                                                            <span class="txt">0</span>
+                                                            <span class="txt" id="pre_submission">0</span>
                                                         </a>
                                                     </li>
                                                     <li>
-                                                        <a href="#" class="completedBtn">
+                                                        <a href="javascript:;" class="completedBtn">
                                                             <span class="icon"><i
                                                                     class="fa-regular fa-check"></i></span>
-                                                            <span class="txt">4</span>
+                                                            <span class="txt" id="pre_submission_complete">4</span>
                                                         </a>
                                                     </li>
                                                 </ul>
@@ -1835,210 +797,81 @@
                                             </div>
                                         </div>
                                         <div class="appDtlsAccordianBody">
-                                            <div class="appListItemArea">
-
-                                                <div class="appListItem">
-                                                    <div class="reqiredBox">
-                                                        <div class="reqiredBoxinner">
-                                                            <span class="txt">Required</span>
+                                            <div class="appListItemArea" id="pre_submission">
+                                                @foreach (@$applyProgram->getProgram->pre_submission ?? [] as $pre_submission)
+                                                    <div class="appListItem">
+                                                        <div class="reqiredBox">
+                                                            <div class="reqiredBoxinner">
+                                                                <span class="txt">Required</span>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="appInfiDtlsArea">
-                                                        <div class="appInfiDtlsAreainner">
-                                                            <div class="appInfiDtls">
-                                                                <div class="logoThumnail">
-                                                                    <div class="missingBox text-center">
-                                                                        <i class="fa-regular fa-triangle-exclamation"></i>
-                                                                        <p class="mb-0">Mossing</p>
+                                                        <div class="appInfiDtlsArea">
+                                                            <div class="appInfiDtlsAreainner">
+                                                                <div class="appInfiDtls">
+                                                                    <div class="logoThumnail">
+                                                                        @if (pre_submission_check($pre_submission->id, $applyProgram->id) == false)
+                                                                            <div class="missingBox text-center">
+                                                                                <i
+                                                                                    class="fa-regular fa-triangle-exclamation"></i>
+                                                                                <p class="mb-0">Missing</p>
+                                                                            </div>
+                                                                        @else
+                                                                            <div
+                                                                                class="missingBox text-success text-center">
+                                                                                <div><span aria-hidden="true"
+                                                                                        class="fa fa-check fa-lg"></span>
+                                                                                </div>
+                                                                                <div class="mb-0">Completed</div>
+                                                                            </div>
+                                                                        @endif
                                                                     </div>
-                                                                </div>
-                                                                <div class="appInfiDtlsContent">
-                                                                    <div class="wrapped-content">
-                                                                        <h4 class="title mb-2">
-                                                                            Country Specific GPA
-                                                                            India <a href="copyLink"><i
-                                                                                    class="fa-regular fa-link-simple"></i></a>
-                                                                        </h4>
-                                                                        <div class="wrappedContentinner">
-                                                                            <div class="req-desc">
-                                                                                <div class="moretext">
-                                                                                    <p>Please be
-                                                                                        advised that
-                                                                                        the
-                                                                                        applicant is
-                                                                                        required to
-                                                                                        supply the
-                                                                                        contact
-                                                                                        details of
-                                                                                        two academic
-                                                                                        referees (or
-                                                                                        one academic
-                                                                                        reference
-                                                                                        if
-                                                                                        applicable
-                                                                                        to the
-                                                                                        course/program
-                                                                                        applied
-                                                                                        for).
-                                                                                        Employment
-                                                                                        references
-                                                                                        may be
-                                                                                        acceptable
-                                                                                        for specific
-                                                                                        courses
-                                                                                        which
-                                                                                        require
-                                                                                        them.
-                                                                                        Please note
-                                                                                        that the
-                                                                                        contact
-                                                                                        email
-                                                                                        address of
-                                                                                        the referee
-                                                                                        must be an
-                                                                                        official
-                                                                                        email
-                                                                                        address and
-                                                                                        not a
-                                                                                        personal one
-                                                                                        (for
-                                                                                        example,
-                                                                                        gmail).</p>
-                                                                                    <p><br></p>
-                                                                                    <p>Please make
-                                                                                        sure the
-                                                                                        referee(s)
-                                                                                        is informed
-                                                                                        to expect an
-                                                                                        email from
-                                                                                        the
-                                                                                        University
-                                                                                        of
-                                                                                        Birmingham,
-                                                                                        requesting
-                                                                                        them to
-                                                                                        write a
-                                                                                        reference.
-                                                                                        We recommend
-                                                                                        that the
-                                                                                        referee
-                                                                                        sends back
-                                                                                        the
-                                                                                        reference in
-                                                                                        a PDF format
-                                                                                        as it is
-                                                                                        preferred
-                                                                                        that:</p>
-                                                                                    <ul>
-                                                                                        <li>The
-                                                                                            reference
-                                                                                            is on
-                                                                                            official
-                                                                                            headed
-                                                                                            paper
-                                                                                            with the
-                                                                                            organization
-                                                                                            or
-                                                                                            institution’s
-                                                                                            logo and
-                                                                                            address
-                                                                                        </li>
-                                                                                        <li>It
-                                                                                            includes
-                                                                                            the
-                                                                                            date,
-                                                                                            the
-                                                                                            applicant's
-                                                                                            details
-                                                                                            and the
-                                                                                            details
-                                                                                            of the
-                                                                                            referee
-                                                                                        </li>
-                                                                                        <li>A
-                                                                                            summary
-                                                                                            of how
-                                                                                            the
-                                                                                            referee
-                                                                                            knows
-                                                                                            the
-                                                                                            applicant
-                                                                                            and
-                                                                                            confirm
-                                                                                            the
-                                                                                            applicant's
-                                                                                            suitability
-                                                                                            for
-                                                                                            studying
-                                                                                            on the
-                                                                                            course
-                                                                                            applied
-                                                                                            for</li>
-                                                                                        <li>It
-                                                                                            should
-                                                                                            be
-                                                                                            signed
-                                                                                            by the
-                                                                                            referee
-                                                                                            with
-                                                                                            their
-                                                                                            official
-                                                                                            contact
-                                                                                            details.
-                                                                                        </li>
-                                                                                    </ul>
-                                                                                    <p>If the
-                                                                                        referee(s)
-                                                                                        send back
-                                                                                        references
-                                                                                        that are not
-                                                                                        on the
-                                                                                        official
-                                                                                        headed
-                                                                                        paper, the
-                                                                                        applicant
-                                                                                        may be asked
-                                                                                        to send in
-                                                                                        additional
-                                                                                        references.
-                                                                                    </p>
-                                                                                    <p>If the
-                                                                                        applicant
-                                                                                        already have
-                                                                                        a written
-                                                                                        reference(s)
-                                                                                        and wants to
-                                                                                        upload it on
-                                                                                        behalf of
-                                                                                        the
-                                                                                        referee(s),
-                                                                                        make sure
-                                                                                        the
-                                                                                        reference
-                                                                                        is a scanned
-                                                                                        copy of the
-                                                                                        original and
-                                                                                        that it is
-                                                                                        on official
-                                                                                        headed
-                                                                                        paper.</p>
+                                                                    <div class="appInfiDtlsContent">
+                                                                        <div class="wrapped-content">
+                                                                            <h4 class="title mb-2">
+                                                                                {{ $pre_submission->label }} <a
+                                                                                    href="javascript:;"><i
+                                                                                        class="fa-regular fa-link-simple"></i></a>
+                                                                            </h4>
+                                                                            <div class="wrappedContentinner">
+                                                                                <div class="req-desc">
+                                                                                    <div class="moretext">
+                                                                                        {{ $pre_submission->description }}
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="readMoreLessArea">
+                                                                                    <span class="readmore-link"></span>
                                                                                 </div>
                                                                             </div>
-                                                                            <div class="readMoreLessArea">
-                                                                                <span class="readmore-link"></span>
-                                                                            </div>
                                                                         </div>
-                                                                    </div>
 
-                                                                </div>
-                                                                <div class="uploadBtnArea">
-                                                                    <a href="#" class="uploadBtn"><i
-                                                                            class="fa-regular fa-upload"></i></a>
+                                                                    </div>
+                                                                    @if ($pre_submission->file != null)
+                                                                        <div class="uploadBtnArea">
+                                                                            <input type="file" id="file-input"
+                                                                                class="file-input pri_submission_file_input">
+                                                                            <a href="javascript:;"
+                                                                                data-pre_submission="{{ $pre_submission->id }}"
+                                                                                data-mode="submission"
+                                                                                class="uploadBtn pri_submission_file_upload"><i
+                                                                                    class="fa-regular fa-upload"></i></a>
+                                                                        </div>
+                                                                    @else
+                                                                        <div class="editBtnArea">
+                                                                            <a href="javascript:;"
+                                                                                data-pre_submission="{{ $pre_submission->id }}"
+                                                                                data-pre="{{ $pre_submission->program_submission_model_id }}"
+                                                                                class="editBtn model-pre-submission">
+                                                                                <i class="fa-regular fa-pen-to-square"></i>
+                                                                            </a>
+                                                                        </div>
+                                                                    @endif
+
                                                                 </div>
                                                             </div>
                                                         </div>
+
                                                     </div>
-                                                </div>
+                                                @endforeach
 
                                                 <div class="appListItem">
                                                     <div class="reqiredBox">
@@ -2050,415 +883,21 @@
                                                         <div class="appInfiDtlsAreainner">
                                                             <div class="appInfiDtls">
                                                                 <div class="logoThumnail">
-                                                                    <div class="missingBox text-center">
-                                                                        <i class="fa-regular fa-triangle-exclamation"></i>
-                                                                        <p class="mb-0">Mossing</p>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="appInfiDtlsContent">
-                                                                    <div class="wrapped-content">
-                                                                        <h4 class="title mb-2">
-                                                                            Country Specific GPA
-                                                                            India <a href="copyLink"><i
-                                                                                    class="fa-regular fa-link-simple"></i></a>
-                                                                        </h4>
-                                                                        <div class="wrappedContentinner">
-                                                                            <div class="req-desc">
-                                                                                <div class="moretext">
-                                                                                    <p>Please be
-                                                                                        advised that
-                                                                                        the
-                                                                                        applicant is
-                                                                                        required to
-                                                                                        supply the
-                                                                                        contact
-                                                                                        details of
-                                                                                        two academic
-                                                                                        referees (or
-                                                                                        one academic
-                                                                                        reference
-                                                                                        if
-                                                                                        applicable
-                                                                                        to the
-                                                                                        course/program
-                                                                                        applied
-                                                                                        for).
-                                                                                        Employment
-                                                                                        references
-                                                                                        may be
-                                                                                        acceptable
-                                                                                        for specific
-                                                                                        courses
-                                                                                        which
-                                                                                        require
-                                                                                        them.
-                                                                                        Please note
-                                                                                        that the
-                                                                                        contact
-                                                                                        email
-                                                                                        address of
-                                                                                        the referee
-                                                                                        must be an
-                                                                                        official
-                                                                                        email
-                                                                                        address and
-                                                                                        not a
-                                                                                        personal one
-                                                                                        (for
-                                                                                        example,
-                                                                                        gmail).</p>
-                                                                                    <p><br></p>
-                                                                                    <p>Please make
-                                                                                        sure the
-                                                                                        referee(s)
-                                                                                        is informed
-                                                                                        to expect an
-                                                                                        email from
-                                                                                        the
-                                                                                        University
-                                                                                        of
-                                                                                        Birmingham,
-                                                                                        requesting
-                                                                                        them to
-                                                                                        write a
-                                                                                        reference.
-                                                                                        We recommend
-                                                                                        that the
-                                                                                        referee
-                                                                                        sends back
-                                                                                        the
-                                                                                        reference in
-                                                                                        a PDF format
-                                                                                        as it is
-                                                                                        preferred
-                                                                                        that:</p>
-                                                                                    <ul>
-                                                                                        <li>The
-                                                                                            reference
-                                                                                            is on
-                                                                                            official
-                                                                                            headed
-                                                                                            paper
-                                                                                            with the
-                                                                                            organization
-                                                                                            or
-                                                                                            institution’s
-                                                                                            logo and
-                                                                                            address
-                                                                                        </li>
-                                                                                        <li>It
-                                                                                            includes
-                                                                                            the
-                                                                                            date,
-                                                                                            the
-                                                                                            applicant's
-                                                                                            details
-                                                                                            and the
-                                                                                            details
-                                                                                            of the
-                                                                                            referee
-                                                                                        </li>
-                                                                                        <li>A
-                                                                                            summary
-                                                                                            of how
-                                                                                            the
-                                                                                            referee
-                                                                                            knows
-                                                                                            the
-                                                                                            applicant
-                                                                                            and
-                                                                                            confirm
-                                                                                            the
-                                                                                            applicant's
-                                                                                            suitability
-                                                                                            for
-                                                                                            studying
-                                                                                            on the
-                                                                                            course
-                                                                                            applied
-                                                                                            for</li>
-                                                                                        <li>It
-                                                                                            should
-                                                                                            be
-                                                                                            signed
-                                                                                            by the
-                                                                                            referee
-                                                                                            with
-                                                                                            their
-                                                                                            official
-                                                                                            contact
-                                                                                            details.
-                                                                                        </li>
-                                                                                    </ul>
-                                                                                    <p>If the
-                                                                                        referee(s)
-                                                                                        send back
-                                                                                        references
-                                                                                        that are not
-                                                                                        on the
-                                                                                        official
-                                                                                        headed
-                                                                                        paper, the
-                                                                                        applicant
-                                                                                        may be asked
-                                                                                        to send in
-                                                                                        additional
-                                                                                        references.
-                                                                                    </p>
-                                                                                    <p>If the
-                                                                                        applicant
-                                                                                        already have
-                                                                                        a written
-                                                                                        reference(s)
-                                                                                        and wants to
-                                                                                        upload it on
-                                                                                        behalf of
-                                                                                        the
-                                                                                        referee(s),
-                                                                                        make sure
-                                                                                        the
-                                                                                        reference
-                                                                                        is a scanned
-                                                                                        copy of the
-                                                                                        original and
-                                                                                        that it is
-                                                                                        on official
-                                                                                        headed
-                                                                                        paper.</p>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="readMoreLessArea">
-                                                                                <span class="readmore-link"></span>
-                                                                            </div>
+
+                                                                    @if (pre_submission_privacy($applyProgram->id) == false)
+                                                                        <div class="missingBox text-center">
+                                                                            <i
+                                                                                class="fa-regular fa-triangle-exclamation"></i>
+                                                                            <p class="mb-0">Missing</p>
                                                                         </div>
-                                                                    </div>
-
-                                                                </div>
-                                                                <div class="uploadBtnArea">
-                                                                    <a href="#" class="uploadBtn"><i
-                                                                            class="fa-regular fa-upload"></i></a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="appListItem">
-                                                    <div class="reqiredBox">
-                                                        <div class="reqiredBoxinner">
-                                                            <span class="txt">Required</span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="appInfiDtlsArea">
-                                                        <div class="appInfiDtlsAreainner">
-                                                            <div class="appInfiDtls">
-                                                                <div class="logoThumnail">
-                                                                    <div class="missingBox text-center">
-                                                                        <i class="fa-regular fa-triangle-exclamation"></i>
-                                                                        <p class="mb-0">Mossing</p>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="appInfiDtlsContent">
-                                                                    <div class="wrapped-content">
-                                                                        <h4 class="title mb-2">
-                                                                            Country Specific GPA
-                                                                            India <a href="copyLink"><i
-                                                                                    class="fa-regular fa-link-simple"></i></a>
-                                                                        </h4>
-                                                                        <div class="wrappedContentinner">
-                                                                            <div class="req-desc">
-                                                                                <div class="moretext">
-                                                                                    <p>Please be
-                                                                                        advised that
-                                                                                        the
-                                                                                        applicant is
-                                                                                        required to
-                                                                                        supply the
-                                                                                        contact
-                                                                                        details of
-                                                                                        two academic
-                                                                                        referees (or
-                                                                                        one academic
-                                                                                        reference
-                                                                                        if
-                                                                                        applicable
-                                                                                        to the
-                                                                                        course/program
-                                                                                        applied
-                                                                                        for).
-                                                                                        Employment
-                                                                                        references
-                                                                                        may be
-                                                                                        acceptable
-                                                                                        for specific
-                                                                                        courses
-                                                                                        which
-                                                                                        require
-                                                                                        them.
-                                                                                        Please note
-                                                                                        that the
-                                                                                        contact
-                                                                                        email
-                                                                                        address of
-                                                                                        the referee
-                                                                                        must be an
-                                                                                        official
-                                                                                        email
-                                                                                        address and
-                                                                                        not a
-                                                                                        personal one
-                                                                                        (for
-                                                                                        example,
-                                                                                        gmail).</p>
-                                                                                    <p><br></p>
-                                                                                    <p>Please make
-                                                                                        sure the
-                                                                                        referee(s)
-                                                                                        is informed
-                                                                                        to expect an
-                                                                                        email from
-                                                                                        the
-                                                                                        University
-                                                                                        of
-                                                                                        Birmingham,
-                                                                                        requesting
-                                                                                        them to
-                                                                                        write a
-                                                                                        reference.
-                                                                                        We recommend
-                                                                                        that the
-                                                                                        referee
-                                                                                        sends back
-                                                                                        the
-                                                                                        reference in
-                                                                                        a PDF format
-                                                                                        as it is
-                                                                                        preferred
-                                                                                        that:</p>
-                                                                                    <ul>
-                                                                                        <li>The
-                                                                                            reference
-                                                                                            is on
-                                                                                            official
-                                                                                            headed
-                                                                                            paper
-                                                                                            with the
-                                                                                            organization
-                                                                                            or
-                                                                                            institution’s
-                                                                                            logo and
-                                                                                            address
-                                                                                        </li>
-                                                                                        <li>It
-                                                                                            includes
-                                                                                            the
-                                                                                            date,
-                                                                                            the
-                                                                                            applicant's
-                                                                                            details
-                                                                                            and the
-                                                                                            details
-                                                                                            of the
-                                                                                            referee
-                                                                                        </li>
-                                                                                        <li>A
-                                                                                            summary
-                                                                                            of how
-                                                                                            the
-                                                                                            referee
-                                                                                            knows
-                                                                                            the
-                                                                                            applicant
-                                                                                            and
-                                                                                            confirm
-                                                                                            the
-                                                                                            applicant's
-                                                                                            suitability
-                                                                                            for
-                                                                                            studying
-                                                                                            on the
-                                                                                            course
-                                                                                            applied
-                                                                                            for</li>
-                                                                                        <li>It
-                                                                                            should
-                                                                                            be
-                                                                                            signed
-                                                                                            by the
-                                                                                            referee
-                                                                                            with
-                                                                                            their
-                                                                                            official
-                                                                                            contact
-                                                                                            details.
-                                                                                        </li>
-                                                                                    </ul>
-                                                                                    <p>If the
-                                                                                        referee(s)
-                                                                                        send back
-                                                                                        references
-                                                                                        that are not
-                                                                                        on the
-                                                                                        official
-                                                                                        headed
-                                                                                        paper, the
-                                                                                        applicant
-                                                                                        may be asked
-                                                                                        to send in
-                                                                                        additional
-                                                                                        references.
-                                                                                    </p>
-                                                                                    <p>If the
-                                                                                        applicant
-                                                                                        already have
-                                                                                        a written
-                                                                                        reference(s)
-                                                                                        and wants to
-                                                                                        upload it on
-                                                                                        behalf of
-                                                                                        the
-                                                                                        referee(s),
-                                                                                        make sure
-                                                                                        the
-                                                                                        reference
-                                                                                        is a scanned
-                                                                                        copy of the
-                                                                                        original and
-                                                                                        that it is
-                                                                                        on official
-                                                                                        headed
-                                                                                        paper.</p>
-                                                                                </div>
+                                                                    @else
+                                                                        <div class="missingBox text-success text-center">
+                                                                            <div><span aria-hidden="true"
+                                                                                    class="fa fa-check fa-lg"></span>
                                                                             </div>
-                                                                            <div class="readMoreLessArea">
-                                                                                <span class="readmore-link"></span>
-                                                                            </div>
+                                                                            <div class="mb-0">Completed</div>
                                                                         </div>
-                                                                    </div>
-
-                                                                </div>
-                                                                <div class="uploadBtnArea">
-                                                                    <a href="#" class="uploadBtn"><i
-                                                                            class="fa-regular fa-upload"></i></a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="appListItem">
-                                                    <div class="reqiredBox">
-                                                        <div class="reqiredBoxinner">
-                                                            <span class="txt">Required</span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="appInfiDtlsArea">
-                                                        <div class="appInfiDtlsAreainner">
-                                                            <div class="appInfiDtls">
-                                                                <div class="logoThumnail">
-                                                                    <div class="missingBox text-center">
-                                                                        <i class="fa-regular fa-triangle-exclamation"></i>
-                                                                        <p class="mb-0">Mossing</p>
-                                                                    </div>
+                                                                    @endif
                                                                 </div>
                                                                 <div class="appInfiDtlsContent">
                                                                     <div class="wrapped-content">
@@ -2490,8 +929,13 @@
                                                                     </div>
 
                                                                 </div>
+
                                                                 <div class="uploadBtnArea">
-                                                                    <a href="#" class="uploadBtn"><i
+                                                                    <input type="file" id="file-input-privacy"
+                                                                        class="file-input pri_submission_file_input_privacy">
+                                                                    <a href="javascript:;" data-pre_submission=""
+                                                                        data-mode="privacy"
+                                                                        class="uploadBtn pri_submission_file_upload_privacy"><i
                                                                             class="fa-regular fa-upload"></i></a>
                                                                 </div>
                                                             </div>
@@ -2583,6 +1027,35 @@
             </div>
         </div>
 
+        <!-- pre Modal -->
+        <div class="modal appModal" id="preMyModal" style="display: none;" aria-hidden="true">
+            <div class="modal-dialog appModalDiolog">
+                <div class="modal-content appModalContent">
+
+                    <!-- Modal Header -->
+                    <div class="modal-header appModalHeader">
+                        <h4 class="modal-title">
+                            Immigration History
+                            Questions</h4>
+                        <button type="button" class="close" data-dismiss="modal"><i
+                                class="fa-regular fa-xmark"></i></button>
+                    </div>
+                    <form id="pre-model-question-submission">
+                        @csrf
+                        <!-- Modal body -->
+
+                        <div class="modal-body appModalBody" id="pre-generate-form">
+                            <!-- dynamic form -->
+                        </div>
+                        <div class="modal-footer appModalFooter">
+                            <button type="button" id="preModelSubmitButton" class="btn btn-primary">Submit</button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+
 
     </section>
 @endsection
@@ -2596,39 +1069,7 @@
                 }
             });
 
-            let ttlduc = $(".university-document").length;
-            let upldduc = $(".uploaded-document").length;
-            $("#total-document").text(ttlduc - upldduc);
-            // console.log('length', $("#uploaded-document").length);
-            $("#upload-document").text(upldduc);
 
-            // application status update
-
-            if (ttlduc == upldduc) {
-                // alert('all document uploaded');
-                // return
-                $.ajax({
-                    type: 'POST',
-                    url: "{{ route('student.applicant.status.update') }}",
-                    data: {
-                        status: 'completed',
-                        apply_program_id: "{{ $applyProgram->id }}",
-                    },
-                    success: function(response) {
-                        console.log(response);
-                    },
-                    error: function(xhr) {
-                        var message = 'File upload failed';
-
-                        if (xhr.responseJSON && xhr.responseJSON.errors) {
-                            message = xhr.responseJSON.errors.file[0];
-                        }
-
-                        $('#response').text(message).removeClass('text-success').addClass(
-                            'text-danger');
-                    }
-                });
-            }
 
             var documentName = '';
             $('.application-file-upload').on('click', function() {
@@ -2921,6 +1362,277 @@
                 });
             })
 
+            $(".pri_submission_file_upload").click(function() {
+                // alert('click');
+                $(".pri_submission_file_input").click();
+            })
+            $(".pri_submission_file_upload_privacy").click(function() {
+                // alert('click');
+                $(".pri_submission_file_input_privacy").click();
+            })
+            // privacy statement upload
+            $('.pri_submission_file_input_privacy').change(function() {
+                let ffile = $(this).closest('.file-input');
+                var fileInput = $(this);
+                var dataMode = fileInput.siblings('.uploadBtn').data('mode');
+                var dataPreSub = fileInput.siblings('.uploadBtn').data('pre_submission');
+
+                var file = $(ffile)[0].files[0];
+                var formData = new FormData();
+                formData.append('pre_file', file);
+                formData.append('program_id', "{{ $applyProgram->getProgram->id }}");
+                formData.append('apply_program_id', "{{ $applyProgram->id }}");
+                formData.append('pre_submission', dataPreSub);
+                formData.append('mode', dataMode);
+
+                var row = $(this).closest('.appInfiDtls');
+                var appInfiDtlsElement = $(row).find('.logoThumnail');
+                appInfiDtlsElement.addClass('highlightedrb');
+                // console.log(formData);
+                // return
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ route('student.pre.submission') }}",
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(response) {
+                        // console.log(response);
+                        $(".highlightedrb").html(
+                            '<div class="missingBox text-success text-center"><div><span aria-hidden="true" class="fa fa-check fa-lg"></span></div><div class="mb-0">Completed</div></div>'
+                        );
+                        $(".highlightedrb").removeClass('highlightedrb');
+                        preSubmissionComplete()
+                        prePaymentSubmmissionComplete()
+                        toastr.success(response.success);
+                    },
+                    error: function(error) {
+                        $.each(error.responseJSON.errors, function(key, value) {
+                            toastr.error(value);
+                        });
+                    }
+                });
+            })
+
+
+            // pre submission upload
+            $('.pri_submission_file_input').change(function() {
+                let ffile = $(this).closest('.file-input');
+                var fileInput = $(this);
+                var dataMode = fileInput.siblings('.uploadBtn').data('mode');
+                var dataPreSub = fileInput.siblings('.uploadBtn').data('pre_submission');
+
+                var file = $(ffile)[0].files[0];
+                var formData = new FormData();
+                formData.append('pre_file', file);
+                formData.append('program_id', "{{ $applyProgram->getProgram->id }}");
+                formData.append('apply_program_id', "{{ $applyProgram->id }}");
+                formData.append('pre_submission', dataPreSub);
+                formData.append('mode', dataMode);
+
+                var row = $(this).closest('.appInfiDtls');
+                var appInfiDtlsElement = $(row).find('.logoThumnail');
+                appInfiDtlsElement.addClass('highlightedrb');
+                // console.log(formData);
+                // return
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ route('student.pre.submission') }}",
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(response) {
+                        // console.log(response);
+                        $(".highlightedrb").html(
+                            '<div class="missingBox text-success text-center"><div><span aria-hidden="true" class="fa fa-check fa-lg"></span></div><div class="mb-0">Completed</div></div>'
+                        );
+                        $(".highlightedrb").removeClass('highlightedrb');
+                        prePaymentSubmmissionComplete()
+                        toastr.success(response.success);
+                    },
+                    error: function(error) {
+                        $.each(error.responseJSON.errors, function(key, value) {
+                            toastr.error(value);
+                        });
+                    }
+                });
+            })
+
+            // pre payment file upload
+            $(".pri-payment-file-upload").click(function() {
+
+                $(".pri_payment_file_input").click();
+            })
+
+            $('.pri_payment_file_input').change(function() {
+                let ffile = $(this).closest('.file-input');
+                var fileInput = $(this);
+                var dataMode = fileInput.siblings('.uploadBtn').data('mode');
+                var dataPreSub = fileInput.siblings('.uploadBtn').data('pre_submission');
+
+                var file = $(ffile)[0].files[0];
+                var formData = new FormData();
+                formData.append('pre_file', file);
+                formData.append('program_id', "{{ $applyProgram->getProgram->id }}");
+                formData.append('apply_program_id', "{{ $applyProgram->id }}");
+                formData.append('pre_submission', dataPreSub);
+                formData.append('mode', dataMode);
+
+                var row = $(this).closest('.appInfiDtls');
+                var appInfiDtlsElement = $(row).find('.logoThumnail');
+                appInfiDtlsElement.addClass('highlightedrb');
+                // console.log(formData);
+                // return
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ route('student.pre.submission') }}",
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(response) {
+                        // console.log(response);
+                        $(".highlightedrb").html(
+                            '<div class="missingBox text-success text-center"><div><span aria-hidden="true" class="fa fa-check fa-lg"></span></div><div class="mb-0">Completed</div></div>'
+                        );
+                        $(".highlightedrb").removeClass('highlightedrb');
+                        prePaymentComplete();
+                        prePaymentSubmmissionComplete()
+                        toastr.success(response.success);
+                    },
+                    error: function(error) {
+                        $.each(error.responseJSON.errors, function(key, value) {
+                            toastr.error(value);
+                        });
+                    }
+                });
+            })
+
+
+        })
+
+        $(document).on('click', '.model-pre-submission', function() {
+
+            var row = $(this).closest('.appInfiDtls');
+            var appInfiDtlsElement = $(row).find('.logoThumnail');
+            appInfiDtlsElement.addClass('highlightedrb');
+
+            $.ajax({
+                type: 'POST',
+                url: "{{ route('student.pre.model.form.generate') }}",
+                data: {
+                    program_id: "{{ $applyProgram->getProgram->id }}",
+                    apply_program_id: "{{ $applyProgram->id }}",
+                    pre_model_id: $(this).data('pre'),
+                    pre_submission_id: $(this).data('pre_submission'),
+                },
+                success: function(response) {
+                    // console.log(response);
+                    preSubmissionComplete()
+                    $("#pre-generate-form").html(response);
+                    $('#preMyModal').modal('show');
+                },
+                error: function(error) {
+                    $.each(error.responseJSON.errors, function(key, value) {
+                        toastr.error(value);
+                    });
+                }
+            });
+
+        })
+
+        // Assuming you have a button with an id "preModelSubmitButton"
+        document.getElementById('preModelSubmitButton').addEventListener('click', function() {
+            var form_data = $('#pre-model-question-submission').serialize();
+            // console.log(form_data);
+
+            $.ajax({
+                type: 'POST',
+                url: "{{ route('student.pre.model.form.submit') }}",
+                data: form_data,
+                dataType: 'json',
+                success: function(response) {
+                    // Handle success response
+                    $('#pre-model-question-submission')[0].reset();
+                    $(".highlightedrb").html(
+                        '<div class="missingBox text-success text-center"><div><span aria-hidden="true" class="fa fa-check fa-lg"></span></div><div class="mb-0">Completed</div></div>'
+                    );
+                    $('#preMyModal').modal('hide');
+                    $(".highlightedrb").removeClass('highlightedrb');
+                    toastr.success(response.success);
+                },
+                error: function(error) {
+                    // Handle error response
+                    // console.log(error.responseJSON.errors);
+
+                    $.each(error.responseJSON.errors, function(key, value) {
+                        toastr.error(value);
+                    });
+                }
+            });
         });
+
+
+
+
+        preSubmissionComplete()
+
+        function preSubmissionComplete() {
+            var preSubmissionCompleteCount = $('#pre_submission  .text-success').length;
+            var preSubmissionTotalCount = $('#pre_submission .appListItem').length;
+            console.log(preSubmissionCompleteCount, preSubmissionTotalCount);
+            $("#pre_submission_due").text(preSubmissionTotalCount - preSubmissionCompleteCount);
+            $("#pre_submission_complete").text(preSubmissionCompleteCount);
+        }
+        prePaymentComplete()
+
+        function prePaymentComplete() {
+            var prePaymentCompleteCount = $('#pre_payment  .text-success').length;
+            var prePaymentTotalCount = $('#pre_payment .appListItem').length;
+            console.log(prePaymentCompleteCount, prePaymentTotalCount);
+            $("#pre_payment_due").text(prePaymentTotalCount - prePaymentCompleteCount);
+            $("#pre_payment_complete").text(prePaymentCompleteCount);
+        }
+
+        function prePaymentSubmmissionComplete() {
+            let ttlduc = $("#pre_payment_due").text();
+            let upldduc = $("#pre_submission_due").text();
+            alert(ttlduc + ' ' + upldduc)
+
+            // application status update
+
+            if (ttlduc == upldduc) {
+      
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ route('student.applicant.status.update') }}",
+                    data: {
+                        status: 'completed',
+                        apply_program_id: "{{ $applyProgram->id }}",
+                    },
+                    success: function(response) {
+                        console.log(response);
+                    },
+                    error: function(xhr) {
+                        var message = 'File upload failed';
+
+                        if (xhr.responseJSON && xhr.responseJSON.errors) {
+                            message = xhr.responseJSON.errors.file[0];
+                        }
+
+                        $('#response').text(message).removeClass('text-success').addClass(
+                            'text-danger');
+                    }
+                });
+            }
+        }
     </script>
 @endpush

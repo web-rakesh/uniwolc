@@ -108,30 +108,18 @@
 
                                             </div>
                                         </div>
-                                        {{-- <div
-                                            class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 columnBox2 singleProgramsAmenitiesItem">
-                                            <div class="singleProgramsAmenitiesIteminner">
-                                                <div class="title"><i class="fa-regular fa-bed-front"></i> <span
-                                                        class="txt"></span>Property size:</div>
-                                                <div class="content">6,847 sqft / 636 sqm</div>
+
+                                        @foreach ($schoolDetails->amenities as $key => $amenity)
+                                            <div
+                                                class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 columnBox2 singleProgramsAmenitiesItem">
+                                                <div class="singleProgramsAmenitiesIteminner">
+                                                    <div class="title">{!! $amenity->icon !!} <span
+                                                            class="txt"></span>{{ $amenity->label_name }}:</div>
+                                                    <div class="content">{{ $amenity->label_value }}</div>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div
-                                            class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 columnBox2 singleProgramsAmenitiesItem">
-                                            <div class="singleProgramsAmenitiesIteminner">
-                                                <div class="title"><i class="fa-regular fa-bed-front"></i> <span
-                                                        class="txt"></span>Bedrooms:</div>
-                                                <div class="content">4 + Maid</div>
-                                            </div>
-                                        </div>
-                                        <div
-                                            class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 columnBox2 singleProgramsAmenitiesItem">
-                                            <div class="singleProgramsAmenitiesIteminner">
-                                                <div class="title"><i class="fa-regular fa-bed-front"></i> <span
-                                                        class="txt"></span>Bathrooms:</div>
-                                                <div class="content">5</div>
-                                            </div>
-                                        </div> --}}
+                                        @endforeach
+
                                     </div>
                                 </div>
                             </div>
@@ -149,9 +137,9 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div> --}}
+                            </div>
 
-                            <hr class="borderHr">
+                            <hr class="borderHr"> --}}
 
                             {{-- <div class="singleProgramsDtlsItem">
                                 <div class="programLocationAgentArea">
@@ -260,6 +248,27 @@
                                 </div>
                             </div>
 
+                            <hr class="borderHr">
+                            <div class="singleProgramsDtlsItem">
+                                <h4 class="d-flex align-items-center hdTitle"><span class="icon"><i
+                                            class="fa-regular fa-building-columns"></i></span> <span class="txt">
+                                        Average Time to Receive Letter of Acceptance</span></h4>
+                                <div class="singleProgramsDtlsContentArea">
+
+                                    <p> {!! @$schoolDetails->letter_of_acceptance !!}</p>
+                                </div>
+                            </div>
+                            <hr class="borderHr">
+                            <div class="singleProgramsDtlsItem">
+                                <h4 class="d-flex align-items-center hdTitle"><span class="icon"><i
+                                            class="fa-regular fa-building-columns"></i></span> <span class="txt">
+                                        Top Disciplines</span></h4>
+                                <div class="singleProgramsDtlsContentArea">
+
+                                    <p> {!! @$schoolDetails->disciplines !!}</p>
+                                </div>
+                            </div>
+
 
 
                         </div>
@@ -305,7 +314,7 @@
                                         </div>
                                         <div class="sidebarContent">
                                             <div class="sidebarTitle">{{ get_currency($schoolDetails->country) }}
-                                                {{ $schoolDetails->application_fee ?? 0 }} </div>
+                                                {{ $schoolDetails->application_fee ?? 0 }} / Year </div>
                                             <div class="sidebarText">Application Fees</div>
                                         </div>
                                     </li>
@@ -321,7 +330,7 @@
                                         </div>
                                         <div class="sidebarContent">
                                             <div class="sidebarTitle">{{ get_currency($schoolDetails->country) }}
-                                                {{ $schoolDetails->gross_tuition }} </div>
+                                                {{ $schoolDetails->gross_tuition }} / Year</div>
                                             <div class="sidebarText">Total Fees</div>
                                         </div>
                                     </li>
@@ -340,13 +349,13 @@
                                         </div>
                                         <div class="sidebarContent">
                                             <div class="sidebarTitle">{{ get_currency($schoolDetails->country) }}
-                                                {{ $schoolDetails->cost_of_living }} </div>
+                                                {{ $schoolDetails->cost_of_living }} / Year</div>
                                             <div class="sidebarText">Cost of Living</div>
                                         </div>
                                     </li>
 
                                     <li class="d-flex sidebarListItem">
-                                        <div class="icon">
+                                        {{-- <div class="icon">
                                             <svg aria-hidden="true" color="primary" role="img" viewBox="0 0 48 48"
                                                 xmlns="http://www.w3.org/2000/svg" class="css-1ucx5lj">
                                                 <path d="M17 31H11V33H17V31Z"></path>
@@ -359,10 +368,10 @@
                                                 </path>
                                             </svg>
                                         </div>
-                                        <div class="sidebarContent">
+                                       <div class="sidebarContent">
                                             <div class="sidebarTitle"> {{ $schoolDetails->program_length }} </div>
                                             <div class="sidebarText">Program Length</div>
-                                        </div>
+                                        </div> --}}
                                     </li>
 
 

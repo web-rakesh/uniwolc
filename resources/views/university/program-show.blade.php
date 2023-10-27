@@ -370,7 +370,7 @@
                                             </svg>
                                         </div>
                                         <div class="sidebarContent">
-                                            <div class="sidebarTitle"> {{ $program->programLevel->level_name }} </div>
+                                            <div class="sidebarTitle"> {{ @$program->programLevel->level_name }} </div>
                                             <div class="sidebarText">Program Length</div>
                                         </div>
                                     </li>
@@ -423,14 +423,14 @@
 
                                     <li class="sidebarListItem">
                                         <div class="sidebarContent">
-                                            <div class="sidebarTitle">{{ $program->programLevel->level_name }}</div>
+                                            <div class="sidebarTitle">{{ @$program->programLevel->level_name }}</div>
                                             <div class="sidebarText">Program Level</div>
                                         </div>
                                     </li>
 
                                     <li class="sidebarListItem">
                                         <div class="sidebarContent">
-                                            <div class="sidebarTitle">{{ $program->program_length }}</div>
+                                            <div class="sidebarTitle">{{ @$program->program_length }}</div>
                                             <div class="sidebarText">Program Length</div>
                                         </div>
                                     </li>

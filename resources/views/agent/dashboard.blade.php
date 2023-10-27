@@ -177,7 +177,7 @@
                                                                 </td>
                                                                 <td data-title="Submission Deadline">
                                                                     <div class="">
-                                                                        {{ date('M d, Y', strtotime($item->getProgram->deadline)) }}
+                                                                        {{ @$item->intake_date->deadline ? date('M d, Y', strtotime($item->intake_date->deadline)) : '--' }}
                                                                     </div>
                                                                 </td>
 
