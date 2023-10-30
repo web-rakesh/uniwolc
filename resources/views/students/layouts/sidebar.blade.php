@@ -51,6 +51,18 @@
                                   </a>
                               </li>
 
+                              <li class="{{ request()->is('student/request-letter') ? 'active' : '' }}">
+                                <a href="{{ route('student.request.letter.create') }}">
+                                    <span class="icon"><i class="fa-regular fa-envelope"></i></span>
+                                    <span class="title">Letter Request</span>
+                                </a>
+                            </li>
+                            <li class="{{ request()->is('student/request-letter-list') ? 'active' : '' }}">
+                                  <a href="{{ route('student.request.letter.list') }}">
+                                      <span class="icon"><i class="fa-regular fa-envelope"></i></span>
+                                      <span class="title">Letter Request List</span>
+                                  </a>
+                              </li>
                               <li class="{{ request()->is('change-password') ? 'active' : '' }}">
                                   <a href="{{ route('change.password') }}">
                                       <span class="icon"><i class="fa-light fa-key"></i></span>

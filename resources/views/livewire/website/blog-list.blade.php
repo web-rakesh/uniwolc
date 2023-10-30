@@ -17,7 +17,7 @@
                             {{-- <img src="assets/images/blogs/02-blog.png" alt="" /> --}}
                         </div>
                         <div class="sub-content-universities">
-                            <h3><a href="{{ route('blog-details', $blog->slug) }}">{{ {{ \Str::words($blog->title, $limit = 10, $end = '...') }} }}</a></h3>
+                            <h3><a href="{{ route('blog-details', $blog->slug) }}">{{ \Str::words($blog->title, $limit = 10, $end = '...') }} </a></h3>
                             <p>{{ date('M d, Y', strtotime($blog->created_at)) }}</p>
                             <a href="{{ route('blog-details', $blog->slug) }}">Read More</a>
                         </div>

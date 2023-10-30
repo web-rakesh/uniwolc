@@ -19,6 +19,7 @@ use App\Http\Controllers\Admin\TestimonialController;
 use App\Http\Controllers\Student\TestScoreController;
 use App\Http\Controllers\Student\VisaPermitController;
 use App\Http\Controllers\University\ProgramController;
+use App\Http\Controllers\Admin\RequestLetterController;
 use App\Http\Controllers\Admin\ManageSubAdminController;
 use App\Http\Controllers\Student\ApplyProgramController;
 use App\Http\Controllers\University\DashboardController;
@@ -281,9 +282,12 @@ Route::middleware([
             Route::get('/payment-history', [PaymentController::class, 'paymentHistory'])->name('payment.history');
             Route::get('/invoice/{id}', [PaymentController::class, 'Invoice'])->name('invoice');
 
-            // Route::get('/payment', function () {
-
-            // })->name('payment');
+            // request litter
+            Route::get('/request-letter', [RequestLetterController::class, 'create'])->name('request.letter.create');
+            Route::post('/request-letter', [RequestLetterController::class, 'store'])->name('request.letter.store');
+            Route::get('/request-letter-list', [RequestLetterController::class, 'studentList'])->name('request.letter.list');
+            Route::get('/request-letter-view/{id}/{school}', [RequestLetterController::class, 'studentListView'])->name('request.letter.student.show');
+            Route::post('/request-letter-university', [RequestLetterController::class, 'getUniversity'])->name('request.letter.university');
             Route::get('/student', function () {
                 return "student";
             })->name('student');
@@ -563,7 +567,17 @@ Route::group(
         // Manage Testimonial Routes
         Route::resource('testimonial', TestimonialController::class);
 
-
+        Route::controller(RequestLetterController::class)
+            ->prefix('request')
+            ->as('request.')
+            ->group(function () {
+                Route::get('/index', 'index')->name('index');
+                Route::get('/request-letter-view/{id}', 'show')->name('show');
+                Route::get('/new-request', 'newRequest')->name('new.request');
+                Route::get('/accepted-request', 'acceptedRequest')->name('accepted.request');
+                Route::get('/rejected-request', 'rejectedRequest')->name('rejected.request');
+                Route::get('/show/{id}', 'show')->name('show');
+            });
 
 
         // Change Password

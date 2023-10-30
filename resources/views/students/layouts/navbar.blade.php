@@ -9,14 +9,15 @@
       </div>
       <div class="rightTopNavbar">
           <ul class="rightSideMenuList">
-              {{ auth()->user()->name }}
-              <li class="topNavNotificationItem"><a href="#" class="notificationLink"><i
-                          class="fa-regular fa-bell"></i></a></li>
+
+
+              <li class="topNavNotificationItem"> {{ auth()->user()->name }}</li>
               <li class="topNavUserItem">
                   <a href="{{ route('student.profile') }}" class="topNavUserLink">
                       <span class="avatarImage">
                           @if (auth()->user()->profile_photo_path)
-                              <img id="avatarImage" src="{{ asset('storage/') . '/' . auth()->user()->profile_photo_path }}"
+                              <img id="avatarImage"
+                                  src="{{ asset('storage/') . '/' . auth()->user()->profile_photo_path }}"
                                   class="img-fluid" alt="">
                           @else
                               <img id="avatarImage" src="{{ asset('/') }}assets/images/user.png" class="img-fluid"

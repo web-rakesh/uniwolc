@@ -376,8 +376,8 @@
               </a>
           </li>
           <li
-              class="nav-item {{ Request::is('admin/testimonial') || Request::is('admin/testimonial/*') ? 'active' : '' }}">
-              <a class="nav-link" href="{{ route('admin.letter.request') }}">
+              class="nav-item {{ Request::is('admin/request/index') || Request::is('admin/request/show/*') ? 'active' : '' }}">
+              <a class="nav-link" href="{{ route('admin.request.index') }}">
                   <span class="menu-title">Letter Request</span>
                   <i class="mdi mdi-alpha-t-box menu-icon"></i>
               </a>
